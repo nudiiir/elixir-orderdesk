@@ -69,6 +69,30 @@ type ERP interface {
 	CreateOrder(ctx context.Context, o Order) (OrderRef, error)
 	NextDelivery(ctx context.Context, customerID string) (Delivery, error)
 	OrderURL(ref OrderRef) string
+
+	// Supply side.
+	Suppliers(ctx context.Context) ([]catalog.Customer, error)
+	LastPurchasePrices(ctx context.Context, supplierID string) (map[string]int64, error) // product → cost per base unit, centimes HT
+	CreateReceipt(ctx context.Context, r Receipt) (OrderRef, error)
+}
+
+// Receipt is an approved supplier invoice, booked as a goods receipt.
+type Receipt struct {
+	SupplierID  string
+	Date        string // YYYY-MM-DD
+	SupplierRef string // the supplier's invoice number
+	Notes       string
+	Post        bool // post it (stock in) right away
+	Lines       []ReceiptLine
+}
+
+type ReceiptLine struct {
+	ProductID       string
+	Description     string
+	QtyMilli        int64 // in the line's unit: packs × 1000 when PackFactorMilli > 1000
+	UnitCostHT      int64 // per line unit, centimes
+	VatRate         int64
+	PackFactorMilli int64
 }
 
 var ErrUnsupported = errors.New("not supported by this ERP")

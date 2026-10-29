@@ -139,6 +139,36 @@ func (c *Client) JSON(ctx context.Context, model, purpose, ref, system, user str
 	return cost, decodeJSON(resp.Choices[0].Message.Content, out)
 }
 
+// JSONFile is JSON with a document (a PDF invoice) attached as a file part.
+func (c *Client) JSONFile(ctx context.Context, model, purpose, ref, system, user string, file []byte, mime string, maxTokens int, out any) (float64, error) {
+	if err := c.check(); err != nil {
+		return 0, err
+	}
+	content := []map[string]any{{"type": "text", "text": user}, {"type": "file", "file": map[string]string{
+		"filename": "invoice.pdf", "file_data": "data:" + mime + ";base64," + base64.StdEncoding.EncodeToString(file)}}}
+	body := map[string]any{
+		"model": model, "max_tokens": maxTokens, "reasoning_effort": "low",
+		"response_format": map[string]string{"type": "json_object"},
+		"messages":        []map[string]any{{"role": "system", "content": system}, {"role": "user", "content": content}},
+	}
+	var resp struct {
+		Choices []struct {
+			Message struct {
+				Content string `json:"content"`
+			} `json:"message"`
+		} `json:"choices"`
+		Usage usage `json:"usage"`
+	}
+	if err := c.post(ctx, "/chat/completions", body, &resp); err != nil {
+		return 0, err
+	}
+	cost := c.record(model, purpose, ref, resp.Usage.PromptTokens, resp.Usage.CompletionTokens, 0)
+	if len(resp.Choices) == 0 {
+		return cost, fmt.Errorf("meta: empty answer")
+	}
+	return cost, decodeJSON(resp.Choices[0].Message.Content, out)
+}
+
 func decodeJSON(text string, out any) error {
 	text = strings.TrimSpace(text)
 	text = strings.TrimPrefix(strings.TrimPrefix(text, "```json"), "```")

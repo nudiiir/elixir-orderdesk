@@ -64,6 +64,11 @@ func (s *Server) Handler() http.Handler {
 		r.Get("/learning", s.learning)
 		r.Get("/customers", s.customers)
 		r.Post("/customers/{id}/pair-code", s.pairCode)
+		r.Post("/owner/pair-code", s.ownerPairCode)
+		r.Get("/owner", s.owner)
+		r.Post("/invoices", s.uploadInvoice)
+		r.Post("/drafts/{id}/supplier", s.setSupplier)
+		r.Get("/suppliers", s.suppliers)
 		r.Get("/settings", s.settings)
 		r.Put("/settings", s.putSettings)
 		r.Post("/erp/connect", s.erpConnect)
@@ -154,6 +159,7 @@ func (s *Server) overview(w http.ResponseWriter, r *http.Request) {
 // learning returns daily series: how lines were resolved, AI cost per 1,000 lines, spend by job.
 func (s *Server) learning(w http.ResponseWriter, r *http.Request) {
 	days, _ := strconv.Atoi(r.URL.Query().Get("days"))
+	kind := r.URL.Query().Get("kind") // "" | order | invoice
 	if days <= 0 {
 		days = 30
 	}
@@ -178,7 +184,7 @@ func (s *Server) learning(w http.ResponseWriter, r *http.Request) {
 		return byDay[d]
 	}
 	rows, _ := s.DB.Query(`SELECT substr(created_at,1,10), level, COUNT(*) FROM lines WHERE status <> 'removed' AND said <> ''
-		AND created_at >= ? GROUP BY 1, 2`, since)
+		AND created_at >= ? AND (? = '' OR draft_id IN (SELECT id FROM drafts WHERE kind = ?)) GROUP BY 1, 2`, since, kind, kind)
 	for rows != nil && rows.Next() {
 		var d, lvl string
 		var n int
@@ -200,7 +206,7 @@ func (s *Server) learning(w http.ResponseWriter, r *http.Request) {
 		rows.Close()
 	}
 	rows, _ = s.DB.Query(`SELECT substr(at,1,10), COALESCE(SUM(cost),0), COALESCE(SUM(purpose='resolve'),0) FROM ai_usage
-		WHERE at >= ? AND purpose <> 'engineer' GROUP BY 1`, since)
+		WHERE at >= ? AND purpose <> 'engineer' AND (? = '' OR (CASE WHEN ref IN (SELECT id FROM messages WHERE kind = 'invoice') THEN 'invoice' ELSE 'order' END) = ?) GROUP BY 1`, since, kind, kind)
 	for rows != nil && rows.Next() {
 		var d string
 		var c float64
@@ -235,7 +241,8 @@ func (s *Server) learning(w http.ResponseWriter, r *http.Request) {
 		Cost    float64 `json:"cost"`
 	}
 	var jobs []job
-	rows, _ = s.DB.Query(`SELECT model, purpose, COUNT(*), COALESCE(SUM(cost),0) FROM ai_usage WHERE at >= ? GROUP BY 1, 2 ORDER BY 4 DESC`, since)
+	rows, _ = s.DB.Query(`SELECT model, purpose, COUNT(*), COALESCE(SUM(cost),0) FROM ai_usage WHERE at >= ? AND (? = '' OR (CASE WHEN ref IN (SELECT id FROM messages WHERE kind = 'invoice') THEN 'invoice' ELSE 'order' END) = ?)
+		AND (? = '' OR purpose <> 'engineer') GROUP BY 1, 2 ORDER BY 4 DESC`, since, kind, kind, kind)
 	for rows != nil && rows.Next() {
 		var j job
 		rows.Scan(&j.Model, &j.Purpose, &j.Calls, &j.Cost)
@@ -247,15 +254,30 @@ func (s *Server) learning(w http.ResponseWriter, r *http.Request) {
 	// Saved by rules: lines resolved for free × the average AI cost of a line that needed the AI.
 	var aiCost float64
 	var aiLines, freeLines int
-	s.DB.QueryRow(`SELECT COALESCE(SUM(cost),0) FROM ai_usage WHERE purpose IN ('resolve','extract') AND at >= ?`, since).Scan(&aiCost)
+	s.DB.QueryRow(`SELECT COALESCE(SUM(cost),0) FROM ai_usage WHERE purpose IN ('resolve','extract') AND at >= ? AND (? = '' OR (CASE WHEN ref IN (SELECT id FROM messages WHERE kind = 'invoice') THEN 'invoice' ELSE 'order' END) = ?)`,
+		since, kind, kind).Scan(&aiCost)
 	s.DB.QueryRow(`SELECT COALESCE(SUM(level='ai' OR level='person'),0), COALESCE(SUM(level IN ('alias','rules')),0) FROM lines
-		WHERE created_at >= ? AND said <> ''`, since).Scan(&aiLines, &freeLines)
+		WHERE created_at >= ? AND said <> '' AND (? = '' OR draft_id IN (SELECT id FROM drafts WHERE kind = ?))`, since, kind, kind).Scan(&aiLines, &freeLines)
+	// totals for the headline figures of this view
+	var tot struct {
+		Lines     int `json:"lines"`
+		Free      int `json:"free"`
+		Auto      int `json:"auto"`
+		WrongAuto int `json:"wrong_auto"`
+		Calls     int `json:"resolve_calls"`
+		Docs      int `json:"docs"`
+	}
+	s.DB.QueryRow(`SELECT COUNT(*), COALESCE(SUM(level IN ('alias','rules','history')),0), COALESCE(SUM(level IN ('alias','rules')),0),
+		COALESCE(SUM(outcome = 'corrected' AND level IN ('alias','rules')),0) FROM lines WHERE status <> 'removed' AND said <> '' AND (? = '' OR draft_id IN (SELECT id FROM drafts WHERE kind = ?))`,
+		kind, kind).Scan(&tot.Lines, &tot.Free, &tot.Auto, &tot.WrongAuto)
+	s.DB.QueryRow(`SELECT COUNT(*) FROM ai_usage WHERE purpose = 'resolve' AND (? = '' OR (CASE WHEN ref IN (SELECT id FROM messages WHERE kind = 'invoice') THEN 'invoice' ELSE 'order' END) = ?)`, kind, kind).Scan(&tot.Calls)
+	s.DB.QueryRow(`SELECT COUNT(*) FROM drafts WHERE status = 'confirmed' AND (? = '' OR kind = ?)`, kind, kind).Scan(&tot.Docs)
 	perLine := 0.0
 	if aiLines > 0 {
 		perLine = aiCost / float64(aiLines)
 	}
 	writeJSON(w, http.StatusOK, map[string]any{"days": series, "jobs": jobs, "saved": perLine * float64(freeLines),
-		"cost_per_ai_line": perLine, "free_lines": freeLines})
+		"cost_per_ai_line": perLine, "free_lines": freeLines, "totals": tot, "kind": kind})
 }
 
 // ---- drafts & lines --------------------------------------------------------------------
@@ -277,17 +299,23 @@ type draftRow struct {
 }
 
 func (s *Server) drafts(w http.ResponseWriter, r *http.Request) {
-	st := r.URL.Query().Get("status")
-	q := `SELECT d.id, d.chat_key, d.customer_id, COALESCE(c.name,''), d.status, d.erp_order_number, d.total_ttc, d.delivery,
+	st, kind := r.URL.Query().Get("status"), r.URL.Query().Get("kind")
+	q := `SELECT d.id, d.chat_key, d.customer_id,
+		CASE WHEN d.kind = 'invoice' THEN COALESCE((SELECT name FROM suppliers s WHERE s.id = d.supplier_id), d.supplier_said || ' ?') ELSE COALESCE(c.name,'') END,
+		d.status, d.erp_order_number, d.total_ttc, d.delivery,
 		d.created_at, d.updated_at,
 		(SELECT COUNT(*) FROM lines l WHERE l.draft_id = d.id AND l.status <> 'removed'),
 		(SELECT COUNT(*) FROM lines l WHERE l.draft_id = d.id AND l.status IN ('ask','unknown')),
 		COALESCE((SELECT GROUP_CONCAT(DISTINCT m.kind) FROM messages m JOIN lines l ON l.message_id = m.id WHERE l.draft_id = d.id),'')
-		FROM drafts d LEFT JOIN customers c ON c.id = d.customer_id`
+		FROM drafts d LEFT JOIN customers c ON c.id = d.customer_id WHERE 1=1`
 	args := []any{}
 	if st != "" {
-		q += ` WHERE d.status = ?`
+		q += ` AND d.status = ?`
 		args = append(args, st)
+	}
+	if kind != "" {
+		q += ` AND d.kind = ?`
+		args = append(args, kind)
 	}
 	rows, err := s.DB.Query(q+` ORDER BY d.updated_at DESC LIMIT 200`, args...)
 	if err != nil {
@@ -341,9 +369,24 @@ func (s *Server) lineOut(l desk.Line) lineOut {
 func (s *Server) draft(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	var d draftRow
+	var inv struct {
+		Kind       string            `json:"kind"`
+		SupplierID string            `json:"supplier_id"`
+		Supplier   string            `json:"supplier"`
+		Said       string            `json:"supplier_said"`
+		Number     string            `json:"doc_number"`
+		Date       string            `json:"doc_date"`
+		Total      int64             `json:"doc_total"`
+		Checks     map[string]string `json:"checks"`
+	}
+	var checks string
 	err := s.DB.QueryRow(`SELECT d.id, d.chat_key, d.customer_id, COALESCE(c.name,''), d.status, d.erp_order_number, d.total_ttc,
-		d.delivery, d.created_at, d.updated_at FROM drafts d LEFT JOIN customers c ON c.id = d.customer_id WHERE d.id = ?`, id).
-		Scan(&d.ID, &d.ChatKey, &d.CustomerID, &d.Customer, &d.Status, &d.Number, &d.TotalTTC, &d.Delivery, &d.CreatedAt, &d.UpdatedAt)
+		d.delivery, d.created_at, d.updated_at, d.kind, d.supplier_id, d.supplier_said, d.doc_number, d.doc_date, d.doc_total, d.checks
+		FROM drafts d LEFT JOIN customers c ON c.id = d.customer_id WHERE d.id = ?`, id).
+		Scan(&d.ID, &d.ChatKey, &d.CustomerID, &d.Customer, &d.Status, &d.Number, &d.TotalTTC, &d.Delivery, &d.CreatedAt, &d.UpdatedAt,
+			&inv.Kind, &inv.SupplierID, &inv.Said, &inv.Number, &inv.Date, &inv.Total, &checks)
+	json.Unmarshal([]byte(checks), &inv.Checks)
+	inv.Supplier = catalog.SupplierName(s.DB.DB, inv.SupplierID)
 	if err != nil {
 		writeErr(w, 404, "draft not found")
 		return
@@ -352,7 +395,7 @@ func (s *Server) draft(w http.ResponseWriter, r *http.Request) {
 	var total int64
 	for _, l := range desk.DraftLines(s.DB, id, true) {
 		lines = append(lines, s.lineOut(l))
-		if l.Status == "ok" {
+		if l.Status == "ok" || inv.Kind == "invoice" {
 			total += l.LineTTC
 		}
 	}
@@ -380,7 +423,8 @@ func (s *Server) draft(w http.ResponseWriter, r *http.Request) {
 	if rows != nil {
 		rows.Close()
 	}
-	writeJSON(w, http.StatusOK, map[string]any{"draft": d, "lines": lines, "messages": msgs, "total": total})
+	writeJSON(w, http.StatusOK, map[string]any{"draft": d, "invoice": inv, "lines": lines, "messages": msgs, "total": total,
+		"suppliers": catalog.Suppliers(s.DB.DB)})
 }
 
 func (s *Server) confirm(w http.ResponseWriter, r *http.Request) {
@@ -757,7 +801,7 @@ func (s *Server) customers(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) pairCode(w http.ResponseWriter, r *http.Request) {
-	code, err := desk.NewPairCode(s.DB, chi.URLParam(r, "id"))
+	code, err := desk.NewPairCode(s.DB, chi.URLParam(r, "id"), "shop")
 	if err != nil {
 		writeErr(w, 500, err.Error())
 		return

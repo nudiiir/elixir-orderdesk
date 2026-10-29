@@ -54,6 +54,13 @@ type TgMessage struct {
 	Photo     []TgPhoto `json:"photo"`
 	Voice     *TgVoice  `json:"voice"`
 	Audio     *TgVoice  `json:"audio"`
+	Document  *TgDoc    `json:"document"`
+}
+
+type TgDoc struct {
+	FileID   string `json:"file_id"`
+	FileName string `json:"file_name"`
+	MimeType string `json:"mime_type"`
 }
 
 type TgCallback struct {

@@ -31,6 +31,12 @@ CREATE TABLE IF NOT EXISTS customers (
 	route_id TEXT NOT NULL DEFAULT ''
 );
 
+CREATE TABLE IF NOT EXISTS suppliers (
+	id    TEXT PRIMARY KEY,            -- the ERP id
+	name  TEXT NOT NULL,
+	phone TEXT NOT NULL DEFAULT ''
+);
+
 -- A confirmed wording. scope_kind: global | tenant | supplier | customer.
 -- state: candidate (hint only) | trusted (resolves alone) | blocked.
 CREATE TABLE IF NOT EXISTS aliases (

@@ -17,11 +17,28 @@ import (
 
 // next asks the first open question of the draft, or shows the summary to confirm.
 func (d *Desk) next(ctx context.Context, chat int64, draft string) {
+	var kind, supplierID string
+	d.DB.QueryRow(`SELECT kind, supplier_id FROM drafts WHERE id = ?`, draft).Scan(&kind, &supplierID)
+	if kind == "invoice" && supplierID == "" {
+		text, _ := d.InvoiceSummary(draft)
+		var rows [][]telegram.Button
+		for _, s := range catalog.Suppliers(d.DB.DB) {
+			rows = append(rows, []telegram.Button{{Text: s.Name, Data: "sup:" + draft + ":" + s.ID}})
+		}
+		d.TG.Send(ctx, chat, text+"\n\nQuel est le fournisseur ?", rows)
+		return
+	}
 	for _, l := range DraftLines(d.DB, draft, false) {
 		if l.Status == "ask" || l.Status == "unknown" {
 			d.ask(ctx, chat, l)
 			return
 		}
+	}
+	if kind == "invoice" {
+		text, _ := d.InvoiceSummary(draft)
+		d.TG.Send(ctx, chat, text, [][]telegram.Button{{{Text: "✅ Valider la réception", Data: "ok:" + draft}},
+			{{Text: "✏️ Corriger une ligne", Data: "fix:" + draft}, {Text: "❌ Annuler", Data: "no:" + draft}}})
+		return
 	}
 	d.summary(ctx, chat, draft, 0)
 }
@@ -133,7 +150,7 @@ func (d *Desk) onCallback(ctx context.Context, cb *telegram.TgCallback) {
 	customerID, _ := d.linked(key)
 	parts := strings.Split(cb.Data, ":")
 	d.TG.Answer(ctx, cb.ID, "")
-	if customerID == "" || len(parts) < 2 {
+	if (customerID == "" && !d.isOwner(key)) || len(parts) < 2 {
 		return
 	}
 	switch parts[0] {
@@ -147,7 +164,7 @@ func (d *Desk) onCallback(ctx context.Context, cb *telegram.TgCallback) {
 			return
 		}
 		d.Choose(ctx, &l, l.Options[idx], parts[0] == "c")
-		d.TG.Edit(ctx, chat, cb.Message.MessageID, "✔️ "+esc(d.Cat.Get(l.ProductID).Name), nil)
+		d.TG.Edit(ctx, chat, cb.Message.MessageID, "✔️ « "+esc(l.Said)+" » → "+esc(d.Cat.Get(l.ProductID).Name), nil)
 		d.next(ctx, chat, l.DraftID)
 	case "x":
 		l, err := GetLine(d.DB, parts[1])
@@ -182,12 +199,25 @@ func (d *Desk) onCallback(ctx context.Context, cb *telegram.TgCallback) {
 		rows = append(rows, []telegram.Button{{Text: "✖ Retirer cette ligne", Data: "x:" + l.ID}},
 			[]telegram.Button{{Text: "↩️ Retour", Data: "back:" + l.DraftID}})
 		d.TG.Edit(ctx, chat, cb.Message.MessageID, fmt.Sprintf("« %s » : quel produit ?", esc(l.Said)), rows)
+	case "sup": // the owner names the supplier of an invoice
+		if len(parts) == 3 && d.ownsLine(key, Line{DraftID: parts[1]}) {
+			d.SetSupplier(ctx, parts[1], parts[2])
+			d.TG.Edit(ctx, chat, cb.Message.MessageID, "✔️ Fournisseur : "+esc(catalog.SupplierName(d.DB.DB, parts[2])), nil)
+			d.next(ctx, chat, parts[1])
+		}
 	case "back":
 		d.summary(ctx, chat, parts[1], cb.Message.MessageID)
 	case "ok":
 		ref, err := d.Confirm(ctx, parts[1], "shop")
 		if err != nil {
 			d.fail(ctx, chat, "la commande n'a pas pu être enregistrée chez le distributeur", err)
+			return
+		}
+		var kind string
+		d.DB.QueryRow(`SELECT kind FROM drafts WHERE id = ?`, parts[1]).Scan(&kind)
+		if kind == "invoice" {
+			text, _ := d.InvoiceSummary(parts[1])
+			d.TG.Edit(ctx, chat, cb.Message.MessageID, text+fmt.Sprintf("\n\n✅ Bon de réception <b>%s</b> enregistré dans l'ERP.", esc(ref.Number)), nil)
 			return
 		}
 		text, _, _ := d.Summary(parts[1])
@@ -233,9 +263,19 @@ func (d *Desk) Choose(ctx context.Context, l *Line, productID string, correction
 		l.Outcome = "confirmed"
 	}
 	l.Level = resolve.LPerson
+	var customerID, supplierID, kind string
+	d.DB.QueryRow(`SELECT customer_id, supplier_id, kind FROM drafts WHERE id = ?`, l.DraftID).Scan(&customerID, &supplierID, &kind)
+	if kind == "invoice" {
+		delete(l.Checks, "new")
+		var last map[string]int64
+		if e := d.erp(); e != nil && supplierID != "" {
+			last, _ = e.LastPurchasePrices(ctx, supplierID)
+		}
+		d.invoiceQty(l, last[productID])
+		saveLine(d.DB, l)
+		return
+	}
 	d.setPack(l, nil)
-	var customerID string
-	d.DB.QueryRow(`SELECT customer_id FROM drafts WHERE id = ?`, l.DraftID).Scan(&customerID)
 	d.price(ctx, customerID, l, d.history(ctx, customerID), d.stock(ctx))
 	saveLine(d.DB, l)
 }
@@ -244,16 +284,20 @@ func (d *Desk) Choose(ctx context.Context, l *Line, productID string, correction
 // changes, the wrong wording is blocked and the right one is witnessed. (The ERP order itself is
 // corrected in the ERP.)
 func (d *Desk) Relearn(l Line, wrong string) {
-	var customerID string
-	d.DB.QueryRow(`SELECT customer_id FROM drafts WHERE id = ?`, l.DraftID).Scan(&customerID)
+	var customerID, supplierID, kind string
+	d.DB.QueryRow(`SELECT customer_id, supplier_id, kind FROM drafts WHERE id = ?`, l.DraftID).Scan(&customerID, &supplierID, &kind)
+	scopeKind, scopeID := "customer", customerID
+	if kind == "invoice" {
+		scopeKind, scopeID = "supplier", supplierID
+	}
 	d.DB.Exec(`UPDATE ground_truth SET product_id = ?, origin = 'clerk' WHERE line_id = ?`, l.ProductID, l.ID)
 	if l.Norm == "" {
 		return
 	}
 	if wrong != "" {
-		d.Cat.Block(l.Norm, wrong, "customer", customerID)
+		d.Cat.Block(l.Norm, wrong, scopeKind, scopeID)
 	}
-	a, _ := d.Cat.Witness(l.Norm, l.ProductID, "customer", customerID, "clerk", d.DB.SettingInt("alias_trust_after", 2))
+	a, _ := d.Cat.Witness(l.Norm, l.ProductID, scopeKind, scopeID, "clerk", d.DB.SettingInt("alias_trust_after", 2))
 	d.DB.Event("line.corrected", l.ProductID, "clerk", map[string]any{"line": l.ID, "said": l.Said, "wrong": wrong, "alias": a.ID})
 }
 
@@ -281,10 +325,13 @@ func (d *Desk) Confirm(ctx context.Context, draft, origin string) (adapter.Order
 	if e == nil {
 		return adapter.OrderRef{}, adapter.ErrNotConnected
 	}
-	var customerID, status, key string
-	d.DB.QueryRow(`SELECT customer_id, status, chat_key FROM drafts WHERE id = ?`, draft).Scan(&customerID, &status, &key)
+	var customerID, status, key, kind string
+	d.DB.QueryRow(`SELECT customer_id, status, chat_key, kind FROM drafts WHERE id = ?`, draft).Scan(&customerID, &status, &key, &kind)
 	if status != "open" {
 		return adapter.OrderRef{}, fmt.Errorf("draft is %s", status)
+	}
+	if kind == "invoice" {
+		return d.confirmInvoice(ctx, e, draft, origin)
 	}
 	lines := DraftLines(d.DB, draft, false)
 	o := adapter.Order{CustomerID: customerID, ExternalRef: "orderdesk:" + draft,
@@ -309,7 +356,7 @@ func (d *Desk) Confirm(ctx context.Context, draft, origin string) (adapter.Order
 		ref.ID, ref.Number, ref.TotalTTC, store.Now(), draft)
 	d.DB.Event("order.created", draft, origin, map[string]any{"number": ref.Number, "lines": len(o.Lines), "erp": e.Name()})
 	d.hist.Delete(customerID)
-	d.learn(lines, customerID, origin)
+	d.learnLines(lines, "order", "customer", customerID, origin)
 	if d.OnLearn != nil {
 		go d.OnLearn()
 	}
@@ -318,7 +365,13 @@ func (d *Desk) Confirm(ctx context.Context, draft, origin string) (adapter.Order
 
 // learn: every confirmed line becomes ground truth and a witness for its wording; shadow rules
 // are compared with the answer; rules that resolved lines get credit.
-func (d *Desk) learn(lines []Line, customerID, origin string) {
+func (d *Desk) learnLines(lines []Line, kind, scopeKind, scopeID, origin string) {
+	customerID, supplierID := "", ""
+	if scopeKind == "customer" {
+		customerID = scopeID
+	} else {
+		supplierID = scopeID
+	}
 	trustAfter := d.DB.SettingInt("alias_trust_after", 2)
 	shadowNeeded := d.DB.SettingInt("shadow_agreements", 5)
 	for _, l := range lines {
@@ -333,14 +386,14 @@ func (d *Desk) learn(lines []Line, customerID, origin string) {
 			}
 			d.DB.Exec(`UPDATE lines SET outcome = ? WHERE id = ?`, l.Outcome, l.ID)
 		}
-		d.DB.Exec(`INSERT OR REPLACE INTO ground_truth (line_id, said, norm, unit, customer_id, product_id, level, origin, created_at)
-			VALUES (?,?,?,?,?,?,?,?,?)`, l.ID, l.Said, l.Norm, l.Unit, customerID, l.ProductID, l.Level, origin, store.Now())
+		d.DB.Exec(`INSERT OR REPLACE INTO ground_truth (line_id, said, norm, unit, customer_id, supplier_id, kind, product_id, level, origin, created_at)
+			VALUES (?,?,?,?,?,?,?,?,?,?,?)`, l.ID, l.Said, l.Norm, l.Unit, customerID, supplierID, kind, l.ProductID, l.Level, origin, store.Now())
 		var source string
 		d.DB.QueryRow(`SELECT kind FROM messages WHERE id = ?`, l.MessageID).Scan(&source)
 		if source == "" {
 			source = "text"
 		}
-		if a, change := d.Cat.Witness(l.Norm, l.ProductID, "customer", customerID, source, trustAfter); change != "" {
+		if a, change := d.Cat.Witness(l.Norm, l.ProductID, scopeKind, scopeID, source, trustAfter); change != "" {
 			d.DB.Event("alias."+change, l.ProductID, origin, map[string]any{"text": a.Text, "alias": a.ID, "witnesses": a.Witnesses})
 		}
 		for _, u := range l.Used {

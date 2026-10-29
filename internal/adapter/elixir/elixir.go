@@ -167,6 +167,7 @@ func (c *Client) Products(ctx context.Context) ([]catalog.Product, error) {
 				Barcode    *string `json:"barcode"`
 				Unit       string  `json:"unit"`
 				Kind       string  `json:"kind"`
+				VatRate    int64   `json:"vat_rate"`
 				Packagings []struct {
 					Name        string `json:"name"`
 					FactorMilli int64  `json:"factor_milli"`
@@ -180,7 +181,7 @@ func (c *Client) Products(ctx context.Context) ([]catalog.Product, error) {
 			if it.Kind == "service" {
 				continue
 			}
-			p := catalog.Product{ID: it.ID, Name: it.Name, Brand: it.Brand, Unit: it.Unit}
+			p := catalog.Product{ID: it.ID, Name: it.Name, Brand: it.Brand, Unit: it.Unit, VatRate: it.VatRate}
 			if it.NameAr != nil {
 				p.NameAr = *it.NameAr
 			}
@@ -198,7 +199,11 @@ func (c *Client) Products(ctx context.Context) ([]catalog.Product, error) {
 	}
 }
 
-func (c *Client) Customers(ctx context.Context) ([]catalog.Customer, error) {
+func (c *Client) Customers(ctx context.Context) ([]catalog.Customer, error) { return c.partners(ctx, "customer") }
+
+func (c *Client) Suppliers(ctx context.Context) ([]catalog.Customer, error) { return c.partners(ctx, "supplier") }
+
+func (c *Client) partners(ctx context.Context, kind string) ([]catalog.Customer, error) {
 	var out []catalog.Customer
 	for offset := 0; ; offset += 500 {
 		var page struct {
@@ -210,11 +215,11 @@ func (c *Client) Customers(ctx context.Context) ([]catalog.Customer, error) {
 				RouteID *string `json:"route_id"`
 			} `json:"items"`
 		}
-		if err := c.do(ctx, http.MethodGet, fmt.Sprintf("/partners?kind=customer&limit=500&offset=%d", offset), nil, &page); err != nil {
+		if err := c.do(ctx, http.MethodGet, fmt.Sprintf("/partners?kind=%s&limit=500&offset=%d", kind, offset), nil, &page); err != nil {
 			return nil, err
 		}
 		for _, it := range page.Items {
-			if it.Kind != "" && it.Kind != "customer" && it.Kind != "both" {
+			if it.Kind != "" && it.Kind != kind && it.Kind != "both" {
 				continue
 			}
 			cu := catalog.Customer{ID: it.ID, Name: it.Name}
@@ -379,3 +384,85 @@ func (c *Client) NextDelivery(ctx context.Context, customerID string) (adapter.D
 }
 
 func (c *Client) OrderURL(ref adapter.OrderRef) string { return "" }
+
+func (c *Client) LastPurchasePrices(ctx context.Context, supplierID string) (map[string]int64, error) {
+	var out struct {
+		Prices map[string]int64 `json:"prices"`
+	}
+	if err := c.do(ctx, http.MethodGet, "/purchases/last-prices?partner_id="+url.QueryEscape(supplierID), nil, &out); err != nil {
+		return nil, err
+	}
+	return out.Prices, nil
+}
+
+func (c *Client) defaultWarehouse(ctx context.Context) (string, error) {
+	var out struct {
+		Items []struct {
+			ID        string `json:"id"`
+			IsDefault bool   `json:"is_default"`
+			Active    bool   `json:"active"`
+		} `json:"items"`
+	}
+	if err := c.do(ctx, http.MethodGet, "/warehouses", nil, &out); err != nil {
+		return "", err
+	}
+	first := ""
+	for _, w := range out.Items {
+		if w.IsDefault {
+			return w.ID, nil
+		}
+		if first == "" && w.Active {
+			first = w.ID
+		}
+	}
+	return first, nil
+}
+
+// CreateReceipt books a goods receipt (bon de réception, PURCHASE_RECEIPT) and posts it when asked:
+// the ERP's own posting moves the stock and records the purchase prices.
+func (c *Client) CreateReceipt(ctx context.Context, r adapter.Receipt) (adapter.OrderRef, error) {
+	wh, err := c.defaultWarehouse(ctx)
+	if err != nil {
+		return adapter.OrderRef{}, err
+	}
+	lines := []map[string]any{}
+	for i, l := range r.Lines {
+		lines = append(lines, map[string]any{"position": i + 1, "product_id": l.ProductID, "description": l.Description,
+			"qty_milli": l.QtyMilli, "unit_price": l.UnitCostHT, "vat_rate": l.VatRate, "pack_factor_milli": l.PackFactorMilli})
+	}
+	body := map[string]any{"doc_type": "PURCHASE_RECEIPT", "doc_date": r.Date, "partner_id": r.SupplierID, "notes": r.Notes, "lines": lines}
+	if wh != "" {
+		body["warehouse_id"] = wh
+	}
+	if r.SupplierRef != "" {
+		body["supplier_ref"] = r.SupplierRef
+	}
+	var doc struct {
+		ID       string  `json:"id"`
+		Number   *string `json:"number"`
+		TotalTTC int64   `json:"total_ttc"`
+	}
+	if err := c.do(ctx, http.MethodPost, "/documents", body, &doc); err != nil {
+		return adapter.OrderRef{}, err
+	}
+	ref := adapter.OrderRef{ID: doc.ID, TotalTTC: doc.TotalTTC}
+	if doc.Number != nil {
+		ref.Number = *doc.Number
+	}
+	if r.Post {
+		var posted struct {
+			Number   *string `json:"number"`
+			TotalTTC int64   `json:"total_ttc"`
+		}
+		if err := c.do(ctx, http.MethodPost, "/documents/"+url.PathEscape(doc.ID)+"/post", map[string]any{}, &posted); err != nil {
+			return ref, fmt.Errorf("receipt created as a draft, but posting failed: %w", err)
+		}
+		if posted.Number != nil {
+			ref.Number = *posted.Number
+		}
+	}
+	if ref.Number == "" {
+		ref.Number = "brouillon " + doc.ID[:8]
+	}
+	return ref, nil
+}

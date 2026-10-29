@@ -23,6 +23,7 @@ type Product struct {
 	Brand   string `json:"brand"`
 	Barcode string `json:"barcode"`
 	Unit    string `json:"unit"`
+	VatRate int64  `json:"vat_rate"`
 	Packs   []Pack `json:"packs"`
 	Words   []string `json:"words"`
 	Size    string   `json:"size"`
@@ -62,13 +63,13 @@ func New(db *store.DB) *Catalog {
 func (c *Catalog) Reload() error {
 	prods := []*Product{}
 	byID := map[string]*Product{}
-	rows, err := c.db.Query(`SELECT id, name, name_ar, brand, barcode, unit FROM products WHERE active = 1 ORDER BY name`)
+	rows, err := c.db.Query(`SELECT id, name, name_ar, brand, barcode, unit, vat_rate FROM products WHERE active = 1 ORDER BY name`)
 	if err != nil {
 		return err
 	}
 	for rows.Next() {
 		p := &Product{}
-		if rows.Scan(&p.ID, &p.Name, &p.NameAr, &p.Brand, &p.Barcode, &p.Unit) == nil {
+		if rows.Scan(&p.ID, &p.Name, &p.NameAr, &p.Brand, &p.Barcode, &p.Unit, &p.VatRate) == nil {
 			p.Words, p.Size = Tokens(Normalize(p.Name + " " + p.Brand))
 			prods = append(prods, p)
 			byID[p.ID] = p
@@ -146,18 +147,24 @@ func scopeRank(kind string) int {
 	return 0
 }
 
-func applies(a Alias, customerID string) bool {
-	return a.ScopeKind != "customer" || a.ScopeID == customerID
+func applies(a Alias, customerID, supplierID string) bool {
+	switch a.ScopeKind {
+	case "customer":
+		return a.ScopeID == customerID
+	case "supplier":
+		return a.ScopeID == supplierID
+	}
+	return true
 }
 
 // Trusted returns the trusted alias for a wording, most specific scope first.
-func (c *Catalog) Trusted(norm, customerID string) (Alias, bool) {
+func (c *Catalog) Trusted(norm, customerID, supplierID string) (Alias, bool) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	var best Alias
 	found := false
 	for _, a := range c.aliases[norm] {
-		if a.State != "trusted" || !applies(a, customerID) || c.byID[a.ProductID] == nil {
+		if a.State != "trusted" || !applies(a, customerID, supplierID) || c.byID[a.ProductID] == nil {
 			continue
 		}
 		if !found || scopeRank(a.ScopeKind) > scopeRank(best.ScopeKind) {
@@ -168,12 +175,12 @@ func (c *Catalog) Trusted(norm, customerID string) (Alias, bool) {
 }
 
 // Blocked lists the products a wording must never resolve to (blocked aliases).
-func (c *Catalog) Blocked(norm, customerID string) map[string]bool {
+func (c *Catalog) Blocked(norm, customerID, supplierID string) map[string]bool {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	out := map[string]bool{}
 	for _, a := range c.aliases[norm] {
-		if a.State == "blocked" && applies(a, customerID) {
+		if a.State == "blocked" && applies(a, customerID, supplierID) {
 			out[a.ProductID] = true
 		}
 	}
@@ -181,12 +188,12 @@ func (c *Catalog) Blocked(norm, customerID string) map[string]bool {
 }
 
 // Hints returns products that candidate aliases point to (they rank first in the shortlist).
-func (c *Catalog) Hints(norm, customerID string) []string {
+func (c *Catalog) Hints(norm, customerID, supplierID string) []string {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	var out []string
 	for _, a := range c.aliases[norm] {
-		if a.State == "candidate" && applies(a, customerID) {
+		if a.State == "candidate" && applies(a, customerID, supplierID) {
 			out = append(out, a.ProductID)
 		}
 	}
@@ -363,10 +370,10 @@ func ReplaceProducts(db *store.DB, prods []Product) error {
 		return err
 	}
 	for _, p := range prods {
-		if _, err := tx.Exec(`INSERT INTO products (id, name, name_ar, brand, barcode, unit, active, synced_at) VALUES (?, ?, ?, ?, ?, ?, 1, ?)
+		if _, err := tx.Exec(`INSERT INTO products (id, name, name_ar, brand, barcode, unit, vat_rate, active, synced_at) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?)
 			ON CONFLICT(id) DO UPDATE SET name = excluded.name, name_ar = excluded.name_ar, brand = excluded.brand,
-			barcode = excluded.barcode, unit = excluded.unit, active = 1, synced_at = excluded.synced_at`,
-			p.ID, p.Name, p.NameAr, p.Brand, p.Barcode, p.Unit, now); err != nil {
+			barcode = excluded.barcode, unit = excluded.unit, vat_rate = excluded.vat_rate, active = 1, synced_at = excluded.synced_at`,
+			p.ID, p.Name, p.NameAr, p.Brand, p.Barcode, p.Unit, p.VatRate, now); err != nil {
 			return err
 		}
 		for _, k := range p.Packs {
@@ -405,4 +412,77 @@ func CustomerName(db *sql.DB, id string) string {
 	var n string
 	db.QueryRow(`SELECT name FROM customers WHERE id = ?`, id).Scan(&n)
 	return n
+}
+
+// ReplaceSuppliers stores the ERP's suppliers.
+func ReplaceSuppliers(db *store.DB, cs []Customer) error {
+	tx, err := db.Begin()
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+	for _, c := range cs {
+		if _, err := tx.Exec(`INSERT INTO suppliers (id, name, phone) VALUES (?, ?, ?)
+			ON CONFLICT(id) DO UPDATE SET name = excluded.name, phone = excluded.phone`, c.ID, c.Name, c.Phone); err != nil {
+			return err
+		}
+	}
+	return tx.Commit()
+}
+
+func SupplierName(db *sql.DB, id string) string {
+	var n string
+	db.QueryRow(`SELECT name FROM suppliers WHERE id = ?`, id).Scan(&n)
+	return n
+}
+
+// Suppliers lists the suppliers known from the ERP.
+func Suppliers(db *sql.DB) []Customer {
+	rows, err := db.Query(`SELECT id, name, phone FROM suppliers ORDER BY name`)
+	if err != nil {
+		return nil
+	}
+	defer rows.Close()
+	var out []Customer
+	for rows.Next() {
+		var c Customer
+		if rows.Scan(&c.ID, &c.Name, &c.Phone) == nil {
+			out = append(out, c)
+		}
+	}
+	return out
+}
+
+// MatchSupplier finds the supplier a printed name refers to: a trusted supplier wording first, then
+// the share of the ERP name's words found in the printed name.
+func (c *Catalog) MatchSupplier(printed string) (string, float64) {
+	norm := Normalize(printed)
+	if norm == "" {
+		return "", 0
+	}
+	if a, ok := c.Trusted("supplier: "+norm, "", ""); ok {
+		return a.ProductID, 1
+	}
+	pw, _ := Tokens(norm)
+	best, bestScore := "", 0.0
+	for _, s := range Suppliers(c.db.DB) {
+		sw, _ := Tokens(Normalize(s.Name))
+		if len(sw) == 0 {
+			continue
+		}
+		hit := 0.0
+		for _, w := range sw {
+			m := 0.0
+			for _, q := range pw {
+				if v := WordSim(w, q); v > m {
+					m = v
+				}
+			}
+			hit += m
+		}
+		if score := hit / float64(len(sw)); score > bestScore {
+			best, bestScore = s.ID, score
+		}
+	}
+	return best, bestScore
 }

@@ -22,10 +22,12 @@ type Truth struct {
 	ProductID  string `json:"product_id"`
 	Level      string `json:"level"`
 	CreatedAt  string `json:"created_at"`
+	Kind       string `json:"kind"`
+	SupplierID string `json:"supplier_id"`
 }
 
 func GroundTruth(db *store.DB) []Truth {
-	rows, err := db.Query(`SELECT line_id, said, norm, unit, customer_id, product_id, level, created_at FROM ground_truth ORDER BY created_at`)
+	rows, err := db.Query(`SELECT line_id, said, norm, unit, customer_id, product_id, level, created_at, kind, supplier_id FROM ground_truth ORDER BY created_at`)
 	if err != nil {
 		return nil
 	}
@@ -33,7 +35,7 @@ func GroundTruth(db *store.DB) []Truth {
 	var out []Truth
 	for rows.Next() {
 		var t Truth
-		if rows.Scan(&t.LineID, &t.Said, &t.Norm, &t.Unit, &t.CustomerID, &t.ProductID, &t.Level, &t.CreatedAt) == nil {
+		if rows.Scan(&t.LineID, &t.Said, &t.Norm, &t.Unit, &t.CustomerID, &t.ProductID, &t.Level, &t.CreatedAt, &t.Kind, &t.SupplierID) == nil {
 			out = append(out, t)
 		}
 	}
@@ -72,7 +74,7 @@ func RunBench(cat *catalog.Catalog, live *rules.Set, cand *rules.Rule, truth []T
 	okBefore, okAfter := 0, 0
 	for _, t := range truth {
 		m := resolve.Mention{Said: t.Said, Unit: t.Unit, Qty: 1}
-		cx := resolve.Context{CustomerID: t.CustomerID}
+		cx := resolve.Context{CustomerID: t.CustomerID, SupplierID: t.SupplierID}
 		before := resolve.Deterministic(cat, live, m, cx)
 		after := resolve.Deterministic(cat, with, m, cx)
 		if before.Status == "ok" && before.ProductID == t.ProductID {
@@ -132,7 +134,7 @@ func Gate(b Bench, minGain int) (bool, string) {
 func Residue(cat *catalog.Catalog, live *rules.Set, truth []Truth) []Truth {
 	var out []Truth
 	for _, t := range truth {
-		r := resolve.Deterministic(cat, live, resolve.Mention{Said: t.Said, Unit: t.Unit, Qty: 1}, resolve.Context{CustomerID: t.CustomerID})
+		r := resolve.Deterministic(cat, live, resolve.Mention{Said: t.Said, Unit: t.Unit, Qty: 1}, resolve.Context{CustomerID: t.CustomerID, SupplierID: t.SupplierID})
 		if r.Status != "ok" || r.ProductID != t.ProductID {
 			out = append(out, t)
 		}

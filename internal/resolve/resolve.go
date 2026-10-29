@@ -67,11 +67,11 @@ func Deterministic(cat *catalog.Catalog, set *rules.Set, m Mention, cx Context) 
 	if r.Norm == "" {
 		return r
 	}
-	blocked := cat.Blocked(r.Norm, cx.CustomerID)
+	blocked := cat.Blocked(r.Norm, cx.CustomerID, cx.SupplierID)
 	out := set.Apply(r.Norm, cx.CustomerID, cx.SupplierID)
 	r.Pack = out.Pack
 	// Level 1: a trusted wording settles it, unless a guard forbids that product.
-	if a, ok := cat.Trusted(r.Norm, cx.CustomerID); ok && !out.BlockIDs[a.ProductID] && !blockedByWord(cat.Get(a.ProductID), out.BlockWord) {
+	if a, ok := cat.Trusted(r.Norm, cx.CustomerID, cx.SupplierID); ok && !out.BlockIDs[a.ProductID] && !blockedByWord(cat.Get(a.ProductID), out.BlockWord) {
 		r.ProductID, r.Level, r.Status, r.Confidence = a.ProductID, LAlias, "ok", 1
 		r.Used = []string{fmt.Sprintf("alias:%d", a.ID)}
 		if len(out.Used) > 0 && out.Pack != nil {
@@ -88,7 +88,7 @@ func Deterministic(cat *catalog.Catalog, set *rules.Set, m Mention, cx Context) 
 		exclude[id] = true
 	}
 	words, size := catalog.Tokens(out.Text)
-	if a, ok := cat.Trusted(out.Text, cx.CustomerID); ok && out.Text != r.Norm && !exclude[a.ProductID] {
+	if a, ok := cat.Trusted(out.Text, cx.CustomerID, cx.SupplierID); ok && out.Text != r.Norm && !exclude[a.ProductID] {
 		r.ProductID, r.Level, r.Status, r.Confidence = a.ProductID, LRules, "ok", 1
 		r.Used = append(out.Used, fmt.Sprintf("alias:%d", a.ID))
 		return r
@@ -206,11 +206,11 @@ func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref s
 				size = hs
 			}
 		}
-		exclude := rv.Cat.Blocked(res[i].Norm, cx.CustomerID)
+		exclude := rv.Cat.Blocked(res[i].Norm, cx.CustomerID, cx.SupplierID)
 		for id := range out.BlockIDs {
 			exclude[id] = true
 		}
-		shorts[i] = filterWords(rv.Cat.Shortlist(words, size, rv.Cat.Hints(res[i].Norm, cx.CustomerID), cx.Usual, exclude, 8), out.BlockWord)
+		shorts[i] = filterWords(rv.Cat.Shortlist(words, size, rv.Cat.Hints(res[i].Norm, cx.CustomerID, cx.SupplierID), cx.Usual, exclude, 8), out.BlockWord)
 	}
 	// Level 4: Muse Spark picks among each shortlist, in one call for the whole message.
 	picks, cost, err := rv.pick(ctx, ms, open, shorts, ref)

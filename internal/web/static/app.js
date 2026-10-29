@@ -34,7 +34,7 @@ function toast(msg, err) {
 }
 const chip = (status, label) => `<span class="chip c-${esc(status)}">${esc(label || status.replace("_", " "))}</span>`;
 const lvl = (l) => `<span class="lv lv-${esc(l)}">${esc({ alias: "alias", rules: "rules", history: "history", ai: "AI", person: "person", none: "—" }[l] || l)}</span>`;
-const scopeChip = (s) => `<span class="chip c-scope">${esc(s.kind === "customer" ? (s.name || "customer") : s.kind === "global" ? "Global" : s.kind)}</span>`;
+const scopeChip = (s) => `<span class="chip c-scope">${esc(s.kind === "customer" || s.kind === "supplier" ? (s.name || s.kind) : s.kind === "global" ? "Global" : s.kind)}</span>`;
 
 // ---- shell -------------------------------------------------------------------------------
 let overview = {};
@@ -45,6 +45,7 @@ async function refreshShell() {
   const ib = $("#cnt-inbox");
   const n = overview.pending_lines + overview.open_drafts;
   ib.hidden = !n; ib.textContent = overview.open_drafts;
+  api("/drafts?kind=invoice&status=open").then((x) => { const c = $("#cnt-inv"); c.hidden = !x.items.length; c.textContent = x.items.length; }).catch(() => {});
   const rl = $("#cnt-rules"), live = (overview.rules || {}).live || 0;
   rl.hidden = !live; rl.textContent = live;
   const dot = (ok) => `<span class="dot" style="background:${ok ? "#22c55e" : "#f87171"}"></span>`;
@@ -62,7 +63,7 @@ let timer = null;
 async function go() {
   clearInterval(timer);
   const [name, arg] = (location.hash.replace(/^#\/?/, "") || "inbox").split("/");
-  document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("on", a.dataset.r === ({ draft: "inbox", product: "catalogue", rule: "rules" }[name] || name)));
+  document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("on", a.dataset.r === ({ draft: "inbox", product: "catalogue", rule: "rules", invoice: "invoices" }[name] || name)));
   const fn = routes[name] || routes.inbox;
   try { await fn(arg ? decodeURIComponent(arg) : ""); } catch (e) { main.innerHTML = `<div class="card warn">${esc(e.message)}</div>`; }
   refreshShell();
@@ -79,7 +80,7 @@ route("draft", (id) => draftsScreen("", id, "Order", ""));
 let currentDraft = "";
 
 async function draftsScreen(status, sel, title, sub, quiet) {
-  const [list, custs] = await Promise.all([api("/drafts" + (status ? "?status=" + status : "")), quiet ? null : api("/customers")]);
+  const [list, custs] = await Promise.all([api("/drafts?kind=order" + (status ? "&status=" + status : "")), quiet ? null : api("/customers")]);
   const items = list.items;
   if (!sel && items.length) sel = items[0].id;
   currentDraft = sel;
@@ -303,7 +304,7 @@ route("rules", async () => {
         const why = r.status === "rejected" || r.status === "rolled_back" ? r.reason
           : (r.author === "rule-engineer" ? "rule engineer" : "written by " + r.author) + (b.lines ? ` · benchmark +${b.newly_resolved}, ${b.wrong} wrong` : "");
         return `<tr class="click" onclick="location.hash='#/rule/${r.id}'"><td class="id">${esc(r.id)} v${r.version}<br><span class="chip c-type">${esc(r.type)}</span></td>
-        <td class="sent">${esc(r.sentence)}<span class="why">${esc(why)}</span></td><td>${scopeChip(r.scope)}</td><td class="small">${short(r.created_at)}</td>
+        <td class="sent">${esc(r.sentence)}<span class="why">${r.scope.kind === "supplier" ? "🧾 supplier invoices · " : ""}${esc(why)}</span></td><td>${scopeChip(r.scope)}</td><td class="small">${short(r.created_at)}</td>
         <td class="num">${r.lines_resolved || "—"}</td><td>${r.status === "shadow" ? chip("shadow", `shadow ${r.shadow_agree}/${overviewSetting("shadow_agreements")}`) : chip(r.status)}</td></tr>`;
       }).join("") || `<tr><td colspan="6" class="empty">No rule yet. Rules are born from the lines that needed the AI or a person.</td></tr>`}
     </table></div>`;
@@ -421,8 +422,11 @@ route("rule", async (id) => {
 });
 
 // ---- learning & cost -----------------------------------------------------------------------
+let learnKind = "";
 route("learning", async () => {
-  const [d, ov] = await Promise.all([api("/learning?days=30"), api("/overview")]);
+  const d = await api("/learning?days=30&kind=" + learnKind);
+  const t = d.totals || {};
+  const ov = { lines: t.lines, free: t.free, auto: t.auto, wrong_auto: t.wrong_auto, resolve_calls: t.resolve_calls, orders: t.docs };
   const days = d.days || [];
   const lines = ov.lines || 0;
   const aiLines = days.reduce((a, x) => a + x.ai + x.person, 0);
@@ -430,9 +434,11 @@ route("learning", async () => {
   const lastDay = days[days.length - 1] || {}, firstDay = days[0] || {};
   const freeShare = (x) => x.lines ? (x.alias + x.rules) / x.lines : 0;
   main.innerHTML = `
-    <div class="ttl"><div><h1>Learning &amp; cost</h1><div class="s">Every AI call counted, the rule engineer included. Last 30 days.</div></div></div>
+    <div class="ttl"><div><h1>Learning &amp; cost</h1><div class="s">Every AI call counted${learnKind ? "" : ", the rule engineer included"}. Last 30 days.</div></div>
+      <div class="tabs">${[["", "All"], ["order", "💬 Shop messages"], ["invoice", "🧾 Supplier invoices"]].map(([k, n]) =>
+        `<button class="${k === learnKind ? "on" : ""}" data-lk="${k}">${n}</button>`).join("")}</div></div>
     <div class="kpis">
-      <div class="kpi"><div class="l">Lines handled</div><div class="v">${lines}</div><div class="d n">${ov.orders} orders confirmed</div></div>
+      <div class="kpi"><div class="l">Lines handled</div><div class="v">${lines}</div><div class="d n">${ov.orders} ${learnKind === "invoice" ? "receipts" : learnKind === "order" ? "orders" : "orders + receipts"} confirmed</div></div>
       <div class="kpi"><div class="l">Resolved without AI</div><div class="v">${lines ? pct(ov.free / lines) : "—"}</div>
         <div class="d">${days.length > 1 ? `${pct(freeShare(firstDay))} → ${pct(freeShare(lastDay))}` : ""}</div></div>
       <div class="kpi"><div class="l">Wrong automatic</div><div class="v">${ov.auto ? pct(ov.wrong_auto / ov.auto) : "—"}</div><div class="d n">${ov.wrong_auto} of ${ov.auto} automatic lines</div></div>
@@ -446,12 +452,13 @@ route("learning", async () => {
     </div>
     <div class="grid g21" style="margin-top:14px">
       <div class="card"><h5>AI spend by job</h5><table class="t"><tr><th>Model</th><th>Job</th><th class="num">Calls</th><th class="num">Cost</th></tr>
-        ${(d.jobs || []).map((j) => `<tr><td>${esc(j.model)}</td><td>${esc({ transcribe: "Voice orders", read: "Reading list photos", extract: "Reading chatty messages", resolve: "Resolving the residue", engineer: "Rule engineer" }[j.purpose] || j.purpose)}</td>
+        ${(d.jobs || []).map((j) => `<tr><td>${esc(j.model)}</td><td>${esc({ transcribe: "Voice orders", read: "Reading list photos", extract: "Reading chatty messages", resolve: "Resolving the residue", engineer: "Rule engineer", invoice: "Reading supplier invoices" }[j.purpose] || j.purpose)}</td>
           <td class="num">${j.calls}</td><td class="num">${usd(j.cost)}</td></tr>`).join("") || `<tr><td colspan="4" class="empty">No AI call yet.</td></tr>`}
         <tr><td colspan="3"><b>Total</b></td><td class="num"><b>${usd((d.jobs || []).reduce((a, j) => a + j.cost, 0))}</b></td></tr></table></div>
       <div class="card"><h5>Saved by aliases and rules</h5><div style="font-size:30px;font-weight:800;color:var(--brand)">${usd(d.saved)}</div>
         <div class="small muted">${d.free_lines} lines resolved for free × ${usd(d.cost_per_ai_line)}, the average AI cost of a line that needed the AI. ${aiLines} line(s) needed the AI or a person.</div></div>
     </div>`;
+  main.querySelectorAll("[data-lk]").forEach((b) => (b.onclick = () => { learnKind = b.dataset.lk; go(); }));
 });
 
 function stackChart(days) {
@@ -486,6 +493,124 @@ function costChart(days) {
     : `<circle cx="${x(i)}" cy="${y(p.v)}" r="2.5" fill="#0f766e"/>`).join("");
   const xl = pts.map((p, i) => (pts.length <= 8 || i % Math.ceil(pts.length / 6) === 0) ? `<text x="${x(i)}" y="${H - 6}" font-size="10" fill="#64748b" text-anchor="middle">${p.d.slice(5)}</text>` : "").join("");
   return `<svg viewBox="0 0 ${W} ${H}" width="100%">${g}<polygon points="${area}" fill="#ccfbf1" opacity=".7"/><polyline points="${line}" fill="none" stroke="#0f766e" stroke-width="2.2"/>${dots}${xl}</svg>`;
+}
+
+// ---- invoices ----------------------------------------------------------------------------
+route("invoices", (sel) => invoicesScreen(sel));
+route("invoice", (sel) => invoicesScreen(sel));
+async function invoicesScreen(sel) {
+  const [list, own] = await Promise.all([api("/drafts?kind=invoice"), api("/owner")]);
+  const items = list.items;
+  if (!sel && items.length) sel = items[0].id;
+  main.innerHTML = `
+    <div class="ttl"><div><h1>Supplier invoices</h1><div class="s">A photo or PDF of a supplier invoice becomes a goods receipt in the ERP. Each supplier's wordings are learned.</div></div></div>
+    <div class="grid g12">
+      <div>
+        <label class="drop" id="drop"><input type="file" id="file" accept="image/*,application/pdf" hidden>
+          <div style="font-weight:700">⬆ Drop an invoice here</div><div class="small">photo or PDF · or click to choose</div></label>
+        <div class="card" style="margin:12px 0">
+          <h5>Send invoices from Telegram</h5>
+          ${own.chats.length ? `<div class="small">Linked as owner: ${own.chats.map((c) => esc(c.name || c.chat)).join(", ")}. Send photos or PDFs to
+            <a target="_blank" href="https://t.me/${esc(own.bot)}">@${esc(own.bot)}</a>.</div>` : `<div class="small muted">Link your own Telegram once, then send invoices to the bot.</div>`}
+          <div class="row" style="margin-top:8px"><span id="owncode"></span><span class="sp"></span><button class="btn sm" id="ownpair">Owner pairing code</button></div>
+        </div>
+        <div class="list">${items.map((d) => `
+          <a class="it ${d.id === sel ? "on" : ""}" href="#/invoices/${d.id}">
+            <div class="top"><span>${esc(d.customer || "—")}</span>${d.status === "confirmed" ? chip("confirmed", d.erp_order_number) : d.pending ? chip("ask", d.pending + " to check") : chip(d.status)}</div>
+            <div class="small muted">${d.lines} line(s) · ${esc(d.chat_key.split(":")[0])} · ${short(d.updated_at)}</div></a>`).join("")}</div>
+      </div>
+      <div id="inv-view">${items.length ? "" : `<div class="card empty">No invoice yet. Drop one on the left, or send it to the bot from your owner chat.</div>`}</div>
+    </div>`;
+  const file = $("#file"), drop = $("#drop");
+  const upload = async (f) => {
+    if (!f) return;
+    drop.innerHTML = `<div class="pulse" style="font-weight:700">Reading the invoice with Muse Spark…</div><div class="small">${esc(f.name)}</div>`;
+    const fd = new FormData(); fd.append("file", f);
+    try {
+      const res = await fetch("/api/invoices", { method: "POST", body: fd });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || "HTTP " + res.status);
+      location.hash = "#/invoices/" + d.draft; go();
+    } catch (e) { toast(e.message, true); go(); }
+  };
+  file.onchange = () => upload(file.files[0]);
+  drop.ondragover = (e) => { e.preventDefault(); drop.classList.add("on"); };
+  drop.ondragleave = () => drop.classList.remove("on");
+  drop.ondrop = (e) => { e.preventDefault(); upload(e.dataTransfer.files[0]); };
+  $("#ownpair").onclick = async () => {
+    const r = await api("/owner/pair-code", { method: "POST" });
+    $("#owncode").innerHTML = `<span class="codebox" style="font-size:18px;padding:4px 10px">${esc(r.code)}</span>
+      <a class="small" target="_blank" href="https://t.me/${esc(r.bot)}?start=${esc(r.code)}">open in Telegram</a>`;
+  };
+  if (sel) renderInvoice(sel);
+}
+
+async function renderInvoice(id) {
+  const v = $("#inv-view");
+  const d = await api("/drafts/" + id);
+  const dr = d.draft, inv = d.invoice || {}, open = dr.status === "open";
+  const msg = (d.messages || [])[0] || {};
+  const paper = msg.media ? (msg.media.endsWith(".pdf") ? `<embed src="${esc(msg.media)}" type="application/pdf">` : `<img src="${esc(msg.media)}" alt="invoice">`) : "";
+  const checks = Object.values(inv.checks || {}).map((c) => `<div class="warn" style="margin-top:6px">${esc(c)}</div>`).join("");
+  let sumLines = 0;
+  const rows = d.lines.map((l) => { sumLines += l.line_ttc || 0; return invLine(l, open); }).join("");
+  const counts = { auto: 0, ai: 0, open: 0 };
+  d.lines.forEach((l) => { if (l.status !== "ok") counts.open++; else if (l.level === "alias" || l.level === "rules") counts.auto++; else counts.ai++; });
+  v.innerHTML = `
+    <div class="card"><div class="row" style="align-items:flex-start"><div>
+      <div class="crumb">Invoice n° ${esc(inv.doc_number || "—")} · ${esc(inv.doc_date || "")} · read ${short(dr.created_at)} · AI ${usd(msg.ai_cost)}</div>
+      <h2 style="font-size:19px;margin:2px 0 0">${esc(inv.supplier || inv.supplier_said || "Unknown supplier")}</h2>
+      ${inv.supplier_said && inv.supplier !== inv.supplier_said ? `<div class="small muted">printed: « ${esc(inv.supplier_said)} »</div>` : ""}</div>
+      <span class="sp"></span>${dr.status === "confirmed" ? chip("confirmed", "Receipt " + dr.erp_order_number + " in the ERP") : chip(dr.status)}</div>
+      ${open ? `<div class="row" style="margin-top:10px"><label class="small muted">Supplier</label>
+        <select id="sup">${["<option value=''>— choose —</option>"].concat((d.suppliers || []).map((s) => `<option value="${esc(s.id)}" ${s.id === inv.supplier_id ? "selected" : ""}>${esc(s.name)}</option>`)).join("")}</select></div>` : ""}
+      ${checks}
+      <div class="row small" style="margin-top:10px;gap:14px"><span>${lvl("rules")} ${counts.auto} by aliases &amp; rules</span><span>${lvl("ai")} ${counts.ai} by the AI or a person</span>
+        <span>${counts.open ? chip("ask", counts.open + " to check") : chip("ok", "all lines matched")}</span></div>
+    </div>
+    <div class="inv" style="margin-top:14px">
+      <div class="paper">${paper ? `<div class="card" style="padding:8px">${paper}</div>` : ""}</div>
+      <div class="card"><h5>Lines · printed → matched</h5>${rows}
+        <div class="total"><span>Total HT (lines)</span><span>${money(sumLines)}${inv.doc_total ? ` <span class="small muted">· printed ${money(inv.doc_total)}</span>` : ""}</span></div>
+        ${open ? `<div class="row" style="margin-top:12px"><span class="small muted">Approving books a goods receipt (BR) in the ERP and teaches every line for this supplier.</span><span class="sp"></span>
+          <button class="btn p" id="approve" ${counts.open || !inv.supplier_id ? "disabled" : ""}>Approve → goods receipt in the ERP</button></div>` : ""}
+      </div>
+    </div>`;
+  const sup = $("#sup");
+  if (sup) sup.onchange = async () => { if (!sup.value) return; await api(`/drafts/${id}/supplier`, { method: "POST", body: { supplier_id: sup.value } }); toast("Supplier set; lines matched again in its scope"); renderInvoice(id); };
+  v.querySelectorAll("[data-pick]").forEach((b) => (b.onclick = async () => {
+    try { await api(`/lines/${b.dataset.line}/choose`, { method: "POST", body: { product_id: b.dataset.pick, correction: b.dataset.fix === "1" } }); renderInvoice(id); }
+    catch (e) { toast(e.message, true); }
+  }));
+  v.querySelectorAll("[data-remove]").forEach((b) => (b.onclick = async () => { await api(`/lines/${b.dataset.remove}/remove`, { method: "POST" }); renderInvoice(id); }));
+  v.querySelectorAll("[data-alts]").forEach((b) => (b.onclick = () => { b.parentElement.querySelector(".alts").hidden = false; b.remove(); }));
+  const a = $("#approve");
+  if (a) a.onclick = async () => {
+    a.disabled = true; a.textContent = "Booking…";
+    try { const r = await api(`/drafts/${id}/confirm`, { method: "POST" }); toast("Goods receipt " + r.number + " created in the ERP"); go(); }
+    catch (e) { toast(e.message, true); a.disabled = false; a.textContent = "Approve → goods receipt in the ERP"; }
+  };
+}
+
+function invLine(l, open) {
+  const ckeys = Object.keys(l.checks || {}).filter((k) => !["corrected_from", "pack_rule", "pack_qty", "history"].includes(k));
+  const checks = ckeys.map((k) => `<span class="chk">${esc(l.checks[k])}</span>`).join("");
+  const used = (l.used || []).map((u) => u.startsWith("R-") ? `<a class="used" href="#/rule/${esc(u)}" title="${esc((l.rule_sentences || {})[u] || "")}">${esc(u)}</a>` : `<span class="used">${esc(u)}</span>`).join("");
+  const qty = l.pack_factor ? `${l.qty} × ${esc((l.pack_name || "").toLowerCase())} (${l.pack_factor / 1000}) = ${l.qty_milli / 1000} u.` : `${l.qty} u.`;
+  const unit = l.qty_milli ? Math.round((l.line_ttc || 0) / (l.qty_milli / 1000)) : 0;
+  const body = l.status === "ask" || l.status === "unknown"
+    ? `<div class="prod">❓ ${esc(l.status === "unknown" && !(l.options || []).length ? "Not in the catalogue" : (l.question || "Which product?"))}</div>
+       <div class="opts">${(l.options || []).map((o) => `<button data-line="${l.id}" data-pick="${esc(o)}">${esc(l.option_names[o] || o)}</button>`).join("")}
+       <button data-remove="${l.id}" style="border-color:#cbd5e1;color:#64748b">Skip line</button></div>`
+    : `<div class="prod">→ ${esc(l.product_name || l.product_id)}</div>`;
+  return `<div class="ln ${esc(l.status)}"><div class="head"><div style="flex:1;min-width:0">
+      <span class="printed">${esc(l.said)}</span>
+      ${body}
+      <div class="meta">${lvl(l.level)} <span>${qty}</span> ${used} ${l.confidence && l.level === "ai" ? `<span>conf. ${l.confidence.toFixed(2)}</span>` : ""} ${checks}
+        ${l.status === "removed" ? chip("removed", "skipped") : ""}</div>
+      ${traceOf(l)}
+      ${l.status === "ok" ? `<button class="btn sm" style="margin-top:6px" data-alts="1">${open ? "Correct" : "Correct what was learned"}</button><div class="alts opts" hidden>${altButtons(l)}</div>` : ""}
+    </div><div class="price">${money(l.line_ttc)}<div class="amt">${unit ? money(unit * 100 / 100) + " / u." : ""}</div></div></div></div>`;
 }
 
 // ---- customers ---------------------------------------------------------------------------

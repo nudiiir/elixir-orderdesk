@@ -70,7 +70,9 @@ The rule language (patterns run on normalised text: lower case, no accents, size
 - guard    {pattern, action.block_word or action.block}: forbid wrong matches.
 Pattern syntax: literal words, "a|b" alternatives, {n} a number, {size} a size token, ^ and $ anchors.
 Scopes: {"kind":"global"} (true for everyone), {"kind":"tenant"}, {"kind":"customer","id":"<customer id>"}.
-Spelling, abbreviation, synonym and pack rules are almost always GLOBAL: the same misspelling from several shops is
+Lines come from shop orders ("fardou ifri") and from supplier invoices ("SEL 2000ML PET X6"). A pattern that only one
+supplier prints (its codes, its pack marks such as X6 or C24) gets {"kind":"supplier","id":"<supplier id>"}.
+Otherwise spelling, abbreviation, synonym and pack rules are almost always GLOBAL: the same misspelling from several shops is
 one rule. Use a customer scope only for a default rule (one shop's habit). If the gate refuses a rule for a low
 gain, broaden its scope or its pattern before giving up.
 
@@ -198,8 +200,10 @@ func (e *Engineer) call(name, args string, residue, truth []Truth, live *rules.S
 			if p == nil {
 				continue
 			}
-			items = append(items, map[string]string{"line": t.LineID, "said": t.Said, "normalised": t.Norm, "unit": t.Unit,
+			items = append(items, map[string]string{"line": t.LineID, "source": map[bool]string{true: "supplier invoice", false: "shop order"}[t.Kind == "invoice"],
+				"said": t.Said, "normalised": t.Norm, "unit": t.Unit,
 				"customer_id": t.CustomerID, "customer": catalog.CustomerName(e.DB.DB, t.CustomerID),
+				"supplier_id": t.SupplierID, "supplier": catalog.SupplierName(e.DB.DB, t.SupplierID),
 				"correct_product_id": p.ID, "correct_product": p.Name, "product_words": strings.Join(p.Words, " "), "size": p.Size})
 		}
 		return store.JSON(map[string]any{"count": len(residue), "items": items})
@@ -278,6 +282,9 @@ func (e *Engineer) fillScope(r *rules.Rule) {
 	}
 	if r.Scope.Kind == "customer" && r.Scope.Name == "" {
 		r.Scope.Name = catalog.CustomerName(e.DB.DB, r.Scope.ID)
+	}
+	if r.Scope.Kind == "supplier" && r.Scope.Name == "" {
+		r.Scope.Name = catalog.SupplierName(e.DB.DB, r.Scope.ID)
 	}
 }
 

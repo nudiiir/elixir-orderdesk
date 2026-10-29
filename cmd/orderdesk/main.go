@@ -77,6 +77,11 @@ func main() {
 			if cs, err = e.Customers(ctx); err == nil {
 				err = catalog.ReplaceCustomers(db, cs)
 			}
+			if err == nil {
+				if ss, serr := e.Suppliers(ctx); serr == nil {
+					catalog.ReplaceSuppliers(db, ss)
+				}
+			}
 		}
 		if err != nil {
 			db.SetSetting("erp_error", err.Error())

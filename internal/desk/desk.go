@@ -127,8 +127,14 @@ func chatKey(chat int64) string { return fmt.Sprintf("tg:%d", chat) }
 
 func (d *Desk) linked(key string) (customerID, name string) {
 	d.DB.QueryRow(`SELECT c.customer_id, COALESCE(u.name, '') FROM chats c LEFT JOIN customers u ON u.id = c.customer_id
-		WHERE c.chat_key = ?`, key).Scan(&customerID, &name)
+		WHERE c.chat_key = ? AND c.role = 'shop'`, key).Scan(&customerID, &name)
 	return
+}
+
+func (d *Desk) isOwner(key string) bool {
+	var n int
+	d.DB.QueryRow(`SELECT COUNT(*) FROM chats WHERE chat_key = ? AND role = 'owner'`, key).Scan(&n)
+	return n > 0
 }
 
 func (d *Desk) onMessage(ctx context.Context, msg *telegram.TgMessage) {
@@ -139,11 +145,19 @@ func (d *Desk) onMessage(ctx context.Context, msg *telegram.TgMessage) {
 
 	if strings.HasPrefix(text, "/start") {
 		code := strings.TrimSpace(strings.TrimPrefix(text, "/start"))
+		if code == "" && d.isOwner(key) {
+			d.say(ctx, chat, ownerHelp)
+			return
+		}
 		if code == "" && customerID != "" {
 			d.say(ctx, chat, fmt.Sprintf("Bonjour %s 👋\n%s", esc(shop), helpText))
 			return
 		}
 		d.pair(ctx, msg, code)
+		return
+	}
+	if d.isOwner(key) && !looksLikeCode(text) {
+		d.onOwnerMessage(ctx, msg)
 		return
 	}
 	if customerID == "" {
@@ -422,35 +436,78 @@ func looksLikeCode(s string) bool {
 	return true
 }
 
-// NewPairCode creates a one-time code a customer sends to the bot to link its chat.
-func NewPairCode(db *store.DB, customerID string) (string, error) {
+// NewPairCode creates a one-time code a customer (role shop) or the owner (role owner, no
+// customer) sends to the bot to link its chat.
+func NewPairCode(db *store.DB, customerID, role string) (string, error) {
 	b := make([]byte, 6)
 	rand.Read(b)
 	code := make([]byte, 6)
 	for i := range b {
 		code[i] = codeAlphabet[int(b[i])%len(codeAlphabet)]
 	}
-	_, err := db.Exec(`INSERT INTO pair_codes (code, customer_id, created_at) VALUES (?, ?, ?)`, string(code), customerID, store.Now())
+	_, err := db.Exec(`INSERT INTO pair_codes (code, customer_id, role, created_at) VALUES (?, ?, ?, ?)`, string(code), customerID, role, store.Now())
 	return string(code), err
 }
 
 func (d *Desk) pair(ctx context.Context, msg *telegram.TgMessage, code string) {
 	chat := msg.Chat.ID
 	code = strings.ToUpper(strings.TrimSpace(code))
-	var customerID, name string
-	err := d.DB.QueryRow(`SELECT p.customer_id, c.name FROM pair_codes p JOIN customers c ON c.id = p.customer_id
-		WHERE p.code = ? AND p.used_at = '' AND p.created_at >= datetime('now', 'localtime', '-7 day')`, code).Scan(&customerID, &name)
+	var customerID, name, role string
+	err := d.DB.QueryRow(`SELECT p.customer_id, COALESCE(c.name, ''), p.role FROM pair_codes p LEFT JOIN customers c ON c.id = p.customer_id
+		WHERE p.code = ? AND p.used_at = '' AND p.created_at >= datetime('now', 'localtime', '-7 day')`, code).Scan(&customerID, &name, &role)
 	if err != nil {
 		d.say(ctx, chat, "Ce code n'est pas valide ou a expiré. Demandez un nouveau code à votre distributeur.")
 		return
 	}
 	who := strings.TrimSpace(msg.From.FirstName + " " + msg.From.LastName)
-	d.DB.Exec(`INSERT INTO chats (chat_key, customer_id, name, linked_at) VALUES (?, ?, ?, ?)
-		ON CONFLICT(chat_key) DO UPDATE SET customer_id = excluded.customer_id, name = excluded.name, linked_at = excluded.linked_at`,
-		chatKey(chat), customerID, who, store.Now())
+	d.DB.Exec(`INSERT INTO chats (chat_key, customer_id, name, role, linked_at) VALUES (?, ?, ?, ?, ?)
+		ON CONFLICT(chat_key) DO UPDATE SET customer_id = excluded.customer_id, name = excluded.name, role = excluded.role,
+		linked_at = excluded.linked_at`, chatKey(chat), customerID, who, role, store.Now())
+	if role == "owner" {
+		d.DB.Exec(`UPDATE pair_codes SET used_at = ? WHERE code = ?`, store.Now(), code)
+		d.DB.Event("chat.linked", "owner", who, map[string]string{"chat": chatKey(chat), "role": "owner"})
+		d.say(ctx, chat, "✅ Ce compte Telegram est maintenant lié comme <b>propriétaire</b>.\n\n"+ownerHelp)
+		return
+	}
 	d.DB.Exec(`UPDATE pair_codes SET used_at = ? WHERE code = ?`, store.Now(), code)
 	d.DB.Event("chat.linked", customerID, who, map[string]string{"chat": chatKey(chat), "customer": name})
 	d.say(ctx, chat, fmt.Sprintf("✅ Ce compte Telegram est maintenant lié à <b>%s</b>.\n\n%s", esc(name), helpText))
+}
+
+const ownerHelp = `Envoyez ici les <b>factures fournisseurs</b> : une photo nette ou le PDF.
+Order Desk lit chaque ligne, la rapproche du catalogue, vérifie prix et conditionnements, puis prépare le bon de réception.
+Les lignes incertaines vous sont posées en question ; tout est aussi visible dans le panneau (Invoices).`
+
+// onOwnerMessage: the owner sends supplier invoices (photo or PDF).
+func (d *Desk) onOwnerMessage(ctx context.Context, msg *telegram.TgMessage) {
+	chat := msg.Chat.ID
+	key := chatKey(chat)
+	var fileID, ext string
+	switch {
+	case len(msg.Photo) > 0:
+		fileID, ext = msg.Photo[len(msg.Photo)-1].FileID, "jpg"
+	case msg.Document != nil && (strings.HasPrefix(msg.Document.MimeType, "image/") || msg.Document.MimeType == "application/pdf"):
+		fileID, ext = msg.Document.FileID, "pdf"
+		if strings.HasPrefix(msg.Document.MimeType, "image/") {
+			ext = "jpg"
+		}
+	default:
+		d.say(ctx, chat, ownerHelp)
+		return
+	}
+	d.TG.Typing(ctx, chat)
+	data, err := d.TG.Download(ctx, fileID)
+	if err != nil {
+		d.fail(ctx, chat, "je n'ai pas pu récupérer le fichier", err)
+		return
+	}
+	media := d.keep(key, ext, data)
+	draft, err := d.IngestInvoice(ctx, key, data, media)
+	if err != nil {
+		d.fail(ctx, chat, "je n'arrive pas à lire cette facture", err)
+		return
+	}
+	d.next(ctx, chat, draft)
 }
 
 const helpText = `Comment commander :
@@ -476,6 +533,9 @@ func (d *Desk) fail(ctx context.Context, chat int64, what string, err error) {
 	}
 	d.say(ctx, chat, "😕 Désolé, "+what+".")
 }
+
+// Keep stores a received file (voice note, photo, invoice) as evidence.
+func (d *Desk) Keep(key, ext string, data []byte) string { return d.keep(key, ext, data) }
 
 func (d *Desk) keep(key, ext string, data []byte) string {
 	dir := filepath.Join(d.DataDir, "media", strings.ReplaceAll(key, ":", "_"))

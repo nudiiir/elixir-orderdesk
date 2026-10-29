@@ -114,7 +114,7 @@ func TestAliasLifecycle(t *testing.T) {
 	if a.State != "candidate" {
 		t.Fatalf("first witness must be a candidate: %+v", a)
 	}
-	if _, ok := cat.Trusted("shampoing hs", "C1"); ok {
+	if _, ok := cat.Trusted("shampoing hs", "C1", ""); ok {
 		t.Fatal("candidate must not resolve")
 	}
 	a, _ = cat.Witness("shampoing hs", "P1", "customer", "C1", "text", 2)
@@ -126,7 +126,7 @@ func TestAliasLifecycle(t *testing.T) {
 		t.Fatalf("alias resolve: %+v", r)
 	}
 	cat.Witness("shampoing hs", "P2", "customer", "C1", "text", 2) // a confirmation for another product blocks it
-	if _, ok := cat.Trusted("shampoing hs", "C1"); ok {
+	if _, ok := cat.Trusted("shampoing hs", "C1", ""); ok {
 		t.Fatal("contradicted alias must be blocked")
 	}
 }
