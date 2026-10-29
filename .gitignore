@@ -1,0 +1,6 @@
+/data/
+/data-test/
+*.exe
+*.db
+*.db-shm
+*.db-wal

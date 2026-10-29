@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order Desk</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f766e'/%3E%3Cpath d='M9 11h14M9 16h10M9 21h6' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="logo"><b></b>Order Desk</div>
+    <div class="tenant" id="tenant">—</div>
+    <nav class="nav" id="nav">
+      <a href="#/inbox" data-r="inbox"><span>Inbox</span><span class="cnt" id="cnt-inbox" hidden></span></a>
+      <a href="#/orders" data-r="orders"><span>Orders</span></a>
+      <a href="#/catalogue" data-r="catalogue"><span>Catalogue</span></a>
+      <a href="#/rules" data-r="rules"><span>Rules</span><span class="cnt soft" id="cnt-rules" hidden></span></a>
+      <a href="#/learning" data-r="learning"><span>Learning &amp; cost</span></a>
+      <a href="#/customers" data-r="customers"><span>Customers</span></a>
+      <a href="#/settings" data-r="settings"><span>Settings</span></a>
+    </nav>
+    <div class="foot" id="foot"></div>
+  </aside>
+  <main class="main" id="main"></main>
+</div>
+<div class="toast" id="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
