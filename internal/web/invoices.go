@@ -73,6 +73,19 @@ func (s *Server) ownerPairCode(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{"code": code, "bot": s.DB.Setting("telegram_bot", "")})
 }
 
+// unlinkChat forgets the link of one chat (shop or owner).
+func (s *Server) unlinkChat(w http.ResponseWriter, r *http.Request) {
+	var in struct {
+		Chat string `json:"chat"`
+	}
+	if decode(r, &in) != nil || in.Chat == "" {
+		writeErr(w, 400, "chat is required")
+		return
+	}
+	s.Desk.Unlink(in.Chat)
+	writeJSON(w, http.StatusOK, map[string]bool{"ok": true})
+}
+
 func (s *Server) owner(w http.ResponseWriter, r *http.Request) {
 	rows, err := s.DB.Query(`SELECT name, chat_key, linked_at FROM chats WHERE role = 'owner' ORDER BY linked_at DESC`)
 	if err != nil {

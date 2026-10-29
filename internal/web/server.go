@@ -65,6 +65,7 @@ func (s *Server) Handler() http.Handler {
 		r.Get("/customers", s.customers)
 		r.Post("/customers/{id}/pair-code", s.pairCode)
 		r.Post("/owner/pair-code", s.ownerPairCode)
+		r.Post("/chats/unlink", s.unlinkChat)
 		r.Get("/owner", s.owner)
 		r.Post("/invoices", s.uploadInvoice)
 		r.Post("/drafts/{id}/supplier", s.setSupplier)
@@ -777,7 +778,7 @@ func (s *Server) customers(w http.ResponseWriter, r *http.Request) {
 		Orders int      `json:"orders"`
 	}
 	rows, err := s.DB.Query(`SELECT c.id, c.name, c.phone, c.route_id,
-		COALESCE((SELECT GROUP_CONCAT(name || ' (' || chat_key || ')', ', ') FROM chats h WHERE h.customer_id = c.id),''),
+		COALESCE((SELECT GROUP_CONCAT(chat_key || '|' || name, ',,') FROM chats h WHERE h.customer_id = c.id AND h.role = 'shop'),''),
 		COALESCE((SELECT code FROM pair_codes p WHERE p.customer_id = c.id AND p.used_at = '' ORDER BY created_at DESC LIMIT 1),''),
 		(SELECT COUNT(*) FROM drafts d WHERE d.customer_id = c.id AND d.status = 'confirmed')
 		FROM customers c ORDER BY c.name`)
@@ -793,7 +794,7 @@ func (s *Server) customers(w http.ResponseWriter, r *http.Request) {
 		rows.Scan(&c.ID, &c.Name, &c.Phone, &c.RouteID, &chats, &c.Code, &c.Orders)
 		c.Chats = []string{}
 		if chats != "" {
-			c.Chats = strings.Split(chats, ", ")
+			c.Chats = strings.Split(chats, ",,")
 		}
 		out = append(out, c)
 	}

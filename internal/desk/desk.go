@@ -156,7 +156,16 @@ func (d *Desk) onMessage(ctx context.Context, msg *telegram.TgMessage) {
 		d.pair(ctx, msg, code)
 		return
 	}
-	if d.isOwner(key) && !looksLikeCode(text) {
+	if looksLikeCode(text) && d.codeExists(text) {
+		d.pair(ctx, msg, text)
+		return
+	}
+	if low := strings.ToLower(text); low == "/deconnecter" || low == "/unlink" || low == "/reset" {
+		d.Unlink(key)
+		d.say(ctx, chat, "🔓 Ce compte Telegram n'est plus lié. Envoyez un nouveau code pour le lier à un client ou comme propriétaire.")
+		return
+	}
+	if d.isOwner(key) {
 		d.onOwnerMessage(ctx, msg)
 		return
 	}
@@ -449,6 +458,22 @@ func NewPairCode(db *store.DB, customerID, role string) (string, error) {
 	return string(code), err
 }
 
+func (d *Desk) codeExists(code string) bool {
+	var n int
+	d.DB.QueryRow(`SELECT COUNT(*) FROM pair_codes WHERE code = ? AND used_at = '' AND created_at >= datetime('now', 'localtime', '-7 day')`,
+		strings.ToUpper(strings.TrimSpace(code))).Scan(&n)
+	return n > 0
+}
+
+// Unlink forgets which customer (or the owner) a chat belongs to; its open drafts are cancelled.
+func (d *Desk) Unlink(key string) {
+	var who string
+	d.DB.QueryRow(`SELECT name FROM chats WHERE chat_key = ?`, key).Scan(&who)
+	d.DB.Exec(`DELETE FROM chats WHERE chat_key = ?`, key)
+	d.DB.Exec(`UPDATE drafts SET status = 'cancelled', updated_at = ? WHERE chat_key = ? AND status = 'open'`, store.Now(), key)
+	d.DB.Event("chat.unlinked", key, who, map[string]string{"chat": key})
+}
+
 func (d *Desk) pair(ctx context.Context, msg *telegram.TgMessage, code string) {
 	chat := msg.Chat.ID
 	code = strings.ToUpper(strings.TrimSpace(code))
@@ -516,7 +541,7 @@ const helpText = `Comment commander :
 • ou une <b>photo de votre liste</b>
 • « comme la dernière fois » reprend votre dernière commande
 
-/commande voir la commande en cours · /annuler l'annuler`
+/commande voir la commande en cours · /annuler l'annuler · /deconnecter délier ce compte`
 
 // ---- helpers ---------------------------------------------------------------------------
 

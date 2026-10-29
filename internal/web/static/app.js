@@ -510,7 +510,7 @@ async function invoicesScreen(sel) {
           <div style="font-weight:700">⬆ Drop an invoice here</div><div class="small">photo or PDF · or click to choose</div></label>
         <div class="card" style="margin:12px 0">
           <h5>Send invoices from Telegram</h5>
-          ${own.chats.length ? `<div class="small">Linked as owner: ${own.chats.map((c) => esc(c.name || c.chat)).join(", ")}. Send photos or PDFs to
+          ${own.chats.length ? `<div class="small">Linked as owner: ${own.chats.map((c) => `${esc(c.name || c.chat)} <button class="btn sm r" data-unlink="${esc(c.chat)}">Unlink</button>`).join(", ")}. Send photos or PDFs to
             <a target="_blank" href="https://t.me/${esc(own.bot)}">@${esc(own.bot)}</a>.</div>` : `<div class="small muted">Link your own Telegram once, then send invoices to the bot.</div>`}
           <div class="row" style="margin-top:8px"><span id="owncode"></span><span class="sp"></span><button class="btn sm" id="ownpair">Owner pairing code</button></div>
         </div>
@@ -537,6 +537,9 @@ async function invoicesScreen(sel) {
   drop.ondragover = (e) => { e.preventDefault(); drop.classList.add("on"); };
   drop.ondragleave = () => drop.classList.remove("on");
   drop.ondrop = (e) => { e.preventDefault(); upload(e.dataTransfer.files[0]); };
+  main.querySelectorAll("[data-unlink]").forEach((b) => (b.onclick = async (e) => {
+    e.preventDefault(); await api("/chats/unlink", { method: "POST", body: { chat: b.dataset.unlink } }); toast("Owner chat unlinked"); go();
+  }));
   $("#ownpair").onclick = async () => {
     const r = await api("/owner/pair-code", { method: "POST" });
     $("#owncode").innerHTML = `<span class="codebox" style="font-size:18px;padding:4px 10px">${esc(r.code)}</span>
@@ -622,9 +625,13 @@ route("customers", async () => {
     <div id="code"></div>
     <div class="card" style="padding:0"><table class="t"><tr><th>Customer</th><th>Phone</th><th>Linked chats</th><th class="num">Orders</th><th></th></tr>
     ${d.items.map((c) => `<tr><td class="sent">${esc(c.name)}</td><td class="muted small">${esc(c.phone)}</td>
-      <td class="small">${c.chats.length ? c.chats.map(esc).join("<br>") : `<span class="muted">—</span>`}</td><td class="num">${c.orders || "—"}</td>
+      <td class="small">${c.chats.length ? c.chats.map((x) => { const [k, n] = x.split("|"); return `${esc(n || k)} <span class="muted tiny">${esc(k)}</span>
+        <button class="btn sm r" data-unlink="${esc(k)}" style="margin-left:6px">Unlink</button>`; }).join("<br>") : `<span class="muted">—</span>`}</td><td class="num">${c.orders || "—"}</td>
       <td class="num"><button class="btn sm" data-c="${esc(c.id)}" data-n="${esc(c.name)}">${c.pair_code ? "Code " + esc(c.pair_code) : "Pairing code"}</button></td></tr>`).join("") ||
       `<tr><td colspan="5" class="empty">No customer yet: connect the ERP in Settings.</td></tr>`}</table></div>`;
+  main.querySelectorAll("[data-unlink]").forEach((b) => (b.onclick = async () => {
+    await api("/chats/unlink", { method: "POST", body: { chat: b.dataset.unlink } }); toast("Chat unlinked"); go();
+  }));
   main.querySelectorAll("[data-c]").forEach((b) => (b.onclick = async () => {
     const r = await api(`/customers/${encodeURIComponent(b.dataset.c)}/pair-code`, { method: "POST" });
     $("#code").innerHTML = `<div class="card" style="margin-bottom:14px"><h5>Pairing code for ${esc(b.dataset.n)}</h5>
