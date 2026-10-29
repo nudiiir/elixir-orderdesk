@@ -4,29 +4,39 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Order Desk</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f766e'/%3E%3Cpath d='M9 11h14M9 16h10M9 21h6' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Crect x='8' y='2' width='19' height='23' rx='3' fill='%232A49C4'/%3E%3Crect x='3' y='6' width='19' height='23' rx='3' fill='%23111827'/%3E%3Cpath d='M7.5 13h10M7.5 17h10M7.5 21h6' stroke='white' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
-<div class="app">
-  <aside class="side">
-    <div class="logo"><b></b>Order Desk</div>
-    <div class="tenant" id="tenant">—</div>
-    <nav class="nav" id="nav">
-      <a href="#/inbox" data-r="inbox"><span>Inbox</span><span class="cnt" id="cnt-inbox" hidden></span></a>
-      <a href="#/orders" data-r="orders"><span>Orders</span></a>
-      <a href="#/invoices" data-r="invoices"><span>Invoices</span><span class="cnt" id="cnt-inv" hidden></span></a>
-      <a href="#/catalogue" data-r="catalogue"><span>Catalogue</span></a>
-      <a href="#/rules" data-r="rules"><span>Rules</span><span class="cnt soft" id="cnt-rules" hidden></span></a>
-      <a href="#/learning" data-r="learning"><span>Learning &amp; cost</span></a>
-      <a href="#/customers" data-r="customers"><span>Customers</span></a>
-      <a href="#/settings" data-r="settings"><span>Settings</span></a>
-    </nav>
-    <div class="foot" id="foot"></div>
-  </aside>
+<div class="shell">
+  <nav class="rail" aria-label="Main">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect x="8" y="2" width="19" height="23" rx="3" fill="#4F7CFF"/><rect x="3" y="6" width="19" height="23" rx="3" fill="#FFFFFF"/><path d="M7.5 13h10M7.5 17h10M7.5 21h6" stroke="#111827" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <div><b>Order Desk</b><small id="tenant">—</small></div>
+    </div>
+    <div class="navg"><span class="cap">Work</span>
+      <a class="nav" href="#/today" data-r="today">Today</a>
+      <a class="nav" href="#/inbox" data-r="inbox">Inbox <span class="n" id="n-inbox" hidden></span></a>
+      <a class="nav" href="#/orders" data-r="orders">Orders</a>
+      <a class="nav" href="#/invoices" data-r="invoices">Invoices <span class="n gold" id="n-inv" hidden></span></a>
+    </div>
+    <div class="navg"><span class="cap">Memory</span>
+      <a class="nav" href="#/catalogue" data-r="catalogue">Catalogue</a>
+      <a class="nav" href="#/rules" data-r="rules">Rules</a>
+    </div>
+    <div class="navg"><span class="cap">Proof</span>
+      <a class="nav" href="#/learning" data-r="learning">Learning &amp; cost</a>
+    </div>
+    <div class="navg"><span class="cap">Setup</span>
+      <a class="nav" href="#/customers" data-r="customers">Customers</a>
+      <a class="nav" href="#/settings" data-r="settings">Settings</a>
+    </div>
+    <div class="status" id="status"></div>
+  </nav>
   <main class="main" id="main"></main>
 </div>
-<div class="toast" id="toast" hidden></div>
+<div id="toast" hidden style="position:fixed;bottom:22px;right:22px;background:#0F1E3D;color:#fff;padding:12px 18px;border-radius:8px;font-size:13.5px;box-shadow:0 10px 30px rgba(15,30,61,.3);max-width:440px;z-index:10"></div>
 <script src="app.js"></script>
 </body>
 </html>

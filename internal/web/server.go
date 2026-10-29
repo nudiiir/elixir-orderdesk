@@ -176,11 +176,12 @@ func (s *Server) learning(w http.ResponseWriter, r *http.Request) {
 		Cost      float64 `json:"cost"`
 		Calls     int     `json:"resolve_calls"`
 		RulesLive []string `json:"rules_live"`
+		RulesBack []string `json:"rules_back"`
 	}
 	byDay := map[string]*day{}
 	get := func(d string) *day {
 		if byDay[d] == nil {
-			byDay[d] = &day{Day: d, RulesLive: []string{}}
+			byDay[d] = &day{Day: d, RulesLive: []string{}, RulesBack: []string{}}
 		}
 		return byDay[d]
 	}
@@ -219,11 +220,15 @@ func (s *Server) learning(w http.ResponseWriter, r *http.Request) {
 	if rows != nil {
 		rows.Close()
 	}
-	rows, _ = s.DB.Query(`SELECT substr(at,1,10), object FROM events WHERE kind = 'rule.live' AND at >= ?`, since)
+	rows, _ = s.DB.Query(`SELECT substr(at,1,10), object, kind FROM events WHERE kind IN ('rule.live','rule.rolled_back') AND at >= ?`, since)
 	for rows != nil && rows.Next() {
-		var d, id string
-		rows.Scan(&d, &id)
-		get(d).RulesLive = append(get(d).RulesLive, id)
+		var d, id, k string
+		rows.Scan(&d, &id, &k)
+		if k == "rule.live" {
+			get(d).RulesLive = append(get(d).RulesLive, id)
+		} else {
+			get(d).RulesBack = append(get(d).RulesBack, id)
+		}
 	}
 	if rows != nil {
 		rows.Close()
@@ -295,8 +300,12 @@ type draftRow struct {
 	CreatedAt  string `json:"created_at"`
 	UpdatedAt  string `json:"updated_at"`
 	Lines      int    `json:"lines"`
-	Pending    int    `json:"pending"`
-	Kinds      string `json:"kinds"`
+	Pending    int     `json:"pending"`
+	Kinds      string  `json:"kinds"`
+	AICost     float64 `json:"ai_cost"`
+	Free       int     `json:"free"`
+	Copied     int     `json:"copied"`
+	Number2    string  `json:"doc_number"`
 }
 
 func (s *Server) drafts(w http.ResponseWriter, r *http.Request) {
@@ -307,7 +316,11 @@ func (s *Server) drafts(w http.ResponseWriter, r *http.Request) {
 		d.created_at, d.updated_at,
 		(SELECT COUNT(*) FROM lines l WHERE l.draft_id = d.id AND l.status <> 'removed'),
 		(SELECT COUNT(*) FROM lines l WHERE l.draft_id = d.id AND l.status IN ('ask','unknown')),
-		COALESCE((SELECT GROUP_CONCAT(DISTINCT m.kind) FROM messages m JOIN lines l ON l.message_id = m.id WHERE l.draft_id = d.id),'')
+		COALESCE((SELECT GROUP_CONCAT(DISTINCT m.kind) FROM messages m JOIN lines l ON l.message_id = m.id WHERE l.draft_id = d.id),''),
+		COALESCE((SELECT SUM(u.cost) FROM ai_usage u WHERE u.ref IN (SELECT DISTINCT message_id FROM lines l WHERE l.draft_id = d.id)),0),
+		(SELECT COUNT(*) FROM lines l WHERE l.draft_id = d.id AND l.status = 'ok' AND l.level IN ('alias','rules')),
+		(SELECT COUNT(*) FROM lines l WHERE l.draft_id = d.id AND l.status = 'ok' AND l.level = 'history'),
+		d.doc_number
 		FROM drafts d LEFT JOIN customers c ON c.id = d.customer_id WHERE 1=1`
 	args := []any{}
 	if st != "" {
@@ -328,7 +341,7 @@ func (s *Server) drafts(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var d draftRow
 		rows.Scan(&d.ID, &d.ChatKey, &d.CustomerID, &d.Customer, &d.Status, &d.Number, &d.TotalTTC, &d.Delivery, &d.CreatedAt,
-			&d.UpdatedAt, &d.Lines, &d.Pending, &d.Kinds)
+			&d.UpdatedAt, &d.Lines, &d.Pending, &d.Kinds, &d.AICost, &d.Free, &d.Copied, &d.Number2)
 		out = append(out, d)
 	}
 	writeJSON(w, http.StatusOK, map[string]any{"items": out})
@@ -654,26 +667,38 @@ func (s *Server) rule(w http.ResponseWriter, r *http.Request) {
 	// the lines that inspired it, and the lines it resolved since
 	inspired := []map[string]string{}
 	for _, lid := range ru.InspiredBy {
-		var said, pid, at string
-		if s.DB.QueryRow(`SELECT said, product_id, created_at FROM ground_truth WHERE line_id = ?`, lid).Scan(&said, &pid, &at) == nil {
-			inspired = append(inspired, map[string]string{"said": said, "product": s.productName(pid), "at": at})
+		var said, pid, at, level string
+		if s.DB.QueryRow(`SELECT said, product_id, created_at, level FROM ground_truth WHERE line_id = ?`, lid).Scan(&said, &pid, &at, &level) == nil {
+			inspired = append(inspired, map[string]string{"said": said, "product": s.productName(pid), "at": at, "level": level})
 		}
 	}
 	resolved := []map[string]string{}
-	rows, _ = s.DB.Query(`SELECT said, product_id, created_at, used FROM lines WHERE used LIKE ? AND status = 'ok' ORDER BY created_at DESC LIMIT 12`,
+	rows, _ = s.DB.Query(`SELECT l.said, l.product_id, l.created_at, l.used, l.level,
+		CASE WHEN d.kind = 'invoice' THEN COALESCE((SELECT name FROM suppliers x WHERE x.id = d.supplier_id),'') ELSE COALESCE((SELECT name FROM customers c WHERE c.id = d.customer_id),'') END
+		FROM lines l JOIN drafts d ON d.id = l.draft_id WHERE l.used LIKE ? AND l.status = 'ok' ORDER BY l.created_at DESC LIMIT 12`,
 		`%"`+id+`"%`)
 	for rows != nil && rows.Next() {
-		var said, pid, at, used string
-		rows.Scan(&said, &pid, &at, &used)
-		resolved = append(resolved, map[string]string{"said": said, "product": s.productName(pid), "at": at, "used": used})
+		var said, pid, at, used, level, who string
+		rows.Scan(&said, &pid, &at, &used, &level, &who)
+		resolved = append(resolved, map[string]string{"said": said, "product": s.productName(pid), "at": at, "used": used, "level": level, "who": who})
 	}
 	if rows != nil {
 		rows.Close()
 	}
 	var cost float64
 	s.DB.QueryRow(`SELECT COALESCE(AVG(cost),0) FROM ai_usage WHERE purpose IN ('resolve','extract')`).Scan(&cost)
+	var perLine float64
+	var aiLines int
+	s.DB.QueryRow(`SELECT COUNT(*) FROM lines WHERE level IN ('ai','person') AND said <> ''`).Scan(&aiLines)
+	var aiCost float64
+	s.DB.QueryRow(`SELECT COALESCE(SUM(cost),0) FROM ai_usage WHERE purpose IN ('resolve','extract')`).Scan(&aiCost)
+	if aiLines > 0 {
+		perLine = aiCost / float64(aiLines)
+	}
 	writeJSON(w, http.StatusOK, map[string]any{"rule": ru, "versions": versions, "events": events, "inspired": inspired,
-		"resolved": resolved, "saved": cost * float64(ru.Resolved), "product_name": s.productName(ru.Action.Product)})
+		"resolved": resolved, "saved": perLine * float64(ru.Resolved), "cost_per_ai_line": perLine,
+		"product_name": s.productName(ru.Action.Product), "shadow_needed": s.DB.SettingInt("shadow_agreements", 5),
+		"rollback_strikes": s.DB.SettingInt("rollback_strikes", 2), "gate_min_gain": s.DB.SettingInt("gate_min_gain", 2)})
 }
 
 type ruleIn struct {
@@ -814,7 +839,7 @@ func (s *Server) pairCode(w http.ResponseWriter, r *http.Request) {
 var settingKeys = map[string]string{
 	"alias_trust_after": "2", "shadow_agreements": "5", "rollback_strikes": "2", "gate_min_gain": "2",
 	"engineer_auto": "1", "engineer_every": "10", "engineer_model": meta.Wonder, "engineer_rounds": "8",
-	"ai_budget_day": "2", "price_transcribe_min": "0.006",
+	"ai_budget_day": "2", "price_transcribe_min": "0.006", "receipt_post": "1",
 }
 
 func (s *Server) settings(w http.ResponseWriter, r *http.Request) {
