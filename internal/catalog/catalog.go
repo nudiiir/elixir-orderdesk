@@ -70,7 +70,7 @@ func (c *Catalog) Reload() error {
 	for rows.Next() {
 		p := &Product{}
 		if rows.Scan(&p.ID, &p.Name, &p.NameAr, &p.Brand, &p.Barcode, &p.Unit, &p.VatRate) == nil {
-			p.Words, p.Size = Tokens(Normalize(p.Name + " " + p.Brand))
+			p.Words, p.Size = Tokens(NormalizeName(p.Name + " " + p.Brand))
 			prods = append(prods, p)
 			byID[p.ID] = p
 		}

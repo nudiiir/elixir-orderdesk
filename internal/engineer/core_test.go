@@ -2,6 +2,7 @@ package engineer
 
 import (
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/nudiiir/elixir-orderdesk/internal/catalog"
@@ -128,5 +129,54 @@ func TestAliasLifecycle(t *testing.T) {
 	cat.Witness("shampoing hs", "P2", "customer", "C1", "text", 2) // a confirmation for another product blocks it
 	if _, ok := cat.Trusted("shampoing hs", "C1", ""); ok {
 		t.Fatal("contradicted alias must be blocked")
+	}
+}
+
+func TestVocabularyGate(t *testing.T) {
+	db, err := store.Open(filepath.Join(t.TempDir(), "v.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { db.Close() })
+	catalog.ReplaceProducts(db, []catalog.Product{
+		{ID: "F1", Name: "Fanta Orange 1L", Brand: "Fanta"},
+		{ID: "F2", Name: "Fanta Citron 1L", Brand: "Fanta"},
+		{ID: "C1", Name: "Coca-Cola 1L", Brand: "Coca-Cola"},
+		{ID: "C2", Name: "Coca-Cola Zéro 1L", Brand: "Coca-Cola"},
+		{ID: "C3", Name: "Coca-Cola 33cl canette", Brand: "Coca-Cola"},
+	})
+	cat := catalog.New(db)
+	live := rules.NewSet(nil)
+	truth := []Truth{{LineID: "a", Said: "fanta orange 1l", ProductID: "F1"}, {LineID: "b", Said: "coca 1l", ProductID: "C1"}}
+	g := rules.Scope{Kind: "global"}
+	// erasing the only difference between two products is refused
+	noise := &rules.Rule{ID: "N", Type: rules.Word, Scope: g, Pattern: "orange|citron", Action: rules.Action{Role: rules.RoleDescriptor}}
+	if ok, why := Gate(RunBench(cat, live, noise, truth), 2); ok {
+		t.Fatalf("a rule that makes two products read the same must be refused (%s)", why)
+	}
+	// a marker that tells the plain product from its variant passes, and resolves "coca 1l"
+	zero := &rules.Rule{ID: "Z", Type: rules.Attr, Scope: g, Pattern: "zero", Action: rules.Action{Attr: "variant", Value: "zero", Policy: rules.Marker}}
+	b := RunBench(cat, live, zero, truth)
+	if ok, why := Gate(b, 1); !ok || b.NewlyResolved != 1 {
+		t.Fatalf("zero marker: %v %s %+v", ok, why, b)
+	}
+	// a flavour vocabulary reads two names and breaks nothing: admitted before any line needs it
+	fl := &rules.Rule{ID: "F", Type: rules.Attr, Scope: g, Pattern: "orange|citron", Action: rules.Action{Attr: "flavour", Value: "x"}}
+	fl.Pattern, fl.Action.Value = "orange", "orange"
+	b = RunBench(cat, live, fl, truth)
+	if ok, why := Gate(b, 2); ok {
+		t.Fatalf("one product read is not enough: %s %+v", why, b)
+	}
+	// a marker with no plain product beside the variant is refused: there is no plain Coca-Cola 33cl
+	can := &rules.Rule{ID: "M", Type: rules.Attr, Scope: g, Pattern: "canette", Action: rules.Action{Attr: "container", Value: "canette", Policy: rules.Marker}}
+	if ok, why := Gate(RunBench(cat, live, can, truth), 0); ok || !strings.Contains(why, "plain product") {
+		t.Fatalf("orphan marker must be refused: %v %s", ok, why)
+	}
+	// a rule that would make a line that resolves today ask instead is refused
+	withZero := rules.NewSet([]*rules.Rule{zero})
+	cola := &rules.Rule{ID: "K", Type: rules.Attr, Scope: g, Pattern: "cola", Action: rules.Action{Attr: "drink", Value: "cola", Policy: rules.Marker}}
+	b = RunBench(cat, withZero, cola, truth)
+	if ok, why := Gate(b, 0); ok || b.Lost != 1 {
+		t.Fatalf("lost line must be refused: %v %s %+v", ok, why, b)
 	}
 }

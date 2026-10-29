@@ -22,6 +22,7 @@ import (
 	"github.com/nudiiir/elixir-orderdesk/internal/desk"
 	"github.com/nudiiir/elixir-orderdesk/internal/engineer"
 	"github.com/nudiiir/elixir-orderdesk/internal/meta"
+	"github.com/nudiiir/elixir-orderdesk/internal/resolve"
 	"github.com/nudiiir/elixir-orderdesk/internal/rules"
 	"github.com/nudiiir/elixir-orderdesk/internal/store"
 )
@@ -587,7 +588,15 @@ func (s *Server) product(w http.ResponseWriter, r *http.Request) {
 	}
 	var n, free int
 	s.DB.QueryRow(`SELECT COUNT(*), COALESCE(SUM(level IN ('alias','rules')),0) FROM lines WHERE product_id = ? AND status = 'ok' AND said <> ''`, id).Scan(&n, &free)
-	writeJSON(w, http.StatusOK, map[string]any{"product": p, "aliases": outA, "rules": rs, "lines": n, "free_lines": free})
+	// how the code reads this name with the live vocabulary (the same reading a line gets)
+	live := rules.NewSet(rules.WithStatus(s.DB, "live"))
+	read := resolve.ProductProfile(live, p)
+	from := map[string][]string{}
+	for a, ids := range read.From {
+		from[a] = ids
+	}
+	writeJSON(w, http.StatusOK, map[string]any{"product": p, "aliases": outA, "rules": rs, "lines": n, "free_lines": free,
+		"read_as": map[string]any{"words": read.Words, "attrs": read.Attrs, "from": from}})
 }
 
 func (s *Server) addAlias(w http.ResponseWriter, r *http.Request) {

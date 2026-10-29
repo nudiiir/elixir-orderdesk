@@ -7,6 +7,8 @@ import (
 	"context"
 	"fmt"
 	"math"
+	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/nudiiir/elixir-orderdesk/internal/catalog"
@@ -45,6 +47,12 @@ type Resolution struct {
 	Pack       *rules.PackSpec   `json:"pack"`
 	Shadow     map[string]string `json:"shadow"` // shadow rule id → product it would give
 	AICost     float64           `json:"ai_cost"`
+	Why        string            `json:"why,omitempty"`    // what the code made of the line, in words
+	Differ     []string          `json:"differ,omitempty"` // ambiguous: what the candidates differ on
+	Top        []string          `json:"top,omitempty"`    // ambiguous: the tied candidates
+
+	profile rules.Profile
+	verdict Verdict
 }
 
 // Context is who is speaking.
@@ -70,6 +78,7 @@ func Deterministic(cat *catalog.Catalog, set *rules.Set, m Mention, cx Context) 
 	blocked := cat.Blocked(r.Norm, cx.CustomerID, cx.SupplierID)
 	out := set.Apply(r.Norm, cx.CustomerID, cx.SupplierID)
 	r.Pack = out.Pack
+	r.profile = set.Profile(out.Text, cx.CustomerID, cx.SupplierID, false)
 	// Level 1: a trusted wording settles it, unless a guard forbids that product.
 	if a, ok := cat.Trusted(r.Norm, cx.CustomerID, cx.SupplierID); ok && !out.BlockIDs[a.ProductID] && !blockedByWord(cat.Get(a.ProductID), out.BlockWord) {
 		r.ProductID, r.Level, r.Status, r.Confidence = a.ProductID, LAlias, "ok", 1
@@ -79,7 +88,8 @@ func Deterministic(cat *catalog.Catalog, set *rules.Set, m Mention, cx Context) 
 		}
 		return r
 	}
-	// Level 2: rules rewrite the words, then the catalogue must agree on exactly one product.
+	// Level 2: rules rewrite the words and read the attributes, then the code decides identity
+	// (see identity.go): exactly one product, or a precise reason why not.
 	exclude := map[string]bool{}
 	for id := range out.BlockIDs {
 		exclude[id] = true
@@ -87,44 +97,58 @@ func Deterministic(cat *catalog.Catalog, set *rules.Set, m Mention, cx Context) 
 	for id := range blocked {
 		exclude[id] = true
 	}
-	words, size := catalog.Tokens(out.Text)
+	used := append(append([]string{}, out.Used...), r.profile.Used...)
 	if a, ok := cat.Trusted(out.Text, cx.CustomerID, cx.SupplierID); ok && out.Text != r.Norm && !exclude[a.ProductID] {
 		r.ProductID, r.Level, r.Status, r.Confidence = a.ProductID, LRules, "ok", 1
 		r.Used = append(out.Used, fmt.Sprintf("alias:%d", a.ID))
 		return r
 	}
-	cands := filterWords(cat.Match(words, size, exclude), out.BlockWord)
-	switch {
-	case len(cands) == 1:
-		r.ProductID, r.Level, r.Status, r.Confidence = cands[0].ID, LRules, "ok", 1
-		r.Used = append(out.Used, "match")
-	case len(cands) > 1 && size == "":
+	v := Judge(cat, set, r.profile, cx, exclude, out.BlockWord)
+	r.verdict, r.Why, r.Differ = v, v.Why, v.Differ
+	used = dedupe(append(used, v.Decisive...))
+	switch v.Kind {
+	case "match":
+		r.ProductID, r.Level, r.Status, r.Confidence = v.Products[0].ID, LRules, "ok", 1
+		r.Used = append(used, "match")
+		return r
+	case "ambiguous":
+		for _, p := range v.Products {
+			r.Top = append(r.Top, p.ID)
+		}
 		for _, d := range out.Defaults { // a default rule picks among the candidates
-			for _, c := range cands {
-				if c.ID == d {
+			for _, p := range v.Products {
+				if p.ID == d {
 					r.ProductID, r.Level, r.Status, r.Confidence = d, LRules, "ok", 1
-					r.Used = out.Used
+					r.Used = used
 					return r
 				}
 			}
 		}
 		// The shop's habit: of the candidates, it only ever buys one.
 		var usual []string
-		for _, c := range cands {
-			if cx.Usual[c.ID] > 0 {
-				usual = append(usual, c.ID)
+		for _, p := range v.Products {
+			if cx.Usual[p.ID] > 0 {
+				usual = append(usual, p.ID)
 			}
 		}
 		if len(usual) == 1 {
 			r.ProductID, r.Level, r.Status, r.Confidence = usual[0], LRules, "ok", 0.95
-			r.Used = append(out.Used, "habit")
+			r.Used = append(used, "habit")
+			r.Why = "the shop always buys this one of " + strconv.Itoa(len(v.Products))
 			return r
 		}
 	}
-	if r.Status != "ok" && len(out.Used) > 0 {
-		r.Used = out.Used
+	if len(used) > 0 {
+		r.Used = used
 	}
 	return r
+}
+
+// askable: the line's words all name catalogue products and several fit; only the shop knows
+// which one (a size, a flavour it did not say). A model cannot know it either, so the question
+// is asked directly, for free.
+func askable(r Resolution) bool {
+	return r.verdict.Kind == "ambiguous" && len(r.verdict.Unknown) == 0 && len(r.verdict.Products) >= 2 && len(r.verdict.Products) <= 6
 }
 
 func blockedByWord(p *catalog.Product, words []string) bool {
@@ -170,8 +194,11 @@ func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref s
 				continue
 			}
 			alt := Deterministic(rv.Cat, rv.Live.With(sr), m, cx)
-			if alt.Status == "ok" && contains(alt.Used, sr.ID) {
+			switch {
+			case alt.Status == "ok" && (contains(alt.Used, sr.ID) || alt.ProductID != res[i].ProductID):
 				res[i].Shadow[sr.ID] = alt.ProductID
+			case res[i].Status == "ok" && alt.Status != "ok":
+				res[i].Shadow[sr.ID] = "" // it would have stopped this line resolving
 			}
 		}
 		if res[i].Status == "ok" {
@@ -181,7 +208,7 @@ func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref s
 		// catalogue agrees on one product from it, that line needed the AI, but no extra call.
 		if h := strings.TrimSpace(m.Hint); h != "" && catalog.Normalize(h) != res[i].Norm {
 			alt := Deterministic(rv.Cat, rv.Live, Mention{Said: h, Qty: m.Qty, Unit: m.Unit}, cx)
-			if alt.Status == "ok" {
+			if alt.Status == "ok" && Compatible(rv.Live, res[i].profile, rv.Cat.Get(alt.ProductID), cx) {
 				res[i].ProductID, res[i].Level, res[i].Status, res[i].Confidence = alt.ProductID, LAI, "ok", 0.85
 				res[i].Used = append([]string{"hint"}, alt.Used...)
 				if res[i].Pack == nil {
@@ -189,6 +216,15 @@ func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref s
 				}
 				continue
 			}
+		}
+		if askable(res[i]) {
+			r := &res[i]
+			opts := append([]string{}, r.Top...)
+			sort.SliceStable(opts, func(a, b int) bool { return cx.Usual[opts[a]] > cx.Usual[opts[b]] })
+			r.Options, r.Status, r.Level = opts, "ask", LPerson
+			r.Question = AskText(ms[i].Said, r.verdict, rv.Live)
+			r.Used = append(r.Used, "ask")
+			continue
 		}
 		open = append(open, i)
 	}
@@ -210,7 +246,15 @@ func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref s
 		for id := range out.BlockIDs {
 			exclude[id] = true
 		}
-		shorts[i] = filterWords(rv.Cat.Shortlist(words, size, rv.Cat.Hints(res[i].Norm, cx.CustomerID, cx.SupplierID), cx.Usual, exclude, 8), out.BlockWord)
+		// The model only ever picks among products the code would accept: same attributes, and the
+		// brand the line names (a model picks a look-alike brand when the right one is missing).
+		var short []*catalog.Product
+		for _, p := range filterWords(rv.Cat.Shortlist(words, size, rv.Cat.Hints(res[i].Norm, cx.CustomerID, cx.SupplierID), cx.Usual, exclude, 16), out.BlockWord) {
+			if Compatible(rv.Live, res[i].profile, p, cx) && brandOK(rv.Cat, rv.Live, res[i].profile, p) && len(short) < 8 {
+				short = append(short, p)
+			}
+		}
+		shorts[i] = short
 	}
 	// Level 4: Muse Spark picks among each shortlist, in one call for the whole message.
 	picks, cost, err := rv.pick(ctx, ms, open, shorts, ref)
@@ -331,6 +375,26 @@ func (rv *Resolver) pick(ctx context.Context, ms []Mention, open []int, shorts m
 		out[i] = po
 	}
 	return out, cost, nil
+}
+
+// brandOK: when the line names a catalogue brand outright, the product must be of that brand.
+func brandOK(cat *catalog.Catalog, set *rules.Set, line rules.Profile, p *catalog.Product) bool {
+	brands := map[string]bool{}
+	for _, b := range cat.Brands() {
+		if bw, _ := catalog.Tokens(catalog.Normalize(b)); len(bw) > 0 && len([]rune(bw[0])) >= 3 {
+			brands[bw[0]] = true
+		}
+	}
+	for _, w := range line.Brands {
+		brands[w] = true
+	}
+	pw := productProfile(set, p)
+	for _, w := range line.Words {
+		if brands[w] && !hasWord(pw.Words, w) {
+			return false
+		}
+	}
+	return true
 }
 
 func contains(list []string, s string) bool {

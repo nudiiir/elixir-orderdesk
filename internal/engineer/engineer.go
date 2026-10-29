@@ -5,11 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"sort"
 	"strings"
 	"sync"
 
 	"github.com/nudiiir/elixir-orderdesk/internal/catalog"
 	"github.com/nudiiir/elixir-orderdesk/internal/meta"
+	"github.com/nudiiir/elixir-orderdesk/internal/resolve"
 	"github.com/nudiiir/elixir-orderdesk/internal/rules"
 	"github.com/nudiiir/elixir-orderdesk/internal/store"
 )
@@ -55,57 +57,90 @@ func (e *Engineer) MaybeRun(ctx context.Context) {
 }
 
 const systemPrompt = `You are the rule engineer of Order Desk, a system that matches what shops write or say ("fardou ifri",
-"sel 2000ml x6", "شمبوان دوف") to a distributor's catalogue. Lines are resolved first by trusted aliases and rules,
-for free; only what they cannot resolve goes to an AI model or a person. Your job: look at the RESIDUE (lines
-whose correct product is known but that the rules still cannot resolve alone), find patterns, and write rules
-that resolve them for free from now on.
+"sel 2000ml x6", "شمبوان دوف") and what suppliers print on invoices to one product of a distributor's catalogue.
+Trusted aliases and rules resolve lines for free; only what they cannot resolve goes to an AI model or a person.
+You write rules. Code applies them, the same way, to the shop's words AND to every catalogue name, and code decides.
 
-The rule language (patterns run on normalised text: lower case, no accents, sizes like 1500ml / 800g):
-- rewrite  {pattern, action.replace}: a way of writing becomes the standard one, e.g. "1l5" -> "1.5l".
-- synonym  {pattern, action.replace}: a word means a brand or a catalogue word, e.g. "hns" -> "head shoulders",
-           "shampoing|shampoo|chompo" -> "shampooing".
-- pack     {pattern, action.pack_unit: carton|pack|unit, action.pack_qty: "{n}" or a number or ""}: e.g. "x{n}$".
-- default  {pattern, action.product}: when the words fit several products and no size is said, pick this one
-           (use scope customer for one shop's habit).
-- guard    {pattern, action.block_word or action.block}: forbid wrong matches.
-Pattern syntax: literal words, "a|b" alternatives, {n} a number, {size} a size token, ^ and $ anchors.
-Scopes: {"kind":"global"} (true for everyone), {"kind":"tenant"}, {"kind":"customer","id":"<customer id>"}.
-Lines come from shop orders ("fardou ifri") and from supplier invoices ("SEL 2000ML PET X6"). A pattern that only one
-supplier prints (its codes, its pack marks such as X6 or C24) gets {"kind":"supplier","id":"<supplier id>"}.
-Otherwise spelling, abbreviation, synonym and pack rules are almost always GLOBAL: the same misspelling from several shops is
-one rule. Use a customer scope only for a default rule (one shop's habit). If the gate refuses a rule for a low
-gain, broaden its scope or its pattern before giving up.
+HOW THE CODE DECIDES (precision first: a wrong match is worse than a question):
+1. Normalise: lower case, no accents, Arabic letters unified, sizes canonical (1,5 L / 150cl / 1l5 -> 1500ml,
+   1 kg -> 1000g), pack counts canonical (6x1.5l, X6 -> count 6). Built-in attributes: size, count (soft) and
+   num (a bare whole number of the name: "Integral 8", "teinte 02").
+2. Read: every attribute rule turns its words into an attribute value and takes them out of the name words.
+3. Candidates: products that carry every remaining name word of the line (typos and prefixes tolerated).
+4. Veto by policy: strict (default) = both state it and differ -> not this product; marker = stated on one side
+   only, or different -> not this product; soft = only scores; ignore. A guessed value (a bare "1.5") never vetoes.
+5. Verdict: match only if one candidate is left, or one is set apart by a STATED attribute the others lack or
+   contradict. More matching words never decide. Otherwise the line is asked, with the reason ("not said: size").
 
-Work like this: call list_residue, look at groups of similar lines, use search_catalogue to see the catalogue
-words, write ONE candidate rule, call run_benchmark on it, refine if it is wrong or resolves nothing, then
-submit_rule. The gate (code) accepts a rule only with 0 wrong matches, 0 conflicts and a minimum gain. Prefer
-general, simple rules (a synonym that fixes many lines beats a default for one). Never propose a rule that is
-already in list_rules, rejected included. Stop after at most 3 submitted rules, then answer with a one-line
-summary in English of what you did.`
+THE RULE TYPES (patterns run on normalised text):
+- attribute {pattern, action.attr, action.value, action.policy?}: words that give an attribute value, e.g.
+  "citron|lemon|limon" -> flavour=citron; "zero|light|sans sucre" -> variant=zero with policy marker (a plain
+  product does not say "zero"); "canette|can" -> container=canette; "demi ecreme" -> fat=demi. Use it for every
+  word that tells two products of one brand apart: flavour, scent, variant, container, fat, colour or shade,
+  audience (bebe, kids, men), cut (morceaux). Values must be the same on both sides: write the catalogue's word.
+  One rule can cover a family: value "{match}" is the matched word itself, e.g. "citron|orange|pomme|fraise"
+  -> flavour={match}. Spellings that differ from the catalogue's word need their own rule ("lemon" -> citron).
+- policy {pattern: attribute name, action.policy}: change how an attribute decides, e.g. "variant" -> marker.
+  Use marker ONLY for a word that a plain product of the same name and size lacks (Coca-Cola / Coca-Cola Zero);
+  container, flavour, fat and the like stay strict, because shops often leave them out. The gate checks this.
+- word {pattern, action.role: brand|descriptor|stop}: descriptor = printed or said but never tells products apart
+  (e.g. "pet" when no catalogue name says it); stop = chatter, never a product word; brand = a brand name.
+- synonym {pattern, action.replace}: an abbreviation or misspelling means a catalogue word: "slkt" -> "selecto",
+  "hb" -> "hamoud boualem", "gazeuse" -> "gazeifiee".
+- rewrite {pattern, action.replace}: a way of writing becomes the standard one.
+- pack {pattern, action.pack_unit: carton|pack|unit, action.pack_qty: "{n}" or a number or ""}: the ordering unit.
+- default {pattern, action.product}: when several products fit and the line does not say which, this one
+  (scope customer: one shop's habit). Only for a real habit, never to guess a size for everyone.
+- guard {pattern, action.block_word or action.block}: forbid a wrong match.
+Pattern syntax: words; "a|b" separates whole alternatives ("zero|sans sucre"); "word?" optional; {n} a number;
+{size} a size token; {word} any one word; ^ and $ anchors. "c{n}" also matches "c 24".
+Scopes: {"kind":"global"} for spellings, vocabulary and abbreviations everyone uses; {"kind":"supplier","id":...}
+for marks only one supplier prints; {"kind":"customer","id":...} only for a default (one shop's habit).
+
+READ THE RESIDUE'S "why": "no product has «pet»" -> a word no catalogue name has: synonym (a misspelling),
+descriptor (noise) or attribute (if it tells products apart). "N products fit; not said: name" and the right one is
+the plain product -> the others carry a variant word: make it an attribute with policy marker. "not said: size" ->
+the shop did not say it; nothing to learn for everyone (a customer default only if that shop always means one).
+Use read_catalogue to see how the code reads names (words and attributes) before writing vocabulary: an attribute
+pattern must not swallow a word that is part of a name ("rouge" in "rouge a levres"), and the gate refuses a rule that
+makes two different products read the same.
+
+Work like this: list_residue (or read_catalogue when there is no residue), write candidate rules, run_benchmark on
+the ones you doubt, refine what is wrong, loses lines or reads nothing, then submit_rule. Every turn costs money:
+pass several rules at once in "items" to run_benchmark and submit_rule, and call several tools in the same turn. The gate (code) accepts a rule only with 0
+wrong, 0 conflicts, 0 lost lines and a minimum gain; vocabulary may also pass by reading at least two catalogue names
+without breaking anything. Prefer few general rules. Never propose a rule already in list_rules, rejected included.
+Stop after at most %d submitted rules, then answer with a one-line summary in English of what you did.`
 
 func (e *Engineer) tools() []meta.Tool {
+	str := map[string]any{"type": "string"}
 	ruleSchema := map[string]any{"type": "object", "properties": map[string]any{
 		"type":    map[string]any{"type": "string", "enum": rules.Types},
-		"scope":   map[string]any{"type": "object", "properties": map[string]any{"kind": map[string]any{"type": "string"}, "id": map[string]any{"type": "string"}}},
-		"pattern": map[string]any{"type": "string"},
+		"scope":   map[string]any{"type": "object", "properties": map[string]any{"kind": str, "id": str}},
+		"pattern": str,
 		"action": map[string]any{"type": "object", "properties": map[string]any{
-			"replace": map[string]any{"type": "string"}, "pack_unit": map[string]any{"type": "string"}, "pack_qty": map[string]any{"type": "string"},
-			"product": map[string]any{"type": "string"}, "block_word": map[string]any{"type": "string"}, "block": map[string]any{"type": "string"}}},
+			"replace": str, "pack_unit": str, "pack_qty": str, "product": str, "block_word": str, "block": str,
+			"attr": str, "value": str, "policy": map[string]any{"type": "string", "enum": rules.Policies},
+			"role": map[string]any{"type": "string", "enum": rules.Roles}}},
 	}, "required": []string{"type", "scope", "pattern", "action"}}
 	return []meta.Tool{
 		{Name: "list_residue", Description: "Lines whose correct product is known but that rules and trusted aliases cannot resolve alone.",
 			Parameters: map[string]any{"type": "object", "properties": map[string]any{"limit": map[string]any{"type": "integer"}}}},
 		{Name: "search_catalogue", Description: "Catalogue products whose name or brand contains the query words, with their normalised words.",
 			Parameters: map[string]any{"type": "object", "properties": map[string]any{"query": map[string]any{"type": "string"}}, "required": []string{"query"}}},
+		{Name: "read_catalogue", Description: "How the code reads catalogue names today: name words and attributes per product, grouped by brand, plus products it cannot tell apart. Optional query filters by words.",
+			Parameters: map[string]any{"type": "object", "properties": map[string]any{"query": map[string]any{"type": "string"}, "limit": map[string]any{"type": "integer"}}}},
 		{Name: "list_rules", Description: "Existing rules (all statuses) with their sentence and, for rejected ones, the reason.",
 			Parameters: map[string]any{"type": "object", "properties": map[string]any{}}},
-		{Name: "run_benchmark", Description: "Test a candidate rule on every known line: newly resolved, wrong, conflicts, examples.",
-			Parameters: map[string]any{"type": "object", "properties": map[string]any{"rule": ruleSchema}, "required": []string{"rule"}}},
-		{Name: "submit_rule", Description: "Send a tested rule to the gate. Accepted rules start in shadow mode.",
+		{Name: "run_benchmark", Description: "Test candidate rules on every known line and on the catalogue: newly resolved, wrong, conflicts, lost, names read, twins. Pass one rule, or several in items (each tested alone).",
+			Parameters: map[string]any{"type": "object", "properties": map[string]any{"rule": ruleSchema,
+				"items": map[string]any{"type": "array", "items": map[string]any{"type": "object", "properties": map[string]any{"rule": ruleSchema}}}}}},
+		{Name: "submit_rule", Description: "Send rules to the gate. Accepted rules start in shadow mode. Pass one rule, or several in items.",
 			Parameters: map[string]any{"type": "object", "properties": map[string]any{"rule": ruleSchema,
 				"rationale": map[string]any{"type": "string", "description": "one sentence: the pattern you saw"},
-				"inspired_by": map[string]any{"type": "array", "items": map[string]any{"type": "string"}, "description": "line ids from list_residue"}},
-				"required": []string{"rule", "rationale"}}},
+				"inspired_by": map[string]any{"type": "array", "items": map[string]any{"type": "string"}, "description": "line ids from list_residue"},
+				"items": map[string]any{"type": "array", "items": map[string]any{"type": "object", "properties": map[string]any{"rule": ruleSchema,
+					"rationale": map[string]any{"type": "string"}, "inspired_by": map[string]any{"type": "array", "items": map[string]any{"type": "string"}}}}}}}},
 	}
 }
 
@@ -128,7 +163,7 @@ func (e *Engineer) Run(ctx context.Context, trigger string) Report {
 	e.DB.SetSetting("engineer_last_run", store.Now())
 	runID := store.NewID("eng")
 	e.DB.Event("engineer.started", runID, "rule-engineer", map[string]any{"trigger": trigger, "residue": len(residue), "benchmark": len(truth)})
-	if len(residue) == 0 {
+	if len(residue) == 0 && live.HasVocabulary() {
 		rep.Summary = "Nothing to learn: every known line is already resolved by rules or trusted aliases."
 		e.DB.Event("engineer.finished", runID, "rule-engineer", rep)
 		return rep
@@ -138,8 +173,12 @@ func (e *Engineer) Run(ctx context.Context, trigger string) Report {
 		return rep
 	}
 	model := e.DB.Setting("engineer_model", meta.Wonder)
-	msgs := []meta.Message{{Role: "system", Content: systemPrompt},
-		{Role: "user", Content: fmt.Sprintf("There are %d residue lines out of %d known lines. Start.", len(residue), len(truth))}}
+	maxRules := e.DB.SettingInt("engineer_max_rules", 6)
+	start := fmt.Sprintf("There are %d residue lines out of %d known lines. Start.", len(residue), len(truth))
+	if !live.HasVocabulary() {
+		start += " The catalogue has no vocabulary yet: begin with read_catalogue and write the attribute rules that tell its products apart."
+	}
+	msgs := []meta.Message{{Role: "system", Content: fmt.Sprintf(systemPrompt, maxRules)}, {Role: "user", Content: start}}
 	submitted, nudged := 0, false
 	for round := 0; round < e.DB.SettingInt("engineer_rounds", 8); round++ {
 		msg, cost, err := e.Meta.Chat(ctx, model, "engineer", runID, msgs, e.tools(), 4000)
@@ -163,7 +202,7 @@ func (e *Engineer) Run(ctx context.Context, trigger string) Report {
 			out := e.call(tc.Function.Name, tc.Function.Arguments, residue, truth, live, runID, &rep, &submitted)
 			msgs = append(msgs, meta.Message{Role: "tool", ToolCallID: tc.ID, Name: tc.Function.Name, Content: out})
 		}
-		if submitted >= 3 {
+		if submitted >= maxRules {
 			break
 		}
 	}
@@ -179,6 +218,30 @@ func (e *Engineer) Run(ctx context.Context, trigger string) Report {
 }
 
 func (e *Engineer) call(name, args string, residue, truth []Truth, live *rules.Set, runID string, rep *Report, submitted *int) string {
+	log.Printf("[engineer] %s %s", name, clip(args, 300))
+	if name == "run_benchmark" || name == "submit_rule" {
+		var batch struct {
+			Items []json.RawMessage `json:"items"`
+		}
+		var quoted struct {
+			Items string `json:"items"` // a model sometimes sends the list as a JSON string
+		}
+		if json.Unmarshal([]byte(args), &quoted) == nil && quoted.Items != "" {
+			json.Unmarshal([]byte(quoted.Items), &batch.Items)
+		} else {
+			json.Unmarshal([]byte(args), &batch)
+		}
+		if len(batch.Items) > 0 {
+			var outs []json.RawMessage
+			for _, it := range batch.Items {
+				if name == "submit_rule" && *submitted >= e.DB.SettingInt("engineer_max_rules", 6) {
+					break
+				}
+				outs = append(outs, json.RawMessage(e.call(name, string(it), residue, truth, live, runID, rep, submitted)))
+			}
+			return store.JSON(map[string]any{"results": outs})
+		}
+	}
 	var in struct {
 		Limit      int        `json:"limit"`
 		Query      string     `json:"query"`
@@ -193,20 +256,73 @@ func (e *Engineer) call(name, args string, residue, truth []Truth, live *rules.S
 		if n <= 0 || n > 25 {
 			n = 25
 		}
-		var items []map[string]string
+		var items []map[string]any
 		for i := len(residue) - 1; i >= 0 && len(items) < n; i-- { // most recent first
 			t := residue[i]
 			p := e.Cat.Get(t.ProductID)
 			if p == nil {
 				continue
 			}
-			items = append(items, map[string]string{"line": t.LineID, "source": map[bool]string{true: "supplier invoice", false: "shop order"}[t.Kind == "invoice"],
-				"said": t.Said, "normalised": t.Norm, "unit": t.Unit,
+			cx := resolve.Context{CustomerID: t.CustomerID, SupplierID: t.SupplierID}
+			r := resolve.Deterministic(e.Cat, live, resolve.Mention{Said: t.Said, Unit: t.Unit, Qty: 1}, cx)
+			lp := live.Profile(live.Apply(catalog.Normalize(t.Said), t.CustomerID, t.SupplierID).Text, t.CustomerID, t.SupplierID, false)
+			var fits []string
+			for _, id := range r.Top {
+				if q := e.Cat.Get(id); q != nil {
+					fits = append(fits, q.Name)
+				}
+			}
+			got := ""
+			if r.Status == "ok" {
+				got = e.productName(r.ProductID)
+			}
+			items = append(items, map[string]any{"line": t.LineID, "source": map[bool]string{true: "supplier invoice", false: "shop order"}[t.Kind == "invoice"],
+				"said": t.Said, "read_as": readLine(lp), "why": r.Why, "candidates": fits, "code_gives": got,
 				"customer_id": t.CustomerID, "customer": catalog.CustomerName(e.DB.DB, t.CustomerID),
 				"supplier_id": t.SupplierID, "supplier": catalog.SupplierName(e.DB.DB, t.SupplierID),
-				"correct_product_id": p.ID, "correct_product": p.Name, "product_words": strings.Join(p.Words, " "), "size": p.Size})
+				"correct_product_id": p.ID, "correct_product": p.Name, "correct_read_as": readLine(resolve.ProductProfile(live, p))})
 		}
 		return store.JSON(map[string]any{"count": len(residue), "items": items})
+	case "read_catalogue":
+		n := in.Limit
+		if n <= 0 || n > 80 {
+			n = 60
+		}
+		words, _ := catalog.Tokens(catalog.Normalize(in.Query))
+		byBrand := map[string][]string{}
+		seen := map[string][]string{}
+		count := 0
+		for _, p := range e.Cat.Products() {
+			pr := resolve.ProductProfile(live, p)
+			k := store.JSON(map[string]any{"w": pr.Words, "a": pr.Attrs})
+			seen[k] = append(seen[k], p.Name)
+			ok := true
+			for _, w := range words {
+				found := false
+				for _, pw := range p.Words {
+					if catalog.WordSim(w, pw) >= 0.85 {
+						found = true
+					}
+				}
+				ok = ok && found
+			}
+			if !ok || count >= n {
+				continue
+			}
+			count++
+			b := p.Brand
+			if b == "" {
+				b = "(no brand)"
+			}
+			byBrand[b] = append(byBrand[b], p.Name+" → "+readLine(resolve.ProductProfile(live, p)))
+		}
+		var twins [][]string
+		for _, names := range seen {
+			if len(names) > 1 {
+				twins = append(twins, names)
+			}
+		}
+		return store.JSON(map[string]any{"products": byBrand, "shown": count, "total": len(e.Cat.Products()), "read_the_same": twins})
 	case "search_catalogue":
 		words, size := catalog.Tokens(catalog.Normalize(in.Query))
 		var items []map[string]any
@@ -267,6 +383,29 @@ func (e *Engineer) call(name, args string, residue, truth []Truth, live *rules.S
 		return store.JSON(map[string]any{"id": r.ID, "accepted": ok, "verdict": reason, "status": r.Status})
 	}
 	return store.JSON(map[string]string{"error": "unknown tool " + name})
+}
+
+// readLine writes a reading compactly: "words: ifri eau minerale | size=1500ml count=6".
+func clip(s string, n int) string {
+	if len(s) > n {
+		return s[:n] + "…"
+	}
+	return s
+}
+
+func readLine(pr rules.Profile) string {
+	var attrs []string
+	for a, vs := range pr.Attrs {
+		for _, v := range vs {
+			x := a + "=" + v.V
+			if v.Derived {
+				x += "(guess)"
+			}
+			attrs = append(attrs, x)
+		}
+	}
+	sort.Strings(attrs)
+	return "words: " + strings.Join(pr.Words, " ") + " | " + strings.Join(attrs, " ")
 }
 
 func (e *Engineer) productName(id string) string {

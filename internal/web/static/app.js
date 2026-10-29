@@ -476,6 +476,7 @@ route("product", async (id) => {
   main.innerHTML = `<div class="crumbs"><a href="#/catalogue">Catalogue</a> › ${esc(p.brand || "—")}</div>` +
     head(esc(p.name), `ERP id <span class="mono">${esc(p.id)}</span> · ${(p.packs || []).map((k) => esc(k.name)).join(" · ") || "sold by unit"}${p.size ? " · " + esc(p.size) : ""} · catalogue words <span class="ev">${esc((p.words || []).join(" "))}</span>`) + `
     <div class="tiles">${tile("Wordings known", d.aliases.length, "")}${tile("Lines seen", d.lines, "")}${tile("Resolved without AI", d.lines ? pct(d.free_lines / d.lines) : "—", "", "free")}${tile("Rules touching it", (d.rules || []).length, "")}</div>
+    ${readAs(d.read_as)}
     <section class="card" style="overflow:hidden"><div class="section-h"><h2 class="h2">Every way people say it</h2><span class="muted" style="font-size:12px">the carbon is kept verbatim</span></div>
       <table class="tbl"><tr><th class="cap">Wording</th><th class="cap">Learned from</th><th class="cap">Valid for</th><th class="cap r">Confirmed</th><th class="cap">First seen</th><th class="cap">State</th><th></th></tr>
       ${d.aliases.map((a) => { const s = SRC[a.source] || ["text", a.source]; return `<tr><td>${evRaw(a.text.replace(/^supplier: /, ""))}</td><td>${srcTag(s[0], s[1])}</td>
@@ -488,6 +489,18 @@ route("product", async (id) => {
   $$("[data-al]").forEach((b) => (b.onclick = async () => { await api(`/aliases/${b.dataset.al}/state`, { method: "POST", body: { state: b.dataset.st } }); go(); }));
   $("#add").onclick = async () => { const text = $("#na").value.trim(); if (!text) return; try { await api("/aliases", { method: "POST", body: { text, product_id: p.id } }); toast("Wording added"); go(); } catch (e) { toast(e.message, true); } };
 });
+
+// How the code reads a name: the words that must match, and the attributes that decide identity.
+function readAs(r) {
+  if (!r) return "";
+  const attrs = Object.entries(r.attrs || {});
+  const chip = (k, v) => `<span class="chip"><span class="muted">${esc(k)}</span> <b>${esc(v.v)}</b>${v.derived ? ` <span class="muted">(guess)</span>` : ""}</span>`;
+  return `<section class="card pad col" style="gap:10px"><div class="row" style="justify-content:space-between"><h2 class="h2">How the code reads this name</h2><span class="who sys"><i>{}</i>same reading as every line</span></div>
+    <div class="row" style="gap:6px;flex-wrap:wrap"><span class="cap" style="min-width:90px">Name words</span>${(r.words || []).map((w) => `<span class="chip">${esc(w)}</span>`).join("") || `<span class="muted">none</span>`}</div>
+    <div class="row" style="gap:6px;flex-wrap:wrap"><span class="cap" style="min-width:90px">Attributes</span>${attrs.flatMap(([k, vs]) => vs.map((v) => chip(k, v))).join("") || `<span class="muted">none yet: the rule engineer writes the vocabulary</span>`}
+      ${Object.entries(r.from || {}).flatMap(([k, ids]) => ids.map((id) => `<a class="mono muted" style="font-size:11px" href="#/rule/${esc(id)}">${esc(k)} ← ${esc(id)}</a>`)).join(" ")}</div>
+    <span class="muted" style="font-size:12px">A line must carry every name word. Each attribute both sides state decides by its policy: a different size or flavour is another product; a marker such as Zéro must be on both sides or neither.</span></section>`;
+}
 
 // ---- rules ----------------------------------------------------------------------------------
 let ruleFilter = "all";
@@ -531,7 +544,7 @@ function ruleRow(r) {
   const need = +settingsCache.shadow_agreements || 5;
   const who = r.author === "rule-engineer" ? `<span class="who model"><i>W</i>Muse Wonder</span>` : `<span class="who person"><i>P</i>${esc(r.author)}</span>`;
   const pill = r.status === "rejected" || r.status === "rolled_back" ? `<span class="pill"><span>{}</span>${esc(r.reason)}</span>`
-    : b.lines ? `<span class="pill"><span>{}</span>benchmark +${b.newly_resolved} · ${b.wrong} wrong${r.lines_resolved ? ` · ${r.lines_resolved} lines since` : ""}</span>` : "";
+    : b.lines ? `<span class="pill"><span>{}</span>benchmark +${b.newly_resolved}${b.vocabulary ? ` · reads ${b.products_changed || 0} names` : ""} · ${b.wrong} wrong${r.lines_resolved ? ` · ${r.lines_resolved} lines since` : ""}</span>` : "";
   let track = "";
   if (r.status === "shadow") track = `<span class="track"><span class="d"></span><span class="l"></span><span class="d"></span><span class="l"></span>${Array.from({ length: need }, (_, i) => `<span class="o ${i < r.shadow_agree ? "on" : ""}"></span>`).join("")}<span class="lx"></span><span class="dx"></span></span>`;
   else if (r.status === "live") track = `<span class="track"><span class="d"></span><span class="l"></span><span class="d"></span><span class="l"></span><span class="d"></span><span class="l"></span><span class="d" style="background:var(--free)"></span></span>`;
@@ -545,6 +558,7 @@ function writeForm(prods, custs) {
   return `<section class="card pad col" style="gap:14px"><div class="row" style="justify-content:space-between"><h2 class="h2">Write a rule</h2><span class="who person"><i>P</i>by you</span></div>
     <div class="field"><label for="rt">Type</label><select id="rt" class="inp">
       ${opt("synonym", "Synonym — a word means another word or a brand")}${opt("rewrite", "Rewrite — a way of writing becomes the standard one")}
+      ${opt("attribute", "Attribute — words that tell products apart (flavour, variant, container…)")}${opt("word", "Word — a brand, or a word that never tells products apart")}${opt("policy", "Policy — how an attribute decides identity")}
       ${opt("pack", "Pack — a mark gives the pack (x6, fardou…)")}${opt("default", "Default — a wording with something missing")}${opt("guard", "Guard — forbid a wrong match")}</select></div>
     <div class="field"><label for="rp">When the shop writes</label><input id="rp" class="inp ev" placeholder="slkt · x{n}$ · fardou"></div>
     <div class="field" id="f-replace"><label for="ra">It means</label><input id="ra" class="inp ev" placeholder="selecto"></div>
@@ -552,6 +566,10 @@ function writeForm(prods, custs) {
     <div class="row" id="f-pack" hidden><div class="field" style="flex:1"><label for="ru">Pack</label><select id="ru" class="inp">${opt("carton", "carton")}${opt("pack", "pack (fardeau)")}${opt("unit", "units")}</select></div>
       <div class="field" style="flex:1"><label for="rq">Of</label><input id="rq" class="inp mono" placeholder="{n} or 6"></div></div>
     <div class="field" id="f-word" hidden><label for="rw">Only products whose name contains</label><input id="rw" class="inp" placeholder="citron"></div>
+    <div class="row" id="f-attr" hidden><div class="field" style="flex:1"><label for="rattr">Attribute</label><input id="rattr" class="inp mono" placeholder="flavour"></div>
+      <div class="field" style="flex:1" id="f-value"><label for="rval">Value</label><input id="rval" class="inp mono" placeholder="citron · {n} · {word}"></div>
+      <div class="field" style="flex:1"><label for="rpol">Policy</label><select id="rpol" class="inp">${opt("", "default (strict)")}${opt("strict", "strict — different value, different product")}${opt("marker", "marker — one side only, different product")}${opt("soft", "soft — only scores")}${opt("ignore", "ignore")}</select></div></div>
+    <div class="field" id="f-role" hidden><label for="rrole">It is</label><select id="rrole" class="inp">${opt("descriptor", "a descriptor — said or printed, never tells products apart")}${opt("stop", "chatter — never part of a product name")}${opt("brand", "a brand")}</select></div>
     <div class="field"><label for="rs">For</label><select id="rs" class="inp">${opt("global", "Every shop and supplier (global)")}${custs.map((c) => opt("customer:" + c.id, c.name)).join("")}</select></div>
     <pre class="code" id="rcode"></pre>
     <label class="row" style="gap:8px;font-size:12px"><input type="checkbox" id="rk"> go live now, skip shadow mode</label>
@@ -566,17 +584,22 @@ function ruleBody() {
   if (t === "default") action.product = $("#rprod").value;
   if (t === "pack") { action.pack_unit = $("#ru").value; action.pack_qty = $("#rq").value.trim(); }
   if (t === "guard") action.block_word = $("#rw").value.trim();
+  if (t === "attribute" || t === "policy") { action.attr = $("#rattr").value.trim(); action.policy = $("#rpol").value; }
+  if (t === "attribute") action.value = $("#rval").value.trim();
+  if (t === "word") action.role = $("#rrole").value;
   const scope = sc === "global" ? { kind: "global" } : { kind: "customer", id: sc.split(":")[1] };
-  return { type: t, scope, pattern: $("#rp").value.trim(), action, skip_shadow: $("#rk").checked };
+  const pattern = t === "policy" ? $("#rattr").value.trim() : $("#rp").value.trim();
+  return { type: t, scope, pattern, action, skip_shadow: $("#rk").checked };
 }
 function bindWrite() {
   const show = () => {
     const t = $("#rt").value;
     $("#f-replace").hidden = !(t === "synonym" || t === "rewrite"); $("#f-product").hidden = t !== "default"; $("#f-pack").hidden = t !== "pack"; $("#f-word").hidden = t !== "guard";
+    $("#f-attr").hidden = !(t === "attribute" || t === "policy"); $("#f-value").hidden = t !== "attribute"; $("#f-role").hidden = t !== "word"; $("#rp").closest(".field").hidden = t === "policy";
     const b = ruleBody();
     $("#rcode").innerHTML = `<span class="k">type:</span>  <span class="v">${esc(b.type)}</span>\n<span class="k">scope:</span> <span class="v">${esc(b.scope.kind === "global" ? "global" : "customer · " + ($("#rs").selectedOptions[0] || {}).text)}</span>\n<span class="k">when:</span>  <span class="s">"${esc(b.pattern)}"</span>\n<span class="k">then:</span>  <span class="s">${esc(JSON.stringify(b.action))}</span>`;
   };
-  ["rt", "rp", "ra", "rprod", "ru", "rq", "rw", "rs"].forEach((id) => { const el = $("#" + id); if (el) el.oninput = el.onchange = show; });
+  ["rt", "rp", "ra", "rprod", "ru", "rq", "rw", "rs", "rattr", "rval", "rpol", "rrole"].forEach((id) => { const el = $("#" + id); if (el) el.oninput = el.onchange = show; });
   show();
   $("#rtest").onclick = async () => {
     try { const r = await api("/rules/preview", { method: "POST", body: ruleBody() }); $("#rres").innerHTML = benchBox(r.bench, r.passes, r.verdict, r.sentence); }
@@ -590,8 +613,10 @@ function bindWrite() {
 function benchBox(b, passes, verdict, sentence) {
   b = b || {};
   return `<div class="card col" style="gap:12px;padding:16px;background:var(--ground)">${sentence ? `<span class="rs" style="font-size:16px">${sentenceHTML(sentence)}</span>` : ""}
-    <div class="row" style="justify-content:space-around;text-align:center">${[["known", b.lines], ["new", "+" + (b.newly_resolved || 0)], ["wrong", b.wrong || 0], ["conflicts", b.conflicts || 0]]
-      .map(([k, v]) => `<div class="col"><b class="big" style="font-size:22px;color:${k === "new" && b.newly_resolved ? "var(--free)" : k === "wrong" && b.wrong ? "var(--refused)" : "var(--ink)"}">${v ?? 0}</b><span class="muted" style="font-size:11px">${k}</span></div>`).join("")}</div>
+    <div class="row" style="justify-content:space-around;text-align:center">${[["known", b.lines], ["new", "+" + (b.newly_resolved || 0)], ["wrong", b.wrong || 0], ["conflicts", b.conflicts || 0], ["lost", b.lost || 0]].concat(b.vocabulary ? [["names read", b.products_changed || 0], ["twins", b.twins || 0]] : [])
+      .map(([k, v]) => `<div class="col"><b class="big" style="font-size:22px;color:${(k === "new" || k === "names read") && v && v !== "+0" ? "var(--free)" : (k === "wrong" || k === "lost" || k === "twins" || k === "conflicts") && v ? "var(--refused)" : "var(--ink)"}">${v ?? 0}</b><span class="muted" style="font-size:11px">${k}</span></div>`).join("")}</div>
+    ${(b.examples_products || []).slice(0, 3).map((x) => `<span style="font-size:12px"><b>${esc(x.said)}</b> <span class="mono muted">${esc(x.got)}</span></span>`).join("")}
+    ${(b.examples_twins || []).slice(0, 3).map((x) => `<span style="font-size:12px;color:var(--refused)">would read the same: ${esc(x.said)}</span>`).join("")}
     ${(b.examples_new || []).slice(0, 3).map((x) => `<span style="font-size:12px">${ev(x.said)} → <b>${esc(x.expected)}</b></span>`).join("")}
     ${(b.examples_wrong || []).slice(0, 3).map((x) => `<span style="font-size:12px;color:var(--refused)">${ev(x.said)} → ${esc(x.got)} (expected ${esc(x.expected)})</span>`).join("")}
     ${verdict ? `<div class="gate ${passes ? "" : "no"}"><span class="who sys"><i>{}</i></span><span><b>${passes ? "The gate would admit it." : "The gate would refuse this."}</b> ${esc(verdict)}</span></div>` : ""}</div>`;

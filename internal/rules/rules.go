@@ -1,7 +1,11 @@
 // Package rules is the rule language: a short list of rule types, a small pattern syntax,
-// an interpreter and a sentence writer. Rules are data, not code: they can only rewrite words,
-// set a pack, pick a default product or block a match, so a rule can never break the system,
-// change a price or send a message.
+// an interpreter and a sentence writer. Rules are data, not code: they can rewrite words, name
+// what a word is (an attribute value, a brand, a word that says nothing), say how an attribute
+// decides identity, set a pack, pick a default product or block a match. A rule can never break
+// the system, change a price or send a message.
+//
+// The model writes the vocabulary; the code applies it, the same way, to the shop's words and to
+// every catalogue name, then decides identity from it (see resolve).
 package rules
 
 import (
@@ -19,9 +23,31 @@ const (
 	PackT   = "pack"    // a pattern gives the pack ("x{n}$" → carton of n, "fardou" → pack)
 	Default = "default" // fills a missing detail from a habit ("ifri" with no size → Ifri 1.5 L, for one shop)
 	Guard   = "guard"   // forbids a match ("citron" never matches a product without "citron")
+	Attr    = "attribute" // a word gives an attribute value, on both sides ("zero|light" → variant = zero)
+	Word    = "word"      // what a word is: a brand, or a word that never tells two products apart
+	Policy  = "policy"    // how an attribute decides identity: strict, marker, soft or ignore
 )
 
-var Types = []string{Rewrite, Synonym, PackT, Default, Guard}
+var Types = []string{Rewrite, Synonym, PackT, Default, Guard, Attr, Word, Policy}
+
+// Policies: how one attribute decides whether two texts can be the same product.
+const (
+	Strict = "strict" // both state it and the values differ → never the same product (a size)
+	Marker = "marker" // stated on one side only, or different → never the same product (Zéro, Light)
+	Soft   = "soft"   // agreement helps, disagreement does not exclude (a pack count)
+	Ignore = "ignore" // not used for identity
+)
+
+var Policies = []string{Strict, Marker, Soft, Ignore}
+
+// Word roles.
+const (
+	RoleBrand      = "brand"      // the word names a brand: a line naming another brand is never this product
+	RoleDescriptor = "descriptor" // the word describes a product but never tells two apart ("minerale", "pet")
+	RoleStop       = "stop"       // the word is never part of a product name ("svp", "3afak")
+)
+
+var Roles = []string{RoleBrand, RoleDescriptor, RoleStop}
 
 type Scope struct {
 	Kind string `json:"kind"` // global | tenant | supplier | customer
@@ -37,6 +63,10 @@ type Action struct {
 	Product   string `json:"product,omitempty"`    // default: product id
 	BlockWord string `json:"block_word,omitempty"` // guard: products whose name lacks this word are excluded
 	Block     string `json:"block,omitempty"`      // guard: this product id is excluded
+	Attr      string `json:"attr,omitempty"`       // attribute, policy: the attribute name (size, count, flavour…)
+	Value     string `json:"value,omitempty"`      // attribute: the value ({n}, {size}, {word}, {match} allowed)
+	Policy    string `json:"policy,omitempty"`     // policy: strict | marker | soft | ignore
+	Role      string `json:"role,omitempty"`       // word: brand | descriptor | stop
 }
 
 type Rule struct {
@@ -67,13 +97,16 @@ type Rule struct {
 //
 //   words        literal words, matched on word boundaries:   "fardou"
 //   a|b          alternatives:                                 "fardou|fardeau"
-//   {n}          a number (captured):                          "x{n}"
+//   word?        an optional word:                             "demi? ecreme"
+//   {n}          a number (captured):                          "x{n}", "c{n}" (also "c 24")
 //   {size}       a size token such as 1500ml (captured):       "selecto {size}"
+//   {word}       any one word (captured):                      "parfum {word}"
 //   ^ and $      start and end of the line:                     "x{n}$"
 //
-// Patterns run on normalised text (see catalog.Normalize).
+// Inside one word, a literal and a placeholder may be written glued or apart ("c{n}" matches "c24"
+// and "c 24"). Patterns run on normalised text (see catalog.Normalize).
 
-var tokenRe = regexp.MustCompile(`\{n\}|\{size\}|[^\s{}]+`)
+var tokenRe = regexp.MustCompile(`\{n\}|\{size\}|\{word\}|[^\s{}]+`)
 
 func compile(p string) (*regexp.Regexp, error) {
 	p = strings.TrimSpace(strings.ToLower(p))
@@ -82,26 +115,23 @@ func compile(p string) (*regexp.Regexp, error) {
 	}
 	start, end := strings.HasPrefix(p, "^"), strings.HasSuffix(p, "$")
 	p = strings.TrimSuffix(strings.TrimPrefix(p, "^"), "$")
-	var parts []string
-	for _, field := range strings.Fields(p) {
-		var b strings.Builder
-		for _, t := range tokenRe.FindAllString(field, -1) {
-			switch t {
-			case "{n}":
-				b.WriteString(`(\d+(?:\.\d+)?)`)
-			case "{size}":
-				b.WriteString(`(\d+(?:\.\d+)?(?:ml|mg|g))`)
-			default:
-				alts := strings.Split(t, "|")
-				for i := range alts {
-					alts[i] = regexp.QuoteMeta(alts[i])
-				}
-				b.WriteString("(?:" + strings.Join(alts, "|") + ")")
-			}
+	// "|" separates whole alternatives: "zero|sans sucre" is "zero" or "sans sucre". Every
+	// alternative carries the same placeholders, in the same order.
+	var cores []string
+	var slots0 string
+	for i, alt := range strings.Split(p, "|") {
+		alt = strings.TrimSpace(alt)
+		if alt == "" {
+			return nil, fmt.Errorf("empty alternative in %q", p)
 		}
-		parts = append(parts, b.String())
+		if s := strings.Join(tokenSlots(alt), ","); i == 0 {
+			slots0 = s
+		} else if s != slots0 {
+			return nil, fmt.Errorf("every alternative needs the same placeholders ({n}, {size}, {word})")
+		}
+		cores = append(cores, phrase(alt))
 	}
-	expr := strings.Join(parts, `\s+`)
+	expr := "(?:" + strings.Join(cores, "|") + ")"
 	if start {
 		expr = "^" + expr
 	} else {
@@ -113,6 +143,43 @@ func compile(p string) (*regexp.Regexp, error) {
 		expr += `(?:$|[^\p{L}\p{N}])`
 	}
 	return regexp.Compile(expr)
+}
+
+// phrase compiles one alternative: its words in order, separated by spaces.
+func phrase(p string) string {
+	expr, sep := "", ""
+	for _, field := range strings.Fields(p) {
+		optional := len(field) > 1 && strings.HasSuffix(field, "?")
+		field = strings.TrimSuffix(field, "?")
+		var b strings.Builder
+		for k, t := range tokenRe.FindAllString(field, -1) {
+			if k > 0 {
+				b.WriteString(`\s?`)
+			}
+			switch t {
+			case "{n}":
+				b.WriteString(`(\d+(?:\.\d+)?)`)
+			case "{size}":
+				b.WriteString(`(\d+(?:\.\d+)?(?:ml|mg|g))`)
+			case "{word}":
+				b.WriteString(`(\p{L}[\p{L}\p{N}]*)`)
+			default:
+				b.WriteString(regexp.QuoteMeta(t))
+			}
+		}
+		switch {
+		case optional && sep == "":
+			// an optional first word carries its own trailing space
+			expr += "(?:" + b.String() + `\s+)?`
+			continue
+		case optional:
+			expr += "(?:" + sep + b.String() + ")?"
+		default:
+			expr += sep + b.String()
+		}
+		sep = `\s+`
+	}
+	return expr
 }
 
 // Validate checks a rule's shape and compiles its pattern. An invalid rule never goes further.
@@ -134,12 +201,27 @@ func (r *Rule) Validate() error {
 	if (r.Scope.Kind == "customer" || r.Scope.Kind == "supplier") && r.Scope.ID == "" {
 		return fmt.Errorf("a %s rule needs the %s id", r.Scope.Kind, r.Scope.Kind)
 	}
+	a := r.Action
+	if r.Type == Policy {
+		// a policy names an attribute, not words
+		r.Pattern = strings.TrimSpace(strings.ToLower(r.Pattern))
+		if r.Pattern == "" {
+			r.Pattern = strings.ToLower(a.Attr)
+		}
+		if !attrName.MatchString(r.Pattern) {
+			return fmt.Errorf("a policy's pattern is an attribute name such as flavour")
+		}
+		if !in(a.Policy, Policies) {
+			return fmt.Errorf("policy needs action.policy strict|marker|soft|ignore")
+		}
+		r.Action.Attr = r.Pattern
+		return nil
+	}
 	re, err := compile(r.Pattern)
 	if err != nil {
 		return err
 	}
 	r.re = re
-	a := r.Action
 	switch r.Type {
 	case Rewrite, Synonym:
 		if strings.TrimSpace(a.Replace) == "" {
@@ -162,8 +244,41 @@ func (r *Rule) Validate() error {
 		if a.Block == "" && a.BlockWord == "" {
 			return fmt.Errorf("guard needs action.block or action.block_word")
 		}
+	case Attr:
+		r.Action.Attr = strings.ToLower(strings.TrimSpace(a.Attr))
+		r.Action.Value = strings.ToLower(strings.TrimSpace(a.Value))
+		if !attrName.MatchString(r.Action.Attr) {
+			return fmt.Errorf("attribute needs action.attr, a lower-case name such as flavour")
+		}
+		if r.Action.Value == "" {
+			return fmt.Errorf("attribute needs action.value")
+		}
+		if r.Action.Attr == "size" && !strings.Contains(r.Action.Value, "{size}") && !sizeValue.MatchString(r.Action.Value) {
+			return fmt.Errorf("a size value is {size} or a size such as 1500ml")
+		}
+		if r.Action.Policy != "" && !in(r.Action.Policy, Policies) {
+			return fmt.Errorf("unknown policy %q", r.Action.Policy)
+		}
+	case Word:
+		if !in(a.Role, Roles) {
+			return fmt.Errorf("word needs action.role brand|descriptor|stop")
+		}
 	}
 	return nil
+}
+
+var (
+	attrName  = regexp.MustCompile(`^[a-z][a-z_]{1,23}$`)
+	sizeValue = regexp.MustCompile(`^\d+(?:\.\d+)?(?:ml|mg|g)$`)
+)
+
+func in(s string, list []string) bool {
+	for _, x := range list {
+		if s == x {
+			return true
+		}
+	}
+	return false
 }
 
 // Applies tells whether the rule's scope covers this context.
@@ -218,14 +333,24 @@ func NewSet(list []*Rule) *Set {
 		}
 		s.rules = append(s.rules, r)
 	}
-	// Stable: rewrites before synonyms before the rest; within a type, the most specific scope first.
-	order := map[string]int{Rewrite: 0, Synonym: 1, PackT: 2, Guard: 3, Default: 4}
+	// Stable: rewrites before synonyms before the rest; within a type, the most specific scope
+	// first; vocabulary rules with the longest pattern first ("demi ecreme" before "ecreme").
+	order := map[string]int{Rewrite: 0, Synonym: 1, PackT: 2, Guard: 3, Default: 4, Word: 5, Attr: 6, Policy: 7}
+	before := func(a, b *Rule) bool {
+		if order[a.Type] != order[b.Type] {
+			return order[a.Type] < order[b.Type]
+		}
+		if scopeRank(a.Scope.Kind) != scopeRank(b.Scope.Kind) {
+			return scopeRank(a.Scope.Kind) > scopeRank(b.Scope.Kind)
+		}
+		if a.Type == Attr || a.Type == Word {
+			return len(a.Pattern) > len(b.Pattern)
+		}
+		return false
+	}
 	for i := 1; i < len(s.rules); i++ {
-		for j := i; j > 0; j-- {
-			a, b := s.rules[j-1], s.rules[j]
-			if order[a.Type] > order[b.Type] || (order[a.Type] == order[b.Type] && scopeRank(a.Scope.Kind) < scopeRank(b.Scope.Kind)) {
-				s.rules[j-1], s.rules[j] = b, a
-			}
+		for j := i; j > 0 && before(s.rules[j], s.rules[j-1]); j-- {
+			s.rules[j-1], s.rules[j] = s.rules[j], s.rules[j-1]
 		}
 	}
 	return s
@@ -243,8 +368,8 @@ func (s *Set) With(extra *Rule) *Set {
 func (s *Set) Apply(norm, customerID, supplierID string) Outcome {
 	out := Outcome{Text: norm, BlockIDs: map[string]bool{}}
 	for _, r := range s.rules {
-		if !r.Applies(customerID, supplierID) {
-			continue
+		if !r.Applies(customerID, supplierID) || r.Type == Attr || r.Type == Word || r.Type == Policy {
+			continue // vocabulary: read by Profile
 		}
 		m := r.re.FindStringSubmatchIndex(out.Text)
 		if m == nil {
@@ -275,8 +400,14 @@ func (s *Set) Apply(norm, customerID, supplierID string) Outcome {
 					trail = seg[len(seg)-1:]
 				}
 				repl := strings.ToLower(r.Action.Replace)
-				if sm := r.re.FindStringSubmatch(seg); len(sm) > 1 {
-					repl = strings.ReplaceAll(repl, "{n}", sm[1])
+				var sm []string
+				for _, g := range r.re.FindStringSubmatch(seg)[1:] {
+					if g != "" {
+						sm = append(sm, g)
+					}
+				}
+				if len(sm) > 0 {
+					repl = strings.ReplaceAll(repl, "{n}", sm[0])
 					repl = strings.ReplaceAll(repl, "{size}", sm[len(sm)-1])
 				}
 				return lead + " " + repl + " " + trail
@@ -351,11 +482,42 @@ func (r *Rule) MakeSentence(productName func(string) string) string {
 		} else {
 			s = fmt.Sprintf("%s only matches products whose name contains \"%s\".", pat, a.BlockWord)
 		}
+	case Attr:
+		s = fmt.Sprintf("%s is the %s \"%s\", in orders, invoices and catalogue names alike.", pat, a.Attr, a.Value)
+		if a.Value == "{match}" {
+			s = fmt.Sprintf("%s each name a %s, in orders, invoices and catalogue names alike.", strings.ReplaceAll(pat, "\" or \"", "\", \""), a.Attr)
+		}
+		if a.Policy != "" {
+			s = strings.TrimSuffix(s, ".") + "; " + policyClause(a.Attr, a.Policy)
+		}
+	case Word:
+		switch a.Role {
+		case RoleBrand:
+			s = fmt.Sprintf("%s is a brand: a line naming another brand never means its products.", pat)
+		case RoleDescriptor:
+			s = fmt.Sprintf("%s describes a product but never tells two products apart.", pat)
+		default:
+			s = fmt.Sprintf("%s is never part of a product name.", pat)
+		}
+	case Policy:
+		s = upperFirst(policyClause(a.Attr, a.Policy))
 	}
 	if where != "" {
 		return where + lowerFirst(s)
 	}
 	return upperFirst(s)
+}
+
+func policyClause(attr, policy string) string {
+	switch policy {
+	case Strict:
+		return fmt.Sprintf("two texts whose %s differs are never the same product.", attr)
+	case Marker:
+		return fmt.Sprintf("a %s stated on one side only, or a different one, is never the same product.", attr)
+	case Soft:
+		return fmt.Sprintf("a different %s makes a match less likely, never impossible.", attr)
+	}
+	return fmt.Sprintf("the %s is not used to tell products apart.", attr)
 }
 
 func human(p string) string {
