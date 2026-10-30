@@ -299,7 +299,7 @@ func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref s
 			r.Status, r.Level = "ask", LPerson
 		}
 		if r.Question == "" {
-			r.Question = fmt.Sprintf("« %s » : lequel ?", ms[i].Said)
+			r.Question = fmt.Sprintf("« %s » : lequel ?", Readable(ms[i].Said))
 		}
 	}
 	return res

@@ -440,6 +440,7 @@ func Compatible(set *rules.Set, line rules.Profile, p *catalog.Product, cx Conte
 
 // AskText writes the question for an ambiguous line from what its candidates differ on.
 func AskText(said string, v Verdict, set *rules.Set) string {
+	said = Readable(said)
 	if len(v.Differ) == 1 && v.Differ[0] != "name" {
 		a := v.Differ[0]
 		var vals []string
@@ -467,6 +468,17 @@ func AskText(said string, v Verdict, set *rules.Set) string {
 		}
 	}
 	return fmt.Sprintf("« %s » : lequel ?", said)
+}
+
+// Readable writes canonical sizes back the way people write them ("fanta 1000ml" → "fanta 1 L").
+func Readable(said string) string {
+	f := strings.Fields(said)
+	for i, w := range f {
+		if catalog.IsSize(w) {
+			f[i] = showSize(w)
+		}
+	}
+	return strings.Join(f, " ")
 }
 
 // showSize writes a canonical size the way it is printed on a shelf: 1500ml → 1,5 L, 330ml → 33 cl.

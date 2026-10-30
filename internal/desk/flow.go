@@ -166,7 +166,7 @@ func (d *Desk) onCallback(ctx context.Context, cb *telegram.TgCallback) {
 			return
 		}
 		d.Choose(ctx, &l, l.Options[idx], parts[0] == "c")
-		d.TG.Edit(ctx, chat, cb.Message.MessageID, "✔️ « "+esc(l.Said)+" » → "+esc(d.Cat.Get(l.ProductID).Name), nil)
+		d.TG.Edit(ctx, chat, cb.Message.MessageID, "✔️ « "+esc(resolve.Readable(l.Said))+" » → "+esc(d.Cat.Get(l.ProductID).Name), nil)
 		d.next(ctx, chat, l.DraftID)
 	case "x":
 		l, err := GetLine(d.DB, parts[1])
