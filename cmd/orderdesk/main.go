@@ -29,6 +29,7 @@ import (
 	"github.com/nudiiir/elixir-orderdesk/internal/meta"
 	"github.com/nudiiir/elixir-orderdesk/internal/store"
 	"github.com/nudiiir/elixir-orderdesk/internal/telegram"
+	"github.com/nudiiir/elixir-orderdesk/internal/twilio"
 	"github.com/nudiiir/elixir-orderdesk/internal/web"
 	"github.com/nudiiir/elixir-orderdesk/internal/whatsapp"
 )
@@ -124,7 +125,29 @@ func main() {
 		go d.Run(ctx)
 	}
 	var wa *whatsapp.Client
-	if tok, phone := strings.TrimSpace(os.Getenv("WHATSAPP_TOKEN")), strings.TrimSpace(os.Getenv("WHATSAPP_PHONE_ID")); tok != "" && phone != "" {
+	var waHook http.Handler
+	if sid, tok, from := strings.TrimSpace(os.Getenv("TWILIO_ACCOUNT_SID")), strings.TrimSpace(os.Getenv("TWILIO_AUTH_TOKEN")),
+		strings.TrimSpace(os.Getenv("TWILIO_WHATSAPP_FROM")); sid != "" && tok != "" && from != "" {
+		// WhatsApp through Twilio (a Twilio sender or the Twilio Sandbox for WhatsApp)
+		tw := twilio.New(sid, tok, from)
+		tw.PublicURL = strings.TrimSpace(os.Getenv("TWILIO_WEBHOOK_URL"))
+		if api := os.Getenv("TWILIO_API_URL"); api != "" {
+			tw.API = strings.TrimRight(api, "/") // a local stand-in for tests
+		}
+		mux.WA = tw
+		waHook = tw.Webhook(d.Handle)
+		go func() {
+			mctx, cancel := context.WithTimeout(ctx, 15*time.Second)
+			defer cancel()
+			if who, err := tw.Me(mctx); err == nil {
+				db.SetSetting("whatsapp_number", who)
+				log.Printf("[desk] WhatsApp on %s (webhook /whatsapp/webhook)", who)
+			} else {
+				db.SetSetting("whatsapp_number", "")
+				log.Printf("[desk] WhatsApp via Twilio: %v", err)
+			}
+		}()
+	} else if tok, phone := strings.TrimSpace(os.Getenv("WHATSAPP_TOKEN")), strings.TrimSpace(os.Getenv("WHATSAPP_PHONE_ID")); tok != "" && phone != "" {
 		wa = whatsapp.New(tok, phone, os.Getenv("WHATSAPP_VERIFY_TOKEN"), os.Getenv("WHATSAPP_APP_SECRET"))
 		if g := os.Getenv("WHATSAPP_GRAPH_URL"); g != "" {
 			wa.Graph = strings.TrimRight(g, "/") // a local stand-in for tests
@@ -162,6 +185,9 @@ func main() {
 	srv := &web.Server{DB: db, Cat: cat, Desk: d, Eng: eng, Meta: mc, DataDir: *dataDir, ERP: current, Connect: connect, Sync: sync}
 	if wa != nil {
 		srv.WhatsApp = wa.Webhook(d.Handle)
+	}
+	if waHook != nil {
+		srv.WhatsApp = waHook
 	}
 	hs := &http.Server{Addr: *addr, Handler: srv.Handler()}
 	go func() {

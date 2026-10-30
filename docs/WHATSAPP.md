@@ -9,7 +9,21 @@ confirmation into the ERP, and supplier invoices (photo or PDF) from the owner's
 - A shop can only be messaged freely within 24 h of its last message (WhatsApp's rule); Order Desk
   only ever answers, so this does not bite.
 
-## Settings (environment or a keys file)
+## Through Twilio (sender or Sandbox for WhatsApp)
+
+```
+TWILIO_ACCOUNT_SID=AC...        # Twilio console → Account Info
+TWILIO_AUTH_TOKEN=...           # Twilio console → Account Info (also signs the webhook)
+TWILIO_WHATSAPP_FROM=+14155238886   # the sandbox number, or your approved WhatsApp sender
+TWILIO_WEBHOOK_URL=https://….trycloudflare.com/whatsapp/webhook   # optional: the public address Twilio calls
+```
+
+Twilio console → Messaging → Try it out → Send a WhatsApp message → **Sandbox settings**: "When a
+message comes in" = `https://…/whatsapp/webhook`, method POST. Each phone first sends
+`join <your-code>` to the sandbox number. Choices arrive numbered; the shop answers with the number.
+When Twilio settings are present they take precedence over the Meta Cloud API settings below.
+
+## Through Meta's Cloud API directly — settings (environment or a keys file)
 
 ```
 WHATSAPP_TOKEN=...          # access token of the WhatsApp app (temporary from the console, or a system user token)
