@@ -18,7 +18,7 @@ var mojibakeRepl = strings.NewReplacer("Ã©", "é", "Ã¨", "è", "Ãª", "ê",
 
 var accentRepl = strings.NewReplacer("é", "e", "è", "e", "ê", "e", "ë", "e", "à", "a", "â", "a", "ä", "a", "á", "a", "ã", "a",
 	"î", "i", "ï", "i", "í", "i", "ô", "o", "ö", "o", "ó", "o", "ù", "u", "û", "u", "ü", "u", "ú", "u", "ç", "c", "ñ", "n",
-	"œ", "oe", "æ", "ae", "’", "'", "‘", "'", "`", "'", "×", "x", "–", " ", "—", " ", "•", " ", "·", " ", "®", " ", "™", " ",
+	"œ", "oe", "æ", "ae", "µ", "mc", "μ", "mc", "’", "'", "‘", "'", "`", "'", "×", "x", "–", " ", "—", " ", "•", " ", "·", " ", "®", " ", "™", " ",
 	"&", " ", "-", " ", "_", " ", "/", " ", "+", " + ", "(", " ", ")", " ", "[", " ", "]", " ", ":", " ", ";", " ", "!", " ", "?", " ",
 	"\"", " ", "«", " ", "»", " ", "#", " ")
 
@@ -31,7 +31,9 @@ var digitRepl = strings.NewReplacer("٠", "0", "١", "1", "٢", "2", "٣", "3", 
 
 var (
 	decimalComma = regexp.MustCompile(`(\d),(\d)`)
-	sizeRe       = regexp.MustCompile(`(\d+(?:\.\d+)?)\s*(litres?|liters?|ltrs?|lt|l|cl|ml|cc|kgs?|grs?|g|mg)\b`)
+	sizeRe       = regexp.MustCompile(`(\d+(?:\.\d+)?)\s*(litres?|liters?|ltrs?|lt|l|cl|ml|cc|kgs?|grs?|g|mg|mcg|ug|mui|ui|iu)\b`)
+	dottedWords  = regexp.MustCompile(`(\p{L})\.(\p{L})`)
+	percentRe    = regexp.MustCompile(`(\d+(?:\.\d+)?)\s*%`)
 	wordRe       = regexp.MustCompile(`[\p{L}\p{N}.]+`)
 	// "1l5" is how people type 1.5 L.
 	litreGlued = regexp.MustCompile(`\b(\d)l(\d{1,2})\b`)
@@ -51,8 +53,11 @@ func Normalize(s string) string {
 	s = mojibakeRepl.Replace(s)
 	s = digitRepl.Replace(accentRepl.Replace(strings.ToLower(s)))
 	s = decimalComma.ReplaceAllString(s, "$1.$2")
+	s = dottedWords.ReplaceAllString(s, "$1 $2") // "comp.sec", "sol.buv": two words glued by a dot
+	s = dottedWords.ReplaceAllString(s, "$1 $2")
 	s = litreGlued.ReplaceAllString(s, "$1.${2}l")
 	s = sizeRe.ReplaceAllStringFunc(s, canonicalSize)
+	s = percentRe.ReplaceAllString(s, "${1}pct")
 	s = countBefore.ReplaceAllString(s, "x$1 $2")
 	s = countAfter.ReplaceAllString(s, "$1 x$2")
 	s = countSpace.ReplaceAllString(s, "${1}x$2")
@@ -84,15 +89,29 @@ func canonicalSize(m string) string {
 	case "kg", "kgs":
 		return fmt.Sprintf("%.0fg", v*1000)
 	case "mg":
-		return fmt.Sprintf("%gmg", v)
+		return num(v/1000) + "g" // one mass family: 1000mg is 1g
+	case "mcg", "ug":
+		return num(v/1e6) + "g"
+	case "ui", "iu":
+		return num(v) + "ui"
+	case "mui":
+		return num(v*1e6) + "ui"
 	default:
-		return fmt.Sprintf("%.0fg", v)
+		return num(v) + "g"
 	}
 }
 
+func num(v float64) string {
+	return strconv.FormatFloat(math.Round(v*1e9)/1e9, 'f', -1, 64)
+}
+
+// UnitNames are units written without a number ("1mg/ml" leaves "ml"): never a product word.
+var UnitNames = map[string]bool{"ml": true, "mg": true, "g": true, "l": true, "cl": true, "kg": true, "ui": true, "iu": true,
+	"mcg": true, "ug": true, "pct": true, "gr": true, "cc": true, "mui": true}
+
 // SizeNumber is the number a size was written with in its own unit family ("1500ml" → 1500).
 func SizeNumber(w string) float64 {
-	for _, suf := range []string{"ml", "mg", "g"} {
+	for _, suf := range []string{"pct", "ui", "ml", "g"} {
 		if strings.HasSuffix(w, suf) {
 			f, _ := strconv.ParseFloat(strings.TrimSuffix(w, suf), 64)
 			return f
@@ -103,20 +122,17 @@ func SizeNumber(w string) float64 {
 
 // SizeFamily is "ml" (volume) or "g" (mass): a volume and a mass never describe the same size.
 func SizeFamily(w string) string {
-	switch {
-	case strings.HasSuffix(w, "ml"):
-		return "ml"
-	case strings.HasSuffix(w, "mg"):
-		return "mg"
-	case strings.HasSuffix(w, "g"):
-		return "g"
+	for _, suf := range []string{"pct", "ui", "ml", "g"} {
+		if strings.HasSuffix(w, suf) {
+			return suf
+		}
 	}
 	return ""
 }
 
 // IsSize tells whether a normalised token is a size ("1500ml", "800g").
 func IsSize(w string) bool {
-	for _, suf := range []string{"ml", "mg", "g"} {
+	for _, suf := range []string{"pct", "ui", "ml", "g"} {
 		if strings.HasSuffix(w, suf) {
 			if _, err := strconv.ParseFloat(strings.TrimSuffix(w, suf), 64); err == nil {
 				return true
@@ -167,7 +183,7 @@ var StopWords = map[string]bool{"de": true, "du": true, "des": true, "la": true,
 func Tokens(norm string) (words []string, size string) {
 	for _, w := range wordRe.FindAllString(norm, -1) {
 		w = strings.Trim(w, ".")
-		if w == "" || StopWords[w] || UnitWords[w] != "" {
+		if w == "" || StopWords[w] || UnitWords[w] != "" || UnitNames[w] {
 			continue
 		}
 		if IsSize(w) {

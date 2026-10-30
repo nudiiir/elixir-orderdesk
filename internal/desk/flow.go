@@ -307,7 +307,10 @@ func (d *Desk) strike(l Line, wrongProduct string) {
 		if strings.HasPrefix(u, "R-") {
 			rules.Bump(d.DB, u, "strikes", 1)
 			d.DB.Event("rule.strike", u, "shop", map[string]string{"line": l.ID, "said": l.Said, "wrong": wrongProduct})
-			if r, err := rules.Get(d.DB, u); err == nil && r.Status == "live" && r.Strikes >= d.DB.SettingInt("rollback_strikes", 2) {
+			// a rule goes back after rollback_strikes corrections, and only when they are also a real share of what it
+			// resolved: two corrections on 139 lines (often the clerk's own noise) do not undo a good rule
+			if r, err := rules.Get(d.DB, u); err == nil && r.Status == "live" && r.Strikes >= d.DB.SettingInt("rollback_strikes", 2) &&
+				float64(r.Strikes) >= d.DB.SettingFloat("rollback_ratio", 0.05)*float64(r.Resolved) {
 				rules.SetStatus(d.DB, u, "rolled_back", fmt.Sprintf("%d corrections by people", r.Strikes))
 				d.DB.Event("rule.rolled_back", u, "system", map[string]any{"strikes": r.Strikes})
 			}

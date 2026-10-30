@@ -139,7 +139,7 @@ func (s *Set) Profile(text, customerID, supplierID string, catalogue bool) Profi
 	}
 	for _, w := range wordRe.FindAllString(t, -1) {
 		w = strings.Trim(w, ".")
-		if w == "" || catalog.StopWords[w] || catalog.UnitWords[w] != "" {
+		if w == "" || catalog.StopWords[w] || catalog.UnitWords[w] != "" || catalog.UnitNames[w] {
 			continue
 		}
 		if catalog.IsSize(w) {

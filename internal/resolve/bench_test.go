@@ -306,3 +306,20 @@ func TestIdentityBench(t *testing.T) {
 	}
 	_ = strings.TrimSpace
 }
+
+func TestStrengthsAndCombinations(t *testing.T) {
+	set := rules.NewSet(nil)
+	read := func(s string) rules.Profile { return set.Profile(catalog.Normalize(s), "", "", false) }
+	if a, b := read("DOLIPRANE 1G CP/8").Attrs["size"], read("DOLIPRANE 1000MG B / 08").Attrs["size"]; len(a) != 1 || len(b) != 1 || a[0].V != b[0].V {
+		t.Fatalf("1g and 1000mg must read the same: %v %v", a, b)
+	}
+	if v := read("LEVOTHYROX 25µg").Attrs["size"]; len(v) != 1 || v[0].V != "0.000025g" {
+		t.Fatalf("µg: %v", v)
+	}
+	if c := compare(set, read("EXTEL 40MG/5MG COMP B/30"), read("EXTEL 80MG/5MG COMP B/30"), Context{}); c.veto != "size" {
+		t.Fatalf("40mg/5mg is not 80mg/5mg: %+v", c)
+	}
+	if c := compare(set, read("EFFERALGAN VITAMINE C 500MG"), read("EFFERALGAN VITAMINE C 500MG / 200MG B / 16"), Context{}); c.veto != "" {
+		t.Fatalf("a line stating one component of a combination is still that combination: %+v", c)
+	}
+}

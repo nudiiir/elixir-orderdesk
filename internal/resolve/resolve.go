@@ -50,6 +50,7 @@ type Resolution struct {
 	Why        string            `json:"why,omitempty"`    // what the code made of the line, in words
 	Differ     []string          `json:"differ,omitempty"` // ambiguous: what the candidates differ on
 	Top        []string          `json:"top,omitempty"`    // ambiguous: the tied candidates
+	Unknown    []string          `json:"unknown,omitempty"` // line words no catalogue name has
 
 	profile rules.Profile
 	verdict Verdict
@@ -104,7 +105,7 @@ func Deterministic(cat *catalog.Catalog, set *rules.Set, m Mention, cx Context) 
 		return r
 	}
 	v := Judge(cat, set, r.profile, cx, exclude, out.BlockWord)
-	r.verdict, r.Why, r.Differ = v, v.Why, v.Differ
+	r.verdict, r.Why, r.Differ, r.Unknown = v, v.Why, v.Differ, v.Unknown
 	used = dedupe(append(used, v.Decisive...))
 	switch v.Kind {
 	case "match":

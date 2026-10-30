@@ -56,6 +56,8 @@ type Bench struct {
 	Wrong         int       `json:"wrong"`
 	Conflicts     int       `json:"conflicts"` // lines it would turn from right to wrong
 	Lost          int       `json:"lost"`      // lines right today that it would leave unresolved
+	Progress      int       `json:"progress"`  // lines it brings closer: words now read, all of them words of the right product
+	ProgressEx    []Example `json:"examples_progress,omitempty"`
 	CoverBefore   float64   `json:"coverage_before"`
 	CoverAfter    float64   `json:"coverage_after"`
 	New           []Example `json:"examples_new"`
@@ -100,8 +102,15 @@ func RunBench(cat *catalog.Catalog, live *rules.Set, cand *rules.Rule, truth []T
 				fired = true
 			}
 		}
-		if !fired {
+		if !fired && len(after.Unknown) == len(before.Unknown) {
 			continue
+		}
+		if len(after.Unknown) < len(before.Unknown) && after.Status != "ok" && towardTruth(cat, with, t, before.Unknown, after.Unknown) {
+			b.Progress++
+			if len(b.ProgressEx) < 5 {
+				b.ProgressEx = append(b.ProgressEx, Example{Said: t.Said, Expected: name(t.ProductID),
+					Got: "still unread: " + strings.Join(after.Unknown, " ")})
+			}
 		}
 		if before.Status == "ok" && before.ProductID == t.ProductID && after.Status != "ok" {
 			b.Lost++
@@ -136,6 +145,36 @@ func RunBench(cat *catalog.Catalog, live *rules.Set, cand *rules.Rule, truth []T
 		catalogueEffect(cat, live, with, &b)
 	}
 	return b
+}
+
+// towardTruth: the words a rule made readable are words of the right product (a synonym that
+// points elsewhere is no progress).
+func towardTruth(cat *catalog.Catalog, set *rules.Set, t Truth, before, after []string) bool {
+	p := cat.Get(t.ProductID)
+	if p == nil {
+		return false
+	}
+	still := map[string]bool{}
+	for _, w := range after {
+		still[w] = true
+	}
+	lp := set.Profile(set.Apply(catalog.Normalize(t.Said), t.CustomerID, t.SupplierID).Text, t.CustomerID, t.SupplierID, false)
+	pw := resolve.ProductProfile(set, p).Words
+	for _, w := range lp.Words {
+		if still[w] {
+			continue
+		}
+		found := false
+		for _, x := range pw {
+			if catalog.WordSim(w, x) >= 0.85 {
+				found = true
+			}
+		}
+		if !found {
+			return false
+		}
+	}
+	return true
 }
 
 // markerCheck: a marker says "a plain product exists, and this is the variant of it" (Coca-Cola /
@@ -237,8 +276,13 @@ func Gate(b Bench, minGain int) (bool, string) {
 		// vocabulary describes the catalogue: it may come in before any line needs it, as long as
 		// it breaks nothing and reads at least two products
 		return true, fmt.Sprintf("+%d resolved, reads %d catalogue names, 0 wrong, 0 conflicts", b.NewlyResolved, b.ProductsChanged)
+	case b.NewlyResolved < minGain && b.Progress >= 3*max(minGain, 1):
+		// supplier lines carry several unread words: a rule that reads one of them, toward the right
+		// product, on several lines is progress even before any line resolves
+		return true, fmt.Sprintf("+%d resolved, reads more words of the right product on %d lines, 0 wrong, 0 conflicts", b.NewlyResolved, b.Progress)
 	case b.NewlyResolved < minGain:
-		return false, fmt.Sprintf("resolves only %d new line(s), the gate needs %d", b.NewlyResolved, minGain)
+		return false, fmt.Sprintf("resolves only %d new line(s) and brings %d closer; the gate needs %d resolved or %d closer",
+			b.NewlyResolved, b.Progress, minGain, 3*max(minGain, 1))
 	}
 	if b.Vocabulary {
 		return true, fmt.Sprintf("+%d resolved, reads %d catalogue names, 0 wrong, 0 conflicts", b.NewlyResolved, b.ProductsChanged)

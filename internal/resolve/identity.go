@@ -119,6 +119,15 @@ func valEq(attr string, a, b rules.Val) bool {
 	return catalog.WordSim(a.V, b.V) >= 0.85
 }
 
+func allIn(attr string, as, bs []rules.Val) bool {
+	for _, a := range as {
+		if !anyEq(attr, []rules.Val{a}, bs) {
+			return false
+		}
+	}
+	return true
+}
+
 func anyEq(attr string, as, bs []rules.Val) bool {
 	for _, a := range as {
 		for _, b := range bs {
@@ -160,7 +169,9 @@ func compare(set *rules.Set, line, prod rules.Profile, cx Context) cmp {
 		if polRule != "" {
 			from = append(from, polRule)
 		}
-		agree := len(lv) > 0 && len(pv) > 0 && anyEq(a, lv, pv)
+		// several values (a combination 500mg/200mg): the side stating fewer must find each of them
+		// on the other side; one shared value is not enough (40mg/5mg is not 80mg/5mg)
+		agree := len(lv) > 0 && len(pv) > 0 && anyEq(a, lv, pv) && (len(lc) == 0 || len(pc) == 0 || allIn(a, lc, pv) || allIn(a, pc, lv))
 		switch pol {
 		case rules.Ignore:
 			continue
@@ -474,6 +485,9 @@ func showSize(s string) string {
 	case "g":
 		if n >= 1000 {
 			return comma(n/1000) + " kg"
+		}
+		if n < 1 {
+			return comma(n*1000) + " mg"
 		}
 		return comma(n) + " g"
 	}
