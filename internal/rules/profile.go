@@ -59,7 +59,8 @@ func (s *Set) VocabKey() string {
 	var b strings.Builder
 	for _, r := range s.rules {
 		if (r.Type == Attr || r.Type == Word) && r.Scope.Kind != "customer" && r.Scope.Kind != "supplier" {
-			fmt.Fprintf(&b, "%s.%d|", r.ID, r.Version)
+			// the content, not the id: every candidate on the benchmark is called "candidate" v1
+			fmt.Fprintf(&b, "%s|%s|%s|%s|%s|%s|%s;", r.Type, r.Scope.Kind, r.Pattern, r.Action.Attr, r.Action.Value, r.Action.Policy, r.Action.Role)
 		}
 	}
 	return b.String()

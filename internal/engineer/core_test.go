@@ -180,3 +180,26 @@ func TestVocabularyGate(t *testing.T) {
 		t.Fatalf("lost line must be refused: %v %s %+v", ok, why, b)
 	}
 }
+
+// Two candidates benchmarked one after the other must each be read with their own vocabulary
+// (they share the id "candidate" v1).
+func TestCandidatesDoNotShareReadings(t *testing.T) {
+	db, err := store.Open(filepath.Join(t.TempDir(), "c.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { db.Close() })
+	catalog.ReplaceProducts(db, []catalog.Product{
+		{ID: "S1", Name: "Toplexil Sirop 150 ml", Brand: "Toplexil"},
+		{ID: "S2", Name: "Toplexil Comprime B/20", Brand: "Toplexil"},
+	})
+	cat := catalog.New(db)
+	truth := []Truth{{LineID: "a", Said: "toplexil sirop", ProductID: "S1"}, {LineID: "b", Said: "toplexil comprime", ProductID: "S2"}}
+	g := rules.Scope{Kind: "global"}
+	first := &rules.Rule{ID: "candidate", Version: 1, Type: rules.Attr, Scope: g, Pattern: "comprime", Action: rules.Action{Attr: "form", Value: "comprime"}}
+	second := &rules.Rule{ID: "candidate", Version: 1, Type: rules.Attr, Scope: g, Pattern: "sirop", Action: rules.Action{Attr: "form", Value: "sirop"}}
+	RunBench(cat, rules.NewSet(nil), first, truth)
+	if b := RunBench(cat, rules.NewSet(nil), second, truth); b.Lost != 0 || b.Wrong != 0 {
+		t.Fatalf("the second candidate was read with the first one's vocabulary: %+v", b)
+	}
+}
