@@ -837,13 +837,16 @@ route("settings", async () => {
       <section class="card pad col" style="flex:1 1 440px;gap:12px"><h2 class="h2">ERP connection</h2>
         <div class="${e.connected ? "okbox" : "warnbox"}">${e.connected ? `Connected to <b>${esc(e.name)}</b> at <span class="mono">${esc(e.url)}</span> as ${esc(e.user)} · ${ov.products} products · synced ${short(e.synced_at)}`
           : `Not connected${e.error ? ": " + esc(e.error) : ""}. Order Desk talks to the ERP only through its API, with a user session.`}</div>
-        <div class="field"><label for="eu">ERP address</label><input id="eu" class="inp mono" value="${esc(e.url || "http://127.0.0.1:8543")}"></div>
-        <div class="row"><div class="field" style="flex:1"><label for="en">Username</label><input id="en" class="inp" autocomplete="off"></div><div class="field" style="flex:1"><label for="ep">Password</label><input id="ep" class="inp" type="password" autocomplete="new-password"></div></div>
-        <span class="muted" style="font-size:12px">The password is used once to open a session; only the session token is kept.</span>
+        <div class="row"><div class="field" style="flex:0 0 190px"><label for="ek">ERP</label><select id="ek" class="inp">
+          ${[["elixir", "Elixir Gestion"], ["odoo", "Odoo"], ["erpnext", "ERPNext"]].map(([v, t]) => `<option value="${v}" ${(e.kind || "elixir") === v ? "selected" : ""}>${t}</option>`).join("")}</select></div>
+          <div class="field" style="flex:1"><label for="eu">Address</label><input id="eu" class="inp mono" value="${esc(e.url || "http://127.0.0.1:8543")}"></div></div>
+        <div class="field" id="f-edb"><label for="edb">Odoo database</label><input id="edb" class="inp mono" value="${esc(e.db || "")}" placeholder="orderdesk"></div>
+        <div class="row"><div class="field" style="flex:1"><label for="en">Username</label><input id="en" class="inp" autocomplete="off" value="${esc(e.login || "")}"></div><div class="field" style="flex:1"><label for="ep" id="epl">Password</label><input id="ep" class="inp" type="password" autocomplete="new-password"></div></div>
+        <span class="muted" style="font-size:12px" id="ehelp"></span>
         <div class="row" style="justify-content:flex-end">${e.connected ? `<button class="btn" id="es">Sync now</button>` : ""}<button class="btn primary" id="ec">Connect</button></div></section>
       <section class="card pad col" style="flex:1 1 380px;gap:4px"><h2 class="h2" style="margin-bottom:8px">Channels &amp; models</h2>
         ${ch(!!ov.telegram, "Telegram", ov.telegram ? `<a target="_blank" href="https://t.me/${esc(ov.telegram)}">@${esc(ov.telegram)}</a>` : "set TELEGRAM_BOT_TOKEN")}
-        ${ch(false, "WhatsApp", "same connector interface, next")}
+        ${ch(!!ov.whatsapp, "WhatsApp", ov.whatsapp ? `Cloud API · ${esc(ov.whatsapp)} · webhook <span class="mono">/whatsapp/webhook</span>` : "set WHATSAPP_TOKEN and WHATSAPP_PHONE_ID")}
         ${ch(ov.meta, "Meta models", "Voice Transcribe · Muse Spark 1.3 · Muse Wonder")}</section>
     </div>
     <div class="split" style="align-items:stretch">
@@ -865,9 +868,20 @@ route("settings", async () => {
   $("#save").onclick = async () => { const body = {}; $$("[data-k]").forEach((i) => (body[i.dataset.k] = i.value)); try { await api("/settings", { method: "PUT", body }); toast("Settings saved"); } catch (er) { toast(er.message, true); } };
   $("#ec").onclick = async () => {
     const b = $("#ec"); b.disabled = true; b.textContent = "Connecting…";
-    try { await api("/erp/connect", { method: "POST", body: { url: $("#eu").value.trim(), username: $("#en").value.trim(), password: $("#ep").value } }); toast("ERP connected and synced"); go(); }
+    try { await api("/erp/connect", { method: "POST", body: { kind: $("#ek").value, url: $("#eu").value.trim(), database: $("#edb").value.trim(), username: $("#en").value.trim(), password: $("#ep").value } }); toast("ERP connected and synced"); go(); }
     catch (er) { toast(er.message, true); b.disabled = false; b.textContent = "Connect"; }
   };
+  const erpKind = () => {
+    const k = $("#ek").value;
+    $("#f-edb").hidden = k !== "odoo";
+    $("#epl").textContent = k === "odoo" ? "API key (or password)" : "Password";
+    $("#ehelp").textContent = { elixir: "The password is used once to open a session; only the session token is kept.",
+      odoo: "Odoo's API needs the key on every call, so it is kept: create an API key in Odoo (your profile → Account Security → New API key), it can be revoked there.",
+      erpnext: "The password is used once to generate an API key and secret for this user; only those are kept." }[k];
+    const port = { elixir: "8543", odoo: "8069", erpnext: "8090" }[k];
+    if (!e.url || e.kind !== k) $("#eu").value = "http://127.0.0.1:" + port;
+  };
+  $("#ek").onchange = erpKind; erpKind();
   const es = $("#es"); if (es) es.onclick = async () => { try { const r = await api("/erp/sync", { method: "POST" }); toast(r.products + " products synced"); go(); } catch (er) { toast(er.message, true); } };
 });
 

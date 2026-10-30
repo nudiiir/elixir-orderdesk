@@ -29,7 +29,8 @@ type Desk struct {
 	DB      *store.DB
 	Cat     *catalog.Catalog
 	Meta    *meta.Client
-	TG      *telegram.Telegram
+	TG      telegram.Messenger // every channel the desk writes to (telegram.Mux)
+	Poll    *telegram.Telegram  // the Telegram bot, polled for updates (nil: no Telegram)
 	ERP     func() adapter.ERP // nil until the ERP is connected
 	DataDir string
 	OnLearn func() // called after every confirmed order (the rule engineer decides whether to run)
@@ -85,10 +86,10 @@ func (d *Desk) history(ctx context.Context, customerID string) *history {
 // ---- Telegram loop ---------------------------------------------------------------------
 
 func (d *Desk) Run(ctx context.Context) {
-	if d.TG == nil {
+	if d.Poll == nil {
 		return
 	}
-	me, err := d.TG.Me(ctx)
+	me, err := d.Poll.Me(ctx)
 	if err != nil {
 		log.Printf("[desk] telegram: %v", err)
 		return
@@ -97,7 +98,7 @@ func (d *Desk) Run(ctx context.Context) {
 	log.Printf("[desk] listening on Telegram as @%s", me.Username)
 	offset := 0
 	for ctx.Err() == nil {
-		ups, err := d.TG.Updates(ctx, offset)
+		ups, err := d.Poll.Updates(ctx, offset)
 		if err != nil {
 			time.Sleep(3 * time.Second)
 			continue
@@ -108,6 +109,9 @@ func (d *Desk) Run(ctx context.Context) {
 		}
 	}
 }
+
+// Handle takes one update from any channel (the WhatsApp webhook calls it).
+func (d *Desk) Handle(ctx context.Context, u telegram.TgUpdate) { d.handle(ctx, u) }
 
 func (d *Desk) handle(ctx context.Context, u telegram.TgUpdate) {
 	defer func() {
@@ -123,7 +127,20 @@ func (d *Desk) handle(ctx context.Context, u telegram.TgUpdate) {
 	}
 }
 
-func chatKey(chat int64) string { return fmt.Sprintf("tg:%d", chat) }
+func chatKey(chat int64) string {
+	if telegram.IsWhatsApp(chat) {
+		return fmt.Sprintf("wa:%d", chat-telegram.WAOffset)
+	}
+	return fmt.Sprintf("tg:%d", chat)
+}
+
+// channelName names the chat's app in messages to the shop.
+func channelName(chat int64) string {
+	if telegram.IsWhatsApp(chat) {
+		return "WhatsApp"
+	}
+	return "Telegram"
+}
 
 func (d *Desk) linked(key string) (customerID, name string) {
 	d.DB.QueryRow(`SELECT c.customer_id, COALESCE(u.name, '') FROM chats c LEFT JOIN customers u ON u.id = c.customer_id
@@ -162,7 +179,7 @@ func (d *Desk) onMessage(ctx context.Context, msg *telegram.TgMessage) {
 	}
 	if low := strings.ToLower(text); low == "/deconnecter" || low == "/unlink" || low == "/reset" {
 		d.Unlink(key)
-		d.say(ctx, chat, "🔓 Ce compte Telegram n'est plus lié. Envoyez un nouveau code pour le lier à un client ou comme propriétaire.")
+		d.say(ctx, chat, "🔓 Ce compte "+channelName(chat)+" n'est plus lié. Envoyez un nouveau code pour le lier à un client ou comme propriétaire.")
 		return
 	}
 	if d.isOwner(key) {
@@ -491,12 +508,12 @@ func (d *Desk) pair(ctx context.Context, msg *telegram.TgMessage, code string) {
 	if role == "owner" {
 		d.DB.Exec(`UPDATE pair_codes SET used_at = ? WHERE code = ?`, store.Now(), code)
 		d.DB.Event("chat.linked", "owner", who, map[string]string{"chat": chatKey(chat), "role": "owner"})
-		d.say(ctx, chat, "✅ Ce compte Telegram est maintenant lié comme <b>propriétaire</b>.\n\n"+ownerHelp)
+		d.say(ctx, chat, "✅ Ce compte "+channelName(chat)+" est maintenant lié comme <b>propriétaire</b>.\n\n"+ownerHelp)
 		return
 	}
 	d.DB.Exec(`UPDATE pair_codes SET used_at = ? WHERE code = ?`, store.Now(), code)
 	d.DB.Event("chat.linked", customerID, who, map[string]string{"chat": chatKey(chat), "customer": name})
-	d.say(ctx, chat, fmt.Sprintf("✅ Ce compte Telegram est maintenant lié à <b>%s</b>.\n\n%s", esc(name), helpText))
+	d.say(ctx, chat, fmt.Sprintf("✅ Ce compte %s est maintenant lié à <b>%s</b>.\n\n%s", channelName(chat), esc(name), helpText))
 }
 
 const ownerHelp = `Envoyez ici les <b>factures fournisseurs</b> : une photo nette ou le PDF.

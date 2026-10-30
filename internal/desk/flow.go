@@ -98,7 +98,9 @@ func (d *Desk) Summary(draft string) (text string, total int64, ok int) {
 
 func qtyLabel(l Line) string {
 	if l.PackFactor > 0 {
-		name := strings.ToLower(l.PackName)
+		// ERPs name packs "Carton", "Fardeau" or "Carton x6": the noun is the first word, and the
+		// count is shown once, from the factor
+		name, _, _ := strings.Cut(strings.ToLower(strings.TrimSpace(l.PackName)), " ")
 		if l.Qty > 1 && !strings.HasSuffix(name, "s") && !strings.HasSuffix(name, "x") {
 			if strings.HasSuffix(name, "eau") {
 				name += "x"

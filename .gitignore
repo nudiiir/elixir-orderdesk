@@ -4,3 +4,6 @@
 *.db
 *.db-shm
 *.db-wal
+/data-odoo/
+/data-erpnext/
+/data-*/

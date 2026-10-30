@@ -18,6 +18,8 @@ import (
 
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/elixir"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/erpnext"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/odoo"
 	"github.com/nudiiir/elixir-orderdesk/internal/catalog"
 	"github.com/nudiiir/elixir-orderdesk/internal/desk"
 	"github.com/nudiiir/elixir-orderdesk/internal/engineer"
@@ -38,12 +40,18 @@ type Server struct {
 	Meta    *meta.Client
 	DataDir string
 	ERP     func() adapter.ERP
-	Connect func(url, token string) // installs a new ERP adapter
+	Connect func(kind, url, db, login, token string) // installs a new ERP adapter
 	Sync    func(ctx context.Context) error
+
+	WhatsApp http.Handler // the WhatsApp Cloud API webhook, when configured
 }
 
 func (s *Server) Handler() http.Handler {
 	r := chi.NewRouter()
+	if s.WhatsApp != nil {
+		r.Get("/whatsapp/webhook", s.WhatsApp.ServeHTTP)
+		r.Post("/whatsapp/webhook", s.WhatsApp.ServeHTTP)
+	}
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/overview", s.overview)
 		r.Get("/drafts", s.drafts)
@@ -140,6 +148,7 @@ func (s *Server) overview(w http.ResponseWriter, r *http.Request) {
 	out["aliases"], out["trusted_aliases"] = aliases, trusted
 	out["products"] = len(s.Cat.Products())
 	erp := map[string]any{"url": s.DB.Setting("erp_url", ""), "user": s.DB.Setting("erp_user", ""), "connected": false,
+		"kind": s.DB.Setting("erp_kind", "elixir"), "db": s.DB.Setting("erp_db", ""), "login": s.DB.Setting("erp_login", ""),
 		"synced_at": s.DB.Setting("erp_synced_at", ""), "error": s.DB.Setting("erp_error", "")}
 	if e := s.ERP(); e != nil {
 		erp["name"] = e.Name()
@@ -153,6 +162,9 @@ func (s *Server) overview(w http.ResponseWriter, r *http.Request) {
 	}
 	out["erp"] = erp
 	out["telegram"] = s.DB.Setting("telegram_bot", "")
+	if s.WhatsApp != nil {
+		out["whatsapp"] = s.DB.Setting("whatsapp_number", "configured")
+	}
 	out["meta"] = s.Meta.Enabled()
 	out["engineer_running"] = s.Eng.Running()
 	writeJSON(w, http.StatusOK, out)
@@ -879,7 +891,9 @@ func (s *Server) putSettings(w http.ResponseWriter, r *http.Request) {
 // kept; the password is used once and never stored.
 func (s *Server) erpConnect(w http.ResponseWriter, r *http.Request) {
 	var in struct {
+		Kind     string `json:"kind"` // elixir | odoo | erpnext
 		URL      string `json:"url"`
+		Database string `json:"database"`
 		Username string `json:"username"`
 		Password string `json:"password"`
 	}
@@ -887,16 +901,40 @@ func (s *Server) erpConnect(w http.ResponseWriter, r *http.Request) {
 		writeErr(w, 400, "url and username are required")
 		return
 	}
-	tok, name, err := elixir.Login(r.Context(), in.URL, in.Username, in.Password)
+	in.URL = strings.TrimRight(strings.TrimSpace(in.URL), "/")
+	var tok, name string
+	var err error
+	switch in.Kind {
+	case "odoo":
+		// Odoo's API takes the login with an API key (or the password) on every call: it is kept,
+		// so an API key that can be revoked in Odoo is the right thing to give here.
+		if in.Database == "" {
+			writeErr(w, 400, "the Odoo database name is required")
+			return
+		}
+		name, err = odoo.New(in.URL, in.Database, in.Username, in.Password).Authenticate(r.Context())
+		tok = in.Password
+	case "erpnext":
+		// the password is used once to generate an API key and secret; only those are kept
+		var key, secret string
+		key, secret, name, err = erpnext.Login(r.Context(), in.URL, in.Username, in.Password)
+		tok = key + ":" + secret
+	default:
+		in.Kind = "elixir"
+		tok, name, err = elixir.Login(r.Context(), in.URL, in.Username, in.Password)
+	}
 	if err != nil {
 		writeErr(w, 400, "login failed: "+err.Error())
 		return
 	}
-	s.DB.SetSetting("erp_url", strings.TrimRight(in.URL, "/"))
+	s.DB.SetSetting("erp_kind", in.Kind)
+	s.DB.SetSetting("erp_url", in.URL)
+	s.DB.SetSetting("erp_db", in.Database)
+	s.DB.SetSetting("erp_login", in.Username)
 	s.DB.SetSetting("erp_user", name)
 	s.DB.SetSetting("erp_token", tok)
-	s.Connect(in.URL, tok)
-	s.DB.Event("erp.connected", "erp", "clerk", map[string]string{"url": in.URL, "user": name})
+	s.Connect(in.Kind, in.URL, in.Database, in.Username, tok)
+	s.DB.Event("erp.connected", "erp", "clerk", map[string]string{"kind": in.Kind, "url": in.URL, "user": name})
 	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()
 	if err := s.Sync(ctx); err != nil {
