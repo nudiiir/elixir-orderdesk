@@ -33,6 +33,8 @@ type Report struct {
 	Accepted  []string `json:"accepted"`
 	Rejected  []string `json:"rejected"`
 	Cost      float64  `json:"cost"`
+	Model     string   `json:"model"`              // the model of the first session
+	Fallback  string   `json:"fallback,omitempty"` // the model of the second session, when the first found nothing
 	Summary   string   `json:"summary"`
 	Error     string   `json:"error,omitempty"`
 }
@@ -51,7 +53,7 @@ func (e *Engineer) MaybeRun(ctx context.Context) {
 	var n int
 	e.DB.QueryRow(`SELECT COUNT(*) FROM ground_truth WHERE level IN ('ai','person') AND created_at > ?`,
 		e.DB.Setting("engineer_last_run", "")).Scan(&n)
-	if n >= e.DB.SettingInt("engineer_every", 10) {
+	if n >= e.DB.SettingInt("engineer_every", 50) {
 		e.Run(ctx, "auto")
 	}
 }
@@ -175,17 +177,46 @@ func (e *Engineer) Run(ctx context.Context, trigger string) Report {
 		rep.Error = "no Meta API key"
 		return rep
 	}
-	model := e.DB.Setting("engineer_model", meta.Wonder)
-	maxRules := e.DB.SettingInt("engineer_max_rules", 6)
 	start := fmt.Sprintf("There are %d residue lines out of %d known lines. Start.", len(residue), len(truth))
 	if !live.HasVocabulary() {
 		start += " The catalogue has no vocabulary yet: begin with read_catalogue and write the attribute rules that tell its products apart."
 	}
+	// Muse Spark first: on the replays it wrote the same rules as Muse Wonder for a quarter of the price.
+	// Wonder only when Spark admitted nothing and the residue has grown enough since Wonder last looked.
+	rep.Model = e.DB.Setting("engineer_model", meta.Spark)
+	first := e.session(ctx, rep.Model, start, residue, truth, live, runID, &rep)
+	share(e.DB, rep.Proposed, first)
+	if fb := e.DB.Setting("engineer_fallback_model", meta.Wonder); fb != "" && fb != rep.Model && len(rep.Accepted) == 0 && rep.Error == "" &&
+		len(residue)-e.DB.SettingInt("engineer_fallback_residue_at", 0) >= e.DB.SettingInt("engineer_fallback_after", 100) {
+		rep.Fallback = fb
+		e.DB.SetSetting("engineer_fallback_residue_at", fmt.Sprint(len(residue)))
+		e.DB.Event("engineer.fallback", runID, "rule-engineer", map[string]any{"from": rep.Model, "to": fb, "residue": len(residue)})
+		before := len(rep.Proposed)
+		cost := e.session(ctx, fb, start+" A cheaper model looked first and found nothing the gate admits.", residue, truth, live, runID, &rep)
+		share(e.DB, rep.Proposed[before:], cost)
+	}
+	e.DB.Event("engineer.finished", runID, "rule-engineer", rep)
+	log.Printf("[engineer] %s: %s%s, residue %d, accepted %v, rejected %v, $%.4f", trigger, rep.Model, map[bool]string{true: " → " + rep.Fallback}[rep.Fallback != ""],
+		rep.Residue, rep.Accepted, rep.Rejected, rep.Cost)
+	return rep
+}
+
+// share spreads a session's cost over the rules it proposed.
+func share(db *store.DB, ids []string, cost float64) {
+	for _, id := range ids {
+		db.Exec(`UPDATE rules SET ai_cost = ? WHERE id = ? AND version = (SELECT MAX(version) FROM rules WHERE id = ?)`, cost/float64(len(ids)), id, id)
+	}
+}
+
+// session is one conversation of a model with the tools; it returns what it cost.
+func (e *Engineer) session(ctx context.Context, model, start string, residue, truth []Truth, live *rules.Set, runID string, rep *Report) float64 {
+	maxRules := e.DB.SettingInt("engineer_max_rules", 6)
 	msgs := []meta.Message{{Role: "system", Content: fmt.Sprintf(systemPrompt, maxRules)}, {Role: "user", Content: start}}
-	submitted, nudged := 0, false
+	submitted, nudged, spent := 0, false, 0.0
 	for round := 0; round < e.DB.SettingInt("engineer_rounds", 8); round++ {
 		msg, cost, err := e.Meta.Chat(ctx, model, "engineer", runID, msgs, e.tools(), 4000)
 		rep.Cost += cost
+		spent += cost
 		if err != nil {
 			rep.Error = err.Error()
 			break
@@ -202,22 +233,14 @@ func (e *Engineer) Run(ctx context.Context, trigger string) Report {
 			break
 		}
 		for _, tc := range msg.ToolCalls {
-			out := e.call(tc.Function.Name, tc.Function.Arguments, residue, truth, live, runID, &rep, &submitted)
+			out := e.call(tc.Function.Name, tc.Function.Arguments, residue, truth, live, runID, rep, &submitted)
 			msgs = append(msgs, meta.Message{Role: "tool", ToolCallID: tc.ID, Name: tc.Function.Name, Content: out})
 		}
 		if submitted >= maxRules {
 			break
 		}
 	}
-	// the proposal cost is shared by the rules it produced
-	if n := len(rep.Proposed); n > 0 {
-		for _, id := range rep.Proposed {
-			e.DB.Exec(`UPDATE rules SET ai_cost = ? WHERE id = ? AND version = (SELECT MAX(version) FROM rules WHERE id = ?)`, rep.Cost/float64(n), id, id)
-		}
-	}
-	e.DB.Event("engineer.finished", runID, "rule-engineer", rep)
-	log.Printf("[engineer] %s: residue %d, accepted %v, rejected %v, $%.4f", trigger, rep.Residue, rep.Accepted, rep.Rejected, rep.Cost)
-	return rep
+	return spent
 }
 
 func (e *Engineer) call(name, args string, residue, truth []Truth, live *rules.Set, runID string, rep *Report, submitted *int) string {

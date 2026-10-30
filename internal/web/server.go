@@ -847,7 +847,8 @@ func (s *Server) pairCode(w http.ResponseWriter, r *http.Request) {
 // Editable settings and their defaults.
 var settingKeys = map[string]string{
 	"alias_trust_after": "2", "shadow_agreements": "5", "rollback_strikes": "2", "gate_min_gain": "2",
-	"engineer_auto": "1", "engineer_every": "10", "engineer_model": meta.Wonder, "engineer_rounds": "8",
+	"engineer_auto": "1", "engineer_every": "50", "engineer_model": meta.Spark, "engineer_rounds": "8",
+	"engineer_fallback_model": meta.Wonder, "engineer_fallback_after": "100",
 	"ai_budget_day": "2", "price_transcribe_min": "0.006", "receipt_post": "1",
 }
 

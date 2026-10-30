@@ -856,7 +856,9 @@ route("settings", async () => {
       <section class="card pad col" style="flex:1 1 380px"><h2 class="h2" style="margin-bottom:8px">Rule engineer &amp; budget</h2>
         ${field("engineer_auto", "Run automatically (1 = yes)", "after confirmations, when enough residue has accumulated")}
         ${field("engineer_every", "Run after every", "new residue lines (lines that needed the AI or a person)")}
-        ${field("engineer_model", "Model", "muse-wonder-1.0 (tool use); muse-spark-1.3 is cheaper")}
+        ${field("engineer_model", "Model", "muse-spark-1.3 by default: the same rules as Wonder on the replays, at a quarter of the price")}
+        ${field("engineer_fallback_model", "Fallback model", "muse-wonder-1.0 looks when Spark admitted nothing (empty: never)")}
+        ${field("engineer_fallback_after", "Fallback after", "new residue lines since the fallback last looked")}
         ${field("engineer_rounds", "Max tool rounds per run", "caps the cost of a run")}
         ${field("ai_budget_day", "AI budget per day (USD)", "when reached, aliases and rules keep working; new lines wait for a person")}</section>
     </div>`;
