@@ -838,9 +838,9 @@ route("settings", async () => {
         <div class="${e.connected ? "okbox" : "warnbox"}">${e.connected ? `Connected to <b>${esc(e.name)}</b> at <span class="mono">${esc(e.url)}</span> as ${esc(e.user)} · ${ov.products} products · synced ${short(e.synced_at)}`
           : `Not connected${e.error ? ": " + esc(e.error) : ""}. Order Desk talks to the ERP only through its API, with a user session.`}</div>
         <div class="row"><div class="field" style="flex:0 0 190px"><label for="ek">ERP</label><select id="ek" class="inp">
-          ${[["elixir", "Elixir Gestion"], ["odoo", "Odoo"], ["erpnext", "ERPNext"]].map(([v, t]) => `<option value="${v}" ${(e.kind || "elixir") === v ? "selected" : ""}>${t}</option>`).join("")}</select></div>
+          ${[["elixir", "Elixir Gestion"], ["odoo", "Odoo"], ["erpnext", "ERPNext"], ["dolibarr", "Dolibarr"], ["inventree", "InvenTree"], ["tryton", "Tryton"]].map(([v, t]) => `<option value="${v}" ${(e.kind || "elixir") === v ? "selected" : ""}>${t}</option>`).join("")}</select></div>
           <div class="field" style="flex:1"><label for="eu">Address</label><input id="eu" class="inp mono" value="${esc(e.url || "http://127.0.0.1:8543")}"></div></div>
-        <div class="field" id="f-edb"><label for="edb">Odoo database</label><input id="edb" class="inp mono" value="${esc(e.db || "")}" placeholder="orderdesk"></div>
+        <div class="field" id="f-edb"><label for="edb">Database (Odoo, Tryton)</label><input id="edb" class="inp mono" value="${esc(e.db || "")}" placeholder="orderdesk"></div>
         <div class="row"><div class="field" style="flex:1"><label for="en">Username</label><input id="en" class="inp" autocomplete="off" value="${esc(e.login || "")}"></div><div class="field" style="flex:1"><label for="ep" id="epl">Password</label><input id="ep" class="inp" type="password" autocomplete="new-password"></div></div>
         <span class="muted" style="font-size:12px" id="ehelp"></span>
         <div class="row" style="justify-content:flex-end">${e.connected ? `<button class="btn" id="es">Sync now</button>` : ""}<button class="btn primary" id="ec">Connect</button></div></section>
@@ -873,12 +873,15 @@ route("settings", async () => {
   };
   const erpKind = () => {
     const k = $("#ek").value;
-    $("#f-edb").hidden = k !== "odoo";
+    $("#f-edb").hidden = k !== "odoo" && k !== "tryton";
     $("#epl").textContent = k === "odoo" ? "API key (or password)" : "Password";
     $("#ehelp").textContent = { elixir: "The password is used once to open a session; only the session token is kept.",
       odoo: "Odoo's API needs the key on every call, so it is kept: create an API key in Odoo (your profile → Account Security → New API key), it can be revoked there.",
-      erpnext: "The password is used once to generate an API key and secret for this user; only those are kept." }[k];
-    const port = { elixir: "8543", odoo: "8069", erpnext: "8090" }[k];
+      erpnext: "The password is used once to generate an API key and secret for this user; only those are kept.",
+      dolibarr: "The password is used once to fetch this user's Dolibarr API key; only the key is kept. If Dolibarr's login API is off, paste the key from the user card instead.",
+      inventree: "The password is used once to create a revocable API token named orderdesk; only the token is kept.",
+      tryton: "The password is used once to open a Tryton session; only the session key is kept (it expires after 30 days, or when revoked in Tryton)." }[k];
+    const port = { elixir: "8543", odoo: "8069", erpnext: "8090", dolibarr: "8081", inventree: "8083", tryton: "8000" }[k];
     if (!e.url || e.kind !== k) $("#eu").value = "http://127.0.0.1:" + port;
   };
   $("#ek").onchange = erpKind; erpKind();

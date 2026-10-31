@@ -19,6 +19,9 @@ import (
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/elixir"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/erpnext"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/tryton"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/dolibarr"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/inventree"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/odoo"
 	"github.com/nudiiir/elixir-orderdesk/internal/catalog"
 	"github.com/nudiiir/elixir-orderdesk/internal/desk"
@@ -891,7 +894,7 @@ func (s *Server) putSettings(w http.ResponseWriter, r *http.Request) {
 // kept; the password is used once and never stored.
 func (s *Server) erpConnect(w http.ResponseWriter, r *http.Request) {
 	var in struct {
-		Kind     string `json:"kind"` // elixir | odoo | erpnext
+		Kind     string `json:"kind"` // elixir | odoo | erpnext | tryton | dolibarr | inventree
 		URL      string `json:"url"`
 		Database string `json:"database"`
 		Username string `json:"username"`
@@ -919,6 +922,19 @@ func (s *Server) erpConnect(w http.ResponseWriter, r *http.Request) {
 		var key, secret string
 		key, secret, name, err = erpnext.Login(r.Context(), in.URL, in.Username, in.Password)
 		tok = key + ":" + secret
+	case "tryton":
+		// a user application key is created with the password once; the key is kept and can be revoked in Tryton
+		if in.Database == "" {
+			writeErr(w, 400, "the Tryton database name is required")
+			return
+		}
+		tok, name, err = tryton.Login(r.Context(), in.URL, in.Database, in.Username, in.Password)
+	case "dolibarr":
+		// the password is used once to fetch the user's API key; only the key is kept
+		tok, name, err = dolibarr.Login(r.Context(), in.URL, in.Username, in.Password)
+	case "inventree":
+		// the password is used once to create a revocable API token; only the token is kept
+		tok, name, err = inventree.Login(r.Context(), in.URL, in.Username, in.Password)
 	default:
 		in.Kind = "elixir"
 		tok, name, err = elixir.Login(r.Context(), in.URL, in.Username, in.Password)

@@ -22,6 +22,9 @@ import (
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/elixir"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/erpnext"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/tryton"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/dolibarr"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/inventree"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/odoo"
 	"github.com/nudiiir/elixir-orderdesk/internal/catalog"
 	"github.com/nudiiir/elixir-orderdesk/internal/desk"
@@ -69,6 +72,12 @@ func main() {
 		case "erpnext":
 			key, secret, _ := strings.Cut(token, ":")
 			c = erpnext.New(url, key, secret)
+		case "tryton":
+			c = tryton.New(url, dbName, login, token)
+		case "dolibarr":
+			c = dolibarr.New(url, token)
+		case "inventree":
+			c = inventree.New(url, token)
 		default:
 			c = elixir.New(url, token, nil, func(t string) { db.SetSetting("erp_token", t) })
 		}
