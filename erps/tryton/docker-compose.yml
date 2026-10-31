@@ -1,0 +1,44 @@
+# Tryton 7.0 LTS for Order Desk tests: sales, purchase, stock, invoicing. http://127.0.0.1:8000
+# Local throwaway test ERP: database "orderdesk", admin / admin.
+#
+#   docker compose up -d db
+#   docker compose run --rm init          # once: create the schema and activate the modules
+#   docker compose up -d tryton
+#   python ../seed/tryton_setup.py ../seed/seed.json
+name: od-tryton
+x-tryton: &tryton
+  image: tryton/tryton:7.0
+  depends_on: [db]
+  environment:
+    DB_HOSTNAME: db
+    DB_USER: tryton
+    DB_PASSWORD: tryton
+  volumes: [tryton-data:/var/lib/trytond/db]
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: tryton
+      POSTGRES_PASSWORD: tryton
+      POSTGRES_DB: orderdesk
+    volumes: [tryton-db:/var/lib/postgresql/data]
+    restart: unless-stopped
+  tryton:
+    <<: *tryton
+    ports: ["127.0.0.1:8000:8000"]
+    restart: unless-stopped
+  init:
+    <<: *tryton
+    profiles: [init]
+    command:
+      - bash
+      - -c
+      - >-
+        echo admin > /tmp/admin-password && export TRYTONPASSFILE=/tmp/admin-password &&
+        trytond-admin -d orderdesk --all -p &&
+        trytond-admin -d orderdesk --activate-dependencies -u
+        company currency party product product_price_list stock account account_product account_invoice
+        account_invoice_stock sale sale_price_list purchase
+volumes:
+  tryton-db:
+  tryton-data:

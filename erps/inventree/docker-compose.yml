@@ -1,0 +1,37 @@
+# InvenTree 1.6 for Order Desk tests: parts, sales orders, purchase orders, stock. http://127.0.0.1:8083
+# Local throwaway test instance (admin / admin). Seed: python seed/inventree_setup.py seed/seed.json
+name: od-inventree
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: inventree
+      POSTGRES_PASSWORD: inventree
+      POSTGRES_DB: inventree
+    volumes: [inventree-db:/var/lib/postgresql/data]
+    restart: unless-stopped
+  server:
+    image: inventree/inventree:1.6.3
+    depends_on: [db]
+    ports: ["127.0.0.1:8083:8000"]
+    environment:
+      INVENTREE_DB_ENGINE: postgresql
+      INVENTREE_DB_NAME: inventree
+      INVENTREE_DB_HOST: db
+      INVENTREE_DB_PORT: "5432"
+      INVENTREE_DB_USER: inventree
+      INVENTREE_DB_PASSWORD: inventree
+      INVENTREE_SITE_URL: http://127.0.0.1:8083
+      INVENTREE_ADMIN_USER: admin
+      INVENTREE_ADMIN_PASSWORD: admin
+      INVENTREE_ADMIN_EMAIL: admin@example.com
+      INVENTREE_GUNICORN_WORKERS: "2"
+      INVENTREE_PLUGINS_ENABLED: "False"
+      INVENTREE_AUTO_UPDATE: "True"
+    # migrations and static files first (no proxy here: the API is what Order Desk uses)
+    command: ["sh", "-c", "cd /home/inventree && invoke migrate && invoke static; exec gunicorn -c ./gunicorn.conf.py InvenTree.wsgi -b 0.0.0.0:8000 --chdir $${INVENTREE_BACKEND_DIR}/InvenTree"]
+    volumes: [inventree-data:/home/inventree/data]
+    restart: unless-stopped
+volumes:
+  inventree-db:
+  inventree-data:

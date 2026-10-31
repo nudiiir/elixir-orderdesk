@@ -111,7 +111,7 @@ func main() {
 		catalog.ReplaceSuppliers(db, sups)
 		db.SetSetting("ai_budget_day", "25")
 		db.SetSetting("engineer_auto", "0")
-		db.SetSetting("tenant_name", "Replay — anonymised pharmacy invoices")
+		db.SetSetting("tenant_name", "Replay — anonymised supplier invoices")
 		cat := catalog.New(db)
 		mc := meta.New(os.Getenv("META_MODEL_API_KEY"), db)
 		return db, cat, &desk.Desk{DB: db, Cat: cat, Meta: mc, DataDir: filepath.Join(*out, name)}, mc

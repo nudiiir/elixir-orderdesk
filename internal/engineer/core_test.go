@@ -190,14 +190,14 @@ func TestCandidatesDoNotShareReadings(t *testing.T) {
 	}
 	t.Cleanup(func() { db.Close() })
 	catalog.ReplaceProducts(db, []catalog.Product{
-		{ID: "S1", Name: "Toplexil Sirop 150 ml", Brand: "Toplexil"},
-		{ID: "S2", Name: "Toplexil Comprime B/20", Brand: "Toplexil"},
+		{ID: "S1", Name: "Ifri Plate 150 cl", Brand: "Ifri"},
+		{ID: "S2", Name: "Ifri Gazeuse B/20", Brand: "Ifri"},
 	})
 	cat := catalog.New(db)
-	truth := []Truth{{LineID: "a", Said: "toplexil sirop", ProductID: "S1"}, {LineID: "b", Said: "toplexil comprime", ProductID: "S2"}}
+	truth := []Truth{{LineID: "a", Said: "ifri plate", ProductID: "S1"}, {LineID: "b", Said: "ifri gazeuse", ProductID: "S2"}}
 	g := rules.Scope{Kind: "global"}
-	first := &rules.Rule{ID: "candidate", Version: 1, Type: rules.Attr, Scope: g, Pattern: "comprime", Action: rules.Action{Attr: "form", Value: "comprime"}}
-	second := &rules.Rule{ID: "candidate", Version: 1, Type: rules.Attr, Scope: g, Pattern: "sirop", Action: rules.Action{Attr: "form", Value: "sirop"}}
+	first := &rules.Rule{ID: "candidate", Version: 1, Type: rules.Attr, Scope: g, Pattern: "gazeuse", Action: rules.Action{Attr: "type", Value: "gazeuse"}}
+	second := &rules.Rule{ID: "candidate", Version: 1, Type: rules.Attr, Scope: g, Pattern: "plate", Action: rules.Action{Attr: "type", Value: "plate"}}
 	RunBench(cat, rules.NewSet(nil), first, truth)
 	if b := RunBench(cat, rules.NewSet(nil), second, truth); b.Lost != 0 || b.Wrong != 0 {
 		t.Fatalf("the second candidate was read with the first one's vocabulary: %+v", b)

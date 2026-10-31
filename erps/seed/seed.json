@@ -1,0 +1,2798 @@
+{
+ "products": [
+  {
+   "ref": "01a17eaf-be3b-7325-b347-86a3521667b6",
+   "barcode": "6131201000019",
+   "sku": "1201-001",
+   "name": "Hamoud Boualem Selecto 2L",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 95.39,
+   "price": 132.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 120
+  },
+  {
+   "ref": "01a17eaf-be49-74cf-9cab-100ec5ca6e73",
+   "barcode": "6131201000026",
+   "sku": "1201-002",
+   "name": "Hamoud Boualem Selecto 1L",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 63.6,
+   "price": 88.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 306
+  },
+  {
+   "ref": "01a17eaf-be59-72b5-b933-222ca0e0abab",
+   "barcode": "6131201000033",
+   "sku": "1201-003",
+   "name": "Hamoud Boualem Selecto 33cl canette",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 44.52,
+   "price": 62.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 840
+  },
+  {
+   "ref": "01a17eaf-be69-73ca-b23f-eb3fb3668250",
+   "barcode": "6131201000040",
+   "sku": "1201-004",
+   "name": "Hamoud Boualem Selecto 25cl verre",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 31.8,
+   "price": 44.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 648
+  },
+  {
+   "ref": "01a17eaf-be6b-762d-bc79-30114506f4c9",
+   "barcode": "6131201000057",
+   "sku": "1201-005",
+   "name": "Hamoud Boualem Hamoud Gazouz 2L",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 89.04,
+   "price": 123.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 143
+  },
+  {
+   "ref": "01a17eaf-be6d-74ac-8111-7771ef0fd63d",
+   "barcode": "6131201000064",
+   "sku": "1201-006",
+   "name": "Hamoud Boualem Hamoud Gazouz 1L",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 57.24,
+   "price": 79.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 252
+  },
+  {
+   "ref": "01a17eaf-be78-7729-8228-098e7132d4f6",
+   "barcode": "6131201000071",
+   "sku": "1201-007",
+   "name": "Hamoud Boualem Hamoud Gazouz 33cl canette",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 41.34,
+   "price": 57.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 864
+  },
+  {
+   "ref": "01a17eaf-be79-7bac-bc43-199aa680322f",
+   "barcode": "6131201000088",
+   "sku": "1201-008",
+   "name": "Hamoud Boualem Slim Citron 2L",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 82.68,
+   "price": 114.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 132
+  },
+  {
+   "ref": "01a17eaf-be88-71a0-8ec0-03f0a93414e0",
+   "barcode": "6131201000095",
+   "sku": "1201-009",
+   "name": "Hamoud Boualem Slim Orange 2L",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 82.68,
+   "price": 114.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 120
+  },
+  {
+   "ref": "01a17eaf-be97-7247-a2d9-b2b36dc52fca",
+   "barcode": "6131201000101",
+   "sku": "1201-010",
+   "name": "Hamoud Boualem Slim Citron 1L",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 54.06,
+   "price": 75.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 240
+  },
+  {
+   "ref": "01a17eaf-bea7-764d-98e9-453c8822b2b5",
+   "barcode": "6131201000118",
+   "sku": "1201-011",
+   "name": "Hamoud Boualem Slim Orange 1L",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 54.06,
+   "price": 75.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 132
+  },
+  {
+   "ref": "01a17eaf-beb6-78d0-b307-e125300b1d4c",
+   "barcode": "6131201000125",
+   "sku": "1201-012",
+   "name": "Hamoud Boualem Pomme 1L",
+   "brand": "Hamoud Boualem",
+   "vat": 19.0,
+   "cost": 57.24,
+   "price": 79.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 276
+  },
+  {
+   "ref": "01a17eaf-bec5-794c-beeb-a8973a748d89",
+   "barcode": "6131302000017",
+   "sku": "1302-001",
+   "name": "Ifri Eau Minérale 1.5L",
+   "brand": "Ifri",
+   "vat": 19.0,
+   "cost": 25.44,
+   "price": 35.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 306
+  },
+  {
+   "ref": "01a17eaf-bed5-7abf-862a-7f869083ef08",
+   "barcode": "6131302000024",
+   "sku": "1302-002",
+   "name": "Ifri Eau Minérale 0.5L",
+   "brand": "Ifri",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 0
+  },
+  {
+   "ref": "01a17eaf-bee5-77e6-994b-5608511a6a7c",
+   "barcode": "6131302000031",
+   "sku": "1302-003",
+   "name": "Ifri Eau Minérale 0.33L",
+   "brand": "Ifri",
+   "vat": 19.0,
+   "cost": 12.72,
+   "price": 18.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 336
+  },
+  {
+   "ref": "01a17eaf-bef5-74d1-bb0d-6b822213e890",
+   "barcode": "6131302000048",
+   "sku": "1302-004",
+   "name": "Ifri Eau Minérale 2L",
+   "brand": "Ifri",
+   "vat": 19.0,
+   "cost": 31.8,
+   "price": 44.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 198
+  },
+  {
+   "ref": "01a17eaf-bef7-7647-86d4-9d68698e7db7",
+   "barcode": "6131302000055",
+   "sku": "1302-005",
+   "name": "Ifri Eau Gazéifiée 1L",
+   "brand": "Ifri",
+   "vat": 19.0,
+   "cost": 38.16,
+   "price": 53.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 66
+  },
+  {
+   "ref": "01a17eaf-bef8-7efc-bc93-e58a88046609",
+   "barcode": "6131302000062",
+   "sku": "1302-006",
+   "name": "Ifri Soda Citron 1L",
+   "brand": "Ifri",
+   "vat": 19.0,
+   "cost": 57.24,
+   "price": 79.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 210
+  },
+  {
+   "ref": "01a17eaf-befa-72e8-8c94-99edea7974f1",
+   "barcode": "6131302000079",
+   "sku": "1302-007",
+   "name": "Ifri Soda Citron 33cl canette",
+   "brand": "Ifri",
+   "vat": 19.0,
+   "cost": 38.16,
+   "price": 53.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 240
+  },
+  {
+   "ref": "01a17eaf-bf04-7c08-8bd1-926d52cc88d9",
+   "barcode": "6131302000086",
+   "sku": "1302-008",
+   "name": "Ifri Ifruit Orange 1L",
+   "brand": "Ifri",
+   "vat": 19.0,
+   "cost": 89.04,
+   "price": 123.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 222
+  },
+  {
+   "ref": "01a17eaf-bf06-7695-bdda-9a0202ddeaea",
+   "barcode": "6131302000093",
+   "sku": "1302-009",
+   "name": "Ifri Ifruit Pomme 1L",
+   "brand": "Ifri",
+   "vat": 19.0,
+   "cost": 89.04,
+   "price": 123.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 72
+  },
+  {
+   "ref": "01a17eaf-bf07-76f4-96b7-c2133099b64b",
+   "barcode": "6131403000015",
+   "sku": "1403-001",
+   "name": "Ngaous Nectar Orange 1L",
+   "brand": "Ngaous",
+   "vat": 19.0,
+   "cost": 108.11,
+   "price": 150.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 186
+  },
+  {
+   "ref": "01a17eaf-bf14-743f-b21b-b99c889b3918",
+   "barcode": "6131403000022",
+   "sku": "1403-002",
+   "name": "Ngaous Nectar Abricot 1L",
+   "brand": "Ngaous",
+   "vat": 19.0,
+   "cost": 108.11,
+   "price": 150.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 210
+  },
+  {
+   "ref": "01a17eaf-bf24-75ad-84f8-870de4ebfd35",
+   "barcode": "6131403000039",
+   "sku": "1403-003",
+   "name": "Ngaous Nectar Pêche 1L",
+   "brand": "Ngaous",
+   "vat": 19.0,
+   "cost": 108.11,
+   "price": 150.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 198
+  },
+  {
+   "ref": "01a17eaf-bf26-74b9-8aef-909794e62936",
+   "barcode": "6131403000046",
+   "sku": "1403-004",
+   "name": "Ngaous Nectar Multifruits 1L",
+   "brand": "Ngaous",
+   "vat": 19.0,
+   "cost": 108.11,
+   "price": 150.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 204
+  },
+  {
+   "ref": "01a17eaf-bf33-7dce-b0b5-e73b4073fa36",
+   "barcode": "6131403000053",
+   "sku": "1403-005",
+   "name": "Ngaous Nectar Orange 25cl verre",
+   "brand": "Ngaous",
+   "vat": 19.0,
+   "cost": 38.16,
+   "price": 53.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 672
+  },
+  {
+   "ref": "01a17eaf-bf42-7854-a6d3-f06b5af82bd0",
+   "barcode": "6131403000060",
+   "sku": "1403-006",
+   "name": "Ngaous Nectar Abricot 25cl verre",
+   "brand": "Ngaous",
+   "vat": 19.0,
+   "cost": 38.16,
+   "price": 53.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 360
+  },
+  {
+   "ref": "01a17eaf-bf44-7507-b6c6-b2e16f4e87a5",
+   "barcode": "6131504000013",
+   "sku": "1504-001",
+   "name": "Rouiba Orange 1L",
+   "brand": "Rouiba",
+   "vat": 19.0,
+   "cost": 120.83,
+   "price": 167.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 0
+  },
+  {
+   "ref": "01a17eaf-bf52-7acb-95ba-72c7d1432815",
+   "barcode": "6131504000020",
+   "sku": "1504-002",
+   "name": "Rouiba Orange 2L",
+   "brand": "Rouiba",
+   "vat": 19.0,
+   "cost": 209.87,
+   "price": 290.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 198
+  },
+  {
+   "ref": "01a17eaf-bf54-75f6-90b6-e30e8e3a2257",
+   "barcode": "6131504000037",
+   "sku": "1504-003",
+   "name": "Rouiba Orange 20cl",
+   "brand": "Rouiba",
+   "vat": 19.0,
+   "cost": 31.8,
+   "price": 44.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 240
+  },
+  {
+   "ref": "01a17eaf-bf62-7bee-886d-4b0852467bf9",
+   "barcode": "6131504000044",
+   "sku": "1504-004",
+   "name": "Rouiba Cocktail Fruits 1L",
+   "brand": "Rouiba",
+   "vat": 19.0,
+   "cost": 120.83,
+   "price": 167.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 180
+  },
+  {
+   "ref": "01a17eaf-bf63-7d3c-a177-5148d1b58c1b",
+   "barcode": "6131504000051",
+   "sku": "1504-005",
+   "name": "Rouiba Cocktail Fruits 20cl",
+   "brand": "Rouiba",
+   "vat": 19.0,
+   "cost": 31.8,
+   "price": 44.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 432
+  },
+  {
+   "ref": "01a17eaf-bf65-71ad-8390-4d7e1dafe7e7",
+   "barcode": "6131504000068",
+   "sku": "1504-006",
+   "name": "Rouiba Pomme 1L",
+   "brand": "Rouiba",
+   "vat": 19.0,
+   "cost": 120.83,
+   "price": 167.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 222
+  },
+  {
+   "ref": "01a17eaf-bf71-7505-a3bb-1ff0e125d841",
+   "barcode": "6131504000075",
+   "sku": "1504-007",
+   "name": "Rouiba Abricot 1L",
+   "brand": "Rouiba",
+   "vat": 19.0,
+   "cost": 120.83,
+   "price": 167.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 186
+  },
+  {
+   "ref": "01a17eaf-bf72-7c1c-ab15-e7b5c9fff989",
+   "barcode": "6131605000011",
+   "sku": "1605-001",
+   "name": "Toudja Eau Minérale 1.5L",
+   "brand": "Toudja",
+   "vat": 19.0,
+   "cost": 25.44,
+   "price": 35.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 126
+  },
+  {
+   "ref": "01a17eaf-bf74-7001-ae52-d35560445eb6",
+   "barcode": "6131605000028",
+   "sku": "1605-002",
+   "name": "Toudja Eau Minérale 0.5L",
+   "brand": "Toudja",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 420
+  },
+  {
+   "ref": "01a17eaf-bf75-7437-a7c5-632f86cce6f9",
+   "barcode": "6131605000035",
+   "sku": "1605-003",
+   "name": "Toudja Eau Minérale 0.33L",
+   "brand": "Toudja",
+   "vat": 19.0,
+   "cost": 12.72,
+   "price": 18.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 336
+  },
+  {
+   "ref": "01a17eaf-bf76-7d05-9e9b-13a2b62de342",
+   "barcode": "6131605000042",
+   "sku": "1605-004",
+   "name": "Toudja Soda Citron 1L",
+   "brand": "Toudja",
+   "vat": 19.0,
+   "cost": 57.24,
+   "price": 79.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 138
+  },
+  {
+   "ref": "01a17eaf-bf8f-7edf-9c8f-01c29cac24df",
+   "barcode": "6131706000019",
+   "sku": "1706-001",
+   "name": "Saïda Eau Minérale 1.5L",
+   "brand": "Saïda",
+   "vat": 19.0,
+   "cost": 22.26,
+   "price": 31.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 330
+  },
+  {
+   "ref": "01a17eaf-bf91-7c95-ad06-512a6c732f2e",
+   "barcode": "6131706000026",
+   "sku": "1706-002",
+   "name": "Saïda Eau Minérale 0.5L",
+   "brand": "Saïda",
+   "vat": 19.0,
+   "cost": 12.72,
+   "price": 18.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 396
+  },
+  {
+   "ref": "01a17eaf-bf93-77c8-b9fa-23d9506a5cd5",
+   "barcode": "6131706000033",
+   "sku": "1706-003",
+   "name": "Saïda Eau Minérale 2L",
+   "brand": "Saïda",
+   "vat": 19.0,
+   "cost": 28.62,
+   "price": 40.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 78
+  },
+  {
+   "ref": "01a17eaf-bfa0-70a0-8b52-1dc549df6f35",
+   "barcode": "6131706000040",
+   "sku": "1706-004",
+   "name": "Saïda Eau Minérale 0.33L",
+   "brand": "Saïda",
+   "vat": 19.0,
+   "cost": 11.45,
+   "price": 16.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 792
+  },
+  {
+   "ref": "01a17eaf-bfa1-7ab5-bae5-dd298b6c46ed",
+   "barcode": "6131807000017",
+   "sku": "1807-001",
+   "name": "Lalla Khedidja Eau Minérale 1.5L",
+   "brand": "Lalla Khedidja",
+   "vat": 19.0,
+   "cost": 25.44,
+   "price": 35.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 168
+  },
+  {
+   "ref": "01a17eaf-bfa2-7c34-ae71-fa5dd3d86324",
+   "barcode": "6131807000024",
+   "sku": "1807-002",
+   "name": "Lalla Khedidja Eau Minérale 0.5L",
+   "brand": "Lalla Khedidja",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 360
+  },
+  {
+   "ref": "01a17eaf-bfa4-71d9-bb5f-b4023724a623",
+   "barcode": "6131807000031",
+   "sku": "1807-003",
+   "name": "Lalla Khedidja Eau Minérale 0.33L",
+   "brand": "Lalla Khedidja",
+   "vat": 19.0,
+   "cost": 12.72,
+   "price": 18.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 528
+  },
+  {
+   "ref": "01a17eaf-bfa5-7373-aa09-a0d5f51b9601",
+   "barcode": "6131908000015",
+   "sku": "1908-001",
+   "name": "Guedila Eau Minérale 1.5L",
+   "brand": "Guedila",
+   "vat": 19.0,
+   "cost": 25.44,
+   "price": 35.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 228
+  },
+  {
+   "ref": "01a17eaf-bfa6-745c-8623-7c76a1fbd539",
+   "barcode": "6131908000022",
+   "sku": "1908-002",
+   "name": "Guedila Eau Minérale 0.5L",
+   "brand": "Guedila",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 216
+  },
+  {
+   "ref": "01a17eaf-bfbf-70e3-8c7a-7728de7d6595",
+   "barcode": "6131908000039",
+   "sku": "1908-003",
+   "name": "Guedila Eau Gazeuse 1L",
+   "brand": "Guedila",
+   "vat": 19.0,
+   "cost": 34.98,
+   "price": 48.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 72
+  },
+  {
+   "ref": "01a17eaf-bfce-7738-bb1b-03a0cfef5604",
+   "barcode": "6132009000010",
+   "sku": "2009-001",
+   "name": "Coca-Cola 2L",
+   "brand": "Coca-Cola",
+   "vat": 19.0,
+   "cost": 127.19,
+   "price": 176.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 264
+  },
+  {
+   "ref": "01a17eaf-bfd0-73c9-8edc-dfc8df551471",
+   "barcode": "6132009000027",
+   "sku": "2009-002",
+   "name": "Coca-Cola 1.5L",
+   "brand": "Coca-Cola",
+   "vat": 19.0,
+   "cost": 101.75,
+   "price": 141.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 90
+  },
+  {
+   "ref": "01a17eaf-bfd1-770a-90bd-4e4715fa5822",
+   "barcode": "6132009000034",
+   "sku": "2009-003",
+   "name": "Coca-Cola 1L",
+   "brand": "Coca-Cola",
+   "vat": 19.0,
+   "cost": 76.32,
+   "price": 106.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 276
+  },
+  {
+   "ref": "01a17eaf-bfd2-7be2-8af3-8e629cc44d13",
+   "barcode": "6132009000041",
+   "sku": "2009-004",
+   "name": "Coca-Cola 33cl canette",
+   "brand": "Coca-Cola",
+   "vat": 19.0,
+   "cost": 50.88,
+   "price": 70.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 624
+  },
+  {
+   "ref": "01a17eaf-bfd4-74e0-b108-428a8f73819a",
+   "barcode": "6132009000058",
+   "sku": "2009-005",
+   "name": "Coca-Cola 25cl verre",
+   "brand": "Coca-Cola",
+   "vat": 19.0,
+   "cost": 31.8,
+   "price": 44.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 744
+  },
+  {
+   "ref": "01a17eaf-bfd4-7cf2-83d9-ae016be9851b",
+   "barcode": "6132009000065",
+   "sku": "2009-006",
+   "name": "Coca-Cola Zéro 1L",
+   "brand": "Coca-Cola",
+   "vat": 19.0,
+   "cost": 76.32,
+   "price": 106.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 180
+  },
+  {
+   "ref": "01a17eaf-bfee-7d7a-a170-b77a0bef8334",
+   "barcode": "6132009000072",
+   "sku": "2009-007",
+   "name": "Coca-Cola Zéro 33cl canette",
+   "brand": "Coca-Cola",
+   "vat": 19.0,
+   "cost": 50.88,
+   "price": 70.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 408
+  },
+  {
+   "ref": "01a17eaf-bfef-7e19-97cc-e144ed4cc1f7",
+   "barcode": "6132010000016",
+   "sku": "2010-001",
+   "name": "Fanta Orange 2L",
+   "brand": "Fanta",
+   "vat": 19.0,
+   "cost": 114.47,
+   "price": 158.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 150
+  },
+  {
+   "ref": "01a17eaf-bffc-7b7e-a857-31bd63f8c360",
+   "barcode": "6132010000023",
+   "sku": "2010-002",
+   "name": "Fanta Orange 1L",
+   "brand": "Fanta",
+   "vat": 19.0,
+   "cost": 69.96,
+   "price": 97.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 84
+  },
+  {
+   "ref": "01a17eaf-bffe-78a2-b110-3521077690bd",
+   "barcode": "6132010000030",
+   "sku": "2010-003",
+   "name": "Fanta Orange 33cl canette",
+   "brand": "Fanta",
+   "vat": 19.0,
+   "cost": 44.52,
+   "price": 62.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 432
+  },
+  {
+   "ref": "01a17eaf-bfff-7eb0-bad3-65d16fb15a1f",
+   "barcode": "6132010000047",
+   "sku": "2010-004",
+   "name": "Fanta Citron 1L",
+   "brand": "Fanta",
+   "vat": 19.0,
+   "cost": 69.96,
+   "price": 97.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 144
+  },
+  {
+   "ref": "01a17eaf-c000-7ef1-ac93-3fe9340b6c5e",
+   "barcode": "6132111000014",
+   "sku": "2111-001",
+   "name": "Pepsi 2L",
+   "brand": "Pepsi",
+   "vat": 19.0,
+   "cost": 114.47,
+   "price": 158.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 126
+  },
+  {
+   "ref": "01a17eaf-c002-71f5-814d-b44fa64c9e7b",
+   "barcode": "6132111000021",
+   "sku": "2111-002",
+   "name": "Pepsi 1L",
+   "brand": "Pepsi",
+   "vat": 19.0,
+   "cost": 69.96,
+   "price": 97.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 132
+  },
+  {
+   "ref": "01a17eaf-c003-744a-91fb-0f47df17af2f",
+   "barcode": "6132111000038",
+   "sku": "2111-003",
+   "name": "Pepsi 33cl canette",
+   "brand": "Pepsi",
+   "vat": 19.0,
+   "cost": 44.52,
+   "price": 62.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 432
+  },
+  {
+   "ref": "01a17eaf-c01b-7786-bfc3-647e0c5feddd",
+   "barcode": "6132111000045",
+   "sku": "2111-004",
+   "name": "Pepsi 25cl verre",
+   "brand": "Pepsi",
+   "vat": 19.0,
+   "cost": 28.62,
+   "price": 40.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 288
+  },
+  {
+   "ref": "01a17eaf-c02a-7e97-8bab-33ae36659a0f",
+   "barcode": "6132212000012",
+   "sku": "2212-001",
+   "name": "Danone Yaourt Fraise 100g",
+   "brand": "Danone",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 456
+  },
+  {
+   "ref": "01a17eaf-c02c-7339-92ae-da610f86b23f",
+   "barcode": "6132212000029",
+   "sku": "2212-002",
+   "name": "Danone Yaourt Banane 100g",
+   "brand": "Danone",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 936
+  },
+  {
+   "ref": "01a17eaf-c03a-76a5-b418-c92aa551c6f1",
+   "barcode": "6132212000036",
+   "sku": "2212-003",
+   "name": "Danone Yaourt Nature 100g",
+   "brand": "Danone",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 888
+  },
+  {
+   "ref": "01a17eaf-c03c-71af-a7ff-0489cb55e3f1",
+   "barcode": "6132212000043",
+   "sku": "2212-004",
+   "name": "Danone Danette Chocolat 100g",
+   "brand": "Danone",
+   "vat": 19.0,
+   "cost": 28.62,
+   "price": 40.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 936
+  },
+  {
+   "ref": "01a17eaf-c03d-7936-a2b4-00443fbf5999",
+   "barcode": "6132212000050",
+   "sku": "2212-005",
+   "name": "Danone Danette Vanille 100g",
+   "brand": "Danone",
+   "vat": 19.0,
+   "cost": 28.62,
+   "price": 40.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 672
+  },
+  {
+   "ref": "01a17eaf-c03e-79b8-8ff0-06211f049d96",
+   "barcode": "6132212000067",
+   "sku": "2212-006",
+   "name": "Danone Activia Nature 110g",
+   "brand": "Danone",
+   "vat": 19.0,
+   "cost": 22.26,
+   "price": 31.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 672
+  },
+  {
+   "ref": "01a17eaf-c059-76c1-a304-8a9073a0b503",
+   "barcode": "6132313000010",
+   "sku": "2313-001",
+   "name": "Soummam Yaourt Fraise 110g",
+   "brand": "Soummam",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 552
+  },
+  {
+   "ref": "01a17eaf-c05b-75b3-a2ff-fb99f15eb4fe",
+   "barcode": "6132313000027",
+   "sku": "2313-002",
+   "name": "Soummam Yaourt Pêche 110g",
+   "brand": "Soummam",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 864
+  },
+  {
+   "ref": "01a17eaf-c069-75e8-ac11-10bf7ea3175f",
+   "barcode": "6132313000034",
+   "sku": "2313-003",
+   "name": "Soummam Yaourt Vanille 110g",
+   "brand": "Soummam",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 288
+  },
+  {
+   "ref": "01a17eaf-c078-7ebb-89a6-205dcb95e7e9",
+   "barcode": "6132313000041",
+   "sku": "2313-004",
+   "name": "Soummam Yaourt Nature 110g",
+   "brand": "Soummam",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 936
+  },
+  {
+   "ref": "01a17eaf-c088-7699-a498-6cc4accb764d",
+   "barcode": "6132313000058",
+   "sku": "2313-005",
+   "name": "Soummam Raïb 1L",
+   "brand": "Soummam",
+   "vat": 19.0,
+   "cost": 69.96,
+   "price": 97.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 0
+  },
+  {
+   "ref": "01a17eaf-c08a-7dfc-be15-078205a3a467",
+   "barcode": "6132313000065",
+   "sku": "2313-006",
+   "name": "Soummam Lben 1L",
+   "brand": "Soummam",
+   "vat": 19.0,
+   "cost": 57.24,
+   "price": 79.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 246
+  },
+  {
+   "ref": "01a17eaf-c098-7689-8415-fcc02101d01e",
+   "barcode": "6132313000072",
+   "sku": "2313-007",
+   "name": "Soummam Lben 50cl",
+   "brand": "Soummam",
+   "vat": 19.0,
+   "cost": 31.8,
+   "price": 44.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 324
+  },
+  {
+   "ref": "01a17eaf-c0a7-72a8-898d-5af4ec9ef0b7",
+   "barcode": "6132414000018",
+   "sku": "2414-001",
+   "name": "Trèfle Lben 1L",
+   "brand": "Trèfle",
+   "vat": 19.0,
+   "cost": 57.24,
+   "price": 79.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 150
+  },
+  {
+   "ref": "01a17eaf-c0a9-7005-846a-44f7048d2f5c",
+   "barcode": "6132414000025",
+   "sku": "2414-002",
+   "name": "Trèfle Raïb 1L",
+   "brand": "Trèfle",
+   "vat": 19.0,
+   "cost": 69.96,
+   "price": 97.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 66
+  },
+  {
+   "ref": "01a17eaf-c0aa-73dd-affe-d062b305555c",
+   "barcode": "6132414000032",
+   "sku": "2414-003",
+   "name": "Trèfle Yaourt Fraise 110g",
+   "brand": "Trèfle",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 720
+  },
+  {
+   "ref": "01a17eaf-c0ac-717b-a03d-d8b1187083f8",
+   "barcode": "6132414000049",
+   "sku": "2414-004",
+   "name": "Trèfle Yaourt Vanille 110g",
+   "brand": "Trèfle",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 960
+  },
+  {
+   "ref": "01a17eaf-c0c6-71ca-b060-4f495dda1f01",
+   "barcode": "6132515000016",
+   "sku": "2515-001",
+   "name": "Candia Lait UHT Entier 1L",
+   "brand": "Candia",
+   "vat": 19.0,
+   "cost": 101.75,
+   "price": 141.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 132
+  },
+  {
+   "ref": "01a17eaf-c0d5-761c-a389-9f11223ea4cf",
+   "barcode": "6132515000023",
+   "sku": "2515-002",
+   "name": "Candia Lait UHT Demi-écrémé 1L",
+   "brand": "Candia",
+   "vat": 19.0,
+   "cost": 95.39,
+   "price": 132.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 258
+  },
+  {
+   "ref": "01a17eaf-c0e5-7317-829b-c38fa296bde2",
+   "barcode": "6132515000030",
+   "sku": "2515-003",
+   "name": "Candia Lait UHT Écrémé 1L",
+   "brand": "Candia",
+   "vat": 19.0,
+   "cost": 95.39,
+   "price": 132.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 222
+  },
+  {
+   "ref": "01a17eaf-c0e6-7bdd-a67f-26563900db0a",
+   "barcode": "6132515000047",
+   "sku": "2515-004",
+   "name": "Candia Lait UHT Demi-écrémé 50cl",
+   "brand": "Candia",
+   "vat": 19.0,
+   "cost": 54.06,
+   "price": 75.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 432
+  },
+  {
+   "ref": "01a17eaf-c0e8-73e0-94ae-63998430b91a",
+   "barcode": "6132515000054",
+   "sku": "2515-005",
+   "name": "Candia Candy'Up Chocolat 20cl",
+   "brand": "Candia",
+   "vat": 19.0,
+   "cost": 31.8,
+   "price": 44.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 240
+  },
+  {
+   "ref": "01a17eaf-c0e9-7483-813e-e592a907f2c7",
+   "barcode": "6132616000014",
+   "sku": "2616-001",
+   "name": "Cevital Elio Huile 1L",
+   "brand": "Cevital",
+   "vat": 19.0,
+   "cost": 79.5,
+   "price": 110.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 168
+  },
+  {
+   "ref": "01a17eaf-c103-717d-941a-33a5ec090071",
+   "barcode": "6132616000021",
+   "sku": "2616-002",
+   "name": "Cevital Elio Huile 2L",
+   "brand": "Cevital",
+   "vat": 19.0,
+   "cost": 158.99,
+   "price": 220.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 216
+  },
+  {
+   "ref": "01a17eaf-c104-7c6b-8e65-874407494ea4",
+   "barcode": "6132616000038",
+   "sku": "2616-003",
+   "name": "Cevital Elio Huile 5L",
+   "brand": "Cevital",
+   "vat": 19.0,
+   "cost": 413.38,
+   "price": 572.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 0
+  },
+  {
+   "ref": "01a17eaf-c106-758f-80c1-4117ae8890e8",
+   "barcode": "6132616000045",
+   "sku": "2616-004",
+   "name": "Cevital Skor Sucre 1kg",
+   "brand": "Cevital",
+   "vat": 19.0,
+   "cost": 60.42,
+   "price": 84.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 348
+  },
+  {
+   "ref": "01a17eaf-c111-7e49-bc96-254d86018cc7",
+   "barcode": "6132616000052",
+   "sku": "2616-005",
+   "name": "Cevital Skor Sucre Morceaux 1kg",
+   "brand": "Cevital",
+   "vat": 19.0,
+   "cost": 101.75,
+   "price": 141.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 180
+  },
+  {
+   "ref": "01a17eaf-c113-7a87-9ad0-43d501390009",
+   "barcode": "6132616000069",
+   "sku": "2616-006",
+   "name": "Cevital Fleurial Margarine 250g",
+   "brand": "Cevital",
+   "vat": 19.0,
+   "cost": 76.32,
+   "price": 106.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 312
+  },
+  {
+   "ref": "01a17eaf-c121-7e0c-b91d-4be4becf9dff",
+   "barcode": "6132717000012",
+   "sku": "2717-001",
+   "name": "Amor Benamor Couscous Moyen 1kg",
+   "brand": "Amor Benamor",
+   "vat": 19.0,
+   "cost": 95.39,
+   "price": 132.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 528
+  },
+  {
+   "ref": "01a17eaf-c123-7ca7-a711-7d46373d9248",
+   "barcode": "6132717000029",
+   "sku": "2717-002",
+   "name": "Amor Benamor Couscous Fin 1kg",
+   "brand": "Amor Benamor",
+   "vat": 19.0,
+   "cost": 95.39,
+   "price": 132.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 432
+  },
+  {
+   "ref": "01a17eaf-c125-73e5-9f97-cdc1e12b8e71",
+   "barcode": "6132717000036",
+   "sku": "2717-003",
+   "name": "Amor Benamor Spaghetti 500g",
+   "brand": "Amor Benamor",
+   "vat": 19.0,
+   "cost": 44.52,
+   "price": 62.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 888
+  },
+  {
+   "ref": "01a17eaf-c131-7326-a125-9fa1b36c4afd",
+   "barcode": "6132717000043",
+   "sku": "2717-004",
+   "name": "Amor Benamor Coudes 500g",
+   "brand": "Amor Benamor",
+   "vat": 19.0,
+   "cost": 44.52,
+   "price": 62.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 240
+  },
+  {
+   "ref": "01a17eaf-c141-74cc-804f-37fa1c454e82",
+   "barcode": "6132717000050",
+   "sku": "2717-005",
+   "name": "Amor Benamor Tomate Concentrée 400g",
+   "brand": "Amor Benamor",
+   "vat": 19.0,
+   "cost": 76.32,
+   "price": 106.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 912
+  },
+  {
+   "ref": "01a17eaf-c142-7eb3-b053-0e6994c49cab",
+   "barcode": "6132717000067",
+   "sku": "2717-006",
+   "name": "Amor Benamor Tomate Concentrée 800g",
+   "brand": "Amor Benamor",
+   "vat": 19.0,
+   "cost": 139.91,
+   "price": 194.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 300
+  },
+  {
+   "ref": "01a17eaf-c150-7133-b813-4ac4b47edc59",
+   "barcode": "6132818000010",
+   "sku": "2818-001",
+   "name": "Bimo Tango Chocolat 40g",
+   "brand": "Bimo",
+   "vat": 19.0,
+   "cost": 19.08,
+   "price": 26.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 696
+  },
+  {
+   "ref": "01a17eaf-c151-7cce-9b92-1d9e26f2e2be",
+   "barcode": "6132818000027",
+   "sku": "2818-002",
+   "name": "Bimo Biscuit Chocolat 100g",
+   "brand": "Bimo",
+   "vat": 19.0,
+   "cost": 31.8,
+   "price": 44.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 936
+  },
+  {
+   "ref": "01a17eaf-c160-71e4-ab8b-bb4b94c38fad",
+   "barcode": "6132818000034",
+   "sku": "2818-003",
+   "name": "Bimo Gaufrette Vanille 60g",
+   "brand": "Bimo",
+   "vat": 19.0,
+   "cost": 22.26,
+   "price": 31.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 960
+  },
+  {
+   "ref": "01a17eaf-c161-727e-b953-e3c063488cbd",
+   "barcode": "6132818000041",
+   "sku": "2818-004",
+   "name": "Bimo Petit Beurre 200g",
+   "brand": "Bimo",
+   "vat": 19.0,
+   "cost": 57.24,
+   "price": 79.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 228
+  },
+  {
+   "ref": "01a17eaf-c16e-7baf-8b34-a7af3eea21e9",
+   "barcode": "6132919000018",
+   "sku": "2919-001",
+   "name": "Mamia Yaourt Fraise 100g",
+   "brand": "Mamia",
+   "vat": 19.0,
+   "cost": 13.99,
+   "price": 19.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 288
+  },
+  {
+   "ref": "01a17eaf-c170-7571-8d61-94d4a18d8f21",
+   "barcode": "6132919000025",
+   "sku": "2919-002",
+   "name": "Mamia Crème Dessert Caramel 100g",
+   "brand": "Mamia",
+   "vat": 19.0,
+   "cost": 25.44,
+   "price": 35.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 864
+  },
+  {
+   "ref": "01a17eaf-c17e-7897-9d14-01ff90393553",
+   "barcode": "6132919000032",
+   "sku": "2919-003",
+   "name": "Mamia Lben 1L",
+   "brand": "Mamia",
+   "vat": 19.0,
+   "cost": 50.88,
+   "price": 70.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 84
+  },
+  {
+   "ref": "01a17eaf-c180-71a7-9178-244b0bf46aff",
+   "barcode": "6133020000010",
+   "sku": "3020-001",
+   "name": "Safina Farine 1kg",
+   "brand": "Safina",
+   "vat": 19.0,
+   "cost": 44.52,
+   "price": 62.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 396
+  },
+  {
+   "ref": "01a17eaf-c181-7e4c-8705-c84eea38ccb3",
+   "barcode": "6133020000027",
+   "sku": "3020-002",
+   "name": "Safina Farine 2kg",
+   "brand": "Safina",
+   "vat": 19.0,
+   "cost": 85.86,
+   "price": 119.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 78
+  },
+  {
+   "ref": "01a17eaf-c18d-77d4-a098-6ab74fc6a274",
+   "barcode": "6133020000034",
+   "sku": "3020-003",
+   "name": "Safina Semoule Fine 1kg",
+   "brand": "Safina",
+   "vat": 19.0,
+   "cost": 57.24,
+   "price": 79.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 492
+  },
+  {
+   "ref": "01a17eaf-c19d-7e51-8621-ad5eaeadffa3",
+   "barcode": "6133121000018",
+   "sku": "3121-001",
+   "name": "Sim Spaghetti 500g",
+   "brand": "Sim",
+   "vat": 19.0,
+   "cost": 44.52,
+   "price": 62.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 600
+  },
+  {
+   "ref": "01a17eaf-c19f-7f2f-9a52-23ad8679dbb0",
+   "barcode": "6133121000025",
+   "sku": "3121-002",
+   "name": "Sim Spaghetti 1kg",
+   "brand": "Sim",
+   "vat": 19.0,
+   "cost": 85.86,
+   "price": 119.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 120
+  },
+  {
+   "ref": "01a17eaf-c1ad-74f0-9d6c-3eb943af4560",
+   "barcode": "6133121000032",
+   "sku": "3121-003",
+   "name": "Sim Coudes 500g",
+   "brand": "Sim",
+   "vat": 19.0,
+   "cost": 44.52,
+   "price": 62.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 624
+  },
+  {
+   "ref": "01a17eaf-c1be-7950-9b9a-f30222bb6dea",
+   "barcode": "6133121000049",
+   "sku": "3121-004",
+   "name": "Sim Vermicelle 500g",
+   "brand": "Sim",
+   "vat": 19.0,
+   "cost": 47.7,
+   "price": 66.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 936
+  },
+  {
+   "ref": "01a17eaf-c1bf-7a6e-a01e-9ee45f6ec5c6",
+   "barcode": "6133121000056",
+   "sku": "3121-005",
+   "name": "Sim Tlitli 500g",
+   "brand": "Sim",
+   "vat": 19.0,
+   "cost": 50.88,
+   "price": 70.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 864
+  },
+  {
+   "ref": "01a17eaf-c1c0-7cf0-b4cd-7beb218db2b9",
+   "barcode": "6133121000063",
+   "sku": "3121-006",
+   "name": "Sim Couscous Moyen 1kg",
+   "brand": "Sim",
+   "vat": 19.0,
+   "cost": 89.04,
+   "price": 123.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 216
+  },
+  {
+   "ref": "01a17eaf-c1cd-72a0-9749-462889566a72",
+   "barcode": "6133121000070",
+   "sku": "3121-007",
+   "name": "Sim Semoule Extra 1kg",
+   "brand": "Sim",
+   "vat": 19.0,
+   "cost": 60.42,
+   "price": 84.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 372
+  },
+  {
+   "ref": "01a17eaf-c1dc-7a9a-a940-4c306e6e09a4",
+   "barcode": "6133222000016",
+   "sku": "3222-001",
+   "name": "Maïza Mayonnaise 250g",
+   "brand": "Maïza",
+   "vat": 19.0,
+   "cost": 69.96,
+   "price": 97.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 744
+  },
+  {
+   "ref": "01a17eaf-c1de-78fc-b96f-7af749513d1d",
+   "barcode": "6133222000023",
+   "sku": "3222-002",
+   "name": "Maïza Ketchup 340g",
+   "brand": "Maïza",
+   "vat": 19.0,
+   "cost": 82.68,
+   "price": 114.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 648
+  },
+  {
+   "ref": "01a17eaf-c1e0-78de-871a-6fed898383d5",
+   "barcode": "6133222000030",
+   "sku": "3222-003",
+   "name": "Maïza Harissa 135g",
+   "brand": "Maïza",
+   "vat": 19.0,
+   "cost": 44.52,
+   "price": 62.0,
+   "packs": [
+    {
+     "name": "Carton x24",
+     "factor": 24
+    }
+   ],
+   "stock": 792
+  },
+  {
+   "ref": "01a17eaf-c1e1-7a67-b859-c03a334c2b27",
+   "barcode": "6133323000014",
+   "sku": "3323-001",
+   "name": "Hodna Lait Pasteurisé 1L sachet",
+   "brand": "Hodna",
+   "vat": 19.0,
+   "cost": 15.9,
+   "price": 22.0,
+   "packs": [
+    {
+     "name": "Carton x12",
+     "factor": 12
+    }
+   ],
+   "stock": 408
+  },
+  {
+   "ref": "01a17eaf-c1fb-7581-920d-d33adf011397",
+   "barcode": "6133323000021",
+   "sku": "3323-002",
+   "name": "Hodna Lben 1L",
+   "brand": "Hodna",
+   "vat": 19.0,
+   "cost": 50.88,
+   "price": 70.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 222
+  },
+  {
+   "ref": "01a17eaf-c1fc-7994-a63e-f185d15a7c9b",
+   "barcode": "6133323000038",
+   "sku": "3323-003",
+   "name": "Hodna Raïb 1L",
+   "brand": "Hodna",
+   "vat": 19.0,
+   "cost": 63.6,
+   "price": 88.0,
+   "packs": [
+    {
+     "name": "Carton x6",
+     "factor": 6
+    }
+   ],
+   "stock": 66
+  }
+ ],
+ "partners": [
+  {
+   "ref": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "kind": "supplier",
+   "name": "SARL Hamoud Boualem",
+   "phone": "0555 00 00 01"
+  },
+  {
+   "ref": "01a17eaf-bde0-7707-a2c4-b5f95fa2cdc5",
+   "kind": "supplier",
+   "name": "SARL Ibrahim & Fils IFRI",
+   "phone": "0555 00 00 02"
+  },
+  {
+   "ref": "01a17eaf-bdeb-710c-9a4f-e9964ba4cd0d",
+   "kind": "supplier",
+   "name": "NCA Rouiba SPA",
+   "phone": "0555 00 00 03"
+  },
+  {
+   "ref": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "kind": "supplier",
+   "name": "Fruital Coca-Cola SPA",
+   "phone": "0555 00 00 04"
+  },
+  {
+   "ref": "01a17eaf-bdfb-7152-8b06-ad2f46ffe65b",
+   "kind": "supplier",
+   "name": "Atlas Bottling Company (Pepsi)",
+   "phone": "0555 00 00 05"
+  },
+  {
+   "ref": "01a17eaf-bdfc-79cb-b9c8-65f87724d079",
+   "kind": "supplier",
+   "name": "Danone Djurdjura Algérie",
+   "phone": "0555 00 00 06"
+  },
+  {
+   "ref": "01a17eaf-be0a-7be0-9a83-cfce0db5f7c1",
+   "kind": "supplier",
+   "name": "Laiterie Soummam SARL",
+   "phone": "0555 00 00 07"
+  },
+  {
+   "ref": "01a17eaf-be19-7ed7-9a39-19696a481e6f",
+   "kind": "supplier",
+   "name": "Tchin-Lait SARL (Candia)",
+   "phone": "0555 00 00 08"
+  },
+  {
+   "ref": "01a17eaf-be29-70a6-88df-c83f2328987f",
+   "kind": "supplier",
+   "name": "Cevital Agro-Industrie SPA",
+   "phone": "0555 00 00 09"
+  },
+  {
+   "ref": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "kind": "supplier",
+   "name": "EURL Grossiste Mitidja Alimentation",
+   "phone": "0555 00 00 10"
+  },
+  {
+   "ref": "01a17eaf-c22c-73af-9b00-0505763265a9",
+   "kind": "customer",
+   "name": "Supérette El Baraka",
+   "phone": "0555 00 00 11"
+  },
+  {
+   "ref": "01a17eaf-c22d-7a2f-92e4-d163bef67283",
+   "kind": "customer",
+   "name": "Alimentation Générale Ben Ali",
+   "phone": "0555 00 00 12"
+  },
+  {
+   "ref": "01a17eaf-c239-7b11-981a-dd37d48e15a4",
+   "kind": "customer",
+   "name": "Café El Wiam",
+   "phone": "0555 00 00 13"
+  },
+  {
+   "ref": "01a17eaf-c249-71c5-8e4a-b068a098c4ac",
+   "kind": "customer",
+   "name": "Supérette Errahma",
+   "phone": "0555 00 00 14"
+  },
+  {
+   "ref": "01a17eaf-c258-7d7d-a9c1-2ed6594e5476",
+   "kind": "customer",
+   "name": "Restaurant Le Palmier",
+   "phone": "0555 00 00 15"
+  },
+  {
+   "ref": "01a17eaf-c268-7262-81dc-7d507d80a353",
+   "kind": "customer",
+   "name": "Alimentation Générale Saïdi",
+   "phone": "0555 00 00 16"
+  },
+  {
+   "ref": "01a17eaf-c277-7924-ac71-1319d3606c49",
+   "kind": "customer",
+   "name": "Supérette Ennour",
+   "phone": "0555 00 00 17"
+  },
+  {
+   "ref": "01a17eaf-c279-7629-89a4-b07864b774e6",
+   "kind": "customer",
+   "name": "Café des Orangers",
+   "phone": "0555 00 00 18"
+  },
+  {
+   "ref": "01a17eaf-c27a-7782-9a4a-38b1ca98b3ff",
+   "kind": "customer",
+   "name": "Alimentation Générale Hadj Messaoud",
+   "phone": "0555 00 00 19"
+  },
+  {
+   "ref": "01a17eaf-c27b-77dc-82c6-bd0bc5d903cb",
+   "kind": "customer",
+   "name": "Supérette Assafa",
+   "phone": "0555 00 00 20"
+  },
+  {
+   "ref": "01a17eaf-c27c-7ba7-8245-e7394715e6c9",
+   "kind": "customer",
+   "name": "Alimentation Générale Ouled Moussa",
+   "phone": "0555 00 00 21"
+  },
+  {
+   "ref": "01a17eaf-c287-761a-a497-d4fa1a24dfc2",
+   "kind": "customer",
+   "name": "Supérette El Amel",
+   "phone": "0555 00 00 22"
+  },
+  {
+   "ref": "01a17eaf-c289-727d-9556-346e6d67e696",
+   "kind": "customer",
+   "name": "Café Ezzouhour",
+   "phone": "0555 00 00 23"
+  },
+  {
+   "ref": "01a17eaf-c296-7807-8181-25c09111c379",
+   "kind": "customer",
+   "name": "Alimentation Générale Bouzid",
+   "phone": "0555 00 00 24"
+  },
+  {
+   "ref": "01a17eaf-c2a5-7cde-b2b3-08ae497644d9",
+   "kind": "customer",
+   "name": "Supérette Chiffa Market",
+   "phone": "0555 00 00 25"
+  }
+ ],
+ "supplier_costs": [
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-be6d-74ac-8111-7771ef0fd63d",
+   "cost": 57.24
+  },
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-be78-7729-8228-098e7132d4f6",
+   "cost": 41.34
+  },
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-be79-7bac-bc43-199aa680322f",
+   "cost": 82.68
+  },
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-bea7-764d-98e9-453c8822b2b5",
+   "cost": 54.06
+  },
+  {
+   "supplier": "01a17eaf-bde0-7707-a2c4-b5f95fa2cdc5",
+   "product": "01a17eaf-bec5-794c-beeb-a8973a748d89",
+   "cost": 25.44
+  },
+  {
+   "supplier": "01a17eaf-bde0-7707-a2c4-b5f95fa2cdc5",
+   "product": "01a17eaf-bed5-7abf-862a-7f869083ef08",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-bde0-7707-a2c4-b5f95fa2cdc5",
+   "product": "01a17eaf-bee5-77e6-994b-5608511a6a7c",
+   "cost": 12.72
+  },
+  {
+   "supplier": "01a17eaf-bde0-7707-a2c4-b5f95fa2cdc5",
+   "product": "01a17eaf-bef5-74d1-bb0d-6b822213e890",
+   "cost": 31.8
+  },
+  {
+   "supplier": "01a17eaf-bde0-7707-a2c4-b5f95fa2cdc5",
+   "product": "01a17eaf-bef7-7647-86d4-9d68698e7db7",
+   "cost": 38.16
+  },
+  {
+   "supplier": "01a17eaf-bde0-7707-a2c4-b5f95fa2cdc5",
+   "product": "01a17eaf-bef8-7efc-bc93-e58a88046609",
+   "cost": 57.24
+  },
+  {
+   "supplier": "01a17eaf-bde0-7707-a2c4-b5f95fa2cdc5",
+   "product": "01a17eaf-befa-72e8-8c94-99edea7974f1",
+   "cost": 38.16
+  },
+  {
+   "supplier": "01a17eaf-bde0-7707-a2c4-b5f95fa2cdc5",
+   "product": "01a17eaf-bf04-7c08-8bd1-926d52cc88d9",
+   "cost": 89.04
+  },
+  {
+   "supplier": "01a17eaf-bde0-7707-a2c4-b5f95fa2cdc5",
+   "product": "01a17eaf-bf06-7695-bdda-9a0202ddeaea",
+   "cost": 89.04
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf07-76f4-96b7-c2133099b64b",
+   "cost": 108.11
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf14-743f-b21b-b99c889b3918",
+   "cost": 108.11
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf24-75ad-84f8-870de4ebfd35",
+   "cost": 108.11
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf26-74b9-8aef-909794e62936",
+   "cost": 108.11
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf33-7dce-b0b5-e73b4073fa36",
+   "cost": 38.16
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf42-7854-a6d3-f06b5af82bd0",
+   "cost": 38.16
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf72-7c1c-ab15-e7b5c9fff989",
+   "cost": 25.44
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf74-7001-ae52-d35560445eb6",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf75-7437-a7c5-632f86cce6f9",
+   "cost": 12.72
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf76-7d05-9e9b-13a2b62de342",
+   "cost": 57.24
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf8f-7edf-9c8f-01c29cac24df",
+   "cost": 22.26
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf91-7c95-ad06-512a6c732f2e",
+   "cost": 12.72
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bf93-77c8-b9fa-23d9506a5cd5",
+   "cost": 28.62
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bfa0-70a0-8b52-1dc549df6f35",
+   "cost": 11.45
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bfa5-7373-aa09-a0d5f51b9601",
+   "cost": 25.44
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bfa6-745c-8623-7c76a1fbd539",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-bfbf-70e3-8c7a-7728de7d6595",
+   "cost": 34.98
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c0a7-72a8-898d-5af4ec9ef0b7",
+   "cost": 57.24
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c0a9-7005-846a-44f7048d2f5c",
+   "cost": 69.96
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c0aa-73dd-affe-d062b305555c",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c0ac-717b-a03d-d8b1187083f8",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c121-7e0c-b91d-4be4becf9dff",
+   "cost": 95.39
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c123-7ca7-a711-7d46373d9248",
+   "cost": 95.39
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c125-73e5-9f97-cdc1e12b8e71",
+   "cost": 44.52
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c131-7326-a125-9fa1b36c4afd",
+   "cost": 44.52
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c141-74cc-804f-37fa1c454e82",
+   "cost": 76.32
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c142-7eb3-b053-0e6994c49cab",
+   "cost": 139.91
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c150-7133-b813-4ac4b47edc59",
+   "cost": 19.08
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c151-7cce-9b92-1d9e26f2e2be",
+   "cost": 31.8
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c160-71e4-ab8b-bb4b94c38fad",
+   "cost": 22.26
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c161-727e-b953-e3c063488cbd",
+   "cost": 57.24
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c16e-7baf-8b34-a7af3eea21e9",
+   "cost": 13.99
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c170-7571-8d61-94d4a18d8f21",
+   "cost": 25.44
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c17e-7897-9d14-01ff90393553",
+   "cost": 50.88
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c180-71a7-9178-244b0bf46aff",
+   "cost": 44.52
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c181-7e4c-8705-c84eea38ccb3",
+   "cost": 85.86
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c18d-77d4-a098-6ab74fc6a274",
+   "cost": 57.24
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c19d-7e51-8621-ad5eaeadffa3",
+   "cost": 44.52
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c19f-7f2f-9a52-23ad8679dbb0",
+   "cost": 85.86
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c1ad-74f0-9d6c-3eb943af4560",
+   "cost": 44.52
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c1be-7950-9b9a-f30222bb6dea",
+   "cost": 47.7
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c1bf-7a6e-a01e-9ee45f6ec5c6",
+   "cost": 50.88
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c1c0-7cf0-b4cd-7beb218db2b9",
+   "cost": 89.04
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c1cd-72a0-9749-462889566a72",
+   "cost": 60.42
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c1dc-7a9a-a940-4c306e6e09a4",
+   "cost": 69.96
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c1de-78fc-b96f-7af749513d1d",
+   "cost": 82.68
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c1e0-78de-871a-6fed898383d5",
+   "cost": 44.52
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c1e1-7a67-b859-c03a334c2b27",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c1fb-7581-920d-d33adf011397",
+   "cost": 50.88
+  },
+  {
+   "supplier": "01a17eaf-be39-7a34-b91a-582bf3676cd4",
+   "product": "01a17eaf-c1fc-7994-a63e-f185d15a7c9b",
+   "cost": 63.6
+  },
+  {
+   "supplier": "01a17eaf-bdeb-710c-9a4f-e9964ba4cd0d",
+   "product": "01a17eaf-bf44-7507-b6c6-b2e16f4e87a5",
+   "cost": 120.83
+  },
+  {
+   "supplier": "01a17eaf-bdeb-710c-9a4f-e9964ba4cd0d",
+   "product": "01a17eaf-bf52-7acb-95ba-72c7d1432815",
+   "cost": 209.87
+  },
+  {
+   "supplier": "01a17eaf-bdeb-710c-9a4f-e9964ba4cd0d",
+   "product": "01a17eaf-bf54-75f6-90b6-e30e8e3a2257",
+   "cost": 31.8
+  },
+  {
+   "supplier": "01a17eaf-bdeb-710c-9a4f-e9964ba4cd0d",
+   "product": "01a17eaf-bf62-7bee-886d-4b0852467bf9",
+   "cost": 120.83
+  },
+  {
+   "supplier": "01a17eaf-bdeb-710c-9a4f-e9964ba4cd0d",
+   "product": "01a17eaf-bf63-7d3c-a177-5148d1b58c1b",
+   "cost": 31.8
+  },
+  {
+   "supplier": "01a17eaf-bdeb-710c-9a4f-e9964ba4cd0d",
+   "product": "01a17eaf-bf65-71ad-8390-4d7e1dafe7e7",
+   "cost": 120.83
+  },
+  {
+   "supplier": "01a17eaf-bdeb-710c-9a4f-e9964ba4cd0d",
+   "product": "01a17eaf-bf71-7505-a3bb-1ff0e125d841",
+   "cost": 120.83
+  },
+  {
+   "supplier": "01a17eaf-be29-70a6-88df-c83f2328987f",
+   "product": "01a17eaf-bfa1-7ab5-bae5-dd298b6c46ed",
+   "cost": 25.44
+  },
+  {
+   "supplier": "01a17eaf-be29-70a6-88df-c83f2328987f",
+   "product": "01a17eaf-bfa2-7c34-ae71-fa5dd3d86324",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-be29-70a6-88df-c83f2328987f",
+   "product": "01a17eaf-bfa4-71d9-bb5f-b4023724a623",
+   "cost": 12.72
+  },
+  {
+   "supplier": "01a17eaf-be29-70a6-88df-c83f2328987f",
+   "product": "01a17eaf-c0e9-7483-813e-e592a907f2c7",
+   "cost": 79.5
+  },
+  {
+   "supplier": "01a17eaf-be29-70a6-88df-c83f2328987f",
+   "product": "01a17eaf-c103-717d-941a-33a5ec090071",
+   "cost": 158.99
+  },
+  {
+   "supplier": "01a17eaf-be29-70a6-88df-c83f2328987f",
+   "product": "01a17eaf-c104-7c6b-8e65-874407494ea4",
+   "cost": 413.38
+  },
+  {
+   "supplier": "01a17eaf-be29-70a6-88df-c83f2328987f",
+   "product": "01a17eaf-c106-758f-80c1-4117ae8890e8",
+   "cost": 60.42
+  },
+  {
+   "supplier": "01a17eaf-be29-70a6-88df-c83f2328987f",
+   "product": "01a17eaf-c111-7e49-bc96-254d86018cc7",
+   "cost": 101.75
+  },
+  {
+   "supplier": "01a17eaf-be29-70a6-88df-c83f2328987f",
+   "product": "01a17eaf-c113-7a87-9ad0-43d501390009",
+   "cost": 76.32
+  },
+  {
+   "supplier": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "product": "01a17eaf-bfce-7738-bb1b-03a0cfef5604",
+   "cost": 127.19
+  },
+  {
+   "supplier": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "product": "01a17eaf-bfd0-73c9-8edc-dfc8df551471",
+   "cost": 101.75
+  },
+  {
+   "supplier": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "product": "01a17eaf-bfd1-770a-90bd-4e4715fa5822",
+   "cost": 76.32
+  },
+  {
+   "supplier": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "product": "01a17eaf-bfd2-7be2-8af3-8e629cc44d13",
+   "cost": 50.88
+  },
+  {
+   "supplier": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "product": "01a17eaf-bfd4-74e0-b108-428a8f73819a",
+   "cost": 31.8
+  },
+  {
+   "supplier": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "product": "01a17eaf-bfd4-7cf2-83d9-ae016be9851b",
+   "cost": 76.32
+  },
+  {
+   "supplier": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "product": "01a17eaf-bfee-7d7a-a170-b77a0bef8334",
+   "cost": 50.88
+  },
+  {
+   "supplier": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "product": "01a17eaf-bfef-7e19-97cc-e144ed4cc1f7",
+   "cost": 114.47
+  },
+  {
+   "supplier": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "product": "01a17eaf-bffc-7b7e-a857-31bd63f8c360",
+   "cost": 69.96
+  },
+  {
+   "supplier": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "product": "01a17eaf-bffe-78a2-b110-3521077690bd",
+   "cost": 44.52
+  },
+  {
+   "supplier": "01a17eaf-bdec-7cdd-bf3d-0c2becee0534",
+   "product": "01a17eaf-bfff-7eb0-bad3-65d16fb15a1f",
+   "cost": 69.96
+  },
+  {
+   "supplier": "01a17eaf-bdfb-7152-8b06-ad2f46ffe65b",
+   "product": "01a17eaf-c000-7ef1-ac93-3fe9340b6c5e",
+   "cost": 114.47
+  },
+  {
+   "supplier": "01a17eaf-bdfb-7152-8b06-ad2f46ffe65b",
+   "product": "01a17eaf-c002-71f5-814d-b44fa64c9e7b",
+   "cost": 69.96
+  },
+  {
+   "supplier": "01a17eaf-bdfb-7152-8b06-ad2f46ffe65b",
+   "product": "01a17eaf-c003-744a-91fb-0f47df17af2f",
+   "cost": 44.52
+  },
+  {
+   "supplier": "01a17eaf-bdfb-7152-8b06-ad2f46ffe65b",
+   "product": "01a17eaf-c01b-7786-bfc3-647e0c5feddd",
+   "cost": 28.62
+  },
+  {
+   "supplier": "01a17eaf-bdfc-79cb-b9c8-65f87724d079",
+   "product": "01a17eaf-c02a-7e97-8bab-33ae36659a0f",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-bdfc-79cb-b9c8-65f87724d079",
+   "product": "01a17eaf-c02c-7339-92ae-da610f86b23f",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-bdfc-79cb-b9c8-65f87724d079",
+   "product": "01a17eaf-c03a-76a5-b418-c92aa551c6f1",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-bdfc-79cb-b9c8-65f87724d079",
+   "product": "01a17eaf-c03c-71af-a7ff-0489cb55e3f1",
+   "cost": 28.62
+  },
+  {
+   "supplier": "01a17eaf-bdfc-79cb-b9c8-65f87724d079",
+   "product": "01a17eaf-c03d-7936-a2b4-00443fbf5999",
+   "cost": 28.62
+  },
+  {
+   "supplier": "01a17eaf-bdfc-79cb-b9c8-65f87724d079",
+   "product": "01a17eaf-c03e-79b8-8ff0-06211f049d96",
+   "cost": 22.26
+  },
+  {
+   "supplier": "01a17eaf-be0a-7be0-9a83-cfce0db5f7c1",
+   "product": "01a17eaf-c059-76c1-a304-8a9073a0b503",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-be0a-7be0-9a83-cfce0db5f7c1",
+   "product": "01a17eaf-c05b-75b3-a2ff-fb99f15eb4fe",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-be0a-7be0-9a83-cfce0db5f7c1",
+   "product": "01a17eaf-c069-75e8-ac11-10bf7ea3175f",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-be0a-7be0-9a83-cfce0db5f7c1",
+   "product": "01a17eaf-c078-7ebb-89a6-205dcb95e7e9",
+   "cost": 15.9
+  },
+  {
+   "supplier": "01a17eaf-be0a-7be0-9a83-cfce0db5f7c1",
+   "product": "01a17eaf-c088-7699-a498-6cc4accb764d",
+   "cost": 69.96
+  },
+  {
+   "supplier": "01a17eaf-be0a-7be0-9a83-cfce0db5f7c1",
+   "product": "01a17eaf-c08a-7dfc-be15-078205a3a467",
+   "cost": 57.24
+  },
+  {
+   "supplier": "01a17eaf-be0a-7be0-9a83-cfce0db5f7c1",
+   "product": "01a17eaf-c098-7689-8415-fcc02101d01e",
+   "cost": 31.8
+  },
+  {
+   "supplier": "01a17eaf-be19-7ed7-9a39-19696a481e6f",
+   "product": "01a17eaf-c0c6-71ca-b060-4f495dda1f01",
+   "cost": 101.75
+  },
+  {
+   "supplier": "01a17eaf-be19-7ed7-9a39-19696a481e6f",
+   "product": "01a17eaf-c0d5-761c-a389-9f11223ea4cf",
+   "cost": 95.39
+  },
+  {
+   "supplier": "01a17eaf-be19-7ed7-9a39-19696a481e6f",
+   "product": "01a17eaf-c0e5-7317-829b-c38fa296bde2",
+   "cost": 95.39
+  },
+  {
+   "supplier": "01a17eaf-be19-7ed7-9a39-19696a481e6f",
+   "product": "01a17eaf-c0e6-7bdd-a67f-26563900db0a",
+   "cost": 54.06
+  },
+  {
+   "supplier": "01a17eaf-be19-7ed7-9a39-19696a481e6f",
+   "product": "01a17eaf-c0e8-73e0-94ae-63998430b91a",
+   "cost": 31.8
+  },
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-be3b-7325-b347-86a3521667b6",
+   "cost": 95.39
+  },
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-be49-74cf-9cab-100ec5ca6e73",
+   "cost": 75.0
+  },
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-be6b-762d-bc79-30114506f4c9",
+   "cost": 89.04
+  },
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-be97-7247-a2d9-b2b36dc52fca",
+   "cost": 54.06
+  },
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-be59-72b5-b933-222ca0e0abab",
+   "cost": 44.52
+  },
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-beb6-78d0-b307-e125300b1d4c",
+   "cost": 57.24
+  },
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-be88-71a0-8ec0-03f0a93414e0",
+   "cost": 82.68
+  },
+  {
+   "supplier": "01a17eaf-bddf-75a4-97b1-b996e63521b0",
+   "product": "01a17eaf-be69-73ca-b23f-eb3fb3668250",
+   "cost": 31.8
+  }
+ ]
+}

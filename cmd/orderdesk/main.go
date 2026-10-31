@@ -1,8 +1,9 @@
 // Order Desk: orders from any chat into any ERP, on a catalogue that writes its own matching rules.
 //
-//	orderdesk -addr 127.0.0.1:8610 -data ./data -keys ../hackathon-sim/keys.env
+//	orderdesk -addr 127.0.0.1:8610 -data ./data
 //
-// Keys (TELEGRAM_BOT_TOKEN, META_MODEL_API_KEY) come from the environment or a keys file.
+// Keys (META_MODEL_API_KEY, TELEGRAM_BOT_TOKEN, ...) come from the environment, from .env, or from the
+// files given with -keys. See .env.example.
 // The ERP connection is made from the panel (Settings → ERP).
 package main
 
@@ -40,10 +41,14 @@ import (
 func main() {
 	addr := flag.String("addr", "127.0.0.1:8610", "panel and API address")
 	dataDir := flag.String("data", "data", "data directory (database, voice notes, photos)")
-	keys := flag.String("keys", "", "optional keys files with KEY=value lines, comma-separated")
+	keys := flag.String("keys", "", "keys files with KEY=value lines, comma-separated (default: .env if present)")
 	noTelegram := flag.Bool("no-telegram", false, "do not start the Telegram connector")
 	flag.Parse()
-	if *keys != "" {
+	if *keys == "" {
+		if _, err := os.Stat(".env"); err == nil {
+			loadKeys(".env")
+		}
+	} else {
 		for _, k := range strings.Split(*keys, ",") {
 			loadKeys(strings.TrimSpace(k))
 		}

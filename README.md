@@ -9,12 +9,14 @@ and books a confirmed order in the ERP.
 
 The matching is not an AI call on every line forever. Order Desk keeps a memory of the catalogue (every
 wording people use for every product) and a set of **rules**. A background agent, the **rule engineer**
-(Muse Wonder), studies the lines the rules could not resolve, writes a new rule in a small rule language,
+(Muse Spark, with Muse Wonder as a fallback), studies the lines the rules could not resolve, writes a new rule in a small rule language,
 tests it on every line whose answer is known, and the **code** lets it in only with zero wrong matches. Week
 after week, more lines are resolved for free; the AI is called only for what is new.
 
-Built during the Meta Global AI Developer Hackathon (October 2026). Everything in this repository is new.
-Elixir Distribution, our existing ERP, is only one ERP it connects to, through its HTTP API.
+Built during the Meta Global AI Developer Hackathon (October 26 – November 4, 2026). Everything in this
+repository was written during the event. Elixir Distribution, our existing ERP, is not part of it: it is only
+one of the six ERPs Order Desk connects to, through its HTTP API. The other five (Odoo, ERPNext, Dolibarr,
+InvenTree, Tryton) are open source and run from `erps/`, so the whole demo can be reproduced without it.
 
 ## How a line is resolved
 
@@ -49,14 +51,43 @@ N corrections by people. Every step is an event, shown as the rule's birth timel
 
 ## Run
 
+Needs Go 1.23+, Docker, Python 3 (for the seed script) and `ffmpeg` on the PATH for voice notes.
+
+**1. Start an ERP and load the demo distributor** (120 drinks and dairy products with packs, prices and stock,
+15 shops, 10 suppliers). Odoo is the quickest; the other ERPs are in `erps/` with the same seed data.
+
 ```bash
-go build -o orderdesk.exe ./cmd/orderdesk
-./orderdesk.exe -addr 127.0.0.1:8610 -data ./data -keys keys.env
+docker compose -f erps/odoo/docker-compose.yml up -d        # Odoo 18 on http://127.0.0.1:8069
+python erps/seed/odoo_setup.py                               # creates database "orderdesk" (admin / admin)
+python erps/seed/odoo_seed.py erps/seed/seed.json            # products, packs, prices, stock, partners
 ```
 
-`keys.env` holds `TELEGRAM_BOT_TOKEN=…` and `META_MODEL_API_KEY=…`. Open http://127.0.0.1:8610, then
-**Settings → ERP connection** (address and a user of the ERP; only the session token is kept), then
-**Customers → Pairing code**, and send the code to the bot on Telegram. `ffmpeg` must be on the PATH for voice notes.
+**2. Configure and start Order Desk**
+
+```bash
+cp .env.example .env        # set META_MODEL_API_KEY, and TELEGRAM_BOT_TOKEN for the Telegram channel
+go build -o orderdesk ./cmd/orderdesk
+./orderdesk -addr 127.0.0.1:8610 -data ./data
+```
+
+**3. Connect and order.** Open http://127.0.0.1:8610:
+
+- **Settings → ERP**: Odoo, `http://127.0.0.1:8069`, database `orderdesk`, user `admin` / `admin`. The password
+  is used once to create an API key; only the key is kept. The catalogue syncs right away.
+- **Customers → Pairing code**: send the code to your bot on Telegram, then order the way a shop does:
+  `3 selecto 2l, 2 cartons ifri, 1 candia` or a voice note.
+- **Invoices**: upload a supplier invoice photo or PDF to see it become a goods receipt.
+
+| ERP | Start | Seed | Panel settings |
+|---|---|---|---|
+| Odoo 18 | `erps/odoo` | `odoo_setup.py`, then `odoo_seed.py seed.json` | :8069, database `orderdesk` |
+| ERPNext v16 | `erps/erpnext/pwd.yml` | `erpnext_setup.py seed.json` | :8090, `Administrator` / `admin` |
+| Dolibarr 24 | `erps/dolibarr` | `dolibarr_setup.py seed.json` | :8081 |
+| InvenTree 1.6 | `erps/inventree` | `inventree_setup.py seed.json` | :8083 |
+| Tryton 7.0 | `erps/tryton` | `tryton_setup.py seed.json` | :8000, database `orderdesk` |
+
+All test instances use `admin` / `admin` and listen on 127.0.0.1 only. More in [docs/ERPS.md](docs/ERPS.md);
+WhatsApp setup in [docs/WHATSAPP.md](docs/WHATSAPP.md).
 
 ## Layout
 
@@ -65,20 +96,26 @@ cmd/orderdesk/        the single program: API + admin panel + Telegram + workers
 internal/catalog/     products mirror, packs, aliases, normalisation, shortlist
 internal/rules/       the rule language: types, patterns, interpreter, sentences
 internal/resolve/     the resolution levels
-internal/engineer/    the rule engineer (Muse Wonder + tools), benchmark, gate
-internal/desk/        the order agent: extraction, drafts, questions, confirmation, learning
-internal/adapter/     the ERP contract; elixir/ = Elixir Distribution over its HTTP API
+internal/engineer/    the rule engineer (Muse Spark + tools), benchmark, gate
+internal/desk/        the order agent: extraction, drafts, questions, confirmation, learning, supplier invoices
+internal/adapter/     the ERP contract and one adapter per ERP (odoo, erpnext, dolibarr, inventree, tryton, elixir);
+                      adaptertest/ is the live conformance test every adapter passes
 internal/meta/        Meta Model API client with a cost meter and a daily budget
 internal/telegram/    Telegram Bot API (long polling: no public address needed)
+internal/whatsapp/    WhatsApp Cloud API webhook; internal/twilio/ the same through Twilio
 internal/web/         panel and JSON API
+erps/                 Docker setups and seed scripts for the five open-source ERPs
 ```
 
 ## Meta models
 
+Every model Order Desk calls at runtime is a Meta model, through the Meta Model API.
+
 - **Muse Voice Transcribe**: Darja, French and Arabic voice notes to text.
-- **Muse Spark 1.3**: reads list photos, extracts items from conversations, picks among a shortlist.
-- **Muse Wonder**: the rule engineer, a tool-using agent (`list_residue`, `search_catalogue`, `list_rules`,
+- **Muse Spark 1.3**: reads list photos and supplier invoices, extracts items from conversations, picks among a
+  shortlist, and runs the rule engineer, a tool-using agent (`list_residue`, `search_catalogue`, `list_rules`,
   `run_benchmark`, `submit_rule`).
+- **Muse Wonder**: the rule engineer's fallback when Muse Spark admits no rule and the unresolved lines keep growing.
 
 Every call is logged with its tokens and cost (Learning & cost screen); a daily budget stops AI calls while
 aliases and rules keep working.

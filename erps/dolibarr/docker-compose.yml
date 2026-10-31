@@ -1,0 +1,40 @@
+# Dolibarr 24 for Order Desk tests: third parties, products, stock, customer orders, supplier
+# orders + receptions, REST API. http://127.0.0.1:8081 (admin / admin, local throwaway instance).
+#   docker compose -p od-dolibarr -f dolibarr/docker-compose.yml up -d
+#   python seed/dolibarr_setup.py seed/seed.json        # prints the admin API key (DOLAPIKEY)
+name: od-dolibarr
+services:
+  db:
+    image: mariadb:11.8
+    environment:
+      MARIADB_ROOT_PASSWORD: dolibarr
+      MARIADB_DATABASE: dolibarr
+      MARIADB_USER: dolibarr
+      MARIADB_PASSWORD: dolibarr
+    volumes: [dolibarr-db:/var/lib/mysql]
+    restart: unless-stopped
+  dolibarr:
+    image: dolibarr/dolibarr:24.0.2
+    depends_on: [db]
+    ports: ["127.0.0.1:8081:80"]
+    environment:
+      DOLI_DB_HOST: db
+      DOLI_DB_NAME: dolibarr
+      DOLI_DB_USER: dolibarr
+      DOLI_DB_PASSWORD: dolibarr
+      DOLI_URL_ROOT: http://127.0.0.1:8081
+      DOLI_ADMIN_LOGIN: admin
+      DOLI_ADMIN_PASSWORD: admin
+      DOLI_INIT_DEMO: "0"
+      DOLI_COMPANY_NAME: Elixir Distribution Test
+      DOLI_COMPANY_COUNTRYCODE: DZ
+      # modules, by class name without "mod": VAT is core, Categorie = tags, Reception = goods receipts
+      DOLI_ENABLE_MODULES: Societe,Product,Stock,Commande,Fournisseur,Reception,Categorie,Barcode,Api
+      PHP_INI_DATE_TIMEZONE: Africa/Algiers
+    volumes:
+      - dolibarr-docs:/var/www/documents
+      - ./init.d:/var/www/scripts/docker-init.d:ro
+    restart: unless-stopped
+volumes:
+  dolibarr-db:
+  dolibarr-docs:
