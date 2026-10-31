@@ -1,5 +1,5 @@
 // Package meta is a small client for the Meta Model API (OpenAI-compatible chat completions,
-// tool calling and Muse Voice Transcribe) with a cost meter: every call is written to ai_usage
+// tool calling, Muse Voice Transcribe and SAM 3.1) with a cost meter: every call is written to ai_usage
 // with its model, purpose, tokens and price, and a daily budget is enforced.
 package meta
 
@@ -14,6 +14,8 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/textproto"
+	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -24,10 +26,11 @@ const (
 	Spark      = "muse-spark-1.3"
 	Wonder     = "muse-wonder-1.0"
 	Transcribe = "muse-voice-transcribe-1.0"
+	SAM        = "sam-3.1"
 )
 
-// Prices in USD per million tokens (input, output). Transcription is priced per minute
-// (an estimate until Meta publishes it; set "price_transcribe_min" to correct it).
+// Prices in USD per million tokens (input, output). Transcription is priced per minute and SAM per image
+// (estimates until Meta publishes them; set "price_transcribe_min" and "price_sam_image" to correct them).
 var prices = map[string][2]float64{Spark: {1.25, 4.25}, Wonder: {4, 20}}
 
 var ErrBudget = errors.New("daily AI budget reached")
@@ -70,6 +73,8 @@ func (c *Client) record(model, purpose, ref string, in, out int, audioSec float6
 		cost = float64(in)*p[0]/1e6 + float64(out)*p[1]/1e6
 	} else if model == Transcribe {
 		cost = audioSec / 60 * c.DB.SettingFloat("price_transcribe_min", 0.006)
+	} else if model == SAM {
+		cost = c.DB.SettingFloat("price_sam_image", 0.003)
 	}
 	c.DB.Exec(`INSERT INTO ai_usage (at, model, purpose, tokens_in, tokens_out, audio_sec, cost, ref) VALUES (?,?,?,?,?,?,?,?)`,
 		store.Now(), model, purpose, in, out, audioSec, cost, ref)
@@ -263,6 +268,58 @@ func (c *Client) Transcribe(ctx context.Context, wav []byte, ref string) (string
 	cost := c.record(Transcribe, "transcribe", ref, 0, 0, sec)
 	return strings.TrimSpace(out.Transcript), cost, nil
 }
+
+// Box is one object SAM found, in source pixels (X2 and Y2 exclusive), with its confidence (0 to 1).
+type Box struct {
+	X1, Y1, X2, Y2 int
+	Conf           float64
+}
+
+// SAM answers in one output_text lane: "<0f>" then records like
+// 0<|box;x1=440;y1=60;x2=560;y2=439;w=800;h=500;c=0.81|><|mask;…|>, comma-separated. Only the boxes are used.
+var samBox = regexp.MustCompile(`<\|box;x1=(\d+);y1=(\d+);x2=(\d+);y2=(\d+);w=\d+;h=\d+(?:;c=([\d.]+))?\|>`)
+
+// Segment asks SAM 3.1 for every instance of one noun phrase ("bottle", "can") in an image.
+func (c *Client) Segment(ctx context.Context, img []byte, noun, ref string) ([]Box, float64, error) {
+	if err := c.check(); err != nil {
+		return nil, 0, err
+	}
+	body := map[string]any{
+		"model":    SAM,
+		"metadata": map[string]string{"include_confidence": "true"},
+		"input": []map[string]any{{"role": "user", "content": []map[string]any{
+			{"type": "input_image", "image_url": "data:" + http.DetectContentType(img) + ";base64," + base64.StdEncoding.EncodeToString(img)},
+			{"type": "input_text", "text": noun},
+		}}},
+	}
+	var resp struct {
+		Output []struct {
+			Content []struct {
+				Type string `json:"type"`
+				Text string `json:"text"`
+			} `json:"content"`
+		} `json:"output"`
+	}
+	if err := c.post(ctx, "/responses", body, &resp); err != nil {
+		return nil, 0, err
+	}
+	cost := c.record(SAM, "segment", ref, 0, 0, 0)
+	var boxes []Box
+	for _, o := range resp.Output {
+		for _, part := range o.Content {
+			for _, m := range samBox.FindAllStringSubmatch(part.Text, -1) {
+				b := Box{X1: atoi(m[1]), Y1: atoi(m[2]), X2: atoi(m[3]) + 1, Y2: atoi(m[4]) + 1, Conf: 1}
+				if m[5] != "" {
+					b.Conf, _ = strconv.ParseFloat(m[5], 64)
+				}
+				boxes = append(boxes, b)
+			}
+		}
+	}
+	return boxes, cost, nil
+}
+
+func atoi(s string) int { n, _ := strconv.Atoi(s); return n }
 
 func (c *Client) post(ctx context.Context, path string, body, out any) error {
 	payload, _ := json.Marshal(body)

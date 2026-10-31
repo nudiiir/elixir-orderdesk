@@ -5,6 +5,7 @@ package web
 import (
 	"context"
 	"embed"
+	"encoding/base64"
 	"encoding/json"
 	"io/fs"
 	"net/http"
@@ -500,17 +501,36 @@ func (s *Server) try(w http.ResponseWriter, r *http.Request) {
 	var in struct {
 		CustomerID string `json:"customer_id"`
 		Text       string `json:"text"`
+		Image      string `json:"image"` // optional photo, base64: a written list or the products themselves
 	}
-	if decode(r, &in) != nil || in.CustomerID == "" || strings.TrimSpace(in.Text) == "" {
-		writeErr(w, 400, "customer_id and text are required")
+	if decode(r, &in) != nil || in.CustomerID == "" || (strings.TrimSpace(in.Text) == "" && in.Image == "") {
+		writeErr(w, 400, "customer_id and a text or a photo are required")
 		return
 	}
-	res, err := s.Desk.Ingest(r.Context(), "panel:"+in.CustomerID, in.CustomerID, store.NewID("msg"), "text", in.Text, "")
+	key, msgID, kind, text, media, heard := "panel:"+in.CustomerID, store.NewID("msg"), "text", in.Text, "", ""
+	if in.Image != "" {
+		_, b64, _ := strings.Cut(in.Image, ";base64,")
+		if b64 == "" {
+			b64 = in.Image
+		}
+		img, err := base64.StdEncoding.DecodeString(b64)
+		if err != nil {
+			writeErr(w, 400, "the photo is not valid base64")
+			return
+		}
+		po, err := s.Desk.ReadShopPhoto(r.Context(), key, img, in.Text, msgID)
+		if err != nil {
+			writeErr(w, 400, err.Error())
+			return
+		}
+		kind, text, media, heard = po.Kind, po.Text, po.Media, po.Heard
+	}
+	res, err := s.Desk.Ingest(r.Context(), key, in.CustomerID, msgID, kind, text, media)
 	if err != nil {
 		writeErr(w, 400, err.Error())
 		return
 	}
-	writeJSON(w, http.StatusOK, res)
+	writeJSON(w, http.StatusOK, map[string]any{"draft": res.Draft, "extraction": res.Ex, "lines": res.Lines, "heard": heard})
 }
 
 // ---- catalogue ---------------------------------------------------------------------------

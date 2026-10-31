@@ -84,4 +84,17 @@ func (m *Mux) Download(ctx context.Context, fileID string) ([]byte, error) {
 	return m.TG.Download(ctx, fileID)
 }
 
+// PhotoSender is a channel that can send a picture with a caption.
+type PhotoSender interface {
+	SendPhoto(ctx context.Context, chatID int64, jpg []byte, caption string) (int, error)
+}
+
+// SendPhoto sends a picture through the chat's channel, when that channel can.
+func (m *Mux) SendPhoto(ctx context.Context, chatID int64, jpg []byte, caption string) (int, error) {
+	if ps, ok := m.pick(chatID).(PhotoSender); ok {
+		return ps.SendPhoto(ctx, chatID, jpg, caption)
+	}
+	return 0, errNoChannel
+}
+
 func isWamid(id string) bool { return len(id) > 5 && id[:5] == "wamid" }

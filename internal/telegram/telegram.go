@@ -6,7 +6,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"mime/multipart"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -133,6 +135,37 @@ func (t *Telegram) Send(ctx context.Context, chatID int64, text string, rows [][
 	var m TgMessage
 	err := t.call(ctx, "sendMessage", body, &m)
 	return m.MessageID, err
+}
+
+// SendPhoto posts a JPEG with an HTML caption. Returns the message id.
+func (t *Telegram) SendPhoto(ctx context.Context, chatID int64, jpg []byte, caption string) (int, error) {
+	var buf bytes.Buffer
+	w := multipart.NewWriter(&buf)
+	w.WriteField("chat_id", strconv.FormatInt(chatID, 10))
+	w.WriteField("caption", caption)
+	w.WriteField("parse_mode", "HTML")
+	part, _ := w.CreateFormFile("photo", "photo.jpg")
+	part.Write(jpg)
+	w.Close()
+	req, _ := http.NewRequestWithContext(ctx, http.MethodPost, "https://api.telegram.org/bot"+t.Token+"/sendPhoto", &buf)
+	req.Header.Set("Content-Type", w.FormDataContentType())
+	res, err := t.HTTP.Do(req)
+	if err != nil {
+		return 0, err
+	}
+	defer res.Body.Close()
+	var env struct {
+		OK          bool      `json:"ok"`
+		Result      TgMessage `json:"result"`
+		Description string    `json:"description"`
+	}
+	if err := json.NewDecoder(res.Body).Decode(&env); err != nil {
+		return 0, err
+	}
+	if !env.OK {
+		return 0, fmt.Errorf("telegram sendPhoto: %s", env.Description)
+	}
+	return env.Result.MessageID, nil
 }
 
 // Edit replaces the text (and buttons) of a message the bot sent.

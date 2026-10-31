@@ -33,6 +33,13 @@ Messages are cut into items first. Plain lists use a deterministic parser (no AI
 Transcribe, then Muse Spark extracts the items, quoting the shop's words and never choosing products, with only
 the brand names in the prompt, never the catalogue. "Same as last time" is copied from the ERP by code.
 
+**Photos.** Muse Spark first tells a written list (copied line by line) from a photo of the products themselves,
+and names the kinds of packaging it shows. For products, **SAM 3.1** finds every bottle, can or carton (one call
+per kind of packaging), duplicate and weak boxes are dropped, and Muse Spark reads all the crops in one call, the
+way a shop would type them ("Selecto 2L"). Identical products are counted, a caption like "3 cartons" applies to a
+single product, and the lines go through the levels below like any typed order. The shop gets its photo back with
+every product boxed in a colour that matches the reply ("🟩 2 × Selecto 2L"). About $0.015 a photo.
+
 ## The rule language
 
 Five rule types, each shown as a sentence generated from its structured form:
@@ -75,7 +82,8 @@ go build -o orderdesk ./cmd/orderdesk
 - **Settings → ERP**: Odoo, `http://127.0.0.1:8069`, database `orderdesk`, user `admin` / `admin`. The password
   is used once to create an API key; only the key is kept. The catalogue syncs right away.
 - **Customers → Pairing code**: send the code to your bot on Telegram, then order the way a shop does:
-  `3 selecto 2l, 2 cartons ifri, 1 candia` or a voice note.
+  `3 selecto 2l, 2 cartons ifri, 1 candia`, a voice note, or a photo of the bottles. Without Telegram, the
+  **Inbox → Try a message** box takes the same text or photo.
 - **Invoices**: upload a supplier invoice photo or PDF to see it become a goods receipt.
 
 | ERP | Start | Seed | Panel settings |
@@ -112,7 +120,9 @@ erps/                 Docker setups and seed scripts for the five open-source ER
 Every model Order Desk calls at runtime is a Meta model, through the Meta Model API.
 
 - **Muse Voice Transcribe**: Darja, French and Arabic voice notes to text.
-- **Muse Spark 1.3**: reads list photos and supplier invoices, extracts items from conversations, picks among a
+- **SAM 3.1**: finds every product on a photo of the products (boxes from its segmentation output).
+- **Muse Spark 1.3**: tells list photos from product photos, copies lists, reads each product SAM found, reads
+  supplier invoices, extracts items from conversations, picks among a
   shortlist, and runs the rule engineer, a tool-using agent (`list_residue`, `search_catalogue`, `list_rules`,
   `run_benchmark`, `submit_rule`).
 - **Muse Wonder**: the rule engineer's fallback when Muse Spark admits no rule and the unresolved lines keep growing.

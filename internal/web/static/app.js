@@ -81,7 +81,7 @@ const SVG = {
   pause: `<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5h2v9H3zM7 1.5h2v9H7z" fill="currentColor"/></svg>`,
   up: `<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11V3M4.5 6.5 8 3l3.5 3.5M3 13h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
 };
-const srcTag = (kind, label) => `<span class="src">${SVG[kind] || SVG.text}${esc(label || { voice: "voice", photo: "photo", text: "text", invoice: "invoice" }[kind] || kind)}</span>`;
+const srcTag = (kind, label) => `<span class="src">${SVG[kind] || (kind === "products" ? SVG.photo : SVG.text)}${esc(label || { voice: "voice", photo: "photo", products: "products", text: "text", invoice: "invoice" }[kind] || kind)}</span>`;
 function packText(l) {
   if (!l.pack_factor) return `${l.qty} u.`;
   const f = l.pack_factor / 1000, name = (l.pack_name || "pack").toLowerCase();
@@ -222,19 +222,21 @@ function tryBox(custs) {
     <span class="cap">Try a message · demo</span>
     <label class="l" for="t-shop">As shop</label><select id="t-shop" class="inp">${custs.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("")}</select>
     <label class="l" for="t-msg">Message</label><textarea id="t-msg" class="inp ev" rows="3" placeholder="3 cartons dove shampooing 250 ml&#10;2 fardou nivea creme"></textarea>
-    <div class="row" style="justify-content:space-between"><span class="muted" style="font-size:11px;max-width:200px">Runs the real pipeline. Lists use the free parser; chatty text uses the AI.</span>
+    <label class="l" for="t-photo">Or a photo · a list, or the products</label><input id="t-photo" class="inp" type="file" accept="image/*">
+    <div class="row" style="justify-content:space-between"><span class="muted" style="font-size:11px;max-width:200px">Runs the real pipeline. Lists use the free parser; chatty text uses the AI; photos of products use SAM 3.1.</span>
     <button class="btn primary sm" id="t-run" type="button">Run</button></div></div>`;
 }
 function bindTry() {
   const b = $("#t-run");
   if (!b) return;
   b.onclick = async () => {
-    const text = $("#t-msg").value.trim(); if (!text) return;
-    b.disabled = true; b.textContent = "Running…";
+    const text = $("#t-msg").value.trim(), file = $("#t-photo").files[0]; if (!text && !file) return;
+    b.disabled = true; b.textContent = file ? "Looking…" : "Running…";
     try {
-      const r = await api("/try", { method: "POST", body: { customer_id: $("#t-shop").value, text } });
+      const image = file ? await new Promise((ok, ko) => { const fr = new FileReader(); fr.onload = () => ok(fr.result); fr.onerror = ko; fr.readAsDataURL(file); }) : "";
+      const r = await api("/try", { method: "POST", body: { customer_id: $("#t-shop").value, text, image } });
       if (!r.draft) toast(r.extraction.reply || "No product found in this message.");
-      else { $("#t-msg").value = ""; location.hash = "#/inbox/" + r.draft; go(); }
+      else { $("#t-msg").value = ""; $("#t-photo").value = ""; location.hash = "#/inbox/" + r.draft; go(); }
     } catch (e) { toast(e.message, true); }
     b.disabled = false; b.textContent = "Run";
   };
@@ -286,8 +288,8 @@ function slipOf(m) {
   if (m.kind === "voice") return `<div class="col" style="flex:1 1 280px;min-width:0;gap:6px">${top("voice", `${hm(m.created_at)} · Voice Transcribe → ${reader}`)}
     <div class="slip" style="gap:4px"><div class="row" style="gap:10px;padding:4px 0">${m.media ? `<button class="btn icon play vplay" type="button" aria-label="Play voice note">${SVG.play}</button><audio src="${esc(m.media)}" preload="none"></audio>` : ""}${bars(m.id)}</div>
     <bdi class="ev ${isAr(m.text) ? "ar" : ""}" dir="auto" style="display:block">${esc(m.text)}</bdi></div></div>`;
-  if (m.kind === "photo") return `<div class="col" style="flex:1 1 280px;min-width:0;gap:6px">${top("photo", `${hm(m.created_at)} · photo of a list → ${reader}`)}
-    <div class="slip">${m.media ? `<img src="${esc(m.media)}" alt="photo of the list">` : ""}${m.text.split("\n").map((t) => evRaw(t)).join("")}</div></div>`;
+  if (m.kind === "photo" || m.kind === "products") return `<div class="col" style="flex:1 1 280px;min-width:0;gap:6px">${top(m.kind, `${hm(m.created_at)} · ${m.kind === "products" ? "photo of the products → SAM 3.1 finds them, Muse Spark reads them" : "photo of a list → " + reader}`)}
+    <div class="slip">${m.media ? `<img src="${esc(m.media)}" alt="the photo the shop sent">` : ""}${m.text.split("\n").map((t) => evRaw(t)).join("")}</div></div>`;
   return `<div class="col" style="flex:1 1 280px;min-width:0;gap:6px">${top("text", `${hm(m.created_at)} · ${reader}`)}
     <div class="slip">${m.text.split("\n").filter((t) => t.trim()).map((t) => evRaw(t)).join("")}</div></div>`;
 }
@@ -472,7 +474,7 @@ route("catalogue", async () => {
 route("product", async (id) => {
   const d = await api("/products/" + encodeURIComponent(id));
   const p = d.product;
-  const SRC = { text: ["text", "Text"], voice: ["voice", "Voice note"], photo: ["photo", "List photo"], clerk: ["text", "Clerk"], invoice: ["invoice", "Invoice"] };
+  const SRC = { text: ["text", "Text"], voice: ["voice", "Voice note"], photo: ["photo", "List photo"], products: ["photo", "Product photo"], clerk: ["text", "Clerk"], invoice: ["invoice", "Invoice"] };
   main.innerHTML = `<div class="crumbs"><a href="#/catalogue">Catalogue</a> › ${esc(p.brand || "—")}</div>` +
     head(esc(p.name), `ERP id <span class="mono">${esc(p.id)}</span> · ${(p.packs || []).map((k) => esc(k.name)).join(" · ") || "sold by unit"}${p.size ? " · " + esc(p.size) : ""} · catalogue words <span class="ev">${esc((p.words || []).join(" "))}</span>`) + `
     <div class="tiles">${tile("Wordings known", d.aliases.length, "")}${tile("Lines seen", d.lines, "")}${tile("Resolved without AI", d.lines ? pct(d.free_lines / d.lines) : "—", "", "free")}${tile("Rules touching it", (d.rules || []).length, "")}</div>

@@ -134,17 +134,32 @@ func ExtractAI(ctx context.Context, m *meta.Client, brands []string, text, ref s
 	return ex, err
 }
 
-const readListPrompt = `You read photos of handwritten or printed order lists sent by small shops in Algeria to their
-distributor. Copy every ordered item exactly as written, one per line, keeping quantities and units.
-Ignore headers, prices and signatures. Return JSON only: {"lines":["5 cartons Hamoud 2L","3 Ifri 1.5"]}`
+const readPhotoPrompt = `You look at a photo a small shop in Algeria sent to its distributor to order. It is either a
+written order list (handwritten or printed), or it shows the products themselves (bottles, cans, cartons or packs
+on a shelf, a counter, in a crate or in a hand).
+For a list: copy every ordered item exactly as written, one per line, keeping quantities and units. Ignore headers,
+prices and signatures.
+For products: name the kinds of packaging you see, using only these words: bottle, can, carton, box, pack, jar,
+bag, tub, sachet. Most common first, at most three.
+Return JSON only, either {"kind":"list","lines":["5 cartons Hamoud 2L","3 Ifri 1.5"]}
+or {"kind":"products","packaging":["bottle","can"]}`
 
-// ReadPhoto copies the lines of a photographed list; the parser then cuts them into items.
-func ReadPhoto(ctx context.Context, m *meta.Client, img []byte, ref string) ([]string, float64, error) {
-	var out struct {
-		Lines []string `json:"lines"`
+// PhotoReading is what one look at a shop's photo found: a written list, or products to find with SAM.
+type PhotoReading struct {
+	Kind      string   `json:"kind"` // list | products
+	Lines     []string `json:"lines"`
+	Packaging []string `json:"packaging"`
+}
+
+// ReadPhoto copies the lines of a photographed list (the parser then cuts them into items), or says which
+// kinds of packaging a photo of products shows, so SAM can find each product.
+func ReadPhoto(ctx context.Context, m *meta.Client, img []byte, ref string) (PhotoReading, float64, error) {
+	var out PhotoReading
+	cost, err := m.JSON(ctx, meta.Spark, "read", ref, readPhotoPrompt, "Read this photo.", [][]byte{img}, 2000, &out)
+	if out.Kind != "products" {
+		out.Kind = "list"
 	}
-	cost, err := m.JSON(ctx, meta.Spark, "read", ref, readListPrompt, "Read this order list.", [][]byte{img}, 2000, &out)
-	return out.Lines, cost, err
+	return out, cost, err
 }
 
 // Extract reads one message: the parser for plain lists, the AI for everything else.

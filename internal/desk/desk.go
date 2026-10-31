@@ -246,17 +246,20 @@ func (d *Desk) onMessage(ctx context.Context, msg *telegram.TgMessage) {
 			d.fail(ctx, chat, "je n'ai pas pu récupérer la photo", err)
 			return
 		}
-		media = d.keep(key, "jpg", img)
-		lines, _, err := ReadPhoto(ctx, d.Meta, img, msgID)
-		if err != nil || len(lines) == 0 {
-			d.fail(ctx, chat, "je n'arrive pas à lire cette photo, pouvez-vous en envoyer une plus nette ?", err)
+		d.TG.Typing(ctx, chat)
+		po, err := d.ReadShopPhoto(ctx, key, img, msg.Caption, msgID)
+		if err != nil {
+			d.fail(ctx, chat, photoTrouble(err), err)
 			return
 		}
-		text = strings.Join(lines, "\n")
-		if c := strings.TrimSpace(msg.Caption); c != "" {
-			text = c + "\n" + text
+		kind, text, media, heard = po.Kind, po.Text, po.Media, po.Heard
+		if po.Seen != nil {
+			if ps, ok := d.TG.(telegram.PhotoSender); ok {
+				if _, err := ps.SendPhoto(ctx, chat, po.Seen.Marked, heard); err == nil {
+					heard = ""
+				}
+			}
 		}
-		heard = fmt.Sprintf("📷 <i>J'ai lu %d ligne(s) sur la photo.</i>", len(lines))
 	case text == "":
 		d.say(ctx, chat, "Envoyez votre commande en texte, en note vocale ou en photo de la liste.")
 		return
@@ -555,7 +558,7 @@ func (d *Desk) onOwnerMessage(ctx context.Context, msg *telegram.TgMessage) {
 const helpText = `Comment commander :
 • écrivez : « 3 cartons Dove shampooing 250 ml, 2 Nivea crème »
 • ou envoyez une <b>note vocale</b> (darja, français, arabe)
-• ou une <b>photo de votre liste</b>
+• ou une <b>photo de votre liste</b>, ou des <b>produits</b> eux-mêmes (étiquettes visibles)
 • « comme la dernière fois » reprend votre dernière commande
 
 /commande voir la commande en cours · /annuler l'annuler · /deconnecter délier ce compte`
