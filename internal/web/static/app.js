@@ -49,7 +49,7 @@ const coin = (v) => `<span class="coin">${(v || 0) >= 0.1 ? usd(v) : cents(v)}</
 const RUNGS = [["A", "alias"], ["R", "rules"], ["AI", "ai"], ["P", "person"]];
 function ladder(level) {
   const at = { alias: 0, rules: 1, history: 1, ai: 2, person: 3, none: 3 }[level] ?? 3;
-  const label = { alias: "a trusted wording", rules: "rules", history: "copied from the last order", ai: "AI pick", person: "a person", none: "a person" }[level] || level;
+  const label = { alias: "a trusted wording", rules: "rules", history: "copied from the last order", ai: "Muse Spark pick", person: "a person", none: "a person" }[level] || level;
   return `<span class="ladder" aria-label="Stopped at ${esc(label)}">${RUNGS.map(([t, k], i) => {
     if (i < at) return `<span class="rung past">${t}</span>`;
     if (i === at) return `<span class="rung at ${level === "history" ? "history" : k}">${level === "history" ? "H" : t}</span>`;
@@ -59,14 +59,14 @@ function ladder(level) {
 function lvlText(l) {
   const u = l.used || [];
   const rules = u.filter((x) => x.startsWith("R-"));
-  if (l.status !== "ok") return l.options && l.options.length ? "No sure match. Rules don't guess; the AI won't pick alone." : "Not in the catalogue.";
+  if (l.status !== "ok") return l.options && l.options.length ? "No sure match. Rules don't guess; Muse Spark won't pick alone." : "Not in the catalogue.";
   switch (l.level) {
     case "alias": return "alias · a trusted wording" + (rules.length ? " · " + rules.join(", ") : "");
     case "history": return "copied by code from " + esc((u[0] || "").replace("order:", "order "));
     case "rules":
       if (u.includes("habit")) return "rules · habit: this shop always takes this one";
       return "rules · " + (rules.length ? rules.join(", ") + (u.includes("match") ? " + brand & size match" : "") : "brand + size match");
-    case "ai": return u.includes("hint") ? "AI · read from the message" : `AI pick from the shortlist · conf. ${(l.confidence || 0).toFixed(2)}`;
+    case "ai": return u.includes("hint") ? "Muse Spark · read from the message" : `Muse Spark pick from the shortlist · conf. ${(l.confidence || 0).toFixed(2)}`;
     case "person": return "answered by a person";
   }
   return l.level;
@@ -108,7 +108,7 @@ async function refreshShell() {
     row(!!overview.telegram, "Telegram", overview.telegram ? "@" + overview.telegram : "off") +
     row(overview.meta, "Meta models", overview.meta ? "on" : "off") +
     row(true, "Rule engineer", overview.engineer_running ? "running" : "idle", overview.engineer_running ? "run" : "") +
-    `<div class="col" style="gap:6px;margin-top:4px"><div class="st">AI today<span class="r" style="color:#F2CB6B">${usd(spent)} / ${usd(budget)}</span></div>
+    `<div class="col" style="gap:6px;margin-top:4px"><div class="st">Meta models today<span class="r" style="color:#F2CB6B">${usd(spent)} / ${usd(budget)}</span></div>
       <div style="height:6px;border-radius:3px;background:#253A66;overflow:hidden"><div style="width:${Math.min(100, budget ? spent / budget * 100 : 0)}%;height:100%;background:#E3B341"></div></div></div>`;
 }
 
@@ -143,7 +143,7 @@ route("today", async () => {
       ${tile("Lines today", d.lines, `${ov.orders} orders confirmed in total`)}
       ${tile("Resolved without AI today", d.lines ? pct((d.alias + d.rules) / d.lines) : "—", "by aliases and rules", "free")}
       ${tile("Waiting for you", waiting.length, `${ov.pending_lines} question(s) · ${inv.items.length} invoice(s)`, waiting.length ? "human" : "")}
-      ${tile("AI today", usd(ov.spend_today), `of ${usd(ov.budget_day)} budget`, "paid")}
+      ${tile("Meta models today", usd(ov.spend_today), `of ${usd(ov.budget_day)} budget`, "paid")}
     </div>
     <div class="split">
       <section class="card" style="flex:1 1 420px;overflow:hidden">
@@ -223,7 +223,7 @@ function tryBox(custs) {
     <label class="l" for="t-shop">As shop</label><select id="t-shop" class="inp">${custs.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("")}</select>
     <label class="l" for="t-msg">Message</label><textarea id="t-msg" class="inp ev" rows="3" placeholder="3 cartons selecto 2l&#10;2 fardou ifri 1.5&#10;1 candia"></textarea>
     <label class="l" for="t-photo">Or a photo · a list, or the products</label><input id="t-photo" class="inp" type="file" accept="image/*">
-    <div class="row" style="justify-content:space-between"><span class="muted" style="font-size:11px;max-width:200px">Runs the real pipeline. Lists use the free parser; chatty text uses the AI; photos of products use SAM 3.1.</span>
+    <div class="row" style="justify-content:space-between"><span class="muted" style="font-size:11px;max-width:200px">Runs the real pipeline. Lists use the free parser; chatty text goes to Muse Spark, voice notes to Muse Voice Transcribe; photos of products use SAM 3.1 and Muse Spark.</span>
     <button class="btn primary sm" id="t-run" type="button">Run</button></div></div>`;
 }
 function bindTry() {
@@ -266,7 +266,7 @@ async function renderDraft(id) {
     <div class="band"><span class="cap">Lines · how each one was resolved</span>
       <span class="muted" style="font-size:12px">cheapest first: <span class="mono">A</span> alias → <span class="mono">R</span> rules → <span class="mono">AI</span> pick → <span class="mono">P</span> person</span></div>
     ${d.lines.map((l, i) => orderLine(l, i + 1, open, lineCost(l))).join("")}
-    <div class="foot"><span class="row" style="gap:16px;font-size:13px"><span><b>${freeN}</b> of ${lines.length} free</span><span><b>${aiN}</b> AI pick${aiN === 1 ? "" : "s"}</span>
+    <div class="foot"><span class="row" style="gap:16px;font-size:13px"><span><b>${freeN}</b> of ${lines.length} free</span><span><b>${aiN}</b> Muse Spark pick${aiN === 1 ? "" : "s"}</span>
       ${waiting ? `<span style="color:var(--human)"><b>${waiting}</b> waiting for you</span>` : ""}</span>
       ${open ? `<span class="row"><span class="muted" style="font-size:12px">${waiting ? "Answer the open line" + (waiting > 1 ? "s" : "") + " to confirm" : "The shop confirms in the chat — or you can, here."}</span>
         <button class="btn go" id="confirm" ${waiting ? "disabled" : ""}>Confirm into ERP →</button></span>` : stamp("confirmed", "✓ " + dr.erp_order_number)}</div>`;
@@ -298,7 +298,7 @@ function checkChips(l) {
   const out = [];
   Object.entries(l.shadow || {}).forEach(([rid, pid]) => out.push(`<span class="chip shadow">◐ ${esc(rid)} in shadow ${pid === l.product_id ? "agrees" : "disagrees"}</span>`));
   if (c.stock) out.push(`<span class="chip warn">! ${esc(c.stock)}</span>`); else if (l.status === "ok" && l.line_ttc && !c.history && !l.pack_rule && l.unit_price) out.push(`<span class="chip good">✓ in stock</span>`);
-  for (const k of ["usual", "pack", "unit", "price", "new"]) if (c[k]) out.push(`<span class="chip warn">! ${esc(c[k])}</span>`);
+  for (const k of ["usual", "pack", "unit", "price", "new", "second_reader"]) if (c[k]) out.push(`<span class="chip warn">! ${esc(c[k])}</span>`);
   if (c.offer) out.push(`<span class="chip gift">🎁 ${esc(c.offer)}</span>`);
   if (c.corrected_from) out.push(`<span class="chip" style="color:var(--human);border-color:#C9B6E3">corrected · was ${esc(l.option_names[c.corrected_from] || "")}</span>`);
   return out.join("");
@@ -411,9 +411,9 @@ async function renderInvoice(id) {
         ${inv.supplier && open ? `<details style="font-size:12px"><summary class="muted" style="cursor:pointer">Wrong supplier?</summary><select id="sup" class="inp" style="width:auto;margin-top:6px">${(d.suppliers || []).map((s) => `<option value="${esc(s.id)}" ${s.id === inv.supplier_id ? "selected" : ""}>${esc(s.name)}</option>`).join("")}</select></details>` : ""}
         <div class="row" style="gap:16px;font-size:13px">${byAlias ? `<span class="row" style="gap:6px"><span class="rung at alias">A</span><b>${byAlias} of ${live.length}</b> by aliases</span>` : ""}
           ${byRules ? `<span class="row" style="gap:6px"><span class="rung at rules">R</span><b>${byRules}</b> by rules</span>` : ""}
-          ${byAI ? `<span class="row" style="gap:6px"><span class="rung at ai">AI</span><b>${byAI}</b> by the AI or a person</span>` : ""}
+          ${byAI ? `<span class="row" style="gap:6px"><span class="rung at ai">AI</span><b>${byAI}</b> by Muse Spark or a person</span>` : ""}
           ${asks ? `<span class="row" style="gap:6px"><span class="rung at person">P</span><b>${asks}</b> to check</span>` : ""}</div>
-        <span class="row muted" style="gap:8px;font-size:12px">reading the ${pdf ? "PDF" : "photo"} ${coin(msg.ai_cost)} · matching ${byAI ? "AI on " + byAI + " line(s)" : free()}</span>
+        <span class="row muted" style="gap:8px;font-size:12px">reading the ${pdf ? "PDF" : "photo"} ${coin(msg.ai_cost)} · matching ${byAI ? "Muse Spark on " + byAI + " line(s)" : free()}</span>
       </div>
       <div class="band"><span class="cap">Printed → matched</span><span class="cap">Packs · unit cost · line</span></div>
       ${lines.map((l, i) => invoiceLine(l, i + 1, open)).join("")}
@@ -527,11 +527,11 @@ route("rules", async () => {
       .map(([k, n, c]) => `<button class="ftab ${k === ruleFilter ? "on" : ""}" data-f="${k}">${n} <b>${c ?? by[k] ?? 0}</b></button>`).join("")}</div>
     <div class="split">
       <div class="col" style="flex:999 1 600px;min-width:0;gap:18px">
-        ${group("Live", "answering before the AI is asked", items.filter((r) => r.status === "live"))}
+        ${group("Live", "answering before Muse Spark is asked", items.filter((r) => r.status === "live"))}
         ${group("Learning · in shadow", "watching real lines, not acting yet", items.filter((r) => r.status === "shadow" || r.status === "proposed"))}
         ${group("What it refused to learn", "the code said no · kept on the record", items.filter((r) => r.status === "rejected" || r.status === "rolled_back"), "refusedbox")}
         ${group("Disabled", "switched off by a person", items.filter((r) => r.status === "disabled"))}
-        ${items.length ? "" : `<div class="card empty">No rule here yet. Rules are born from the lines that needed the AI or a person.</div>`}
+        ${items.length ? "" : `<div class="card empty">No rule here yet. Rules are born from the lines that needed Muse Spark or a person.</div>`}
       </div>
       <aside style="flex:1 1 340px;max-width:400px" id="write">${writeForm(prods.items, custs.items)}</aside>
     </div>`;
@@ -547,7 +547,7 @@ const byModel = (author) => author === "rule-engineer" || String(author || "").s
 function ruleRow(r) {
   const b = r.bench || {};
   const need = +settingsCache.shadow_agreements || 5;
-  const who = byModel(r.author) ? `<span class="who model"><i>AI</i>Rule engineer</span>` : `<span class="who person"><i>P</i>${esc(r.author)}</span>`;
+  const who = byModel(r.author) ? `<span class="who model"><i>AI</i>Muse Spark · rule engineer</span>` : `<span class="who person"><i>P</i>${esc(r.author)}</span>`;
   const pill = r.status === "rejected" || r.status === "rolled_back" ? `<span class="pill"><span>{}</span>${esc(r.reason)}</span>`
     : b.lines ? `<span class="pill"><span>{}</span>benchmark +${b.newly_resolved}${b.vocabulary ? ` · reads ${b.products_changed || 0} names` : ""} · ${b.wrong} wrong${r.lines_resolved ? ` · ${r.lines_resolved} lines since` : ""}</span>` : "";
   let track = "";
@@ -624,6 +624,7 @@ function benchBox(b, passes, verdict, sentence) {
     ${(b.examples_twins || []).slice(0, 3).map((x) => `<span style="font-size:12px;color:var(--refused)">would read the same: ${esc(x.said)}</span>`).join("")}
     ${(b.examples_new || []).slice(0, 3).map((x) => `<span style="font-size:12px">${ev(x.said)} → <b>${esc(x.expected)}</b></span>`).join("")}
     ${(b.examples_wrong || []).slice(0, 3).map((x) => `<span style="font-size:12px;color:var(--refused)">${ev(x.said)} → ${esc(x.got)} (expected ${esc(x.expected)})</span>`).join("")}
+    ${(b.attacks || []).length ? `<span class="muted" style="font-size:11px">Muse Spark tried to break it with ${b.attacks.length} look-alike lines${b.attacks.some((a) => a.broken) ? "" : ": none got through"}</span>` + b.attacks.filter((a) => a.broken).slice(0, 3).map((a) => `<span style="font-size:12px;color:var(--refused)">${ev(a.line)} → ${esc(a.got)} (means ${esc(a.means)})</span>`).join("") : ""}
     ${verdict ? `<div class="gate ${passes ? "" : "no"}"><span class="who sys"><i>{}</i></span><span><b>${passes ? "The gate would admit it." : "The gate would refuse this."}</b> ${esc(verdict)}</span></div>` : ""}</div>`;
 }
 function pollEngineer() {
@@ -664,7 +665,7 @@ route("rule", async (id) => {
   const why = (proposed && proposed.details.rationale) || r.rationale;
   const s2 = st(2, "", engineer ? "Pattern found" : "Written", proposed ? hm(proposed.at) : hm(r.created_at),
     `${letters}${why ? `<span style="font-size:13px">“${esc(why)}”</span>` : ""}
-     <div class="col" style="gap:6px;border-top:1px solid var(--rule);padding-top:10px;margin-top:auto">${engineer ? `<span class="who model"><i>AI</i>The rule engineer proposes</span>` : `<span class="who person"><i>P</i>${esc(r.author)} writes</span>`}
+     <div class="col" style="gap:6px;border-top:1px solid var(--rule);padding-top:10px;margin-top:auto">${engineer ? `<span class="who model"><i>AI</i>Muse Spark, the rule engineer, proposes</span>` : `<span class="who person"><i>P</i>${esc(r.author)} writes</span>`}
       <span class="row muted" style="font-size:12px;justify-content:space-between">Cost to write ${r.ai_cost ? coin(r.ai_cost) : free()}</span></div>`);
   const s3 = st(3, refusedAtGate ? "red" : "", "Benchmark", bench ? hm(bench.at) : "",
     `<span style="font-size:13px">Run against every line whose answer is already known.</span>${cells}
@@ -678,7 +679,7 @@ route("rule", async (id) => {
          <div class="row" style="gap:8px"><span class="dots">${Array.from({ length: need }, (_, i) => `<i class="${i < r.shadow_agree || liveE ? "on" : ""}"></i>`).join("")}</span><span class="mono" style="font-size:12px">${liveE ? Math.max(need, r.shadow_agree) : r.shadow_agree} / ${need}</span></div>
          ${isRefused && shadowE ? `<div class="warnbox">${esc(r.reason)}</div>` : ""}<span class="muted" style="font-size:12px;margin-top:auto">${isRefused && shadowE ? "1 disagreement → refused" : "0 disagreements"}</span>`, refusedAtGate ? "off" : "");
   const s5 = st(5, isLive ? "green" : isRolled || isRefused ? "red" : "dim", isRolled ? "Rolled back" : isRefused ? "Refused" : "Live", liveE ? "since " + hm(liveE.at) : "",
-    isLive ? `<span class="stamp live mid drop" style="align-self:flex-start">● Live</span><span style="font-size:13px">Now answers before the AI is asked. Every answer is still checked by people's corrections.</span>
+    isLive ? `<span class="stamp live mid drop" style="align-self:flex-start">● Live</span><span style="font-size:13px">Now answers before Muse Spark is asked. Every answer is still checked by people's corrections.</span>
         <div class="col" style="gap:6px;border-top:1px solid var(--rule);padding-top:10px;margin-top:auto"><div class="row" style="justify-content:space-between;font-size:12px"><span>Corrections</span><span class="mono">${r.strikes} of ${d.rollback_strikes}</span></div>
         <div class="row" style="gap:4px">${Array.from({ length: d.rollback_strikes }, (_, i) => `<span style="flex:1;height:8px;border-radius:2px;border:1.5px dashed ${i < r.strikes ? "var(--refused)" : "#F2B8BB"};background:${i < r.strikes ? "var(--refused)" : "transparent"}"></span>`).join("")}</div>
         <span class="muted" style="font-size:11px">${d.rollback_strikes} corrections → automatic rollback</span></div>`
@@ -709,7 +710,7 @@ route("rule", async (id) => {
         <pre class="code"><span class="k">type:</span>  <span class="v">${esc(r.type)}</span>\n<span class="k">scope:</span> <span class="v">${esc(r.scope.kind)}${r.scope.name ? " · " + esc(r.scope.name) : ""}</span>\n<span class="k">when:</span>  <span class="s">"${esc(r.pattern)}"</span>\n<span class="k">then:</span>  <span class="s">${esc(JSON.stringify(r.action))}</span>${d.product_name ? `\n<span class="k">product:</span> <span class="v">${esc(d.product_name)}</span>` : ""}</pre>
         <span class="muted" style="font-size:12px">Benchmark at birth: ${b.lines || 0} known · +${b.newly_resolved || 0} · ${b.wrong || 0} wrong · ${b.conflicts || 0} conflicts</span></section>
     </div>
-    <section class="card" style="overflow:hidden"><div class="section-h"><h2 class="h2">Recent lines it resolved</h2><span class="muted" style="font-size:12px">each one free · would have been an AI pick</span></div>
+    <section class="card" style="overflow:hidden"><div class="section-h"><h2 class="h2">Recent lines it resolved</h2><span class="muted" style="font-size:12px">each one free · would have been a Muse Spark pick</span></div>
       <table class="tbl"><tr><th class="cap">Shop said</th><th class="cap">Shop</th><th class="cap">Became</th><th class="cap">Path</th><th class="cap r">Cost</th><th class="cap r">When</th></tr>
       ${d.resolved.map((x) => `<tr><td>${ev(x.said)}</td><td>${esc(x.who)}</td><td class="prod">${esc(x.product)}</td><td>${ladder(x.level)}</td>
         <td class="r">${x.level === "ai" ? `<span class="coin">AI</span>` : `${free()} <span class="strike">${perLine ? cents(perLine) : ""}</span>`}</td><td class="r mono">${hm(x.at)}</td></tr>`).join("")
@@ -746,20 +747,20 @@ route("learning", async () => {
     </div>
     <section class="card pad col" style="gap:14px"><div class="row" style="justify-content:space-between;align-items:flex-start"><div class="col" style="gap:4px"><h2 class="h2" style="font-size:26px">The learning curve</h2>
         <span class="muted" style="font-size:13px">Each stamp is a rule going live. Watch the free share step up and the cost step down at the same moment.</span></div>
-        <div class="row" style="gap:14px"><span class="lg"><i style="background:#0E6B48"></i>Alias</span><span class="lg"><i style="background:#A0D6BC"></i>Rules</span><span class="lg"><i style="background:#E3B341"></i>AI pick</span><span class="lg"><i style="background:#673A9C"></i>Person</span><span class="lg"><i style="background:#946200;height:3px"></i>AI cost / 1,000 lines</span></div></div>
+        <div class="row" style="gap:14px"><span class="lg"><i style="background:#0E6B48"></i>Alias</span><span class="lg"><i style="background:#A0D6BC"></i>Rules</span><span class="lg"><i style="background:#E3B341"></i>Muse Spark pick</span><span class="lg"><i style="background:#673A9C"></i>Person</span><span class="lg"><i style="background:#946200;height:3px"></i>AI cost / 1,000 lines</span></div></div>
       ${curve(days, marks)}
       ${marks.length ? `<div class="row" style="gap:28px;align-items:flex-start;border-top:1px solid var(--rule);padding-top:14px">${marks.slice(-6).map((m) => { const r = rules[m.id] || {}; return `<a href="#/rule/${esc(m.id)}" class="col" style="gap:4px;max-width:220px;color:var(--ink);text-decoration:none">
         <span class="mono" style="font-size:12px;color:${m.back ? "var(--refused)" : "var(--free)"}">${esc(m.id)} · ${dayLabel(m.day)}${m.back ? " · ↺" : ""}</span><span style="font-size:13px">${sentenceHTML(r.sentence || "")}</span>
         <span class="muted" style="font-size:12px">${m.back ? esc(r.reason || "rolled back") : `+${r.lines_resolved || 0} lines free`}</span></a>`; }).join("")}</div>` : ""}
     </section>
     <div class="split">
-      <section class="card" style="flex:1.5 1 560px;overflow:hidden"><div class="section-h"><h2 class="h2">AI spend by job</h2><span class="muted" style="font-size:12px">${learnKind ? "" : "all lines · "}30 days</span></div>
+      <section class="card" style="flex:1.5 1 560px;overflow:hidden"><div class="section-h"><h2 class="h2">Meta model spend by job</h2><span class="muted" style="font-size:12px">${learnKind ? "" : "all lines · "}30 days</span></div>
         <table class="tbl"><tr><th class="cap">Job</th><th class="cap">Model</th><th class="cap r">Calls</th><th class="cap" style="width:30%">Share</th><th class="cap r">Cost</th></tr>
         ${jobs.map((j) => `<tr><td><b>${esc(JOB[j.purpose] || j.purpose)}</b></td><td class="mono muted" style="font-size:12px;white-space:nowrap">${esc(j.model)}</td><td class="r num">${j.calls}</td>
-          <td><div class="bar"><i style="width:${j.cost / jobMax * 100}%;background:var(--paid)"></i></div></td><td class="r">${coin(j.cost)}</td></tr>`).join("") || `<tr><td colspan="5" class="empty">No AI call yet.</td></tr>`}
+          <td><div class="bar"><i style="width:${j.cost / jobMax * 100}%;background:var(--paid)"></i></div></td><td class="r">${coin(j.cost)}</td></tr>`).join("") || `<tr><td colspan="5" class="empty">No Meta model call yet.</td></tr>`}
         <tr><td colspan="4"><b>Total</b></td><td class="r mono" style="color:var(--paid);font-weight:600">${usd(total)}</td></tr></table></section>
       <section class="card pad col" style="flex:1 1 360px;gap:12px"><h2 class="h2">Saved by aliases &amp; rules</h2><span class="big" style="font-size:64px;color:var(--free)">${usd(d.saved)}</span>
-        <span class="muted" style="font-size:13px">${d.free_lines} lines resolved for free × ${usd(d.cost_per_ai_line)}, the average AI cost of a line that needed the AI.</span>
+        <span class="muted" style="font-size:13px">${d.free_lines} lines resolved for free × ${usd(d.cost_per_ai_line)}, the average Meta model cost of a line that needed Muse Spark.</span>
         ${eng > 0 ? `<div class="col" style="gap:8px;border-top:1px solid var(--rule);padding-top:12px">
           <div class="row" style="justify-content:space-between;font-size:13px"><span>Saved</span><span class="mono" style="color:var(--free)">${usd(d.saved)}</span></div><div class="bar"><i style="width:${Math.min(100, d.saved / Math.max(d.saved, eng) * 100)}%;background:var(--free)"></i></div>
           <div class="row" style="justify-content:space-between;font-size:13px"><span>Rule engineer cost</span><span class="mono" style="color:var(--paid)">${usd(eng)}</span></div><div class="bar"><i style="width:${Math.min(100, eng / Math.max(d.saved, eng) * 100)}%;background:var(--paid)"></i></div>
@@ -863,12 +864,12 @@ route("settings", async () => {
         ${field("receipt_post", "Post goods receipts at once (1 = yes)", "0 leaves them as drafts in the ERP")}</section>
       <section class="card pad col" style="flex:1 1 380px"><h2 class="h2" style="margin-bottom:8px">Rule engineer &amp; budget</h2>
         ${field("engineer_auto", "Run automatically (1 = yes)", "after confirmations, when enough residue has accumulated")}
-        ${field("engineer_every", "Run after every", "new residue lines (lines that needed the AI or a person)")}
+        ${field("engineer_every", "Run after every", "new residue lines (lines that needed Muse Spark or a person)")}
         ${field("engineer_model", "Model", "muse-spark-1.3 by default: the same rules as Wonder on the replays, at a quarter of the price")}
         ${field("engineer_fallback_model", "Fallback model", "muse-wonder-1.0 looks when Spark admitted nothing (empty: never)")}
         ${field("engineer_fallback_after", "Fallback after", "new residue lines since the fallback last looked")}
         ${field("engineer_rounds", "Max tool rounds per run", "caps the cost of a run")}
-        ${field("ai_budget_day", "AI budget per day (USD)", "when reached, aliases and rules keep working; new lines wait for a person")}</section>
+        ${field("ai_budget_day", "Meta model budget per day (USD)", "when reached, aliases and rules keep working; new lines wait for a person")}</section>
     </div>`;
   $("#save").onclick = async () => { const body = {}; $$("[data-k]").forEach((i) => (body[i.dataset.k] = i.value)); try { await api("/settings", { method: "PUT", body }); toast("Settings saved"); } catch (er) { toast(er.message, true); } };
   $("#ec").onclick = async () => {

@@ -380,6 +380,22 @@ func (e *Engineer) call(name, args string, residue, truth []Truth, live *rules.S
 		}
 		*submitted++
 		ok, reason := Gate(b, e.DB.SettingInt("gate_min_gain", 2))
+		if ok && e.DB.SettingInt("rule_breaker", 1) > 0 {
+			attacks, broken, cost, err := e.Break(live, &r, b)
+			rep.Cost += cost
+			b.Attacks = attacks
+			if err != nil {
+				log.Printf("[engineer] breaker: %v", err)
+			}
+			if broken {
+				for _, a := range attacks {
+					if a.Broken {
+						ok, reason = false, fmt.Sprintf("the breaker wrote \"%s\" (meaning %s) and the rule booked it as %s", a.Line, a.Means, a.Got)
+						break
+					}
+				}
+			}
+		}
 		r.ID = rules.NextID(e.DB)
 		r.Author, r.Rationale, r.InspiredBy = "rule-engineer", in.Rationale, in.InspiredBy
 		r.Sentence = r.MakeSentence(e.productName)

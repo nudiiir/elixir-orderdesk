@@ -229,16 +229,36 @@ func DecodeJSON(text string, out any) error { return decodeJSON(text, out) }
 
 // Transcribe sends a 16 kHz mono WAV to Muse Voice Transcribe.
 func (c *Client) Transcribe(ctx context.Context, wav []byte, ref string) (string, float64, error) {
+	return c.TranscribeWords(ctx, wav, ref, nil)
+}
+
+// MaxKeyword is the longest keyword Muse Voice Transcribe accepts.
+const MaxKeyword = 30
+
+// TranscribeWords is Transcribe with keyword biasing: Muse Voice Transcribe is told which words it may
+// hear (the distributor's brands), so "Choufan" is not heard as "chou fin".
+func (c *Client) TranscribeWords(ctx context.Context, wav []byte, ref string, keywords []string) (string, float64, error) {
 	if err := c.check(); err != nil {
 		return "", 0, err
 	}
+	reqJSON := map[string]any{"model": Transcribe, "audioEncoding": "WAV", "mode": "PUSH_TO_TALK"}
+	var kw []string
+	for _, k := range keywords {
+		if k = strings.TrimSpace(k); k != "" && len(k) <= MaxKeyword {
+			kw = append(kw, k)
+		}
+	}
+	if len(kw) > 0 {
+		reqJSON["keywords"] = kw
+	}
+	reqBody, _ := json.Marshal(reqJSON)
 	var buf bytes.Buffer
 	w := multipart.NewWriter(&buf)
 	h := textproto.MIMEHeader{}
 	h.Set("Content-Disposition", `form-data; name="request"`)
 	h.Set("Content-Type", "application/json")
 	part, _ := w.CreatePart(h)
-	part.Write([]byte(`{"model":"` + Transcribe + `","audioEncoding":"WAV","mode":"PUSH_TO_TALK"}`))
+	part.Write(reqBody)
 	h = textproto.MIMEHeader{}
 	h.Set("Content-Disposition", `form-data; name="audio"; filename="voice.wav"`)
 	h.Set("Content-Type", "audio/wav")

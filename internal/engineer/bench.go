@@ -1,5 +1,6 @@
-// Package engineer is the rule engineer: a Muse Wonder agent that studies the lines the rules
-// could not resolve, writes new rules in the rule language and tests them on the benchmark.
+// Package engineer is the rule engineer: a Muse Spark agent (Muse Wonder when a Spark session finds nothing)
+// that studies the lines the rules could not resolve, writes new rules in the rule language and tests them on
+// the benchmark, and the breaker, a second Muse Spark call that attacks every rule the gate admits.
 // The decision to let a rule in is taken by code (the gate), never by the model.
 package engineer
 
@@ -71,6 +72,8 @@ type Bench struct {
 	Orphans         int       `json:"orphans,omitempty"` // of those, products with no plain product beside them
 	OrphanExamples  []Example `json:"examples_orphans,omitempty"`
 	ProductExamples []Example `json:"examples_products,omitempty"`
+	// the breaker's attack lines (see Break), on rules that passed the gate
+	Attacks []Attack `json:"attacks,omitempty"`
 }
 
 // RunBench applies the live rules with and without the candidate to every ground-truth line,

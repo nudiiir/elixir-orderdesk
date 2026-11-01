@@ -271,6 +271,33 @@ func (c *Catalog) Brands() []string {
 	return c.brands
 }
 
+// Keywords are the words Muse Voice Transcribe should expect in a voice order: the catalogue's brands,
+// the ones with the most products first, at most n and at most max characters each.
+func (c *Catalog) Keywords(n, max int) []string {
+	c.mu.RLock()
+	count := map[string]int{}
+	for _, p := range c.products {
+		if b := strings.TrimSpace(p.Brand); b != "" && len(b) <= max {
+			count[b]++
+		}
+	}
+	c.mu.RUnlock()
+	out := make([]string, 0, len(count))
+	for b := range count {
+		out = append(out, b)
+	}
+	sort.Slice(out, func(i, j int) bool {
+		if count[out[i]] != count[out[j]] {
+			return count[out[i]] > count[out[j]]
+		}
+		return out[i] < out[j]
+	})
+	if len(out) > n {
+		out = out[:n]
+	}
+	return out
+}
+
 // scopeRank: the more specific scope wins.
 func scopeRank(kind string) int {
 	switch kind {

@@ -59,9 +59,23 @@ func main() {
 	keys := flag.String("keys", "", "keys file with META_MODEL_API_KEY")
 	bar := flag.Float64("bar", 0.99, "95 % lower bound the code's precision must clear before Spark stops checking every answer")
 	calib := flag.String("calib", "15,30", "calibrate after these training invoices")
+	creditDB := flag.String("credit", "", "only print who made the free answers possible, for the desk database of an earlier run")
+	breakDB := flag.String("break", "", "only run the breaker against every rule the rule engineer got through the gate, in the desk database of an earlier run (needs -keys)")
 	flag.Parse()
 	if *keys != "" {
 		loadKeys(*keys)
+	}
+	if *breakDB != "" {
+		breakRules(*breakDB)
+		return
+	}
+	if *creditDB != "" {
+		db, err := store.Open(*creditDB)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Print(Attribute(db).Markdown())
+		return
 	}
 	var data input
 	b, err := os.ReadFile(*in)
@@ -175,10 +189,11 @@ func main() {
 	ruleList, _ := rules.List(db, false)
 	var spent float64
 	db.QueryRow(`SELECT COALESCE(SUM(cost),0) FROM ai_usage`).Scan(&spent)
-	rep := map[string]any{"profile": final, "calibrations": cals, "rows": rows, "rules": ruleList, "spent": spent,
+	credit := Attribute(db)
+	rep := map[string]any{"profile": final, "calibrations": cals, "rows": rows, "rules": ruleList, "spent": spent, "credit": credit,
 		"phases": map[string]agg{"spark-checks-all": sum(rows, "spark-checks-all"), "learning": sum(rows, "learning"), "test": sum(rows, "test")}}
 	os.WriteFile(filepath.Join(*out, "report.json"), []byte(store.JSON(rep)), 0o644)
-	md := markdown(final, cals, rows, ruleList, spent)
+	md := markdown(final, cals, rows, ruleList, spent) + credit.Markdown()
 	os.WriteFile(filepath.Join(*out, "report.md"), []byte(md), 0o644)
 	fmt.Println(md)
 	db.Close()

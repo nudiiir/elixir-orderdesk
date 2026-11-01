@@ -22,17 +22,20 @@ import (
 // The paper is already structured, so the only open question per line is identity: which of
 // our products is "SEL 2000ML PET X6" in this supplier's words.
 
-type invoiceDoc struct {
+// InvoiceDoc is one reading of a supplier invoice.
+type InvoiceDoc struct {
 	Supplier string  `json:"supplier"`
 	Number   string  `json:"number"`
 	Date     string  `json:"date"`
 	TotalHT  float64 `json:"total_ht"`
-	Lines    []struct {
-		Text      string  `json:"text"`
-		Qty       float64 `json:"qty"`
-		UnitPrice float64 `json:"unit_price"`
-		Total     float64 `json:"total"`
-	} `json:"lines"`
+	Lines    []InvoiceLine `json:"lines"`
+}
+
+type InvoiceLine struct {
+	Text      string  `json:"text"`
+	Qty       float64 `json:"qty"`
+	UnitPrice float64 `json:"unit_price"`
+	Total     float64 `json:"total"`
 }
 
 const invoicePrompt = `You read supplier invoices (factures, bons de livraison) received by a distributor in Algeria.
@@ -47,16 +50,17 @@ Amounts are in dinars as printed (HT when both HT and TTC are printed). Skip hea
 // invoice draft for approval.
 func (d *Desk) IngestInvoice(ctx context.Context, key string, data []byte, media string) (string, error) {
 	msgID := store.NewID("msg")
-	var doc invoiceDoc
-	mime := http.DetectContentType(data)
-	var err error
-	if strings.HasPrefix(mime, "application/pdf") {
-		_, err = d.Meta.JSONFile(ctx, meta.Spark, "invoice", msgID, invoicePrompt, "Read this invoice.", data, "application/pdf", 6000, &doc)
-	} else {
-		_, err = d.Meta.JSON(ctx, meta.Spark, "invoice", msgID, invoicePrompt, "Read this invoice.", [][]byte{data}, 6000, &doc)
-	}
+	doc, err := ReadInvoice(ctx, d.Meta, meta.Spark, data, msgID)
 	if err != nil {
 		return "", err
+	}
+	// Muse Wonder reads the same paper on its own; a line the two readers do not agree on is shown to
+	// the person (the identity of the product is a separate question, settled by the resolver)
+	var second *InvoiceDoc
+	if d.DB.SettingInt("invoice_second_reader", 1) > 0 {
+		if w, err := ReadInvoice(ctx, d.Meta, meta.Wonder, data, msgID); err == nil {
+			second = &w
+		}
 	}
 	var text strings.Builder
 	for _, l := range doc.Lines {
@@ -84,14 +88,79 @@ func (d *Desk) IngestInvoice(ctx context.Context, key string, data []byte, media
 		kept = append(kept, i)
 	}
 	lines := d.resolveInvoice(ctx, draft, msgID, supplierID, ms)
+	var agree []bool
+	if second != nil {
+		agree = Agree(doc, *second)
+	}
 	for i := range lines {
 		if i < len(kept) {
 			l := doc.Lines[kept[i]]
 			lines[i].UnitPrice, lines[i].LineTTC = cents(l.UnitPrice), cents(l.Total)
+			if agree != nil && !agree[kept[i]] {
+				lines[i].Checks["second_reader"] = "Muse Wonder ne lit pas la même ligne : vérifiez la désignation, la quantité et le prix sur la facture"
+				if lines[i].Status == "ok" {
+					lines[i].Status = "ask" // never booked on a reading only one model saw
+					lines[i].Options = []string{lines[i].ProductID}
+					lines[i].Question = "Les deux lecteurs ne lisent pas la même ligne : est-ce bien ce produit ?"
+				}
+			}
 		}
 	}
 	d.checkInvoice(ctx, draft, supplierID, lines, cents(doc.TotalHT))
 	return draft, nil
+}
+
+// ReadInvoice has one model read an invoice image or PDF.
+func ReadInvoice(ctx context.Context, m *meta.Client, model string, data []byte, ref string) (InvoiceDoc, error) {
+	var doc InvoiceDoc
+	var err error
+	if strings.HasPrefix(http.DetectContentType(data), "application/pdf") {
+		_, err = m.JSONFile(ctx, model, "invoice", ref, invoicePrompt, "Read this invoice.", data, "application/pdf", 6000, &doc)
+	} else {
+		_, err = m.JSON(ctx, model, "invoice", ref, invoicePrompt, "Read this invoice.", [][]byte{data}, 6000, &doc)
+	}
+	return doc, err
+}
+
+// Agree tells, for each line of the first reading, whether the second reading has the same line: the same
+// quantity and unit price, and a designation with the same words (each reader may drop a stray mark).
+func Agree(a, b InvoiceDoc) []bool {
+	out := make([]bool, len(a.Lines))
+	used := make([]bool, len(b.Lines))
+	for i, l := range a.Lines {
+		wa, _ := catalog.Tokens(catalog.Normalize(l.Text))
+		for j, m := range b.Lines {
+			if used[j] || !sameAmount(l.Qty, m.Qty) || !sameAmount(l.UnitPrice, m.UnitPrice) {
+				continue
+			}
+			wb, _ := catalog.Tokens(catalog.Normalize(m.Text))
+			if overlap(wa, wb) >= 0.8 {
+				out[i], used[j] = true, true
+				break
+			}
+		}
+	}
+	return out
+}
+
+func sameAmount(a, b float64) bool { return math.Abs(a-b) <= math.Max(0.01, 0.005*math.Abs(a)) }
+
+// overlap is the share of words the two designations have in common (over the longer one).
+func overlap(a, b []string) float64 {
+	if len(a) == 0 && len(b) == 0 {
+		return 1
+	}
+	set := map[string]bool{}
+	for _, w := range b {
+		set[w] = true
+	}
+	n := 0
+	for _, w := range a {
+		if set[w] {
+			n++
+		}
+	}
+	return float64(n) / float64(max(len(a), len(b)))
 }
 
 // resolveInvoice resolves invoice lines in the supplier's scope (its own wordings and rules).
