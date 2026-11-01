@@ -46,11 +46,22 @@ var (
 	thousands = regexp.MustCompile(`(^|[^\d.])(\d{1,3}) (\d{3})\s*(ml|g|kg|l)\b`)
 )
 
+// Pre is the desk's own first pass (its Matching Profile, see package profile): industry blocks that
+// must see the text before punctuation is stripped ("m8x20", "15/21", "500mg/200mg"). Nil = none.
+var Pre func(string) string
+
+// ExactDigits: a word with a digit in it (a code, a dimension, a shade) only ever matches itself,
+// never a look-alike ("5w30" is not "5w40"). Set by the Matching Profile.
+var ExactDigits bool
+
 // Normalize lowercases, strips accents and unifies digits, decimals, sizes and pack counts,
 // so "Ifri 1,5 L", "ifri 1.5l", "ifri 1l5" and "IFRI 1500ML" all become "ifri 1500ml",
 // and "6x1.5l" becomes "x6 1500ml".
 func Normalize(s string) string {
 	s = mojibakeRepl.Replace(s)
+	if Pre != nil {
+		s = Pre(digitRepl.Replace(strings.ToLower(s)))
+	}
 	s = digitRepl.Replace(accentRepl.Replace(strings.ToLower(s)))
 	s = decimalComma.ReplaceAllString(s, "$1.$2")
 	s = dottedWords.ReplaceAllString(s, "$1 $2") // "comp.sec", "sol.buv": two words glued by a dot
@@ -217,6 +228,9 @@ func Tokens(norm string) (words []string, size string) {
 func WordSim(a, b string) float64 {
 	if a == b {
 		return 1
+	}
+	if ExactDigits && (strings.ContainsAny(a, "0123456789") || strings.ContainsAny(b, "0123456789")) {
+		return 0
 	}
 	la, lb := len([]rune(a)), len([]rune(b))
 	if la >= 3 && lb >= 3 && (strings.HasPrefix(b, a) || strings.HasPrefix(a, b)) {

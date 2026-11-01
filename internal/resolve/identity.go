@@ -50,6 +50,14 @@ var profiles struct {
 	order []string
 }
 
+// ResetProfiles forgets every cached reading: needed when the first pass itself changed (a new
+// Matching Profile), since the cache key only knows the vocabulary.
+func ResetProfiles() {
+	profiles.Lock()
+	profiles.byKey, profiles.order = nil, nil
+	profiles.Unlock()
+}
+
 func productProfile(set *rules.Set, p *catalog.Product) rules.Profile {
 	key := set.VocabKey()
 	pk := p.ID + "\x00" + p.Name + "\x00" + p.Brand

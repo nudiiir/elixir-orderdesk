@@ -30,10 +30,17 @@ type Desk struct {
 	Cat     *catalog.Catalog
 	Meta    *meta.Client
 	TG      telegram.Messenger // every channel the desk writes to (telegram.Mux)
-	Poll    *telegram.Telegram  // the Telegram bot, polled for updates (nil: no Telegram)
+	Poll    *telegram.Telegram // the Telegram bot, polled for updates (nil: no Telegram)
 	ERP     func() adapter.ERP // nil until the ERP is connected
 	DataDir string
 	OnLearn func() // called after every confirmed order (the rule engineer decides whether to run)
+
+	// The Matching Profile's choices for the resolver (package profile): the search method, whether
+	// Muse Spark checks every line, and the confidence a Spark pick needs.
+	Search    resolve.Searcher
+	AIFirst   bool
+	Threshold float64
+	Autonomy  *Autonomy // nil: no autonomy tracking (classic)
 
 	hist sync.Map // customer id → *history
 }
@@ -338,12 +345,21 @@ func (d *Desk) Ingest(ctx context.Context, key, customerID, msgID, kind, text, m
 		}
 	}
 	live, shadow := d.ruleSets()
-	rv := &resolve.Resolver{Cat: d.Cat, Live: live, Shadow: shadow, Meta: d.Meta}
+	rv := d.resolver(live, shadow)
 	res := rv.Resolve(ctx, ex.Mentions, resolve.Context{CustomerID: customerID, Usual: h.usual}, msgID)
 	for _, r := range res {
 		l := Line{DraftID: draft, MessageID: msgID, Position: pos, Said: r.Said, Norm: r.Norm, Hint: r.Hint, Qty: r.Qty, Unit: r.Unit,
 			ProductID: r.ProductID, Level: r.Level, Used: r.Used, Confidence: r.Confidence, Options: r.Options, Question: r.Question,
 			Status: r.Status, Checks: map[string]string{}, Shadow: r.Shadow}
+		if r.Check != "" {
+			l.Checks["spark"] = r.Check
+		}
+		if r.CheckWhy != "" {
+			l.Checks["check_why"] = r.CheckWhy
+		}
+		if r.Det != "" {
+			l.Checks["det_product"], l.Checks["det_used"] = r.Det, strings.Join(r.DetUsed, ",")
+		}
 		if r.Pack != nil {
 			l.Checks["pack_rule"] = r.Pack.Unit
 			if r.Pack.Qty > 0 {
@@ -633,4 +649,13 @@ func trimQty(milli int64) string {
 		return fmt.Sprint(milli / 1000)
 	}
 	return strings.TrimRight(strings.TrimRight(fmt.Sprintf("%.3f", float64(milli)/1000), "0"), ".")
+}
+
+// resolver is the resolver this desk's Matching Profile asks for.
+func (d *Desk) resolver(live *rules.Set, shadow []*rules.Rule) *resolve.Resolver {
+	rv := &resolve.Resolver{Cat: d.Cat, Live: live, Shadow: shadow, Meta: d.Meta, Search: d.Search, AIFirst: d.AIFirst, Threshold: d.Threshold}
+	if d.Autonomy != nil {
+		rv.Supervised, rv.Sentinel = d.Autonomy.Supervised, true
+	}
+	return rv
 }

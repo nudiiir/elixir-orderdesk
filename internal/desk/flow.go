@@ -255,6 +255,13 @@ func (d *Desk) alternatives(l Line) []string {
 // Choose sets the product of an asked line (or corrects a resolved one) from a person's answer.
 func (d *Desk) Choose(ctx context.Context, l *Line, productID string, correction bool) {
 	prev := l.ProductID
+	// Spark disagreed with the code and the person sided with Spark: what produced the code's answer
+	// gets a strike, like a correction.
+	if det := l.Checks["det_product"]; l.Checks["spark"] == "disagree" && det != "" && det != productID {
+		tmp := *l
+		tmp.Used = strings.Split(l.Checks["det_used"], ",")
+		d.strike(tmp, det)
+	}
 	if correction && prev != "" && prev != productID {
 		l.Checks["corrected_from"] = prev
 		l.Outcome = "corrected"
@@ -379,6 +386,10 @@ func (d *Desk) learnLines(lines []Line, kind, scopeKind, scopeID, origin string)
 	}
 	trustAfter := d.DB.SettingInt("alias_trust_after", 2)
 	shadowNeeded := d.DB.SettingInt("shadow_agreements", 5)
+	if d.Autonomy != nil {
+		d.Autonomy.Record(lines, scopeID)
+		d.DB.SetSetting("autonomy", store.JSON(d.Autonomy))
+	}
 	for _, l := range lines {
 		if l.Status != "ok" || l.Level == resolve.LHistory || l.Norm == "" {
 			continue
@@ -400,6 +411,17 @@ func (d *Desk) learnLines(lines []Line, kind, scopeKind, scopeID, origin string)
 		}
 		if a, change := d.Cat.Witness(l.Norm, l.ProductID, scopeKind, scopeID, source, trustAfter); change != "" {
 			d.DB.Event("alias."+change, l.ProductID, origin, map[string]any{"text": a.Text, "alias": a.ID, "witnesses": a.Witnesses})
+		}
+		// a supplier's article code names one product for that supplier: trusted from the first
+		// confirmation, blocked as soon as it is confirmed for another product
+		for _, k := range d.Cat.ForeignCodes(l.Norm) {
+			if d.Cat.CodeConflict(k, l.ProductID, scopeKind, scopeID) {
+				d.DB.Event("code.retired", l.ProductID, origin, map[string]any{"code": k})
+				continue
+			}
+			if a, change := d.Cat.Witness("code: "+k, l.ProductID, scopeKind, scopeID, source, 1); change != "" {
+				d.DB.Event("code."+change, l.ProductID, origin, map[string]any{"code": k, "alias": a.ID})
+			}
 		}
 		for _, u := range l.Used {
 			if strings.HasPrefix(u, "R-") {

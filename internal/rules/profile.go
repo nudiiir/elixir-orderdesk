@@ -26,6 +26,10 @@ type Profile struct {
 	Used   []string            `json:"-"` // vocabulary rules that fired on this text
 }
 
+// NumCap is the largest bare number read as part of a name ("Integral 8"); a Matching Profile raises
+// it so model numbers ("79505") count too.
+var NumCap = 10000.0
+
 // Built-in attributes, read by code on every text:
 //
 //	size   1500ml, 800g, however it was written; a bare "1.5" in a line is a derived 1.5 L
@@ -159,7 +163,7 @@ func (s *Set) Profile(text, customerID, supplierID string, catalogue bool) Profi
 				if !catalogue && f > 0 && f <= 10 {
 					p.add("size", Val{V: fmt.Sprintf("%.0fml", f*1000), Derived: true}, "")
 				}
-			case f > 0 && f < 10000:
+			case f > 0 && f < NumCap:
 				p.add("num", Val{V: strconv.Itoa(int(f))}, "")
 			}
 			continue

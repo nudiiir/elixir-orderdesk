@@ -102,13 +102,22 @@ func (d *Desk) resolveInvoice(ctx context.Context, draft, msgID, supplierID stri
 		}
 	}
 	live, shadow := d.ruleSets()
-	rv := &resolve.Resolver{Cat: d.Cat, Live: live, Shadow: shadow, Meta: d.Meta}
+	rv := d.resolver(live, shadow)
 	res := rv.Resolve(ctx, ms, resolve.Context{SupplierID: supplierID, Usual: usual}, msgID)
 	var out []Line
 	for i, r := range res {
 		l := Line{DraftID: draft, MessageID: msgID, Position: i + 1, Said: r.Said, Norm: r.Norm, Qty: r.Qty, ProductID: r.ProductID,
 			Level: r.Level, Used: r.Used, Confidence: r.Confidence, Options: r.Options, Question: r.Question, Status: r.Status,
 			Checks: map[string]string{}, Shadow: r.Shadow}
+		if r.Check != "" {
+			l.Checks["spark"] = r.Check
+		}
+		if r.CheckWhy != "" {
+			l.Checks["check_why"] = r.CheckWhy
+		}
+		if r.Det != "" {
+			l.Checks["det_product"], l.Checks["det_used"] = r.Det, strings.Join(r.DetUsed, ",")
+		}
 		if r.Pack != nil {
 			l.Unit = r.Pack.Unit
 			l.Checks["pack_rule"] = r.Pack.Unit

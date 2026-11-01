@@ -15,24 +15,32 @@ import (
 // nothing is answered or learned: the invoice only measures the desk as it is.
 
 type ReplayLine struct {
-	Text      string  `json:"text"`
-	Qty       float64 `json:"qty"`
-	UnitPrice float64 `json:"unit_price"`
+	Text      string   `json:"text"`
+	Qty       float64  `json:"qty"`
+	UnitPrice float64  `json:"unit_price"`
 	Truth     string   `json:"product"`
 	Accept    []string `json:"accept,omitempty"` // the same presentation listed twice in the catalogue
 }
 
 type ReplayResult struct {
 	Lines   int     `json:"lines"`
-	Alias   int     `json:"alias"`  // right, from a trusted wording
-	Rules   int     `json:"rules"`  // right, from rules and the catalogue (free)
-	AI      int     `json:"ai"`     // right, picked by the model
-	Asked   int     `json:"asked"`  // a person had to answer
-	Wrong   int     `json:"wrong"`  // resolved automatically to the wrong product
+	Alias   int     `json:"alias"` // right, from a trusted wording
+	Code    int     `json:"code"`  // right, from a printed or learned code (also counted in Rules)
+	Rules   int     `json:"rules"` // right, from rules and the catalogue (free)
+	AI      int     `json:"ai"`    // right, picked by the model
+	Asked   int     `json:"asked"` // a person had to answer
+	Wrong   int     `json:"wrong"` // resolved automatically to the wrong product
 	AICost  float64 `json:"ai_cost"`
 	MsgID   string  `json:"msg_id"`
 	DraftID string  `json:"draft_id"`
 	Errors  []Miss  `json:"errors,omitempty"`
+	// While Muse Spark checks every line: Spark and the code agreed (and were right), disagreed, or
+	// Spark answered alone (and was right).
+	Agree      int `json:"agree"`
+	AgreeRight int `json:"agree_right"`
+	Disagree   int `json:"disagree"`
+	Alone      int `json:"spark_alone"`
+	AloneRight int `json:"spark_alone_right"`
 }
 
 type Miss struct {
@@ -71,6 +79,22 @@ func (d *Desk) Replay(ctx context.Context, supplierID, number, date string, in [
 			right = right || l.ProductID == a
 		}
 		res.Lines++
+		switch l.Checks["spark"] {
+		case "agree":
+			res.Agree++
+			if right {
+				res.AgreeRight++
+			}
+		case "disagree":
+			res.Disagree++
+		case "ai":
+			if l.Status == "ok" {
+				res.Alone++
+				if right {
+					res.AloneRight++
+				}
+			}
+		}
 		switch {
 		case l.Status == "ok" && right:
 			switch l.Level {
@@ -78,6 +102,9 @@ func (d *Desk) Replay(ctx context.Context, supplierID, number, date string, in [
 				res.Alias++
 			case resolve.LAI:
 				res.AI++
+			case resolve.LCode:
+				res.Code++
+				res.Rules++
 			default:
 				res.Rules++
 			}

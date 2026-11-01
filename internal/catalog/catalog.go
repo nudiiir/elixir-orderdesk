@@ -4,6 +4,7 @@ package catalog
 
 import (
 	"database/sql"
+	"regexp"
 	"sort"
 	"strings"
 	"sync"
@@ -17,14 +18,14 @@ type Pack struct {
 }
 
 type Product struct {
-	ID      string `json:"id"`
-	Name    string `json:"name"`
-	NameAr  string `json:"name_ar"`
-	Brand   string `json:"brand"`
-	Barcode string `json:"barcode"`
-	Unit    string `json:"unit"`
-	VatRate int64  `json:"vat_rate"`
-	Packs   []Pack `json:"packs"`
+	ID      string   `json:"id"`
+	Name    string   `json:"name"`
+	NameAr  string   `json:"name_ar"`
+	Brand   string   `json:"brand"`
+	Barcode string   `json:"barcode"`
+	Unit    string   `json:"unit"`
+	VatRate int64    `json:"vat_rate"`
+	Packs   []Pack   `json:"packs"`
 	Words   []string `json:"words"`
 	Size    string   `json:"size"`
 }
@@ -51,6 +52,8 @@ type Catalog struct {
 	byID     map[string]*Product
 	brands   []string
 	aliases  map[string][]Alias // normalised text → aliases (all scopes and states)
+	codes    map[string]string  // code key (barcode, ERP or manufacturer reference) → product id; "" = shared by several
+	vocab    map[string]bool    // every word and number that appears in a catalogue name
 }
 
 func New(db *store.DB) *Catalog {
@@ -110,10 +113,139 @@ func (c *Catalog) Reload() error {
 		}
 		ar.Close()
 	}
+	codes, vocab := map[string]string{}, map[string]bool{}
+	for _, p := range prods {
+		for _, k := range codeKeys(p.Barcode) {
+			if o, seen := codes[k]; seen && o != p.ID {
+				codes[k] = "" // two products share it: never a key
+			} else if !seen {
+				codes[k] = p.ID
+			}
+		}
+		for _, w := range wordRe.FindAllString(NormalizeName(p.Name+" "+p.Brand), -1) {
+			vocab[strings.Trim(w, ".")] = true
+		}
+	}
 	c.mu.Lock()
-	c.products, c.byID, c.brands, c.aliases = prods, byID, brands, aliases
+	c.products, c.byID, c.brands, c.aliases, c.codes, c.vocab = prods, byID, brands, aliases, codes, vocab
 	c.mu.Unlock()
 	return nil
+}
+
+// ---- codes -----------------------------------------------------------------------------------
+//
+// A barcode, an ERP code or a manufacturer reference names exactly one product: when a line prints
+// it, nothing else needs to be read. A supplier's own article code ("ART4881") names one product for
+// that supplier only: it is learned from the first confirmed line (see the "code: " aliases).
+
+var codeTok = regexp.MustCompile(`[\p{L}\p{N}]+`)
+
+// codeKeys are the forms a printed code is compared in: lower case, no separators, and without
+// leading zeros ("077011" is also printed "77011").
+func codeKeys(raw string) []string {
+	k := strings.ToLower(strings.Join(codeTok.FindAllString(raw, -1), ""))
+	if len([]rune(k)) < 5 || !strings.ContainsAny(k, "0123456789") {
+		return nil
+	}
+	out := []string{k}
+	if t := strings.TrimLeft(k, "0"); t != k && len(t) >= 5 {
+		out = append(out, t)
+	}
+	return out
+}
+
+// ByCode finds the product whose barcode or reference the text prints, alone or split in groups of
+// digits ("2 608 597 145"). Only a code that one product alone carries counts.
+func (c *Catalog) ByCode(text string) (*Product, string, bool) {
+	toks := codeTok.FindAllString(strings.ToLower(text), -1)
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	for n := 1; n <= 4; n++ {
+		for i := 0; i+n <= len(toks); i++ {
+			joined := strings.Join(toks[i:i+n], "")
+			for _, k := range codeKeys(joined) {
+				if id, ok := c.codes[k]; ok && id != "" {
+					return c.byID[id], joined, true
+				}
+			}
+		}
+	}
+	return nil, "", false
+}
+
+// canonicalTok is what the first pass and the size clean-up make of a number that belongs to the
+// product (a size, a dimension, a dosage, an inch size, a pack count, a technical unit).
+var canonicalTok = regexp.MustCompile(`^(\d+(\.\d+)?(ml|g|ui|pct|mm2|mm|cm|m|a|ma|v|w|kw|ah|mah|bar|nm|kg|l)|dose[\dx.]+(ml)?|[a-z]?\d+(\.\d+)?x\d+(x\d+)?|in\d+|x\d+|n\d+)$`)
+
+// packTok is a pack, box or coil count printed glued to its word ("bt100", "b200", "r100", "crt12"):
+// it counts units, it never names a product.
+var packTok = regexp.MustCompile(`^(b|bt|bte|box|s|c|cart|crt|ctn|r|rl|x|lot|fd|pk|pq|sac)\d{1,4}$`)
+
+// ForeignCodes are the code-like words of a normalised line that no catalogue name contains: a
+// supplier's article code, a reference the catalogue does not carry. They identify a product for one
+// supplier (once learned) but are never words of a product name, so the judge does not read them.
+func (c *Catalog) ForeignCodes(norm string) []string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	var out []string
+	for _, w := range strings.Fields(norm) {
+		w = strings.Trim(w, ".")
+		digits := 0
+		for _, r := range w {
+			if r >= '0' && r <= '9' {
+				digits++
+			}
+		}
+		if digits < 3 || len(w) < 4 || c.vocab[w] || canonicalTok.MatchString(w) || packTok.MatchString(w) {
+			continue
+		}
+		out = append(out, w)
+	}
+	return out
+}
+
+// CodeConflict tells whether a supplier code was ever confirmed for another product in this scope; if
+// so, every alias of that code is blocked for good: a real article code names exactly one product.
+func (c *Catalog) CodeConflict(code, productID, scopeKind, scopeID string) bool {
+	var n int
+	c.db.QueryRow(`SELECT COUNT(*) FROM aliases WHERE text = ? AND scope_kind = ? AND scope_id = ? AND product_id <> ?`,
+		"code: "+code, scopeKind, scopeID, productID).Scan(&n)
+	if n == 0 {
+		return false
+	}
+	c.db.Exec(`UPDATE aliases SET state = 'blocked', last_seen = ? WHERE text = ? AND scope_kind = ? AND scope_id = ?`,
+		store.Now(), "code: "+code, scopeKind, scopeID)
+	c.Reload()
+	return true
+}
+
+// HasWord tells whether a word appears in some catalogue name.
+func (c *Catalog) HasWord(w string) bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.vocab[w]
+}
+
+// IsCanonical tells whether a word is a size, dimension, dosage, inch size, pack count or technical unit.
+func IsCanonical(w string) bool { return canonicalTok.MatchString(w) }
+
+// StripCodes removes a line's foreign codes (see ForeignCodes) before its words are read.
+func (c *Catalog) StripCodes(norm string) string {
+	codes := c.ForeignCodes(norm)
+	if len(codes) == 0 {
+		return norm
+	}
+	drop := map[string]bool{}
+	for _, k := range codes {
+		drop[k] = true
+	}
+	var keep []string
+	for _, w := range strings.Fields(norm) {
+		if !drop[strings.Trim(w, ".")] {
+			keep = append(keep, w)
+		}
+	}
+	return strings.Join(keep, " ")
 }
 
 func (c *Catalog) Get(id string) *Product {

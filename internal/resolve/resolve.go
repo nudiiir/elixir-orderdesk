@@ -6,6 +6,7 @@ package resolve
 import (
 	"context"
 	"fmt"
+	"hash/fnv"
 	"math"
 	"sort"
 	"strconv"
@@ -26,6 +27,7 @@ type Mention struct {
 
 // Levels.
 const (
+	LCode    = "code" // a printed barcode or reference, or a supplier's article code confirmed before
 	LAlias   = "alias"
 	LRules   = "rules"
 	LHistory = "history"
@@ -47,10 +49,15 @@ type Resolution struct {
 	Pack       *rules.PackSpec   `json:"pack"`
 	Shadow     map[string]string `json:"shadow"` // shadow rule id → product it would give
 	AICost     float64           `json:"ai_cost"`
-	Why        string            `json:"why,omitempty"`    // what the code made of the line, in words
-	Differ     []string          `json:"differ,omitempty"` // ambiguous: what the candidates differ on
-	Top        []string          `json:"top,omitempty"`    // ambiguous: the tied candidates
+	Why        string            `json:"why,omitempty"`     // what the code made of the line, in words
+	Differ     []string          `json:"differ,omitempty"`  // ambiguous: what the candidates differ on
+	Top        []string          `json:"top,omitempty"`     // ambiguous: the tied candidates
 	Unknown    []string          `json:"unknown,omitempty"` // line words no catalogue name has
+	Check      string            `json:"check,omitempty"`   // agree | disagree | unchecked | alias-conflict | ai (Spark alone)
+	CheckWhy   string            `json:"check_why,omitempty"`
+	Det        string            `json:"det,omitempty"`      // the code's answer Spark checked
+	DetUsed    []string          `json:"det_used,omitempty"` // and what produced it (struck if a person disagrees)
+	AliasWit   int               `json:"alias_witnesses,omitempty"`
 
 	profile rules.Profile
 	verdict Verdict
@@ -68,6 +75,106 @@ type Resolver struct {
 	Live   *rules.Set
 	Shadow []*rules.Rule
 	Meta   *meta.Client
+	// Search builds step 3's shortlist; nil = the catalogue's built-in scoring. The Matching Profile
+	// sets the method the desk measured best (package search).
+	Search Searcher
+	// AIFirst: Muse Spark checks every line. A deterministic answer is kept only when Spark picks the
+	// same product; a disagreement goes to a person. Used while a desk has not proven its own steps.
+	AIFirst bool
+	// Supervised says why Spark must still check this chat's deterministic answers ("" = it need not):
+	// the desk has not yet proven its steps, or a person recently corrected this supplier or shop.
+	Supervised func(cx Context) string
+	// Sentinel: once autonomous, Spark still checks the risky answers (a young alias, a product that
+	// carries a number the line does not say) and a random 5 %.
+	Sentinel bool
+	// Threshold is the confidence a Spark pick needs to be accepted (never below 0.8).
+	Threshold float64
+}
+
+// checkWhy says why Spark must check a deterministic answer, or "".
+func (rv *Resolver) checkWhy(r Resolution, cx Context) string {
+	if rv.AIFirst {
+		return "checks every line"
+	}
+	if rv.Supervised != nil {
+		if why := rv.Supervised(cx); why != "" {
+			return why
+		}
+	}
+	if !rv.Sentinel || r.Level == LCode {
+		return "" // a printed or confirmed code is exact
+	}
+	if r.Level == LAlias && r.AliasWit <= 2 {
+		return "young alias (2 confirmations)"
+	}
+	if p := rv.Cat.Get(r.ProductID); p != nil {
+		pp := productProfile(rv.Live, p)
+		for _, w := range pp.Words {
+			if strings.ContainsAny(w, "0123456789") && !hasWord(r.profile.Words, w) {
+				return "the product carries «" + w + "», the line does not say it"
+			}
+		}
+	}
+	h := fnv.New32a()
+	h.Write([]byte(r.Norm + "|" + cx.SupplierID + cx.CustomerID))
+	if h.Sum32()%100 < 5 {
+		return "random spot check"
+	}
+	return ""
+}
+
+func (rv *Resolver) threshold() float64 { return math.Max(rv.Threshold, 0.8) }
+
+func hasProduct(ps []*catalog.Product, id string) bool {
+	for _, p := range ps {
+		if p.ID == id {
+			return true
+		}
+	}
+	return false
+}
+
+// Searcher ranks catalogue products for a line's words (step 3).
+type Searcher interface {
+	Shortlist(words []string, size string, hints []string, usual map[string]int, exclude map[string]bool, n int) []*catalog.Product
+}
+
+func (rv *Resolver) searcher() Searcher {
+	if rv.Search != nil {
+		return rv.Search
+	}
+	return rv.Cat
+}
+
+// shortlistFor is step 3 for one line: the best-ranked products the code would accept (same
+// attributes, the brand the line names), at most 8.
+func (rv *Resolver) shortlistFor(r Resolution, m Mention, cx Context) []*catalog.Product {
+	out := rv.Live.Apply(r.Norm, cx.CustomerID, cx.SupplierID)
+	words, size := catalog.Tokens(out.Text)
+	if hw, hs := catalog.Tokens(catalog.Normalize(m.Hint)); len(hw) > 0 {
+		words = append(words, hw...)
+		if size == "" {
+			size = hs
+		}
+	}
+	exclude := rv.Cat.Blocked(r.Norm, cx.CustomerID, cx.SupplierID)
+	for id := range out.BlockIDs {
+		exclude[id] = true
+	}
+	// The model only ever picks among products the code would accept: same attributes, and the
+	// brand the line names (a model picks a look-alike brand when the right one is missing).
+	var short []*catalog.Product
+	for _, p := range filterWords(rv.searcher().Shortlist(words, size, rv.Cat.Hints(r.Norm, cx.CustomerID, cx.SupplierID), cx.Usual, exclude, 16), out.BlockWord) {
+		if Compatible(rv.Live, r.profile, p, cx) && brandOK(rv.Cat, rv.Live, r.profile, p) && len(short) < 8 {
+			short = append(short, p)
+		}
+	}
+	return short
+}
+
+// Candidates is the shortlist step 3 would offer for a line (used to measure search methods).
+func (rv *Resolver) Candidates(m Mention, cx Context) []*catalog.Product {
+	return rv.shortlistFor(Deterministic(rv.Cat, rv.Live, m, cx), m, cx)
 }
 
 // Deterministic runs levels 0–2 only (no AI): it is also what the benchmark replays.
@@ -77,12 +184,32 @@ func Deterministic(cat *catalog.Catalog, set *rules.Set, m Mention, cx Context) 
 		return r
 	}
 	blocked := cat.Blocked(r.Norm, cx.CustomerID, cx.SupplierID)
-	out := set.Apply(r.Norm, cx.CustomerID, cx.SupplierID)
+	// A supplier's article codes are not words of a product name: the rules and the judge read the
+	// line without them.
+	out := set.Apply(cat.StripCodes(r.Norm), cx.CustomerID, cx.SupplierID)
 	r.Pack = out.Pack
 	r.profile = set.Profile(out.Text, cx.CustomerID, cx.SupplierID, false)
+	// Level −1: a printed barcode or reference names one product; so does a supplier's article code
+	// once a person confirmed it (it is demoted as soon as it is confirmed for another product).
+	codeOK := func(id string) bool {
+		return id != "" && !blocked[id] && !out.BlockIDs[id] && !blockedByWord(cat.Get(id), out.BlockWord)
+	}
+	if p, code, ok := cat.ByCode(m.Said); ok && codeOK(p.ID) {
+		r.ProductID, r.Level, r.Status, r.Confidence = p.ID, LCode, "ok", 1
+		r.Used = []string{"code:" + code}
+		return r
+	}
+	for _, k := range cat.ForeignCodes(r.Norm) {
+		if a, ok := cat.Trusted("code: "+k, cx.CustomerID, cx.SupplierID); ok && codeOK(a.ProductID) {
+			r.ProductID, r.Level, r.Status, r.Confidence = a.ProductID, LCode, "ok", 1
+			r.Used = []string{"supplier-code:" + k}
+			return r
+		}
+	}
 	// Level 1: a trusted wording settles it, unless a guard forbids that product.
 	if a, ok := cat.Trusted(r.Norm, cx.CustomerID, cx.SupplierID); ok && !out.BlockIDs[a.ProductID] && !blockedByWord(cat.Get(a.ProductID), out.BlockWord) {
 		r.ProductID, r.Level, r.Status, r.Confidence = a.ProductID, LAlias, "ok", 1
+		r.AliasWit = a.Witnesses
 		r.Used = []string{fmt.Sprintf("alias:%d", a.ID)}
 		if len(out.Used) > 0 && out.Pack != nil {
 			r.Used = append(r.Used, out.Used...)
@@ -187,6 +314,8 @@ func filterWords(ps []*catalog.Product, words []string) []*catalog.Product {
 // then ONE Muse Spark call for all the lines still open, then questions.
 func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref string) []Resolution {
 	res := make([]Resolution, len(ms))
+	det := map[int]string{}        // AIFirst: the deterministic answer Spark must confirm
+	detRes := map[int]Resolution{} // and the resolution to keep when it does
 	var open []int
 	for i, m := range ms {
 		res[i] = Deterministic(rv.Cat, rv.Live, m, cx)
@@ -200,6 +329,14 @@ func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref s
 				res[i].Shadow[sr.ID] = alt.ProductID
 			case res[i].Status == "ok" && alt.Status != "ok":
 				res[i].Shadow[sr.ID] = "" // it would have stopped this line resolving
+			}
+		}
+		if res[i].Status == "ok" {
+			if why := rv.checkWhy(res[i], cx); why != "" {
+				det[i], detRes[i] = res[i].ProductID, res[i]
+				res[i].CheckWhy = why
+				open = append(open, i)
+				continue
 			}
 		}
 		if res[i].Status == "ok" {
@@ -235,30 +372,27 @@ func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref s
 	// Level 3: a shortlist per open line.
 	shorts := map[int][]*catalog.Product{}
 	for _, i := range open {
-		out := rv.Live.Apply(res[i].Norm, cx.CustomerID, cx.SupplierID)
-		words, size := catalog.Tokens(out.Text)
-		if hw, hs := catalog.Tokens(catalog.Normalize(ms[i].Hint)); len(hw) > 0 {
-			words = append(words, hw...)
-			if size == "" {
-				size = hs
+		shorts[i] = rv.shortlistFor(res[i], ms[i], cx)
+		// Spark checking a deterministic answer must see it among the candidates, at a position that
+		// does not give it away (first place would anchor the model on the code's answer).
+		if d := det[i]; d != "" && !hasProduct(shorts[i], d) {
+			if p := rv.Cat.Get(d); p != nil {
+				if len(shorts[i]) >= 8 {
+					shorts[i] = shorts[i][:7]
+				}
+				h := fnv.New32a()
+				h.Write([]byte(res[i].Norm))
+				at := int(h.Sum32() % uint32(len(shorts[i])+1))
+				shorts[i] = append(shorts[i][:at], append([]*catalog.Product{p}, shorts[i][at:]...)...)
 			}
 		}
-		exclude := rv.Cat.Blocked(res[i].Norm, cx.CustomerID, cx.SupplierID)
-		for id := range out.BlockIDs {
-			exclude[id] = true
-		}
-		// The model only ever picks among products the code would accept: same attributes, and the
-		// brand the line names (a model picks a look-alike brand when the right one is missing).
-		var short []*catalog.Product
-		for _, p := range filterWords(rv.Cat.Shortlist(words, size, rv.Cat.Hints(res[i].Norm, cx.CustomerID, cx.SupplierID), cx.Usual, exclude, 16), out.BlockWord) {
-			if Compatible(rv.Live, res[i].profile, p, cx) && brandOK(rv.Cat, rv.Live, res[i].profile, p) && len(short) < 8 {
-				short = append(short, p)
-			}
-		}
-		shorts[i] = short
 	}
 	// Level 4: Muse Spark picks among each shortlist, in one call for the whole message.
-	picks, cost, err := rv.pick(ctx, ms, open, shorts, ref)
+	hints := map[int][]string{}
+	for _, i := range open {
+		hints[i] = rv.Cat.Hints(res[i].Norm, cx.CustomerID, cx.SupplierID)
+	}
+	picks, cost, err := rv.pick(ctx, ms, open, shorts, hints, ref)
 	share := 0.0
 	if len(open) > 0 {
 		share = cost / float64(len(open))
@@ -271,7 +405,43 @@ func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref s
 			ids = append(ids, p.ID)
 		}
 		pk, ok := picks[i]
-		if err == nil && ok && pk.ID != "" && contains(ids, pk.ID) && pk.Confidence >= 0.8 {
+		if d := det[i]; d != "" {
+			if err == nil && ok && pk.ID == d {
+				share, why := r.AICost, r.CheckWhy
+				*r = detRes[i]
+				r.AICost, r.Check, r.CheckWhy, r.Det, r.DetUsed = share, "agree", why, d, detRes[i].Used
+				r.Used = append(r.Used, "spark-agrees")
+				continue
+			}
+			// Spark and the code disagree (or Spark could not answer): a person decides, both answers first.
+			r.Det, r.DetUsed = d, detRes[i].Used
+			r.Check, r.Status, r.Level = "disagree", "ask", LPerson
+			if err != nil || !ok || pk.ID == "" {
+				r.Check = "unchecked"
+			}
+			r.Options = []string{d}
+			if ok && pk.ID != "" && contains(ids, pk.ID) {
+				r.Options = append(r.Options, pk.ID)
+			}
+			for _, id := range ids {
+				if len(r.Options) >= 4 {
+					break
+				}
+				if !contains(r.Options, id) {
+					r.Options = append(r.Options, id)
+				}
+			}
+			r.Question = fmt.Sprintf("« %s » : lequel ?", Readable(ms[i].Said))
+			continue
+		}
+		if rv.AIFirst || rv.Supervised != nil {
+			r.Check = "ai"
+		}
+		// A wording a person already confirmed (a candidate alias) outranks the model: if Spark picks
+		// something else, a person decides.
+		if err == nil && ok && pk.ID != "" && len(hints[i]) > 0 && !contains(hints[i], pk.ID) {
+			r.Check = "alias-conflict"
+		} else if err == nil && ok && pk.ID != "" && contains(ids, pk.ID) && pk.Confidence >= rv.threshold() {
 			r.ProductID, r.Level, r.Status, r.Confidence = pk.ID, LAI, "ok", pk.Confidence
 			r.Used = append(r.Used, "spark")
 			continue
@@ -320,7 +490,7 @@ customer's words and a numbered list of CANDIDATES. Pick the candidate it means,
 - If none fits, give "" and no options.
 Return JSON only: {"items":[{"item":1,"id":"C3","confidence":0.9,"options":[],"question":""}]}`
 
-func (rv *Resolver) pick(ctx context.Context, ms []Mention, open []int, shorts map[int][]*catalog.Product, ref string) (map[int]pickOut, float64, error) {
+func (rv *Resolver) pick(ctx context.Context, ms []Mention, open []int, shorts map[int][]*catalog.Product, hints map[int][]string, ref string) (map[int]pickOut, float64, error) {
 	out := map[int]pickOut{}
 	if !rv.Meta.Enabled() {
 		return out, 0, meta.ErrNoKey
@@ -342,7 +512,14 @@ func (rv *Resolver) pick(ctx context.Context, ms []Mention, open []int, shorts m
 		for k, p := range shorts[i] {
 			code := fmt.Sprintf("C%d", k+1)
 			codes[i][code] = p.ID
-			fmt.Fprintf(&b, "%s | %s\n", code, p.Name)
+			extra := ""
+			if p.Barcode != "" {
+				extra += " [ref " + p.Barcode + "]"
+			}
+			if contains(hints[i], p.ID) {
+				extra += " (a person already confirmed it for these exact words)"
+			}
+			fmt.Fprintf(&b, "%s | %s%s\n", code, p.Name, extra)
 		}
 		b.WriteString("\n")
 	}
@@ -358,7 +535,8 @@ func (rv *Resolver) pick(ctx context.Context, ms []Mention, open []int, shorts m
 			Question   string   `json:"question"`
 		} `json:"items"`
 	}
-	cost, err := rv.Meta.JSON(ctx, meta.Spark, "resolve", ref, pickPrompt, b.String(), nil, 1500, &resp)
+	// the answer grows with the number of lines: a long invoice must not be cut off mid-JSON
+	cost, err := rv.Meta.JSON(ctx, meta.Spark, "resolve", ref, pickPrompt, b.String(), nil, min(1000+160*len(asked), 6000), &resp)
 	if err != nil {
 		return out, cost, err
 	}

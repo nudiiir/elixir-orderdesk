@@ -40,6 +40,28 @@ way a shop would type them ("Selecto 2L"). Identical products are counted, a cap
 single product, and the lines go through the levels below like any typed order. The shop gets its photo back with
 every product boxed in a colour that matches the reply ("🟩 2 × Selecto 2L"). About $0.015 a photo.
 
+## Adaptive matching: a pipeline Muse Spark designs for each industry
+
+Every industry writes its products in its own way: strengths and forms, dimensions and inch sizes, flavours and
+pack counts. Order Desk does not ship that knowledge; it learns it per desk (`internal/profile`).
+
+- **Bootstrap.** Muse Spark reads a sample of the catalogue and designs a first Matching Profile: which first-pass
+  blocks this industry needs (`strength`, `dimensions`, `inch`, `units_glue`, `pack_count`, `shade`, `split_glued`),
+  the vocabulary its suppliers use, the attributes that tell products apart, and a search method.
+- **Proof.** The code measures every proposal in a scratch lab, on confirmed lines and on lines Spark never saw:
+  it is kept only with zero wrong, zero lost and no products made to read alike. Vocabulary proposed before any
+  evidence waits in shadow; a word that would drop or change digits is refused (codes go to the code table).
+- **Search.** BM25, character trigrams and word similarity are raced on real lines (`internal/search`); the
+  winner is kept only if it holds on unseen lines.
+- **Codes.** A printed barcode or manufacturer reference resolves a line at once; a supplier's article code is
+  learned from one confirmation and retired if it ever names two products.
+- **Earned autonomy.** Muse Spark checks every answer the code gives until the code's precision clears a 99 %
+  lower bound (about 270 confirmed answers); afterwards it spot-checks risky answers, and a correction sends that
+  supplier back under supervision (`internal/desk/autonomy.go`).
+
+`cmd/adaptive` replays an invoice set through this loop and writes what Spark identified, every experiment and the
+results on unseen invoices; `cmd/readas` prints how a desk reads a line with its profile.
+
 ## The rule language
 
 Five rule types, each shown as a sentence generated from its structured form:

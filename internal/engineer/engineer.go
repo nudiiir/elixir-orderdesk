@@ -112,7 +112,7 @@ the ones you doubt, refine what is wrong, loses lines or reads nothing, then sub
 pass several rules at once in "items" to run_benchmark and submit_rule, and call several tools in the same turn. The gate (code) accepts a rule only with 0
 wrong, 0 conflicts, 0 lost lines and a minimum gain: lines newly resolved, or lines brought closer (progress: the
 rule makes the code read more of the line's words, all of them words of the right product). A supplier line often has
-several unread words ("comp enro", "pdre susp", "dci : pinaverium"): fix them one rule each, the progress counts;
+several unread words ("vis th", "cab rig", "rdl pl"): fix them one rule each, the progress counts;
 vocabulary may also pass by reading at least two catalogue names without breaking anything. After run_benchmark,
 SUBMIT what passes: a run that only benchmarks teaches nothing. Prefer few general rules. Never propose a rule already in list_rules, rejected included.
 Stop after at most %d submitted rules, then answer with a one-line summary in English of what you did.`
