@@ -12,7 +12,9 @@ import (
 	"context"
 	"flag"
 	"log"
+	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"os/signal"
 	"path/filepath"
@@ -21,12 +23,12 @@ import (
 	"time"
 
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/dolibarr"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/elixir"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/erpnext"
-	"github.com/nudiiir/elixir-orderdesk/internal/adapter/tryton"
-	"github.com/nudiiir/elixir-orderdesk/internal/adapter/dolibarr"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/inventree"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/odoo"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/tryton"
 	"github.com/nudiiir/elixir-orderdesk/internal/catalog"
 	"github.com/nudiiir/elixir-orderdesk/internal/desk"
 	"github.com/nudiiir/elixir-orderdesk/internal/engineer"
@@ -163,6 +165,10 @@ func main() {
 		}()
 	} else if tok, phone := strings.TrimSpace(os.Getenv("WHATSAPP_TOKEN")), strings.TrimSpace(os.Getenv("WHATSAPP_PHONE_ID")); tok != "" && phone != "" {
 		wa = whatsapp.New(tok, phone, os.Getenv("WHATSAPP_VERIFY_TOKEN"), os.Getenv("WHATSAPP_APP_SECRET"))
+		if wa.AppSecret == "" && !localURL(os.Getenv("WHATSAPP_GRAPH_URL")) {
+			// without the app secret anyone who finds the webhook could post orders as any shop
+			log.Fatal("WHATSAPP_APP_SECRET is required: Meta signs every webhook call with it (Meta app → Settings → Basic)")
+		}
 		if g := os.Getenv("WHATSAPP_GRAPH_URL"); g != "" {
 			wa.Graph = strings.TrimRight(g, "/") // a local stand-in for tests
 		}
@@ -203,7 +209,10 @@ func main() {
 	if waHook != nil {
 		srv.WhatsApp = waHook
 	}
-	hs := &http.Server{Addr: *addr, Handler: srv.Handler()}
+	if !localURL("http://" + *addr) {
+		log.Printf("[desk] %s is reachable from other computers: the panel still only answers requests from this one; only /whatsapp/webhook is served to others", *addr)
+	}
+	hs := &http.Server{Addr: *addr, Handler: srv.Handler(), ReadHeaderTimeout: 10 * time.Second}
 	go func() {
 		<-ctx.Done()
 		hs.Shutdown(context.Background())
@@ -212,6 +221,17 @@ func main() {
 	if err := hs.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Fatal(err)
 	}
+}
+
+// localURL tells whether a URL points at this computer (a local simulator or test server).
+func localURL(u string) bool {
+	p, err := url.Parse(u)
+	if err != nil {
+		return false
+	}
+	h := p.Hostname()
+	ip := net.ParseIP(h)
+	return h == "localhost" || (ip != nil && ip.IsLoopback())
 }
 
 // loadKeys reads KEY=value lines into the environment without printing them.

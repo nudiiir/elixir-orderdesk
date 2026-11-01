@@ -82,6 +82,9 @@ func photoTrouble(err error) string {
 // ReadShopPhoto reads a photo a shop sent to order: a written list is copied line by line; a photo of the
 // products themselves goes to SAM 3.1 and Muse Spark. Channels and the panel's "try" both use it.
 func (d *Desk) ReadShopPhoto(ctx context.Context, key string, img []byte, caption, ref string) (PhotoOrder, error) {
+	if err := photoSize(img); err != nil {
+		return PhotoOrder{}, err
+	}
 	rd, _, err := ReadPhoto(ctx, d.Meta, img, ref)
 	if err != nil {
 		return PhotoOrder{}, err
@@ -112,6 +115,9 @@ func (d *Desk) ReadShopPhoto(ctx context.Context, key string, img []byte, captio
 // SeeProducts finds and reads every product on a photo: one SAM 3.1 call per kind of packaging (in parallel),
 // then one Muse Spark call that reads all the crops at once.
 func SeeProducts(ctx context.Context, m *meta.Client, img []byte, packaging, brands []string, ref string) (Seen, float64, error) {
+	if err := photoSize(img); err != nil {
+		return Seen{}, 0, err
+	}
 	src, _, err := image.Decode(bytes.NewReader(img))
 	if err != nil {
 		return Seen{}, 0, fmt.Errorf("photo: %v", err)
@@ -382,4 +388,16 @@ func encodeJPEG(img image.Image) []byte {
 	var buf bytes.Buffer
 	jpeg.Encode(&buf, img, &jpeg.Options{Quality: 85})
 	return buf.Bytes()
+}
+
+// photoSize refuses a photo above 40 megapixels, read from its header, before anything decodes it.
+func photoSize(img []byte) error {
+	cfg, _, err := image.DecodeConfig(bytes.NewReader(img))
+	if err != nil {
+		return fmt.Errorf("photo: %v", err)
+	}
+	if cfg.Width <= 0 || cfg.Height <= 0 || cfg.Width*cfg.Height > 40_000_000 {
+		return fmt.Errorf("photo: %d×%d is too large (40 megapixels at most)", cfg.Width, cfg.Height)
+	}
+	return nil
 }

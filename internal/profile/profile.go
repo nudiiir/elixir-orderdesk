@@ -88,6 +88,8 @@ var tokenRe = regexp.MustCompile(`[\p{L}\p{N}]+`)
 
 var (
 	gluedRe     = regexp.MustCompile(`(\p{L}{4,})(\d)`)
+	inchMixed   = regexp.MustCompile(`(^|[^\d/.])(\d)\s+(1/2|1/4|3/4)\s*(?:"|''|”|pouces?\b|po\b)`)
+	bareMixed   = regexp.MustCompile(`(^|[^\d/.])(\d)\s+(1/2|1/4|3/4)($|[^\d/])`)
 	inchQuoted  = regexp.MustCompile(`(\d{1,2})\s*/\s*(\d{1,2})\s*(?:"|''|”|pouces?\b|po\b)`)
 	inchWhole   = regexp.MustCompile(`(^|[^\d/])(\d)\s*(?:"|''|”|pouces?\b)`)
 	plumbing    = regexp.MustCompile(`(^|[^\d])(15|20|26|33|40|50)\s*/\s*(21|27|34|42|49|60)($|[^\d])`)
@@ -158,8 +160,25 @@ var Library = []block{
 		fn: func(s string, p map[string]bool, _ []*LexEntry) string {
 			s = plumbing.ReplaceAllStringFunc(s, func(m string) string {
 				sm := plumbing.FindStringSubmatch(m)
-				return sm[1] + plumbName[sm[2]+"/"+sm[3]] + sm[4]
+				if n, ok := plumbName[sm[2]+"/"+sm[3]]; ok {
+					return sm[1] + n + sm[4]
+				}
+				return m
 			})
+			mixed := func(re *regexp.Regexp, quoted bool) {
+				s = re.ReplaceAllStringFunc(s, func(m string) string {
+					sm := re.FindStringSubmatch(m)
+					tail := " "
+					if !quoted {
+						tail = sm[4]
+					}
+					return sm[1] + "in" + sm[2] + strings.Replace(sm[3], "/", "", 1) + tail
+				})
+			}
+			mixed(inchMixed, true)
+			if p["bare"] {
+				mixed(bareMixed, false)
+			}
 			s = inchQuoted.ReplaceAllStringFunc(s, func(m string) string {
 				sm := inchQuoted.FindStringSubmatch(m)
 				if n, ok := fracName[sm[1]+"/"+sm[2]]; ok {

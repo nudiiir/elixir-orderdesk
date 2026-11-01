@@ -3,6 +3,7 @@ package catalog
 import (
 	"path/filepath"
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/nudiiir/elixir-orderdesk/internal/store"
@@ -46,5 +47,31 @@ func TestCodes(t *testing.T) {
 	}
 	if got := c.StripCodes(Normalize("ART4881 COLLE PVC 500ML")); got != "colle pvc 500ml" {
 		t.Errorf("strip: %q", got)
+	}
+}
+
+func TestNumbersAreNotCodes(t *testing.T) {
+	db, err := store.Open(filepath.Join(t.TempDir(), "n.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	ReplaceProducts(db, []Product{{ID: "a", Name: "IFRI EAU 1.5L", Brand: "IFRI"}, {ID: "b", Name: "SELECTO 2L", Brand: "HAMOUD"}})
+	c := New(db)
+	for _, line := range []string{"ifri 1500", "selecto 2027", "rouiba 1000"} {
+		if got := c.ForeignCodes(Normalize(line)); len(got) != 0 {
+			t.Errorf("%q: a bare number is not an article code, got %v", line, got)
+		}
+	}
+	if got := c.ForeignCodes(Normalize("ref ab1234 selecto")); len(got) != 1 {
+		t.Errorf("a word mixing letters and digits is a code, got %v", got)
+	}
+}
+
+func TestPackIsNotThousands(t *testing.T) {
+	for in, want := range map[string]string{"EAU PACK 6 500ML": "500ml", "LAIT 1 800 G": "1800g", "CANETTE 24 330ML": "330ml"} {
+		if got := NormalizeName(in); !strings.Contains(got, want) {
+			t.Errorf("%q → %q, want %q", in, got, want)
+		}
 	}
 }

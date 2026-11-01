@@ -196,6 +196,11 @@ func (c *Catalog) ForeignCodes(norm string) []string {
 				digits++
 			}
 		}
+		// a bare number ("1500", "2027") is a size, a year or a quantity: only a word mixing letters and
+		// digits, or a long reference (6+ digits), is taken for an article code
+		if digits == len(w) && digits < 6 {
+			continue
+		}
 		if digits < 3 || len(w) < 4 || c.vocab[w] || canonicalTok.MatchString(w) || packTok.MatchString(w) {
 			continue
 		}

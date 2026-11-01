@@ -61,6 +61,7 @@ type Resolution struct {
 
 	profile rules.Profile
 	verdict Verdict
+	ref     string // the message and line, for the random spot check
 }
 
 // Context is who is speaking.
@@ -101,8 +102,14 @@ func (rv *Resolver) checkWhy(r Resolution, cx Context) string {
 			return why
 		}
 	}
-	if !rv.Sentinel || r.Level == LCode {
-		return "" // a printed or confirmed code is exact
+	if !rv.Sentinel {
+		return ""
+	}
+	if r.Level == LCode {
+		if r.AliasWit == 1 && len(r.Used) > 0 && strings.HasPrefix(r.Used[0], "supplier-code:") {
+			return "supplier code confirmed once"
+		}
+		return "" // a printed code, or a supplier code confirmed twice, is exact
 	}
 	if r.Level == LAlias && r.AliasWit <= 2 {
 		return "young alias (2 confirmations)"
@@ -116,7 +123,7 @@ func (rv *Resolver) checkWhy(r Resolution, cx Context) string {
 		}
 	}
 	h := fnv.New32a()
-	h.Write([]byte(r.Norm + "|" + cx.SupplierID + cx.CustomerID))
+	h.Write([]byte(r.Norm + "|" + cx.SupplierID + cx.CustomerID + "|" + r.ref))
 	if h.Sum32()%100 < 5 {
 		return "random spot check"
 	}
@@ -144,6 +151,20 @@ func (rv *Resolver) searcher() Searcher {
 		return rv.Search
 	}
 	return rv.Cat
+}
+
+// hintAllowed: a product found from the reader's hint is booked only if the line's own wording does not
+// block it, no check is due, and the hint's confidence (0.85) clears the threshold.
+func (rv *Resolver) hintAllowed(r, alt Resolution, cx Context) bool {
+	if 0.85 < rv.threshold() || rv.Cat.Blocked(r.Norm, cx.CustomerID, cx.SupplierID)[alt.ProductID] {
+		return false
+	}
+	out := rv.Live.Apply(r.Norm, cx.CustomerID, cx.SupplierID)
+	if out.BlockIDs[alt.ProductID] || blockedByWord(rv.Cat.Get(alt.ProductID), out.BlockWord) {
+		return false
+	}
+	alt.Norm, alt.Level, alt.ref = r.Norm, LAI, r.ref
+	return rv.checkWhy(alt, cx) == ""
 }
 
 // shortlistFor is step 3 for one line: the best-ranked products the code would accept (same
@@ -202,6 +223,7 @@ func Deterministic(cat *catalog.Catalog, set *rules.Set, m Mention, cx Context) 
 	for _, k := range cat.ForeignCodes(r.Norm) {
 		if a, ok := cat.Trusted("code: "+k, cx.CustomerID, cx.SupplierID); ok && codeOK(a.ProductID) {
 			r.ProductID, r.Level, r.Status, r.Confidence = a.ProductID, LCode, "ok", 1
+			r.AliasWit = a.Witnesses
 			r.Used = []string{"supplier-code:" + k}
 			return r
 		}
@@ -319,6 +341,7 @@ func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref s
 	var open []int
 	for i, m := range ms {
 		res[i] = Deterministic(rv.Cat, rv.Live, m, cx)
+		res[i].ref = fmt.Sprintf("%s#%d", ref, i)
 		for _, sr := range rv.Shadow { // shadow rules: what would they have said?
 			if !sr.Applies(cx.CustomerID, cx.SupplierID) {
 				continue
@@ -346,7 +369,8 @@ func (rv *Resolver) Resolve(ctx context.Context, ms []Mention, cx Context, ref s
 		// catalogue agrees on one product from it, that line needed the AI, but no extra call.
 		if h := strings.TrimSpace(m.Hint); h != "" && catalog.Normalize(h) != res[i].Norm {
 			alt := Deterministic(rv.Cat, rv.Live, Mention{Said: h, Qty: m.Qty, Unit: m.Unit}, cx)
-			if alt.Status == "ok" && Compatible(rv.Live, res[i].profile, rv.Cat.Get(alt.ProductID), cx) {
+			if alt.Status == "ok" && Compatible(rv.Live, res[i].profile, rv.Cat.Get(alt.ProductID), cx) &&
+				rv.hintAllowed(res[i], alt, cx) {
 				res[i].ProductID, res[i].Level, res[i].Status, res[i].Confidence = alt.ProductID, LAI, "ok", 0.85
 				res[i].Used = append([]string{"hint"}, alt.Used...)
 				if res[i].Pack == nil {

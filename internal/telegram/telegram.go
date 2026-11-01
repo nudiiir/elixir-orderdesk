@@ -4,10 +4,12 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
+	"net/url"
 	"strconv"
 	"time"
 )
@@ -91,7 +93,7 @@ func (t *Telegram) call(ctx context.Context, method string, body any, out any) e
 	req.Header.Set("Content-Type", "application/json")
 	res, err := t.HTTP.Do(req)
 	if err != nil {
-		return err
+		return noToken(method, err)
 	}
 	defer res.Body.Close()
 	var env struct {
@@ -199,11 +201,32 @@ func (t *Telegram) Download(ctx context.Context, fileID string) ([]byte, error) 
 		"https://api.telegram.org/file/bot"+t.Token+"/"+f.FilePath, nil)
 	res, err := t.HTTP.Do(req)
 	if err != nil {
-		return nil, err
+		return nil, noToken("download", err)
 	}
 	defer res.Body.Close()
 	if res.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("telegram download: HTTP %d", res.StatusCode)
 	}
-	return io.ReadAll(res.Body)
+	return ReadMax(res.Body)
+}
+
+// noToken drops the request URL (which carries the bot token) from a network error.
+func noToken(what string, err error) error {
+	var ue *url.Error
+	if errors.As(err, &ue) {
+		return fmt.Errorf("telegram %s: %v", what, ue.Err)
+	}
+	return err
+}
+
+// MaxMedia is the largest file a channel downloads (voice note, photo, invoice).
+const MaxMedia = 25 << 20
+
+// ReadMax reads a downloaded file of at most MaxMedia bytes.
+func ReadMax(r io.Reader) ([]byte, error) {
+	b, err := io.ReadAll(io.LimitReader(r, MaxMedia+1))
+	if err == nil && len(b) > MaxMedia {
+		return nil, fmt.Errorf("file larger than %d MB", MaxMedia>>20)
+	}
+	return b, err
 }

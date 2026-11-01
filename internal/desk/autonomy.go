@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/nudiiir/elixir-orderdesk/internal/resolve"
+	"github.com/nudiiir/elixir-orderdesk/internal/store"
 )
 
 // Autonomy decides when the desk's own steps (codes, aliases, rules, the judge) may answer without Muse
@@ -94,4 +95,11 @@ func (a *Autonomy) Record(lines []Line, scope string) {
 	if a.UnlockedAt == 0 && a.Bound() >= a.Bar {
 		a.UnlockedAt = a.Right + a.Wrong
 	}
+}
+
+// JSON is the record as saved in the settings, read under the lock (Record may be running).
+func (a *Autonomy) JSON() string {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	return store.JSON(a)
 }

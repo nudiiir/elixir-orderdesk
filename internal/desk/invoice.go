@@ -75,15 +75,18 @@ func (d *Desk) IngestInvoice(ctx context.Context, key string, data []byte, media
 		created_at, updated_at) VALUES (?, ?, '', 'open', 'invoice', ?, ?, ?, ?, ?, ?, ?)`,
 		draft, key, supplierID, doc.Supplier, doc.Number, doc.Date, cents(doc.TotalHT), now, now)
 	var ms []resolve.Mention
-	for _, l := range doc.Lines {
+	var kept []int // doc.Lines index of each mention: a blank row must not shift the prices
+	for i, l := range doc.Lines {
 		if strings.TrimSpace(l.Text) == "" {
 			continue
 		}
 		ms = append(ms, resolve.Mention{Said: strings.TrimSpace(l.Text), Qty: l.Qty})
+		kept = append(kept, i)
 	}
 	lines := d.resolveInvoice(ctx, draft, msgID, supplierID, ms)
-	for i, l := range doc.Lines {
-		if i < len(lines) {
+	for i := range lines {
+		if i < len(kept) {
+			l := doc.Lines[kept[i]]
 			lines[i].UnitPrice, lines[i].LineTTC = cents(l.UnitPrice), cents(l.Total)
 		}
 	}
@@ -237,13 +240,16 @@ func cents(da float64) int64 { return int64(math.Round(da * 100)) }
 // SetSupplier sets (or corrects) the supplier of an invoice draft and re-resolves its lines in that
 // supplier's scope. The printed name is learned as a wording for that supplier.
 func (d *Desk) SetSupplier(ctx context.Context, draft, supplierID string) error {
-	var said string
-	d.DB.QueryRow(`SELECT supplier_said FROM drafts WHERE id = ? AND kind = 'invoice' AND status = 'open'`, draft).Scan(&said)
-	d.DB.Exec(`UPDATE drafts SET supplier_id = ? WHERE id = ?`, supplierID, draft)
+	var said, status string
+	d.DB.QueryRow(`SELECT supplier_said, status FROM drafts WHERE id = ? AND kind = 'invoice'`, draft).Scan(&said, &status)
+	if status != "open" {
+		return fmt.Errorf("receipt is %s", status)
+	}
+	d.DB.Exec(`UPDATE drafts SET supplier_id = ? WHERE id = ? AND status = 'open'`, supplierID, draft)
 	if said != "" {
 		d.Cat.Witness("supplier: "+catalog.Normalize(said), supplierID, "global", "", "invoice", 1)
 	}
-	old := DraftLines(d.DB, draft, true)
+	old := DraftLines(d.DB, draft, false)
 	var ms []resolve.Mention
 	for _, l := range old {
 		ms = append(ms, resolve.Mention{Said: l.Said, Qty: l.Qty})

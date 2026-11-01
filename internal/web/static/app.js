@@ -221,7 +221,7 @@ function tryBox(custs) {
   return `<div class="card dashed" style="padding:16px;display:flex;flex-direction:column;gap:10px;margin-top:8px">
     <span class="cap">Try a message · demo</span>
     <label class="l" for="t-shop">As shop</label><select id="t-shop" class="inp">${custs.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("")}</select>
-    <label class="l" for="t-msg">Message</label><textarea id="t-msg" class="inp ev" rows="3" placeholder="3 cartons dove shampooing 250 ml&#10;2 fardou nivea creme"></textarea>
+    <label class="l" for="t-msg">Message</label><textarea id="t-msg" class="inp ev" rows="3" placeholder="3 cartons selecto 2l&#10;2 fardou ifri 1.5&#10;1 candia"></textarea>
     <label class="l" for="t-photo">Or a photo · a list, or the products</label><input id="t-photo" class="inp" type="file" accept="image/*">
     <div class="row" style="justify-content:space-between"><span class="muted" style="font-size:11px;max-width:200px">Runs the real pipeline. Lists use the free parser; chatty text uses the AI; photos of products use SAM 3.1.</span>
     <button class="btn primary sm" id="t-run" type="button">Run</button></div></div>`;
@@ -513,7 +513,7 @@ route("rules", async () => {
   const last = eng.last || {};
   const items = d.items.filter((r) => ruleFilter === "all" || r.status === ruleFilter);
   const group = (title, sub, list, cls = "") => list.length ? `<section class="card ${cls}" style="overflow:hidden"><div class="section-h"><h2 class="h2">${title}</h2><span class="muted" style="font-size:12px">${sub}</span></div>${list.map(ruleRow).join("")}</section>` : "";
-  main.innerHTML = head("Rules", `Written by the rule engineer (Muse Wonder) and by people. <b style="color:var(--ink)">The model proposes; the code decides.</b>`,
+  main.innerHTML = head("Rules", `Written by the rule engineer (Muse Spark, with Muse Wonder as a fallback) and by people. <b style="color:var(--ink)">The model proposes; the code decides.</b>`,
     `<button class="btn primary" id="run">${eng.running ? "Engineer running…" : "Run engineer now"}</button><a class="btn" href="#write" id="wlink">+ Write a rule</a>`) + `
     <div class="tiles">
       ${tile("Benchmark", eng.benchmark, "known lines · ground truth from confirmed orders and receipts")}
@@ -541,10 +541,13 @@ route("rules", async () => {
   bindWrite();
   if (eng.running) pollEngineer();
 });
+// rules written by a model: the rule engineer's sessions and the Matching Profile's lexicon
+const byModel = (author) => author === "rule-engineer" || String(author || "").startsWith("muse-");
+
 function ruleRow(r) {
   const b = r.bench || {};
   const need = +settingsCache.shadow_agreements || 5;
-  const who = r.author === "rule-engineer" ? `<span class="who model"><i>W</i>Muse Wonder</span>` : `<span class="who person"><i>P</i>${esc(r.author)}</span>`;
+  const who = byModel(r.author) ? `<span class="who model"><i>AI</i>Rule engineer</span>` : `<span class="who person"><i>P</i>${esc(r.author)}</span>`;
   const pill = r.status === "rejected" || r.status === "rolled_back" ? `<span class="pill"><span>{}</span>${esc(r.reason)}</span>`
     : b.lines ? `<span class="pill"><span>{}</span>benchmark +${b.newly_resolved}${b.vocabulary ? ` · reads ${b.products_changed || 0} names` : ""} · ${b.wrong} wrong${r.lines_resolved ? ` · ${r.lines_resolved} lines since` : ""}</span>` : "";
   let track = "";
@@ -642,7 +645,7 @@ route("rule", async (id) => {
   const need = d.shadow_needed, gateMin = d.gate_min_gain;
   const refusedAtGate = !!rejected && !shadowE && !liveE;
   const isLive = r.status === "live", isRolled = r.status === "rolled_back", isRefused = r.status === "rejected";
-  const engineer = r.author === "rule-engineer";
+  const engineer = byModel(r.author);
   const perLine = d.cost_per_ai_line || 0;
   const breakEven = perLine > 0 && r.ai_cost ? Math.ceil(r.ai_cost / perLine) : 0;
   const pw = (r.pattern || "").replace(/[\^$]/g, "").split("|")[0];
@@ -661,7 +664,7 @@ route("rule", async (id) => {
   const why = (proposed && proposed.details.rationale) || r.rationale;
   const s2 = st(2, "", engineer ? "Pattern found" : "Written", proposed ? hm(proposed.at) : hm(r.created_at),
     `${letters}${why ? `<span style="font-size:13px">“${esc(why)}”</span>` : ""}
-     <div class="col" style="gap:6px;border-top:1px solid var(--rule);padding-top:10px;margin-top:auto">${engineer ? `<span class="who model"><i>W</i>Muse Wonder proposes</span>` : `<span class="who person"><i>P</i>${esc(r.author)} writes</span>`}
+     <div class="col" style="gap:6px;border-top:1px solid var(--rule);padding-top:10px;margin-top:auto">${engineer ? `<span class="who model"><i>AI</i>The rule engineer proposes</span>` : `<span class="who person"><i>P</i>${esc(r.author)} writes</span>`}
       <span class="row muted" style="font-size:12px;justify-content:space-between">Cost to write ${r.ai_cost ? coin(r.ai_cost) : free()}</span></div>`);
   const s3 = st(3, refusedAtGate ? "red" : "", "Benchmark", bench ? hm(bench.at) : "",
     `<span style="font-size:13px">Run against every line whose answer is already known.</span>${cells}
@@ -687,7 +690,7 @@ route("rule", async (id) => {
     <div class="rhead"><div class="col" style="gap:14px;flex:1;min-width:300px">
         <div class="row" style="gap:8px">${stamp("tag", r.type)}${stamp("scope", r.scope.kind === "global" ? "Global · every shop" : r.scope.name || r.scope.kind)}</div>
         <h1 class="rtitle">${sentenceHTML(r.sentence)}</h1>
-        <div class="row" style="gap:14px">${engineer ? `<span class="who model"><i>W</i><b>Proposed</b>&nbsp;by Muse Wonder · ${hm(r.created_at)}</span>` : `<span class="who person"><i>P</i><b>Written</b>&nbsp;by ${esc(r.author)} · ${hm(r.created_at)}</span>`}
+        <div class="row" style="gap:14px">${engineer ? `<span class="who model"><i>AI</i><b>Proposed</b>&nbsp;by the rule engineer · ${hm(r.created_at)}</span>` : `<span class="who person"><i>P</i><b>Written</b>&nbsp;by ${esc(r.author)} · ${hm(r.created_at)}</span>`}
           ${shadowE || liveE ? `<span class="gate"><span class="who sys"><i>{}</i></span><b>Admitted</b> by the gate · ${hm((shadowE || liveE).at)}</span>` : refusedAtGate ? `<span class="gate no"><span class="who sys"><i>{}</i></span><b>Refused</b> by the gate · ${hm(rejected.at)}</span>` : ""}
           ${liveE ? `<span class="gate"><span class="who sys"><i>{}</i></span><b>Set live</b> ${liveE.actor === "clerk" ? "by a person" : `after ${need} shadow agreements`} · ${hm(liveE.at)}</span>` : ""}
           <span class="who person"><i>P</i><b>${r.strikes ? r.strikes + " correction" + (r.strikes > 1 ? "s" : "") : "No corrections"}</b>&nbsp;by people${r.strikes ? "" : " yet"}</span></div></div>
@@ -876,7 +879,7 @@ route("settings", async () => {
   const erpKind = () => {
     const k = $("#ek").value;
     $("#f-edb").hidden = k !== "odoo" && k !== "tryton";
-    $("#epl").textContent = k === "odoo" ? "API key (or password)" : "Password";
+    $("#epl").textContent = k === "odoo" ? "API key or password (kept)" : "Password (used once, not kept)";
     $("#ehelp").textContent = { elixir: "The password is used once to open a session; only the session token is kept.",
       odoo: "Odoo's API needs the key on every call, so it is kept: create an API key in Odoo (your profile → Account Security → New API key), it can be revoked there.",
       erpnext: "The password is used once to generate an API key and secret for this user; only those are kept.",

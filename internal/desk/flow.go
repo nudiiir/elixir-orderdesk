@@ -156,6 +156,13 @@ func (d *Desk) onCallback(ctx context.Context, cb *telegram.TgCallback) {
 		return
 	}
 	switch parts[0] {
+	case "fix", "back", "ok", "no":
+		// these name a draft: only the chat it came from may act on it, and only while it is open
+		if !d.ownsLine(key, Line{DraftID: parts[1]}) {
+			return
+		}
+	}
+	switch parts[0] {
 	case "p", "c": // pick an option for an asked line (p) or for a corrected line (c)
 		if len(parts) != 3 {
 			return
@@ -166,7 +173,11 @@ func (d *Desk) onCallback(ctx context.Context, cb *telegram.TgCallback) {
 			return
 		}
 		d.Choose(ctx, &l, l.Options[idx], parts[0] == "c")
-		d.TG.Edit(ctx, chat, cb.Message.MessageID, "✔️ « "+esc(resolve.Readable(l.Said))+" » → "+esc(d.Cat.Get(l.ProductID).Name), nil)
+		name := l.ProductID
+		if p := d.Cat.Get(l.ProductID); p != nil {
+			name = p.Name
+		}
+		d.TG.Edit(ctx, chat, cb.Message.MessageID, "✔️ « "+esc(resolve.Readable(l.Said))+" » → "+esc(name), nil)
 		d.next(ctx, chat, l.DraftID)
 	case "x":
 		l, err := GetLine(d.DB, parts[1])
@@ -196,7 +207,9 @@ func (d *Desk) onCallback(ctx context.Context, cb *telegram.TgCallback) {
 		saveLine(d.DB, &l)
 		var rows [][]telegram.Button
 		for i, id := range alts {
-			rows = append(rows, []telegram.Button{{Text: d.Cat.Get(id).Name, Data: fmt.Sprintf("c:%s:%d", l.ID, i)}})
+			if p := d.Cat.Get(id); p != nil {
+				rows = append(rows, []telegram.Button{{Text: p.Name, Data: fmt.Sprintf("c:%s:%d", l.ID, i)}})
+			}
 		}
 		rows = append(rows, []telegram.Button{{Text: "✖ Retirer cette ligne", Data: "x:" + l.ID}},
 			[]telegram.Button{{Text: "↩️ Retour", Data: "back:" + l.DraftID}})
@@ -306,6 +319,11 @@ func (d *Desk) Relearn(l Line, wrong string) {
 	if wrong != "" {
 		d.Cat.Block(l.Norm, wrong, scopeKind, scopeID)
 	}
+	for _, k := range d.Cat.ForeignCodes(l.Norm) {
+		if d.Cat.CodeConflict(k, l.ProductID, scopeKind, scopeID) {
+			d.DB.Event("code.retired", l.ProductID, "clerk", map[string]any{"code": k})
+		}
+	}
 	a, _ := d.Cat.Witness(l.Norm, l.ProductID, scopeKind, scopeID, "clerk", d.DB.SettingInt("alias_trust_after", 2))
 	d.DB.Event("line.corrected", l.ProductID, "clerk", map[string]any{"line": l.ID, "said": l.Said, "wrong": wrong, "alias": a.ID})
 }
@@ -337,6 +355,8 @@ func (d *Desk) Confirm(ctx context.Context, draft, origin string) (adapter.Order
 	if e == nil {
 		return adapter.OrderRef{}, adapter.ErrNotConnected
 	}
+	d.book.Lock()
+	defer d.book.Unlock()
 	var customerID, status, key, kind string
 	d.DB.QueryRow(`SELECT customer_id, status, chat_key, kind FROM drafts WHERE id = ?`, draft).Scan(&customerID, &status, &key, &kind)
 	if status != "open" {
@@ -388,7 +408,7 @@ func (d *Desk) learnLines(lines []Line, kind, scopeKind, scopeID, origin string)
 	shadowNeeded := d.DB.SettingInt("shadow_agreements", 5)
 	if d.Autonomy != nil {
 		d.Autonomy.Record(lines, scopeID)
-		d.DB.SetSetting("autonomy", store.JSON(d.Autonomy))
+		d.DB.SetSetting("autonomy", d.Autonomy.JSON())
 	}
 	for _, l := range lines {
 		if l.Status != "ok" || l.Level == resolve.LHistory || l.Norm == "" {

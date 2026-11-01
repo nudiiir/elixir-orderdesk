@@ -11,3 +11,9 @@
 keys.env
 *.env
 !.env.example
+/orderdesk
+/adaptive
+/replay
+/readas
+outbox*.jsonl
+/run-*/

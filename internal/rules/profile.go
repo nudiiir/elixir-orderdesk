@@ -156,7 +156,7 @@ func (s *Set) Profile(text, customerID, supplierID string, catalogue bool) Profi
 			p.add("count", Val{V: strconv.Itoa(n)}, "")
 			continue
 		}
-		if f, err := strconv.ParseFloat(w, 64); err == nil {
+		if f, err := strconv.ParseFloat(w, 64); err == nil && catalog.IsNumber(w) {
 			switch {
 			case strings.Contains(w, "."):
 				// "Ifri 1.5": a bare decimal is litres, which is how shops say it. A guess.

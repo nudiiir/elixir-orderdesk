@@ -43,7 +43,9 @@ var (
 	countSpace  = regexp.MustCompile(`(^|\s)[x*]\s+(\d{1,3})\b`)
 	// "1 800 g" in a catalogue name is 1800 g. Only in product names: in a shop's line, "2 500g" is
 	// two packets of 500 g.
-	thousands = regexp.MustCompile(`(^|[^\d.])(\d{1,3}) (\d{3})\s*(ml|g|kg|l)\b`)
+	thousands = regexp.MustCompile(`(^|[^\d.])(\d) (\d{3})\s*(ml|g|kg|l)\b`)
+	packWord  = regexp.MustCompile(`(?:^|\s)(?:pack|pck|pk|lot|x|carton|cart|crt|ctn|fardeau|fd|box|bte|boite|par)\s*$`)
+	numberRe  = regexp.MustCompile(`^\d+(\.\d+)?$`)
 )
 
 // Pre is the desk's own first pass (its Matching Profile, see package profile): industry blocks that
@@ -79,7 +81,7 @@ func Normalize(s string) string {
 // separator ("1 800 g").
 func NormalizeName(s string) string {
 	s = mojibakeRepl.Replace(strings.ToLower(s))
-	s = thousands.ReplaceAllString(s, "$1$2$3$4")
+	s = joinThousands(s)
 	return Normalize(s)
 }
 
@@ -206,7 +208,7 @@ func Tokens(norm string) (words []string, size string) {
 		if IsCount(w) {
 			continue
 		}
-		if f, err := strconv.ParseFloat(w, 64); err == nil {
+		if f, err := strconv.ParseFloat(w, 64); err == nil && IsNumber(w) {
 			// "Ifri 1.5": a bare decimal is litres, which is how shops say it; a whole number is a quantity.
 			if strings.Contains(w, ".") && f > 0 && f <= 10 && size == "" {
 				size = fmt.Sprintf("%.0fml", f*1000)
@@ -266,4 +268,23 @@ func levenshtein(a, b string) int {
 		prev = cur
 	}
 	return prev[len(rb)]
+}
+
+// IsNumber tells whether a word is a plain number ("12", "1.5"); ParseFloat alone also takes "nan" and "inf".
+func IsNumber(w string) bool { return numberRe.MatchString(w) }
+
+// joinThousands glues "1 800 g" into 1800 g, unless the first number follows a pack word ("pack 6 500ml").
+func joinThousands(s string) string {
+	var b strings.Builder
+	last := 0
+	for _, m := range thousands.FindAllStringSubmatchIndex(s, -1) {
+		if packWord.MatchString(s[:m[4]]) {
+			continue
+		}
+		b.WriteString(s[last:m[0]])
+		b.WriteString(s[m[2]:m[3]] + s[m[4]:m[5]] + s[m[6]:m[7]] + s[m[8]:m[9]])
+		last = m[1]
+	}
+	b.WriteString(s[last:])
+	return b.String()
 }

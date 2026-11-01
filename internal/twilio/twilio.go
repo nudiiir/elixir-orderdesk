@@ -151,11 +151,16 @@ func (c *Client) Edit(ctx context.Context, chatID int64, messageID int, text str
 }
 
 func (c *Client) Answer(ctx context.Context, callbackID, text string) {}
-func (c *Client) Typing(ctx context.Context, chatID int64)              {}
+func (c *Client) Typing(ctx context.Context, chatID int64)            {}
 
 // Download fetches a media file ("wa:<Twilio media URL>") with the account's credentials.
 func (c *Client) Download(ctx context.Context, fileID string) ([]byte, error) {
 	u := strings.TrimPrefix(fileID, "wa:")
+	mu, err := url.Parse(u)
+	api, _ := url.Parse(c.API)
+	if err != nil || (mu.Host != api.Host && !strings.HasSuffix(mu.Hostname(), ".twilio.com")) {
+		return nil, fmt.Errorf("twilio media: refused host %q", mu.Host)
+	}
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, u, nil)
 	req.SetBasicAuth(c.SID, c.Token)
 	res, err := c.HTTP.Do(req)
@@ -166,7 +171,7 @@ func (c *Client) Download(ctx context.Context, fileID string) ([]byte, error) {
 	if res.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("twilio media: HTTP %d", res.StatusCode)
 	}
-	return io.ReadAll(res.Body)
+	return telegram.ReadMax(res.Body)
 }
 
 // Signature is Twilio's X-Twilio-Signature for a webhook URL and its form parameters.
@@ -286,11 +291,16 @@ func (c *Client) Webhook(handle func(context.Context, telegram.TgUpdate)) http.H
 				}
 			}()
 		})
+		if u != nil {
+			select {
+			case c.queue <- *u:
+			default:
+				http.Error(w, "busy", http.StatusServiceUnavailable) // Twilio retries
+				return
+			}
+		}
 		w.Header().Set("Content-Type", "text/xml")
 		io.WriteString(w, `<?xml version="1.0" encoding="UTF-8"?><Response></Response>`)
-		if u != nil {
-			c.queue <- *u
-		}
 	}
 }
 

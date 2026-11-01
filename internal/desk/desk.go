@@ -12,6 +12,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -42,7 +43,8 @@ type Desk struct {
 	Threshold float64
 	Autonomy  *Autonomy // nil: no autonomy tracking (classic)
 
-	hist sync.Map // customer id → *history
+	hist sync.Map   // customer id → *history
+	book sync.Mutex // Confirm: one booking at a time
 }
 
 type history struct {
@@ -595,11 +597,14 @@ func (d *Desk) fail(ctx context.Context, chat int64, what string, err error) {
 	d.say(ctx, chat, "😕 Désolé, "+what+".")
 }
 
+// safeName: what of a chat key may name a folder.
+var safeName = regexp.MustCompile(`[^A-Za-z0-9_-]`)
+
 // Keep stores a received file (voice note, photo, invoice) as evidence.
 func (d *Desk) Keep(key, ext string, data []byte) string { return d.keep(key, ext, data) }
 
 func (d *Desk) keep(key, ext string, data []byte) string {
-	dir := filepath.Join(d.DataDir, "media", strings.ReplaceAll(key, ":", "_"))
+	dir := filepath.Join(d.DataDir, "media", safeName.ReplaceAllString(key, "_"))
 	if os.MkdirAll(dir, 0o755) != nil {
 		return ""
 	}
@@ -616,7 +621,7 @@ func toWAV(ctx context.Context, audio []byte) ([]byte, error) {
 	if bin == "" {
 		bin = "ffmpeg"
 	}
-	cmd := exec.CommandContext(ctx, bin, "-hide_banner", "-loglevel", "error", "-i", "pipe:0", "-ac", "1", "-ar", "16000", "-f", "wav", "pipe:1")
+	cmd := exec.CommandContext(ctx, bin, "-hide_banner", "-loglevel", "error", "-protocol_whitelist", "pipe", "-i", "pipe:0", "-ac", "1", "-ar", "16000", "-f", "wav", "pipe:1")
 	cmd.Stdin = bytes.NewReader(audio)
 	var out, errb bytes.Buffer
 	cmd.Stdout, cmd.Stderr = &out, &errb

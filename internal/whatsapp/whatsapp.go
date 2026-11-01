@@ -38,8 +38,8 @@ type Client struct {
 	HTTP        *http.Client
 
 	mu      sync.Mutex
-	pending map[int64][]string  // chat → button data of a numbered choice
-	last    map[int64]string    // chat → last incoming message id (read receipts, typing)
+	pending map[int64][]string   // chat → button data of a numbered choice
+	last    map[int64]string     // chat → last incoming message id (read receipts, typing)
 	seen    map[string]time.Time // incoming message ids already handled (Meta retries)
 	queue   chan telegram.TgUpdate
 	once    sync.Once
@@ -245,7 +245,7 @@ func (c *Client) Download(ctx context.Context, fileID string) ([]byte, error) {
 	if res.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("whatsapp media: HTTP %d", res.StatusCode)
 	}
-	return io.ReadAll(res.Body)
+	return telegram.ReadMax(res.Body)
 }
 
 // ---- receiving -------------------------------------------------------------------------------
@@ -261,11 +261,11 @@ type inbound struct {
 					} `json:"profile"`
 				} `json:"contacts"`
 				Messages []struct {
-					From  string `json:"from"`
-					ID    string `json:"id"`
-					Type  string `json:"type"`
+					From  string                `json:"from"`
+					ID    string                `json:"id"`
+					Type  string                `json:"type"`
 					Text  struct{ Body string } `json:"text"`
-					Audio struct{ ID string } `json:"audio"`
+					Audio struct{ ID string }   `json:"audio"`
 					Image struct {
 						ID      string `json:"id"`
 						Caption string `json:"caption"`
@@ -277,7 +277,7 @@ type inbound struct {
 						Caption  string `json:"caption"`
 					} `json:"document"`
 					Interactive struct {
-						Type        string `json:"type"`
+						Type        string                     `json:"type"`
 						ButtonReply struct{ ID, Title string } `json:"button_reply"`
 						ListReply   struct{ ID, Title string } `json:"list_reply"`
 					} `json:"interactive"`
@@ -405,10 +405,15 @@ func (c *Client) Webhook(handle func(context.Context, telegram.TgUpdate)) http.H
 				}
 			}()
 		})
-		w.WriteHeader(http.StatusOK)
 		for _, u := range ups {
-			c.queue <- u
+			select {
+			case c.queue <- u:
+			default:
+				http.Error(w, "busy", http.StatusServiceUnavailable) // Meta retries
+				return
+			}
 		}
+		w.WriteHeader(http.StatusOK)
 	}
 }
 

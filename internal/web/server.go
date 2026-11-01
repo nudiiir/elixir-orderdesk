@@ -7,8 +7,12 @@ import (
 	"embed"
 	"encoding/base64"
 	"encoding/json"
+	"io"
 	"io/fs"
+	"math"
+	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -18,12 +22,12 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/dolibarr"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/elixir"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/erpnext"
-	"github.com/nudiiir/elixir-orderdesk/internal/adapter/tryton"
-	"github.com/nudiiir/elixir-orderdesk/internal/adapter/dolibarr"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/inventree"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/odoo"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/tryton"
 	"github.com/nudiiir/elixir-orderdesk/internal/catalog"
 	"github.com/nudiiir/elixir-orderdesk/internal/desk"
 	"github.com/nudiiir/elixir-orderdesk/internal/engineer"
@@ -53,9 +57,63 @@ type Server struct {
 func (s *Server) Handler() http.Handler {
 	r := chi.NewRouter()
 	if s.WhatsApp != nil {
+		// the only route a tunnel may reach: every call is signed by Meta or Twilio
 		r.Get("/whatsapp/webhook", s.WhatsApp.ServeHTTP)
 		r.Post("/whatsapp/webhook", s.WhatsApp.ServeHTTP)
 	}
+	r.Group(func(r chi.Router) {
+		r.Use(localOnly)
+		s.panel(r)
+	})
+	return r
+}
+
+// localOnly keeps the panel and its API to this computer. The panel has no login: it trusts whoever
+// can reach 127.0.0.1. A request that came through a tunnel or a proxy (forwarding headers), names
+// another host (DNS rebinding), or is a write from another site's page (CSRF) is refused.
+func localOnly(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("X-Frame-Options", "DENY")
+		w.Header().Set("X-Content-Type-Options", "nosniff")
+		w.Header().Set("Referrer-Policy", "no-referrer")
+		if !loopbackHost(r.Host) || !loopbackHost(r.RemoteAddr) ||
+			r.Header.Get("X-Forwarded-For") != "" || r.Header.Get("Forwarded") != "" || r.Header.Get("Cf-Connecting-Ip") != "" {
+			http.Error(w, "the Order Desk panel only answers on this computer (127.0.0.1)", http.StatusForbidden)
+			return
+		}
+		if r.Method != http.MethodGet && r.Method != http.MethodHead {
+			if o := r.Header.Get("Origin"); o != "" {
+				u, err := url.Parse(o)
+				if err != nil || !loopbackHost(u.Host) {
+					http.Error(w, "cross-site request refused", http.StatusForbidden)
+					return
+				}
+			}
+			ct := r.Header.Get("Content-Type")
+			if !strings.HasPrefix(ct, "application/json") && !strings.HasPrefix(ct, "multipart/form-data") {
+				http.Error(w, "send JSON", http.StatusUnsupportedMediaType)
+				return
+			}
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
+// loopbackHost tells whether a host or host:port is this computer.
+func loopbackHost(hp string) bool {
+	h := hp
+	if host, _, err := net.SplitHostPort(hp); err == nil {
+		h = host
+	}
+	h = strings.Trim(h, "[]")
+	if h == "localhost" || strings.HasSuffix(h, ".localhost") {
+		return true
+	}
+	ip := net.ParseIP(h)
+	return ip != nil && ip.IsLoopback()
+}
+
+func (s *Server) panel(r chi.Router) {
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/overview", s.overview)
 		r.Get("/drafts", s.drafts)
@@ -93,7 +151,6 @@ func (s *Server) Handler() http.Handler {
 	r.Get("/media", s.media)
 	sub, _ := fs.Sub(static, "static")
 	r.Handle("/*", http.FileServer(http.FS(sub)))
-	return r
 }
 
 func writeJSON(w http.ResponseWriter, status int, v any) {
@@ -106,7 +163,10 @@ func writeErr(w http.ResponseWriter, status int, msg string) {
 	writeJSON(w, status, map[string]string{"error": msg})
 }
 
-func decode(r *http.Request, v any) error { return json.NewDecoder(r.Body).Decode(v) }
+// decode reads a JSON body of at most 1 MB (the panel's photo route reads its own, larger limit).
+func decode(r *http.Request, v any) error {
+	return json.NewDecoder(io.LimitReader(r.Body, 1<<20)).Decode(v)
+}
 
 func (s *Server) productName(id string) string {
 	if p := s.Cat.Get(id); p != nil {
@@ -183,15 +243,15 @@ func (s *Server) learning(w http.ResponseWriter, r *http.Request) {
 	}
 	since := time.Now().AddDate(0, 0, -days+1).Format("2006-01-02")
 	type day struct {
-		Day       string  `json:"day"`
-		Alias     int     `json:"alias"`
-		Rules     int     `json:"rules"`
-		History   int     `json:"history"`
-		AI        int     `json:"ai"`
-		Person    int     `json:"person"`
-		Lines     int     `json:"lines"`
-		Cost      float64 `json:"cost"`
-		Calls     int     `json:"resolve_calls"`
+		Day       string   `json:"day"`
+		Alias     int      `json:"alias"`
+		Rules     int      `json:"rules"`
+		History   int      `json:"history"`
+		AI        int      `json:"ai"`
+		Person    int      `json:"person"`
+		Lines     int      `json:"lines"`
+		Cost      float64  `json:"cost"`
+		Calls     int      `json:"resolve_calls"`
 		RulesLive []string `json:"rules_live"`
 		RulesBack []string `json:"rules_back"`
 	}
@@ -306,17 +366,17 @@ func (s *Server) learning(w http.ResponseWriter, r *http.Request) {
 // ---- drafts & lines --------------------------------------------------------------------
 
 type draftRow struct {
-	ID         string `json:"id"`
-	ChatKey    string `json:"chat_key"`
-	CustomerID string `json:"customer_id"`
-	Customer   string `json:"customer"`
-	Status     string `json:"status"`
-	Number     string `json:"erp_order_number"`
-	TotalTTC   int64  `json:"total_ttc"`
-	Delivery   string `json:"delivery"`
-	CreatedAt  string `json:"created_at"`
-	UpdatedAt  string `json:"updated_at"`
-	Lines      int    `json:"lines"`
+	ID         string  `json:"id"`
+	ChatKey    string  `json:"chat_key"`
+	CustomerID string  `json:"customer_id"`
+	Customer   string  `json:"customer"`
+	Status     string  `json:"status"`
+	Number     string  `json:"erp_order_number"`
+	TotalTTC   int64   `json:"total_ttc"`
+	Delivery   string  `json:"delivery"`
+	CreatedAt  string  `json:"created_at"`
+	UpdatedAt  string  `json:"updated_at"`
+	Lines      int     `json:"lines"`
 	Pending    int     `json:"pending"`
 	Kinds      string  `json:"kinds"`
 	AICost     float64 `json:"ai_cost"`
@@ -464,7 +524,13 @@ func (s *Server) confirm(w http.ResponseWriter, r *http.Request) {
 		writeErr(w, 400, err.Error())
 		return
 	}
-	writeJSON(w, http.StatusOK, ref)
+	out := map[string]any{"id": ref.ID, "number": ref.Number, "total_ttc": ref.TotalTTC}
+	if s.Desk.ERP != nil {
+		if e := s.Desk.ERP(); e != nil {
+			out["url"] = e.OrderURL(ref) // where the order opens in the ERP's own screens
+		}
+	}
+	writeJSON(w, http.StatusOK, out)
 }
 
 func (s *Server) choose(w http.ResponseWriter, r *http.Request) {
@@ -503,8 +569,12 @@ func (s *Server) try(w http.ResponseWriter, r *http.Request) {
 		Text       string `json:"text"`
 		Image      string `json:"image"` // optional photo, base64: a written list or the products themselves
 	}
-	if decode(r, &in) != nil || in.CustomerID == "" || (strings.TrimSpace(in.Text) == "" && in.Image == "") {
-		writeErr(w, 400, "customer_id and a text or a photo are required")
+	if json.NewDecoder(io.LimitReader(r.Body, 20<<20)).Decode(&in) != nil || in.CustomerID == "" || (strings.TrimSpace(in.Text) == "" && in.Image == "") {
+		writeErr(w, 400, "customer_id and a text or a photo (20 MB at most) are required")
+		return
+	}
+	if !s.knownCustomer(in.CustomerID) {
+		writeErr(w, 400, "unknown customer")
 		return
 	}
 	key, msgID, kind, text, media, heard := "panel:"+in.CustomerID, store.NewID("msg"), "text", in.Text, "", ""
@@ -902,16 +972,29 @@ func (s *Server) putSettings(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	for k, v := range in {
-		if _, ok := settingKeys[k]; ok {
-			s.DB.SetSetting(k, strings.TrimSpace(v))
+		v = strings.TrimSpace(v)
+		if _, ok := settingKeys[k]; !ok {
+			continue
 		}
+		if !strings.HasSuffix(k, "_model") {
+			// every other setting is a count, a price or a budget: a number, never negative
+			if f, err := strconv.ParseFloat(v, 64); err != nil || f < 0 || math.IsInf(f, 0) {
+				writeErr(w, 400, k+" must be a number ≥ 0")
+				return
+			}
+		} else if v == "" {
+			writeErr(w, 400, k+" must name a model")
+			return
+		}
+		s.DB.SetSetting(k, v)
 	}
 	s.DB.Event("settings.changed", "settings", "clerk", in)
 	s.settings(w, r)
 }
 
-// erpConnect opens a session on the ERP with the person's credentials. Only the session token is
-// kept; the password is used once and never stored.
+// erpConnect opens a session on the ERP with the person's credentials. For ERPNext, Tryton, Dolibarr and
+// InvenTree the password is used once to obtain an API key, and only the key is kept. Odoo's API takes the
+// login and a secret on every call, so for Odoo the secret given here is kept: give it an Odoo API key.
 func (s *Server) erpConnect(w http.ResponseWriter, r *http.Request) {
 	var in struct {
 		Kind     string `json:"kind"` // elixir | odoo | erpnext | tryton | dolibarr | inventree
@@ -1017,9 +1100,16 @@ func (s *Server) media(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	p := filepath.Join(s.DataDir, "media", rel)
-	if _, err := os.Stat(p); err != nil {
+	if st, err := os.Stat(p); err != nil || !st.Mode().IsRegular() {
 		http.NotFound(w, r)
 		return
 	}
 	http.ServeFile(w, r, p)
+}
+
+// knownCustomer tells whether a customer id is one the desk knows (from the ERP or the demo seed).
+func (s *Server) knownCustomer(id string) bool {
+	var n int
+	s.DB.QueryRow(`SELECT COUNT(*) FROM customers WHERE id = ?`, id).Scan(&n)
+	return n > 0
 }
