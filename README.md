@@ -17,6 +17,11 @@ ERP, guessing which of 1,000 products "ifri 1.5" or "VIS TH M8X20 ZN BT100" mean
 The same desk reads supplier invoices (Muse Spark and Muse Wonder read each one independently) and books them
 as goods receipts. It runs on WhatsApp (Meta's Cloud API), Telegram and its own panel.
 
+> **Try it without any setup: [the live replay](https://nudiiir.github.io/elixir-orderdesk/demo/).** A recorded
+> run of the real pipeline: a typed WhatsApp order, a Darja voice note, a supplier invoice photo and the next
+> order settled for free, with every line's resolution step, every Meta model call (tokens and cost) and the
+> document booked in Odoo. `tools/record_demo.py` records it again on your machine.
+
 <p align="center"><img src="docs/media/odoo-1-question.jpg" alt="The Order Desk inbox: a shop's order resolved line by line, one question left" width="900"></p>
 
 ### Muse Spark builds the free path

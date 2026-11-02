@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order Desk Live Replay</title>
+<meta name="description" content="A recorded run of Elixir Order Desk: WhatsApp orders, a Darja voice note and a supplier invoice going into Odoo through Meta's models, with every step and every model call shown.">
+<style>
+:root {
+  --bg: #f5f3ee; --panel: #ffffff; --ink: #1d232b; --ink2: #5b6470; --rule: #e3dfd6;
+  --accent: #0f6e5c; --accent-t: #e1f2ec; --ai: #6a3fd6; --ai-t: #eee8fd; --person: #b5531a; --person-t: #fbeadf;
+  --free: #1f7a3d; --free-t: #e3f4e8; --warn: #9a6a00; --warn-t: #fff3d6;
+  --phone: #0b141a; --chat: #efeae2; --bubble-in: #ffffff; --bubble-out: #d9fdd3; --bubble-ink: #111b21; --meta: #667781;
+  --shadow: 0 1px 2px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161b; --panel: #1a2027; --ink: #e8ecf0; --ink2: #9aa5b1; --rule: #2a323c;
+    --accent: #3fc1a0; --accent-t: #173a33; --ai: #a98bff; --ai-t: #2a2342; --person: #f0a070; --person-t: #3d2a1e;
+    --free: #5fd17f; --free-t: #1b3524; --warn: #f2c14e; --warn-t: #3a3018;
+    --chat: #0b141a; --bubble-in: #202c33; --bubble-out: #005c4b; --bubble-ink: #e9edef; --meta: #8696a0;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12161b; --panel: #1a2027; --ink: #e8ecf0; --ink2: #9aa5b1; --rule: #2a323c;
+  --accent: #3fc1a0; --accent-t: #173a33; --ai: #a98bff; --ai-t: #2a2342; --person: #f0a070; --person-t: #3d2a1e;
+  --free: #5fd17f; --free-t: #1b3524; --warn: #f2c14e; --warn-t: #3a3018;
+  --chat: #0b141a; --bubble-in: #202c33; --bubble-out: #005c4b; --bubble-ink: #e9edef; --meta: #8696a0;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.3);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+a { color: var(--accent); }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 24px 16px 64px; }
+header h1 { font-size: 28px; line-height: 1.2; margin: 0 0 6px; letter-spacing: -.01em; }
+header p { margin: 0; color: var(--ink2); max-width: 820px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+.facts li { background: var(--panel); border: 1px solid var(--rule); border-radius: 999px; padding: 4px 12px; font-size: 13px; color: var(--ink2); }
+.facts b { color: var(--ink); }
+.links { margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; }
+nav.tabs { display: flex; gap: 8px; margin: 24px 0 16px; overflow-x: auto; padding-bottom: 4px; }
+nav.tabs button { flex: none; border: 1px solid var(--rule); background: var(--panel); color: var(--ink); border-radius: 10px; padding: 10px 14px; font: inherit; font-size: 14px; cursor: pointer; text-align: left; }
+nav.tabs button small { display: block; color: var(--ink2); font-size: 12px; }
+nav.tabs button[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); background: var(--accent-t); }
+.scene-intro { margin: 0 0 16px; color: var(--ink2); max-width: 900px; }
+.grid { display: grid; grid-template-columns: 380px 1fr; gap: 20px; align-items: start; }
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+/* phone */
+.phone { background: var(--phone); border-radius: 28px; padding: 10px; box-shadow: var(--shadow); max-width: 380px; margin: 0 auto; width: 100%; }
+.phone-top { color: #e9edef; display: flex; align-items: center; gap: 10px; padding: 8px 10px 10px; }
+.phone-top .av { width: 34px; height: 34px; border-radius: 50%; background: #25d366; color: #0b141a; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+.phone-top b { display: block; font-size: 15px; }
+.phone-top small { color: #8696a0; font-size: 12px; }
+.chat { background: var(--chat); border-radius: 18px; height: 560px; overflow-y: auto; padding: 12px 10px; display: flex; flex-direction: column; gap: 6px; scroll-behavior: smooth; }
+.b { max-width: 86%; padding: 6px 9px 4px; border-radius: 8px; color: var(--bubble-ink); font-size: 14px; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; box-shadow: 0 1px .5px rgba(0,0,0,.13); animation: pop .25s ease-out; }
+.b.in { align-self: flex-end; background: var(--bubble-out); }
+.b.out { align-self: flex-start; background: var(--bubble-in); }
+.b .gloss { display: block; margin-top: 4px; padding-top: 4px; border-top: 1px dashed rgba(127,127,127,.35); color: var(--meta); font-size: 12px; font-style: italic; }
+.b .t { display: block; text-align: right; font-size: 11px; color: var(--meta); margin-top: 2px; }
+.b img { width: 100%; border-radius: 6px; display: block; margin-bottom: 4px; }
+.b audio { width: 230px; max-width: 100%; height: 36px; display: block; }
+.btns { align-self: flex-start; max-width: 86%; display: grid; gap: 4px; animation: pop .25s ease-out; }
+.btns span { background: var(--bubble-in); color: #00a884; border-radius: 8px; padding: 7px 10px; font-size: 13.5px; text-align: center; box-shadow: 0 1px .5px rgba(0,0,0,.13); }
+.btns span.chosen { outline: 2px solid #00a884; font-weight: 600; }
+.tap { align-self: flex-end; font-size: 12px; color: var(--meta); padding: 0 4px; }
+.typing { align-self: flex-start; font-size: 12px; color: var(--meta); padding: 2px 6px; }
+@keyframes pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .b, .btns { animation: none; } .chat { scroll-behavior: auto; } }
+.controls { display: flex; gap: 8px; justify-content: center; margin: 10px 0 0; flex-wrap: wrap; }
+.controls button, .controls label { font: inherit; font-size: 13px; border: 1px solid var(--rule); background: var(--panel); color: var(--ink); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+.controls button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.controls label { display: inline-flex; gap: 6px; align-items: center; }
+/* inside */
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); margin-bottom: 16px; }
+.panel h2 { font-size: 16px; margin: 0 0 4px; }
+.panel .sub { color: var(--ink2); font-size: 13px; margin: 0 0 12px; }
+.lines { display: grid; gap: 8px; }
+.line { border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; }
+.line .said { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13.5px; color: var(--ink2); overflow-wrap: anywhere; }
+.line .prod { font-weight: 600; }
+.line .why { grid-column: 1 / -1; font-size: 13px; color: var(--ink2); }
+.line .flags { grid-column: 1 / -1; display: flex; gap: 6px; flex-wrap: wrap; }
+.flag { font-size: 12px; background: var(--warn-t); color: var(--warn); border-radius: 6px; padding: 1px 8px; }
+.step { font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 10px; white-space: nowrap; align-self: start; }
+.step.free { background: var(--free-t); color: var(--free); }
+.step.ai { background: var(--ai-t); color: var(--ai); }
+.step.person { background: var(--person-t); color: var(--person); }
+.ladder { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; color: var(--ink2); margin: 0 0 12px; padding: 0; list-style: none; }
+.ladder li { border: 1px solid var(--rule); border-radius: 6px; padding: 2px 8px; }
+.ladder li.on { border-color: currentColor; font-weight: 600; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { color: var(--ink2); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td code { font-size: 12.5px; }
+.tablewrap { overflow-x: auto; }
+.total { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px; font-size: 14px; }
+.total b { font-variant-numeric: tabular-nums; }
+.erp img { width: 100%; border-radius: 8px; border: 1px solid var(--rule); display: block; }
+.erp .doc { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.erp .doc b { font-size: 18px; }
+.gallery { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+@media (max-width: 900px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+.gallery a { text-decoration: none; color: var(--ink); font-size: 13px; }
+.gallery img { width: 100%; border-radius: 8px; border: 1px solid var(--rule); display: block; margin-bottom: 4px; aspect-ratio: 1500/940; object-fit: cover; object-position: top; }
+footer { color: var(--ink2); font-size: 13px; margin-top: 24px; }
+footer code { font-size: 12.5px; }
+.theme { position: absolute; top: 16px; right: 16px; }
+.theme button { font: inherit; font-size: 12px; border: 1px solid var(--rule); background: var(--panel); color: var(--ink2); border-radius: 8px; padding: 4px 10px; cursor: pointer; }
+.err { background: var(--warn-t); color: var(--warn); padding: 12px; border-radius: 10px; }
+</style>
+</head>
+<body>
+<div class="theme"><button id="theme" type="button" aria-label="Switch light or dark theme">◐ Theme</button></div>
+<div class="wrap">
+  <header>
+    <h1>Elixir Order Desk: live replay</h1>
+    <p>A recorded run of the real pipeline, so you can see it work without a key or any setup. Each message
+      went through Order Desk exactly as it would in production: WhatsApp (through the repo's local simulator),
+      Meta's models through the Meta Model API, and orders and goods receipts booked in the Odoo test ERP from
+      <code>erps/</code>. Only the replay timing is added; every message, step, model call and cost below was recorded.</p>
+    <ul class="facts" id="facts"></ul>
+    <div class="links">
+      <a href="https://github.com/nudiiir/elixir-orderdesk">Source code and setup (GitHub)</a>
+      <a href="data.json">Raw recording (data.json)</a>
+      <a href="https://github.com/nudiiir/elixir-orderdesk/blob/main/tools/record_demo.py">How it was recorded</a>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Scenes"></nav>
+  <p class="scene-intro" id="intro"></p>
+
+  <div class="grid">
+    <div>
+      <div class="phone" aria-label="WhatsApp conversation">
+        <div class="phone-top"><div class="av" id="av">OD</div><div><b id="who">Order Desk</b><small id="whosub">WhatsApp · the distributor's number</small></div></div>
+        <div class="chat" id="chat" aria-live="polite"></div>
+      </div>
+      <div class="controls">
+        <button class="primary" id="play" type="button">▶ Replay</button>
+        <button id="all" type="button">Show all</button>
+        <label><input type="checkbox" id="en" checked> English notes</label>
+      </div>
+    </div>
+    <div>
+      <section class="panel">
+        <h2>Inside the desk: how each line was resolved</h2>
+        <p class="sub">The cheapest step that can answer does: codes, learned wordings and rules are free; Muse Spark
+          only picks from a shortlist the code built; when two products still fit, the shop is asked.</p>
+        <ul class="ladder" id="ladder"></ul>
+        <div class="lines" id="lines"></div>
+      </section>
+      <section class="panel">
+        <h2>Meta model calls in this scene</h2>
+        <p class="sub" id="callsub"></p>
+        <div class="tablewrap"><table id="calls"></table></div>
+        <div class="total" id="total"></div>
+      </section>
+      <section class="panel erp">
+        <h2>What landed in the ERP</h2>
+        <div class="doc" id="doc"></div>
+        <a id="erplink" href="#"><img id="erpimg" alt="The booked document in Odoo" loading="lazy"></a>
+      </section>
+    </div>
+  </div>
+
+  <section class="panel" style="margin-top:20px">
+    <h2>Same order, five ERPs</h2>
+    <p class="sub">The same four-line order as the first scene, sent through the same desk into each open-source ERP in <code>erps/</code>,
+      then opened in that ERP's own screens. Every adapter passes the same live conformance test.</p>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <footer>
+    <p>Recorded <span id="rec"></span> with <code>tools/record_demo.py</code> against the seeded Odoo 18 in <code>erps/odoo</code>
+      (120 drinks and dairy products, 15 shops). The demo distributor, its shops and the specimen invoice are fictional.
+      The voice note is a synthesized Darja voice reading a typical shop order. To run it yourself: follow the README,
+      then <code>python tools/record_demo.py</code>.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const wa = (s) => esc(s).replace(/\*([^*\n]+)\*/g, "<b>$1</b>").replace(/_([^_\n]+)_/g, "<i>$1</i>");
+  const money = (cents) => (Math.round((cents || 0) / 100)).toLocaleString("fr-FR").replace(/ /g, " ") + " DA";
+
+  // theme toggle (remembered per viewer when storage works)
+  try { const t = localStorage.getItem("od-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  $("#theme").onclick = () => {
+    const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+    const cur = document.documentElement.dataset.theme || (dark ? "dark" : "light");
+    const next = cur === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("od-theme", next); } catch (e) {}
+  };
+
+  const SCENES = {
+    typed: { tab: "1 · Typed order", sub: "4 lines, 1 question", intro: "A shop types its order the way shops do. Three lines are settled for free by the rules (brand + size); “ngaous abricot” fits two products, so the shop gets one question with buttons. Then the order is booked in Odoo." },
+    voice: { tab: "2 · Voice note in Darja", sub: "Muse Voice Transcribe + Spark", intro: "A shop sends a voice note in Darja. Muse Voice Transcribe hears it, biased with the catalogue's brand and product names; Muse Spark cuts it into items without ever choosing products; the code matches each item, and asks only what the shop did not say (the size of the Selecto, which Rouiba juice)." },
+    invoice: { tab: "3 · Supplier invoice", sub: "photo → goods receipt", intro: "The distributor forwards a photo of a supplier invoice. Muse Spark reads every line and Muse Wonder reads the same paper on its own; a line the two readers disagree on would be flagged. The lines are matched in that supplier's scope and the goods receipt is booked: stock goes up." },
+    learned: { tab: "4 · Next order: free", sub: "what it learned, $0", intro: "The first shop orders again. The answer it gave in scene 1 is now this shop's habit, so every line is settled by code: no question, no model call, $0." },
+  };
+  const GLOSS = [
+    [/^❓ « (.+) » : lequel \?$/s, "Which product is “$1”?"],
+    [/^❓ Je ne trouve pas « (.+) » dans le catalogue\.$/s, "I can't find “$1” in the catalogue."],
+    [/^❓ (.+) : (.+) \?$/s, "$1: $2?"],
+    [/^✔️ « (.+) » → (.+)$/s, "“$1” → $2"],
+    [/^✖ Ligne retirée/, "Line removed"],
+    [/^🎤/, null],
+    [/^🧾 \*Facture (\S+)\* — ([^\n]+)\n(\d+) ligne\(s\) : (\d+) reconnues par les règles, (\d+) par l'IA, (\d+) à vérifier/s, "Invoice $1 from $2: $3 lines, $4 matched by rules, $5 by AI, $6 to check."],
+    [/^🧾 \*Votre commande\*/, "Your order (summary with prices, packs and stock checks)."],
+    [/^✅ Vous êtes lié|lié/, "Chat linked to the shop."],
+  ];
+  const TAIL = [
+    [/✅ Commande \*(\S+)\* enregistrée\./, "Order $1 booked in the ERP."],
+    [/✅ Bon de réception \*([^*]+)\* enregistré dans l'ERP\./, "Goods receipt $1 booked in the ERP."],
+  ];
+  const BTN = { "✅ Confirmer": "Confirm", "✏️ Corriger une ligne": "Correct a line", "❌ Annuler": "Cancel", "✖ Retirer cette ligne": "Remove this line", "✅ Valider la réception": "Approve the receipt" };
+  const TRANSL = { voice: "“Hello, send me five cartons of Hamoud Selecto, two cartons of Rouiba and one Elio five litres.” (Darja, translated)" };
+  const STEP = {
+    code: ["Code", "free"], alias: ["Learned wording", "free"], rules: ["Rules", "free"], history: ["Last order", "free"],
+    ai: ["Muse Spark", "ai"], person: ["Asked the shop", "person"], none: ["Not found", "person"],
+  };
+  const USED = { match: "brand, product and size match one catalogue product", habit: "this shop's habit (its last answer)", hint: "Muse Spark's reading of the line", spark: "Muse Spark picked it from the code's shortlist", ask: "two products fit: the shop was asked" };
+  const CALL = { transcribe: "voice note → text", extract: "message → items (no product choice)", resolve: "pick from the shortlist", invoice: "read the invoice photo", read: "read the photo" };
+  const CALLWHO = { "muse-wonder-1.0|invoice": "second, independent reading of the invoice" };
+
+  function gloss(text, scene) {
+    if (/^🎤/.test(text)) return TRANSL[scene] || "";
+    let g = "";
+    for (const [re, en] of GLOSS) { if (re.test(text)) { g = en === null ? "" : text.replace(re, en).split("\n")[0]; break; } }
+    for (const [re, en] of TAIL) { const m = text.match(re); if (m) g = (g ? g + " " : "") + m[0].replace(re, en); }
+    return g;
+  }
+
+  let data, current = "typed", timer = null;
+
+  function bubble(m, scene) {
+    const showEn = $("#en").checked;
+    if (m.dir === "tap") return `<div class="tap">tapped “${esc(m.text)}”</div>`;
+    if (m.dir === "in") {
+      let inner = "";
+      if (m.voice) inner = `<audio controls preload="none" src="${esc(data.audio || "voice-order-darja.mp3")}"></audio><span class="gloss" ${showEn ? "" : "hidden"}>🎤 voice note, ${m.seconds || ""} s</span>`;
+      else if (m.image) inner = `<img src="${esc(m.image)}" alt="Photo of the supplier invoice">${esc(m.text || "")}`;
+      else inner = esc(m.text);
+      return `<div class="b in">${inner}<span class="t">${m.t}s ✓✓</span></div>`;
+    }
+    const g = gloss(m.text || "", scene);
+    let h = `<div class="b out">${wa(m.text)}${g && showEn ? `<span class="gloss">${esc(g)}</span>` : ""}<span class="t">${m.t}s</span></div>`;
+    if (m.buttons && m.buttons.length) {
+      h += `<div class="btns">${m.buttons.map((b) => `<span data-title="${esc(b.title)}">${esc(b.title)}${showEn && BTN[b.title] ? ` · <i>${esc(BTN[b.title])}</i>` : ""}</span>`).join("")}</div>`;
+    }
+    return h;
+  }
+
+  function markChosen(chat, title) {
+    const all = [...chat.querySelectorAll(".btns span")];
+    for (let i = all.length - 1; i >= 0; i--) { if (all[i].dataset.title === title) { all[i].classList.add("chosen"); break; } }
+  }
+
+  function renderChat(scene, upto) {
+    const s = data.scenes.find((x) => x.id === scene);
+    const chat = $("#chat");
+    chat.innerHTML = "";
+    const n = upto === undefined ? s.chat.length : upto;
+    for (let i = 0; i < n; i++) {
+      chat.insertAdjacentHTML("beforeend", bubble(s.chat[i], scene));
+      if (s.chat[i].dir === "tap") markChosen(chat, s.chat[i].text);
+    }
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function play() {
+    clearTimeout(timer);
+    const s = data.scenes.find((x) => x.id === current);
+    const chat = $("#chat");
+    chat.innerHTML = "";
+    let i = 0;
+    const step = () => {
+      chat.querySelector(".typing")?.remove();
+      if (i >= s.chat.length) return;
+      const m = s.chat[i];
+      chat.insertAdjacentHTML("beforeend", bubble(m, current));
+      if (m.dir === "tap") markChosen(chat, m.text);
+      chat.scrollTop = chat.scrollHeight;
+      i++;
+      if (i < s.chat.length) {
+        const next = s.chat[i];
+        const real = Math.max(0, (next.t || 0) - (m.t || 0));
+        if (next.dir === "out" && real > 1) chat.insertAdjacentHTML("beforeend", `<div class="typing">Order Desk is working… (${real.toFixed(1)} s in the recording)</div>`);
+        chat.scrollTop = chat.scrollHeight;
+        timer = setTimeout(step, next.dir === "out" ? Math.min(2200, 500 + real * 120) : 1300);
+      }
+    };
+    step();
+  }
+
+  function renderInside(scene) {
+    const s = data.scenes.find((x) => x.id === scene);
+    const d = (s.inside.drafts || []).slice(-1)[0] || { lines: [] };
+    const used = new Set(d.lines.map((l) => ({ history: "rules", none: "person" })[l.level] || l.level));
+    $("#ladder").innerHTML = [["Codes", "code", "free"], ["Learned wordings", "alias", "free"], ["Rules", "rules", "free"], ["Muse Spark pick", "ai", "ai"], ["Ask the shop", "person", "person"]]
+      .map(([t, lv, k]) => `<li class="${used.has(lv) ? "on step " + k : ""}">${t}</li>`).join("<li aria-hidden=\"true\" style=\"border:0;padding:2px 0\">→</li>");
+    $("#lines").innerHTML = d.lines.map((l) => {
+      const [name, kind] = STEP[l.level] || STEP.none;
+      const why = (l.used || []).map((u) => USED[u] || u).join("; ") || (l.level === "person" ? "the line did not say which one: the shop chose" : "");
+      const flags = Object.values(l.checks || {}).map((f) => `<span class="flag">${esc(f.replace("unité non précisée : carton x6", "unit not said: assumed carton of 6").replace(/stock insuffisant \((\d+) disponibles\)/, "low stock ($1 available)"))}</span>`).join("");
+      const opts = l.options && l.options.length && l.level === "person" ? ` · options offered: ${l.options.map(esc).join(", ")}` : "";
+      return `<div class="line"><div><div class="said">« ${esc(l.said)} » ×${l.qty}${l.unit ? " " + esc(l.unit) : ""}</div><div class="prod">${l.status === "removed" ? "removed" : "→ " + esc(l.product)}${l.pack ? ` <span style="color:var(--ink2);font-weight:400">(${esc(l.pack)})</span>` : ""}</div></div>
+        <span class="step ${kind}">${name}</span>
+        <div class="why">${esc(why)}${opts}${l.confidence && l.level === "ai" ? ` · confidence ${l.confidence}` : ""}</div>
+        ${flags ? `<div class="flags">${flags}</div>` : ""}</div>`;
+    }).join("");
+    const calls = s.inside.ai_calls || [];
+    $("#callsub").textContent = calls.length ? "Every call is metered by the desk (tokens and cost from the Meta Model API's response)." : "None. Every line was settled by code.";
+    $("#calls").innerHTML = calls.length ? `<thead><tr><th>Model</th><th>Job</th><th class="num">Tokens in</th><th class="num">Tokens out</th><th class="num">Cost</th></tr></thead><tbody>` +
+      calls.map((c) => `<tr><td><code>${esc(c.model)}</code></td><td>${esc(CALLWHO[c.model + "|" + c.purpose] || CALL[c.purpose] || c.purpose)}</td><td class="num">${c.audio_sec ? esc(c.audio_sec.toFixed(1)) + " s audio" : c.tokens_in}</td><td class="num">${c.audio_sec ? "" : c.tokens_out}</td><td class="num">$${c.cost.toFixed(4)}</td></tr>`).join("") + "</tbody>" : "";
+    const cost = calls.reduce((a, c) => a + c.cost, 0);
+    const free = d.lines.filter((l) => (STEP[l.level] || STEP.none)[1] === "free").length;
+    $("#total").innerHTML = `<span>Lines settled free: <b>${free} of ${d.lines.filter((l) => l.status !== "removed").length}</b></span><span>Questions asked: <b>${d.lines.filter((l) => l.level === "person").length}</b></span><span>AI cost of this message: <b>$${cost.toFixed(4)}</b></span>`;
+    const isInv = d.kind === "invoice";
+    $("#doc").innerHTML = `<span>${isInv ? "Goods receipt in Odoo (purchase order received into stock)" : "Sales order in Odoo, confirmed"}</span><b>${esc(d.erp_order_number || "not booked")}</b><span>${isInv ? "invoice total " + money(d.doc_total) + " HT" : money(d.total_ttc) + " TTC"}</span>`;
+    if (s.erp_shot) { $("#erpimg").src = s.erp_shot; $("#erplink").href = s.erp_shot; $("#erpimg").hidden = false; } else { $("#erpimg").hidden = true; }
+  }
+
+  function select(scene) {
+    clearTimeout(timer);
+    current = scene;
+    for (const b of document.querySelectorAll("#tabs button")) b.setAttribute("aria-selected", b.dataset.s === scene ? "true" : "false");
+    const s = data.scenes.find((x) => x.id === scene);
+    $("#intro").textContent = SCENES[scene].intro;
+    $("#who").textContent = s.shop;
+    $("#av").textContent = s.shop.split(/\s+/).filter((w) => /^\p{L}/u.test(w)).slice(-2).map((w) => w[0]).join("").toUpperCase();
+    $("#whosub").textContent = scene === "invoice" ? "the distributor's owner, talking to Order Desk" : "a shop, talking to the distributor's Order Desk";
+    renderInside(scene);
+    renderChat(scene);
+    try { history.replaceState(null, "", "#" + scene); } catch (e) {}
+  }
+
+  fetch("data.json").then((r) => r.json()).then((d) => {
+    data = d;
+    $("#rec").textContent = d.recorded_at;
+    const calls = d.scenes.flatMap((s) => s.inside.ai_calls || []);
+    const models = [...new Set(calls.map((c) => c.model))];
+    const lines = d.scenes.flatMap((s) => (s.inside.drafts || []).flatMap((x) => x.lines));
+    const free = lines.filter((l) => (STEP[l.level] || STEP.none)[1] === "free").length;
+    $("#facts").innerHTML = [
+      `<b>${d.scenes.length}</b> recorded scenes`, `<b>${d.scenes.filter((s) => s.booked).length}</b> documents booked in Odoo`,
+      `<b>${free}/${lines.length}</b> lines settled free by code`, `<b>${models.length}</b> Meta models called: ${models.map(esc).join(", ")}`,
+      `total AI cost <b>$${calls.reduce((a, c) => a + c.cost, 0).toFixed(3)}</b>`,
+    ].map((x) => `<li>${x}</li>`).join("");
+    $("#tabs").innerHTML = d.scenes.map((s) => `<button type="button" role="tab" data-s="${s.id}">${esc(SCENES[s.id].tab)}<small>${esc(SCENES[s.id].sub)}</small></button>`).join("");
+    for (const b of document.querySelectorAll("#tabs button")) b.onclick = () => select(b.dataset.s);
+    $("#gallery").innerHTML = ["odoo", "erpnext", "dolibarr", "inventree", "tryton"].map((e) =>
+      `<a href="../media/${e}-3-erp.jpg"><img src="../media/${e}-3-erp.jpg" alt="The order in ${e}" loading="lazy">${({ odoo: "Odoo 18", erpnext: "ERPNext v16", dolibarr: "Dolibarr 24", inventree: "InvenTree 1.6", tryton: "Tryton 7.0" })[e]}</a>`).join("");
+    const start = (location.hash || "").slice(1);
+    select(SCENES[start] ? start : "typed");
+  }).catch((e) => { $("#lines").innerHTML = `<div class="err">Could not load data.json (${esc(e.message)}). Open this page through a web server, not as a file.</div>`; });
+
+  addEventListener("hashchange", () => { const h = location.hash.slice(1); if (data && SCENES[h] && h !== current) select(h); });
+  $("#play").onclick = play;
+  $("#all").onclick = () => { clearTimeout(timer); renderChat(current); };
+  $("#en").onchange = () => renderChat(current);
+})();
+</script>
+</body>
+</html>

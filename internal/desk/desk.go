@@ -312,7 +312,7 @@ type IngestResult struct {
 func (d *Desk) Ingest(ctx context.Context, key, customerID, msgID, kind, text, media string) (IngestResult, error) {
 	d.DB.Exec(`INSERT INTO messages (id, chat_key, customer_id, kind, text, media_path, created_at) VALUES (?,?,?,?,?,?,?)`,
 		msgID, key, customerID, kind, text, media, store.Now())
-	ex, err := Extract(ctx, d.Meta, d.Cat.Brands(), text, kind == "voice", msgID)
+	ex, err := Extract(ctx, d.Meta, append(append([]string{}, d.Cat.Brands()...), d.Cat.Lines(150)...), text, kind == "voice", msgID)
 	d.DB.Exec(`UPDATE messages SET extraction = ? WHERE id = ?`, ex.Method, msgID)
 	if err != nil && len(ex.Mentions) == 0 {
 		return IngestResult{Ex: ex}, err

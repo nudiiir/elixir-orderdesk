@@ -23,8 +23,9 @@ func TestKeywords(t *testing.T) {
 		{ID: "f", Name: "NO BRAND"},
 	})
 	c := New(db)
-	// most products first, then alphabetical; too long and empty brands are left out
-	if got := c.Keywords(10, 30); !reflect.DeepEqual(got, []string{"CHOUFAN", "ARWA", "KOOL"}) {
+	// brands first (most products first, then alphabetical; too long and empty brands are left out), then the
+	// product-line words that follow a brand in a name
+	if got := c.Keywords(10, 30); !reflect.DeepEqual(got, []string{"CHOUFAN", "ARWA", "KOOL", "CITRON", "FRAISE", "GRENADINE", "SACHET", "VERY"}) {
 		t.Errorf("Keywords = %v", got)
 	}
 	if got := c.Keywords(2, 30); len(got) != 2 {

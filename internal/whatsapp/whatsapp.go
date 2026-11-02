@@ -25,6 +25,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"unicode"
 
 	"github.com/nudiiir/elixir-orderdesk/internal/telegram"
 )
@@ -137,6 +138,42 @@ func cut(s string, n int) string {
 	return string(r[:n-1]) + "…"
 }
 
+// distinct shortens choices that only differ at the end ("Hamoud Boualem Selecto 1L", "… 2L") to what tells
+// them apart, keeping the last shared word ("Selecto 1L", "Selecto 2L"): a list row shows 24 characters, and
+// cut alone would make them all "Hamoud Boualem Selecto …". Choices that share nothing are left whole.
+func distinct(btns []telegram.Button) []string {
+	out := make([]string, len(btns))
+	var words [][]string
+	var idx []int
+	long := false
+	for i, b := range btns {
+		out[i] = b.Text
+		// product names only: action buttons ("✖ Retirer cette ligne") start with a symbol
+		if w := strings.Fields(b.Text); len(w) >= 2 && unicode.IsLetter([]rune(b.Text)[0]) {
+			words, idx = append(words, w), append(idx, i)
+			long = long || len([]rune(b.Text)) > 24
+		}
+	}
+	if len(words) < 2 || !long {
+		return out
+	}
+	common := len(words[0]) - 1
+	for _, w := range words[1:] {
+		n := 0
+		for n < common && n < len(w)-1 && strings.EqualFold(w[n], words[0][n]) {
+			n++
+		}
+		common = n
+	}
+	if common < 2 {
+		return out
+	}
+	for k, i := range idx {
+		out[i] = strings.Join(words[k][common-1:], " ")
+	}
+	return out
+}
+
 // Send writes a message; buttons become WhatsApp reply buttons, a list, or numbered choices.
 func (c *Client) Send(ctx context.Context, chatID int64, text string, rows [][]telegram.Button) (int, error) {
 	to := number(chatID)
@@ -166,8 +203,9 @@ func (c *Client) Send(ctx context.Context, chatID int64, text string, rows [][]t
 		msg["interactive"] = map[string]any{"type": "button", "body": map[string]any{"text": body}, "action": map[string]any{"buttons": bs}}
 	case len(btns) <= 10 && len([]rune(body)) <= 1024:
 		var rs []any
-		for _, b := range btns {
-			row := map[string]any{"id": b.Data, "title": cut(b.Text, 24)}
+		titles := distinct(btns)
+		for i, b := range btns {
+			row := map[string]any{"id": b.Data, "title": cut(titles[i], 24)}
 			if len([]rune(b.Text)) > 24 {
 				row["description"] = cut(b.Text, 72)
 			}

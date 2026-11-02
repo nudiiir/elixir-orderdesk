@@ -271,8 +271,58 @@ func (c *Catalog) Brands() []string {
 	return c.brands
 }
 
+// Lines are the catalogue's product-line names: the first word of a name after its brand ("Selecto" in
+// "Hamoud Boualem Selecto 2L", "Elio" in "Cevital Elio Huile 5L"), kept only when a single brand uses it, so
+// generic words (eau, nectar, huile) are left out. A shop says these as often as the brand, so the voice
+// transcriber and the extractor are told them too. The most used first, at most n.
+func (c *Catalog) Lines(n int) []string {
+	c.mu.RLock()
+	count, brands, shown := map[string]int{}, map[string]map[string]bool{}, map[string]string{}
+	for _, p := range c.products {
+		brand := map[string]bool{}
+		for _, w := range strings.Fields(Normalize(p.Brand)) {
+			brand[w] = true
+		}
+		for _, w := range strings.Fields(p.Name) {
+			k := Normalize(w)
+			if brand[k] {
+				continue
+			}
+			if len(k) >= 3 && !strings.ContainsAny(k, "0123456789") {
+				count[k]++
+				if brands[k] == nil {
+					brands[k] = map[string]bool{}
+				}
+				brands[k][strings.ToLower(p.Brand)] = true
+				shown[k] = w
+			}
+			break
+		}
+	}
+	c.mu.RUnlock()
+	var out []string
+	for k := range count {
+		if len(brands[k]) == 1 {
+			out = append(out, k)
+		}
+	}
+	sort.Slice(out, func(i, j int) bool {
+		if count[out[i]] != count[out[j]] {
+			return count[out[i]] > count[out[j]]
+		}
+		return out[i] < out[j]
+	})
+	if len(out) > n {
+		out = out[:n]
+	}
+	for i, k := range out {
+		out[i] = shown[k]
+	}
+	return out
+}
+
 // Keywords are the words Muse Voice Transcribe should expect in a voice order: the catalogue's brands,
-// the ones with the most products first, at most n and at most max characters each.
+// the ones with the most products first, then its product-line names, at most n and at most max characters each.
 func (c *Catalog) Keywords(n, max int) []string {
 	c.mu.RLock()
 	count := map[string]int{}
@@ -292,6 +342,11 @@ func (c *Catalog) Keywords(n, max int) []string {
 		}
 		return out[i] < out[j]
 	})
+	for _, l := range c.Lines(n) {
+		if len(l) <= max {
+			out = append(out, l)
+		}
+	}
 	if len(out) > n {
 		out = out[:n]
 	}

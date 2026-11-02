@@ -17,3 +17,4 @@ keys.env
 /readas
 outbox*.jsonl
 /run-*/
+tools/whatsapp-sim/media/VOICE1

@@ -1,0 +1,846 @@
+{
+ "recorded_at": "2026-11-02 11:18",
+ "erp": "Odoo 18 (erps/odoo)",
+ "products": 120,
+ "scenes": [
+  {
+   "id": "typed",
+   "shop": "Supérette El Amel",
+   "booked": true,
+   "chat": [
+    {
+     "dir": "in",
+     "text": "salam, 3 cartons selecto 2l\n2 ifri eau minerale 1.5\n4 rouiba orange 1l\n2 ngaous abricot",
+     "t": 0.0
+    },
+    {
+     "text": "❓ « ngaous abricot » : lequel ?",
+     "buttons": [
+      {
+       "id": "p:ln_28eed4bb3272:0",
+       "title": "Ngaous Nectar Abricot 1L",
+       "kind": "list_reply"
+      },
+      {
+       "id": "p:ln_28eed4bb3272:1",
+       "title": "Ngaous Nectar Abricot 2…",
+       "kind": "list_reply"
+      },
+      {
+       "id": "x:ln_28eed4bb3272",
+       "title": "✖ Retirer cette ligne",
+       "kind": "list_reply"
+      }
+     ],
+     "list": true,
+     "dir": "out",
+     "t": 3.0,
+     "took": 3.0
+    },
+    {
+     "dir": "tap",
+     "text": "Ngaous Nectar Abricot 1L",
+     "t": 3.0
+    },
+    {
+     "text": "✔️ « ngaous abricot » → Ngaous Nectar Abricot 1L",
+     "buttons": [],
+     "dir": "out",
+     "t": 6.1,
+     "took": 3.0
+    },
+    {
+     "text": "🧾 *Votre commande* — Supérette El Amel\n\n1. 3 cartons ×6 · Hamoud Boualem Selecto 2L — 2 827 DA\n2. 2 cartons ×6 · Ifri Eau Minérale 1.5L — 500 DA\n   ⚠️ unité non précisée : carton x6\n3. 4 cartons ×6 · Rouiba Orange 1L — 4 770 DA\n   ⚠️ stock insuffisant (0 disponibles)\n   ⚠️ unité non précisée : carton x6\n4. 2 cartons ×6 · Ngaous Nectar Abricot 1L — 2 142 DA\n   ⚠️ unité non précisée : carton x6\n\nTotal : *10 239 DA TTC*",
+     "buttons": [
+      {
+       "id": "ok:dr_6fd91736c502",
+       "title": "✅ Confirmer",
+       "kind": "list_reply"
+      },
+      {
+       "id": "fix:dr_6fd91736c502",
+       "title": "✏️ Corriger une ligne",
+       "kind": "list_reply"
+      },
+      {
+       "id": "no:dr_6fd91736c502",
+       "title": "❌ Annuler",
+       "kind": "list_reply"
+      }
+     ],
+     "list": true,
+     "dir": "out",
+     "t": 6.1,
+     "took": 3.0
+    },
+    {
+     "dir": "tap",
+     "text": "✅ Confirmer",
+     "t": 6.1
+    },
+    {
+     "text": "🧾 *Votre commande* — Supérette El Amel\n\n1. 3 cartons ×6 · Hamoud Boualem Selecto 2L — 2 827 DA\n2. 2 cartons ×6 · Ifri Eau Minérale 1.5L — 500 DA\n   ⚠️ unité non précisée : carton x6\n3. 4 cartons ×6 · Rouiba Orange 1L — 4 770 DA\n   ⚠️ stock insuffisant (0 disponibles)\n   ⚠️ unité non précisée : carton x6\n4. 2 cartons ×6 · Ngaous Nectar Abricot 1L — 2 142 DA\n   ⚠️ unité non précisée : carton x6\n\nTotal : *10 239 DA TTC*\n\n✅ Commande *S00020* enregistrée.",
+     "buttons": [],
+     "dir": "out",
+     "t": 9.1,
+     "took": 3.0
+    }
+   ],
+   "inside": {
+    "messages": [
+     {
+      "id": "msg_51e2392a30d6",
+      "kind": "text",
+      "text": "salam, 3 cartons selecto 2l\n2 ifri eau minerale 1.5\n4 rouiba orange 1l\n2 ngaous abricot",
+      "extraction": "parser",
+      "created_at": "2026-11-02 11:16:09"
+     }
+    ],
+    "drafts": [
+     {
+      "id": "dr_6fd91736c502",
+      "kind": "order",
+      "status": "confirmed",
+      "erp_order_number": "S00020",
+      "total_ttc": 1023876,
+      "supplier_id": "",
+      "doc_number": "",
+      "doc_total": 0,
+      "lines": [
+       {
+        "said": "selecto 2000ml",
+        "norm": "selecto 2000ml",
+        "qty": 3.0,
+        "unit": "carton",
+        "product": "Hamoud Boualem Selecto 2L",
+        "pack": "Carton x6",
+        "level": "rules",
+        "used": [
+         "match"
+        ],
+        "confidence": 1.0,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "auto",
+        "unit_price": 13200,
+        "line_ttc": 282744,
+        "checks": {},
+        "ai_cost": null
+       },
+       {
+        "said": "ifri eau minerale 1.5",
+        "norm": "ifri eau minerale 1.5",
+        "qty": 2.0,
+        "unit": "",
+        "product": "Ifri Eau Minérale 1.5L",
+        "pack": "Carton x6",
+        "level": "rules",
+        "used": [
+         "match"
+        ],
+        "confidence": 1.0,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "auto",
+        "unit_price": 3500,
+        "line_ttc": 49980,
+        "checks": {
+         "unit": "unité non précisée : carton x6"
+        },
+        "ai_cost": null
+       },
+       {
+        "said": "rouiba orange 1000ml",
+        "norm": "rouiba orange 1000ml",
+        "qty": 4.0,
+        "unit": "",
+        "product": "Rouiba Orange 1L",
+        "pack": "Carton x6",
+        "level": "rules",
+        "used": [
+         "match"
+        ],
+        "confidence": 1.0,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "auto",
+        "unit_price": 16700,
+        "line_ttc": 476952,
+        "checks": {
+         "stock": "stock insuffisant (0 disponibles)",
+         "unit": "unité non précisée : carton x6"
+        },
+        "ai_cost": null
+       },
+       {
+        "said": "ngaous abricot",
+        "norm": "ngaous abricot",
+        "qty": 2.0,
+        "unit": "",
+        "product": "Ngaous Nectar Abricot 1L",
+        "pack": "Carton x6",
+        "level": "person",
+        "used": [
+         "ask"
+        ],
+        "confidence": 1.0,
+        "question": "« ngaous abricot » : lequel ?",
+        "options": [
+         "Ngaous Nectar Abricot 1L",
+         "Ngaous Nectar Abricot 25cl verre"
+        ],
+        "status": "ok",
+        "outcome": "confirmed",
+        "unit_price": 15000,
+        "line_ttc": 214200,
+        "checks": {
+         "unit": "unité non précisée : carton x6"
+        },
+        "ai_cost": null
+       }
+      ]
+     }
+    ],
+    "ai_calls": []
+   },
+   "erp_shot": "erp-typed.jpg"
+  },
+  {
+   "id": "voice",
+   "shop": "Supérette Errahma",
+   "booked": true,
+   "audio": "voice-order-darja.mp3",
+   "chat": [
+    {
+     "dir": "in",
+     "voice": true,
+     "seconds": 9,
+     "t": 0.0
+    },
+    {
+     "text": "🎤 _« السلام عليكم ابعث لي خمسة كرتونات حمoud Selecto وزوج كرتونة Rouiba وواحد Elio خمسة لتر. لتر. »_",
+     "buttons": [],
+     "dir": "out",
+     "t": 83.0,
+     "took": 83.0
+    },
+    {
+     "text": "❓ Hamoud Selecto : 1L, 2L, 25cl ou 33cl ?",
+     "buttons": [
+      {
+       "id": "p:ln_c2ae9ac18ab9:0",
+       "title": "Selecto 1L",
+       "kind": "list_reply"
+      },
+      {
+       "id": "p:ln_c2ae9ac18ab9:1",
+       "title": "Selecto 25cl verre",
+       "kind": "list_reply"
+      },
+      {
+       "id": "p:ln_c2ae9ac18ab9:2",
+       "title": "Selecto 2L",
+       "kind": "list_reply"
+      },
+      {
+       "id": "p:ln_c2ae9ac18ab9:3",
+       "title": "Selecto 33cl canette",
+       "kind": "list_reply"
+      },
+      {
+       "id": "x:ln_c2ae9ac18ab9",
+       "title": "✖ Retirer cette ligne",
+       "kind": "list_reply"
+      }
+     ],
+     "list": true,
+     "dir": "out",
+     "t": 83.0,
+     "took": 83.0
+    },
+    {
+     "dir": "tap",
+     "text": "Selecto 2L",
+     "t": 83.0
+    },
+    {
+     "text": "✔️ « حمoud Selecto » → Hamoud Boualem Selecto 2L",
+     "buttons": [],
+     "dir": "out",
+     "t": 86.1,
+     "took": 3.0
+    },
+    {
+     "text": "❓ Rouiba : Abricot, Orange, Cocktail ou Pomme ?",
+     "buttons": [
+      {
+       "id": "p:ln_8e04280dcc49:0",
+       "title": "Rouiba Abricot 1L",
+       "kind": "list_reply"
+      },
+      {
+       "id": "p:ln_8e04280dcc49:1",
+       "title": "Rouiba Cocktail Fruits …",
+       "kind": "list_reply"
+      },
+      {
+       "id": "p:ln_8e04280dcc49:2",
+       "title": "Rouiba Orange 1L",
+       "kind": "list_reply"
+      },
+      {
+       "id": "p:ln_8e04280dcc49:3",
+       "title": "Rouiba Pomme 1L",
+       "kind": "list_reply"
+      },
+      {
+       "id": "x:ln_8e04280dcc49",
+       "title": "✖ Retirer cette ligne",
+       "kind": "list_reply"
+      }
+     ],
+     "list": true,
+     "dir": "out",
+     "t": 86.1,
+     "took": 3.0
+    },
+    {
+     "dir": "tap",
+     "text": "Rouiba Cocktail Fruits …",
+     "t": 86.1
+    },
+    {
+     "text": "✔️ « Rouiba » → Rouiba Cocktail Fruits 1L",
+     "buttons": [],
+     "dir": "out",
+     "t": 89.1,
+     "took": 3.0
+    },
+    {
+     "text": "🧾 *Votre commande* — Supérette Errahma\n\n1. 5 cartons ×6 · Hamoud Boualem Selecto 2L — 4 712 DA\n2. 2 cartons ×6 · Rouiba Cocktail Fruits 1L — 2 385 DA\n3. 1 carton ×6 · Cevital Elio Huile 5L — 4 084 DA\n   ⚠️ stock insuffisant (0 disponibles)\n   ⚠️ unité non précisée : carton x6\n\nTotal : *11 181 DA TTC*",
+     "buttons": [
+      {
+       "id": "ok:dr_58dfc20bbd3c",
+       "title": "✅ Confirmer",
+       "kind": "list_reply"
+      },
+      {
+       "id": "fix:dr_58dfc20bbd3c",
+       "title": "✏️ Corriger une ligne",
+       "kind": "list_reply"
+      },
+      {
+       "id": "no:dr_58dfc20bbd3c",
+       "title": "❌ Annuler",
+       "kind": "list_reply"
+      }
+     ],
+     "list": true,
+     "dir": "out",
+     "t": 89.1,
+     "took": 3.0
+    },
+    {
+     "dir": "tap",
+     "text": "✅ Confirmer",
+     "t": 89.1
+    },
+    {
+     "text": "🧾 *Votre commande* — Supérette Errahma\n\n1. 5 cartons ×6 · Hamoud Boualem Selecto 2L — 4 712 DA\n2. 2 cartons ×6 · Rouiba Cocktail Fruits 1L — 2 385 DA\n3. 1 carton ×6 · Cevital Elio Huile 5L — 4 084 DA\n   ⚠️ stock insuffisant (0 disponibles)\n   ⚠️ unité non précisée : carton x6\n\nTotal : *11 181 DA TTC*\n\n✅ Commande *S00021* enregistrée.",
+     "buttons": [],
+     "dir": "out",
+     "t": 92.2,
+     "took": 3.0
+    }
+   ],
+   "inside": {
+    "messages": [
+     {
+      "id": "msg_bba0968f9eb3",
+      "kind": "voice",
+      "text": "السلام عليكم ابعث لي خمسة كرتونات حمoud Selecto وزوج كرتونة Rouiba وواحد Elio خمسة لتر. لتر.",
+      "extraction": "ai",
+      "created_at": "2026-11-02 11:16:24"
+     }
+    ],
+    "drafts": [
+     {
+      "id": "dr_58dfc20bbd3c",
+      "kind": "order",
+      "status": "confirmed",
+      "erp_order_number": "S00021",
+      "total_ttc": 1118124,
+      "supplier_id": "",
+      "doc_number": "",
+      "doc_total": 0,
+      "lines": [
+       {
+        "said": "حمoud Selecto",
+        "norm": "حمoud selecto",
+        "qty": 5.0,
+        "unit": "carton",
+        "product": "Hamoud Boualem Selecto 2L",
+        "pack": "Carton x6",
+        "level": "person",
+        "used": [],
+        "confidence": 1.0,
+        "question": "Hamoud Selecto : 1L, 2L, 25cl ou 33cl ?",
+        "options": [
+         "Hamoud Boualem Selecto 1L",
+         "Hamoud Boualem Selecto 25cl verre",
+         "Hamoud Boualem Selecto 2L",
+         "Hamoud Boualem Selecto 33cl canette"
+        ],
+        "status": "ok",
+        "outcome": "confirmed",
+        "unit_price": 13200,
+        "line_ttc": 471240,
+        "checks": {},
+        "ai_cost": null
+       },
+       {
+        "said": "Rouiba",
+        "norm": "rouiba",
+        "qty": 2.0,
+        "unit": "carton",
+        "product": "Rouiba Cocktail Fruits 1L",
+        "pack": "Carton x6",
+        "level": "person",
+        "used": [],
+        "confidence": 1.0,
+        "question": "Rouiba : Abricot, Orange, Cocktail ou Pomme ?",
+        "options": [
+         "Rouiba Abricot 1L",
+         "Rouiba Cocktail Fruits 1L",
+         "Rouiba Orange 1L",
+         "Rouiba Pomme 1L"
+        ],
+        "status": "ok",
+        "outcome": "confirmed",
+        "unit_price": 16700,
+        "line_ttc": 238476,
+        "checks": {},
+        "ai_cost": null
+       },
+       {
+        "said": "Elio خمسة لتر. لتر.",
+        "norm": "elio خمسه لتر. لتر.",
+        "qty": 1.0,
+        "unit": "",
+        "product": "Cevital Elio Huile 5L",
+        "pack": "Carton x6",
+        "level": "ai",
+        "used": [
+         "hint",
+         "match"
+        ],
+        "confidence": 0.85,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "confirmed",
+        "unit_price": 57200,
+        "line_ttc": 408408,
+        "checks": {
+         "stock": "stock insuffisant (0 disponibles)",
+         "unit": "unité non précisée : carton x6"
+        },
+        "ai_cost": null
+       }
+      ]
+     }
+    ],
+    "ai_calls": [
+     {
+      "at": "2026-11-02 11:16:24",
+      "model": "muse-voice-transcribe-1.0",
+      "purpose": "transcribe",
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "audio_sec": 9.5050625,
+      "cost": 0.0009505062499999999,
+      "ref": "msg_bba0968f9eb3"
+     },
+     {
+      "at": "2026-11-02 11:17:32",
+      "model": "muse-spark-1.3",
+      "purpose": "extract",
+      "tokens_in": 641,
+      "tokens_out": 1078,
+      "audio_sec": 0.0,
+      "cost": 0.0053827499999999995,
+      "ref": "msg_bba0968f9eb3"
+     },
+     {
+      "at": "2026-11-02 11:17:41",
+      "model": "muse-spark-1.3",
+      "purpose": "resolve",
+      "tokens_in": 530,
+      "tokens_out": 1155,
+      "audio_sec": 0.0,
+      "cost": 0.00557125,
+      "ref": "msg_bba0968f9eb3"
+     }
+    ]
+   },
+   "erp_shot": "erp-voice.jpg"
+  },
+  {
+   "id": "invoice",
+   "shop": "Distributor (owner)",
+   "booked": true,
+   "chat": [
+    {
+     "dir": "in",
+     "image": "invoice-specimen.png",
+     "text": "facture",
+     "t": 0.0
+    },
+    {
+     "text": "🧾 *Facture FA-2026-1187* — EURL Grossiste Mitidja Alimentation\n5 ligne(s) : 1 reconnues par les règles, 4 par l'IA, 0 à vérifier",
+     "buttons": [
+      {
+       "id": "ok:inv_5ddde2620826",
+       "title": "✅ Valider la réception",
+       "kind": "list_reply"
+      },
+      {
+       "id": "fix:inv_5ddde2620826",
+       "title": "✏️ Corriger une ligne",
+       "kind": "list_reply"
+      },
+      {
+       "id": "no:inv_5ddde2620826",
+       "title": "❌ Annuler",
+       "kind": "list_reply"
+      }
+     ],
+     "list": true,
+     "dir": "out",
+     "t": 36.4,
+     "took": 36.4
+    },
+    {
+     "dir": "tap",
+     "text": "✅ Valider la réception",
+     "t": 36.4
+    },
+    {
+     "text": "🧾 *Facture FA-2026-1187* — EURL Grossiste Mitidja Alimentation\n5 ligne(s) : 1 reconnues par les règles, 4 par l'IA, 0 à vérifier\n\n✅ Bon de réception *P00007 · WH/IN/00007* enregistré dans l'ERP.",
+     "buttons": [],
+     "dir": "out",
+     "t": 39.7,
+     "took": 3.3
+    }
+   ],
+   "inside": {
+    "messages": [
+     {
+      "id": "msg_82ca91dbdaac",
+      "kind": "invoice",
+      "text": "EURL Grossiste Mitidja Alimentation · n° FA-2026-1187 · 2026-10-30\nSEL 2000ML PET X6 | 10 | 572.34 | 5723.40\nSEL 1L PET X6 | 8 | 381.60 | 3052.80\nHMD GAZ 2L PET X6 | 5 | 540.00 | 2700.00\nSLIM CIT 1L PET X6 | 4 | 420.00 | 1680.00\nSEL CAN 33CL X24 | 3 | 1068.48 | 3205.44\n",
+      "extraction": "ai",
+      "created_at": "2026-11-02 11:18:26"
+     }
+    ],
+    "drafts": [
+     {
+      "id": "inv_5ddde2620826",
+      "kind": "invoice",
+      "status": "confirmed",
+      "erp_order_number": "P00007 · WH/IN/00007",
+      "total_ttc": 1947035,
+      "supplier_id": "44",
+      "doc_number": "FA-2026-1187",
+      "doc_total": 1636164,
+      "lines": [
+       {
+        "said": "SEL 2000ML PET X6",
+        "norm": "sel 2000ml pet x6",
+        "qty": 10.0,
+        "unit": "",
+        "product": "Hamoud Boualem Selecto 2L",
+        "pack": "",
+        "level": "ai",
+        "used": [
+         "spark"
+        ],
+        "confidence": 0.95,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "confirmed",
+        "unit_price": 57234,
+        "line_ttc": 572340,
+        "checks": {},
+        "ai_cost": null
+       },
+       {
+        "said": "SEL 1L PET X6",
+        "norm": "sel 1000ml pet x6",
+        "qty": 8.0,
+        "unit": "",
+        "product": "Hamoud Boualem Selecto 1L",
+        "pack": "",
+        "level": "ai",
+        "used": [
+         "spark"
+        ],
+        "confidence": 0.95,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "confirmed",
+        "unit_price": 38160,
+        "line_ttc": 305280,
+        "checks": {},
+        "ai_cost": null
+       },
+       {
+        "said": "HMD GAZ 2L PET X6",
+        "norm": "hmd gaz 2000ml pet x6",
+        "qty": 5.0,
+        "unit": "",
+        "product": "Hamoud Boualem Hamoud Gazouz 2L",
+        "pack": "",
+        "level": "ai",
+        "used": [
+         "spark"
+        ],
+        "confidence": 0.95,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "confirmed",
+        "unit_price": 54000,
+        "line_ttc": 270000,
+        "checks": {},
+        "ai_cost": null
+       },
+       {
+        "said": "SLIM CIT 1L PET X6",
+        "norm": "slim cit 1000ml pet x6",
+        "qty": 4.0,
+        "unit": "",
+        "product": "Hamoud Boualem Slim Citron 1L",
+        "pack": "",
+        "level": "ai",
+        "used": [
+         "spark"
+        ],
+        "confidence": 0.95,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "confirmed",
+        "unit_price": 42000,
+        "line_ttc": 168000,
+        "checks": {},
+        "ai_cost": null
+       },
+       {
+        "said": "SEL CAN 33CL X24",
+        "norm": "sel can 330ml x24",
+        "qty": 3.0,
+        "unit": "",
+        "product": "Hamoud Boualem Selecto 33cl canette",
+        "pack": "",
+        "level": "rules",
+        "used": [
+         "match"
+        ],
+        "confidence": 1.0,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "auto",
+        "unit_price": 106848,
+        "line_ttc": 320544,
+        "checks": {},
+        "ai_cost": null
+       }
+      ]
+     }
+    ],
+    "ai_calls": [
+     {
+      "at": "2026-11-02 11:18:22",
+      "model": "muse-spark-1.3",
+      "purpose": "invoice",
+      "tokens_in": 2895,
+      "tokens_out": 500,
+      "audio_sec": 0.0,
+      "cost": 0.005743750000000001,
+      "ref": "msg_82ca91dbdaac"
+     },
+     {
+      "at": "2026-11-02 11:18:26",
+      "model": "muse-wonder-1.0",
+      "purpose": "invoice",
+      "tokens_in": 2895,
+      "tokens_out": 470,
+      "audio_sec": 0.0,
+      "cost": 0.02098,
+      "ref": "msg_82ca91dbdaac"
+     },
+     {
+      "at": "2026-11-02 11:18:29",
+      "model": "muse-spark-1.3",
+      "purpose": "resolve",
+      "tokens_in": 926,
+      "tokens_out": 436,
+      "audio_sec": 0.0,
+      "cost": 0.0030105,
+      "ref": "msg_82ca91dbdaac"
+     }
+    ]
+   },
+   "erp_shot": "erp-invoice.jpg"
+  },
+  {
+   "id": "learned",
+   "shop": "Supérette El Amel",
+   "booked": true,
+   "chat": [
+    {
+     "dir": "in",
+     "text": "3 cartons selecto 2l\n2 ngaous abricot\n2 ifri 1.5",
+     "t": 0.0
+    },
+    {
+     "text": "🧾 *Votre commande* — Supérette El Amel\n\n1. 3 cartons ×6 · Hamoud Boualem Selecto 2L — 2 827 DA\n2. 2 cartons ×6 · Ngaous Nectar Abricot 1L — 2 142 DA\n   ⚠️ unité non précisée : carton x6\n3. 2 cartons ×6 · Ifri Eau Minérale 1.5L — 500 DA\n   ⚠️ unité non précisée : carton x6\n\nTotal : *5 469 DA TTC*",
+     "buttons": [
+      {
+       "id": "ok:dr_bfbe112b0695",
+       "title": "✅ Confirmer",
+       "kind": "list_reply"
+      },
+      {
+       "id": "fix:dr_bfbe112b0695",
+       "title": "✏️ Corriger une ligne",
+       "kind": "list_reply"
+      },
+      {
+       "id": "no:dr_bfbe112b0695",
+       "title": "❌ Annuler",
+       "kind": "list_reply"
+      }
+     ],
+     "list": true,
+     "dir": "out",
+     "t": 3.0,
+     "took": 3.0
+    },
+    {
+     "dir": "tap",
+     "text": "✅ Confirmer",
+     "t": 3.0
+    },
+    {
+     "text": "🧾 *Votre commande* — Supérette El Amel\n\n1. 3 cartons ×6 · Hamoud Boualem Selecto 2L — 2 827 DA\n2. 2 cartons ×6 · Ngaous Nectar Abricot 1L — 2 142 DA\n   ⚠️ unité non précisée : carton x6\n3. 2 cartons ×6 · Ifri Eau Minérale 1.5L — 500 DA\n   ⚠️ unité non précisée : carton x6\n\nTotal : *5 469 DA TTC*\n\n✅ Commande *S00022* enregistrée.",
+     "buttons": [],
+     "dir": "out",
+     "t": 6.1,
+     "took": 3.0
+    }
+   ],
+   "inside": {
+    "messages": [
+     {
+      "id": "msg_42ee2447e2fa",
+      "kind": "text",
+      "text": "3 cartons selecto 2l\n2 ngaous abricot\n2 ifri 1.5",
+      "extraction": "parser",
+      "created_at": "2026-11-02 11:18:36"
+     }
+    ],
+    "drafts": [
+     {
+      "id": "dr_bfbe112b0695",
+      "kind": "order",
+      "status": "confirmed",
+      "erp_order_number": "S00022",
+      "total_ttc": 546924,
+      "supplier_id": "",
+      "doc_number": "",
+      "doc_total": 0,
+      "lines": [
+       {
+        "said": "selecto 2000ml",
+        "norm": "selecto 2000ml",
+        "qty": 3.0,
+        "unit": "carton",
+        "product": "Hamoud Boualem Selecto 2L",
+        "pack": "Carton x6",
+        "level": "rules",
+        "used": [
+         "match"
+        ],
+        "confidence": 1.0,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "auto",
+        "unit_price": 13200,
+        "line_ttc": 282744,
+        "checks": {},
+        "ai_cost": null
+       },
+       {
+        "said": "ngaous abricot",
+        "norm": "ngaous abricot",
+        "qty": 2.0,
+        "unit": "",
+        "product": "Ngaous Nectar Abricot 1L",
+        "pack": "Carton x6",
+        "level": "rules",
+        "used": [
+         "habit"
+        ],
+        "confidence": 0.95,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "auto",
+        "unit_price": 15000,
+        "line_ttc": 214200,
+        "checks": {
+         "unit": "unité non précisée : carton x6"
+        },
+        "ai_cost": null
+       },
+       {
+        "said": "ifri 1.5",
+        "norm": "ifri 1.5",
+        "qty": 2.0,
+        "unit": "",
+        "product": "Ifri Eau Minérale 1.5L",
+        "pack": "Carton x6",
+        "level": "rules",
+        "used": [
+         "match"
+        ],
+        "confidence": 1.0,
+        "question": "",
+        "options": [],
+        "status": "ok",
+        "outcome": "auto",
+        "unit_price": 3500,
+        "line_ttc": 49980,
+        "checks": {
+         "unit": "unité non précisée : carton x6"
+        },
+        "ai_cost": null
+       }
+      ]
+     }
+    ],
+    "ai_calls": []
+   },
+   "erp_shot": "erp-learned.jpg"
+  }
+ ]
+}

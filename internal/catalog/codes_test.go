@@ -75,3 +75,22 @@ func TestPackIsNotThousands(t *testing.T) {
 		}
 	}
 }
+
+func TestLines(t *testing.T) {
+	db, err := store.Open(filepath.Join(t.TempDir(), "l.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	ReplaceProducts(db, []Product{
+		{ID: "a", Name: "Hamoud Boualem Selecto 2L", Brand: "Hamoud Boualem"},
+		{ID: "b", Name: "Hamoud Boualem Selecto 1L", Brand: "Hamoud Boualem"},
+		{ID: "c", Name: "Cevital Elio Huile 5L", Brand: "Cevital"},
+		{ID: "d", Name: "Ifri Eau Minérale 1.5L", Brand: "Ifri"},
+		{ID: "e", Name: "Lalla Khedidja Eau Minérale 1.5L", Brand: "Lalla Khedidja"},
+	})
+	got := New(db).Lines(10)
+	if !reflect.DeepEqual(got, []string{"Selecto", "Elio"}) {
+		t.Errorf("product lines: %v (want Selecto, Elio; \"Eau\" is used by two brands)", got)
+	}
+}

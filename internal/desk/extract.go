@@ -92,8 +92,9 @@ often a voice note transcribed with mistakes. Cut the message into ordered items
 
 For each item return:
 - "said": the customer's own words for the product, copied from the message (no quantity, no unit word).
-- "hint": the product in plain words if you can tell it, using the known brands below (transcription often
-  mishears brands); "" if unsure.
+- "hint": the product in plain words if you can tell it, written with the known brand and product names below in
+  Latin script, with the size in digits ("Rouiba Orange 1 L" for روييبة برتقال لتر): transcription often mishears
+  these names and a voice note may be in Arabic script; "" if unsure.
 - "qty": a number (wahed 1, zouj 2, tlata 3, rebaa 4, khamsa 5, setta 6, sebaa 7, tmenya 8, tes3a 9, achra 10, demi 0.5).
 - "unit": "carton" (carton, caisse, كرطون), "pack" (fardeau, fardou, pack, paquet), "unit" (bouteille, pièce,
   unité, boîte, flacon) or "" when not said.
@@ -101,7 +102,7 @@ Corrections count: "two cartons, no wait three" is qty 3. Ignore greetings and s
 "Same as last time" (comme d'habitude, kima l'khatra li fatet, nafs l'commande, نفس الطلبية): set "repeat_last": true
 and put in items ONLY what is added or changed.
 If the message is not an order (a question, a greeting only), intent "other" and a one-sentence polite reply in French.
-Known brands: %BRANDS%
+Known brands and product names: %BRANDS%
 Return JSON only: {"intent":"order","repeat_last":false,"reply":"","items":[{"said":"selecto","hint":"Selecto 2 L","qty":3,"unit":"carton"}]}`
 
 // ExtractAI reads a conversation (voice transcript or chatty text) into items with Muse Spark.

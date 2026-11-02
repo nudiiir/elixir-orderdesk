@@ -176,3 +176,19 @@ func TestWebhook(t *testing.T) {
 		t.Fatal("the update never reached the desk")
 	}
 }
+
+func TestDistinctTitles(t *testing.T) {
+	btns := []telegram.Button{{Text: "Hamoud Boualem Selecto 1L"}, {Text: "Hamoud Boualem Selecto 2L"},
+		{Text: "Hamoud Boualem Selecto 33cl canette"}, {Text: "✖ Retirer cette ligne"}}
+	if got := distinct([]telegram.Button{{Text: "Ngaous Nectar Abricot 1L"}, {Text: "Ngaous Nectar Abricot 25cl verre"}}); got[1] != "Abricot 25cl verre" {
+		t.Errorf("a 24-character title still counts: %q", got)
+	}
+	got := distinct(btns)
+	want := []string{"Selecto 1L", "Selecto 2L", "Selecto 33cl canette", "✖ Retirer cette ligne"}
+	for i := range want {
+		if got[i] != want[i] {
+			t.Errorf("distinct: %q, want %q", got, want)
+			break
+		}
+	}
+}
