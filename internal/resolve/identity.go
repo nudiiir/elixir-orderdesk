@@ -232,11 +232,19 @@ func Judge(cat *catalog.Catalog, set *rules.Set, line rules.Profile, cx Context,
 	}
 	var cands []cand
 	found := map[string]bool{}
+	// A word the catalogue itself uses names itself: "geltim" is a product, not "gel" abbreviated, and
+	// "solian" is not "sol". Typos and abbreviations are tolerated only for words no product name has.
+	known := map[string]bool{}
+	for _, p := range cat.Products() {
+		for _, w := range productProfile(set, p).Words {
+			known[w] = true
+		}
+	}
 	for _, p := range cat.Products() {
 		pr := productProfile(set, p)
 		ok := true
 		for _, w := range line.Words {
-			if hasWord(pr.Words, w) {
+			if (known[w] && in(w, pr.Words)) || (!known[w] && hasWord(pr.Words, w)) {
 				found[w] = true
 			} else {
 				ok = false

@@ -148,7 +148,7 @@ func main() {
 		results = append(results, r)
 		c := count(r)
 		log.Printf("[%s] %s: right %d/%d (qty %d), asked %d, wrong %d, missed %d, extra %d, $%.4f %s",
-			o.Channel, o.ID, c["right"], len(r.Lines), c["qty"], c["asked"], c["wrong"], c["missed"], r.Extra, r.Cost, r.Error)
+			o.Channel, o.ID, c["right"], keyLines(r), c["qty"], c["asked"], c["wrong"], c["missed"], r.Extra, r.Cost, r.Error)
 	}
 	rep := map[string]any{"results": results, "summary": summary(results)}
 	os.WriteFile(filepath.Join(*out, "report.json"), []byte(store.JSON(rep)), 0o644)
@@ -238,30 +238,50 @@ func run(ctx context.Context, d *desk.Desk, cat *catalog.Catalog, mc *meta.Clien
 			leftAsk = append(leftAsk, l)
 		}
 	}
-	for i, k := range o.Lines { // what is left of the key: booked to another product, asked, or never read
+	// What is left of the key: each line paired with the leftover line whose words are closest to what the
+	// shop wrote (a wrong booking is charged to the product it was meant to be), then asked or never read.
+	take := func(pool *[]desk.Line, k keyLine) (desk.Line, bool) {
+		best, bi := 0.0, -1
+		for j, l := range *pool {
+			if s := overlap(k.Say, l.Said); s > best {
+				best, bi = s, j
+			}
+		}
+		if bi < 0 || best < 0.25 {
+			return desk.Line{}, false
+		}
+		l := (*pool)[bi]
+		*pool = append((*pool)[:bi:bi], (*pool)[bi+1:]...)
+		return l, true
+	}
+	for i, k := range o.Lines {
 		if scores[i] != nil {
 			continue
 		}
-		switch {
-		case len(leftOK) > 0:
-			p := cat.Get(leftOK[0].ProductID)
-			got := leftOK[0].ProductID
-			if p != nil {
+		if l, ok := take(&leftOK, k); ok {
+			got := l.ProductID
+			if p := cat.Get(l.ProductID); p != nil {
 				got = p.Name
 			}
-			scores[i] = &lineScore{Product: k.Product, Outcome: "wrong", Got: got + " (said: " + leftOK[0].Said + ")", Level: leftOK[0].Level}
-			leftOK = leftOK[1:]
-		case len(leftAsk) > 0:
-			scores[i] = &lineScore{Product: k.Product, Outcome: "asked", Got: leftAsk[0].Said}
-			leftAsk = leftAsk[1:]
-		default:
+			scores[i] = &lineScore{Product: k.Product, Outcome: "wrong", Got: got + " (said: " + l.Said + ")", Level: l.Level}
+		} else if l, ok := take(&leftAsk, k); ok {
+			scores[i] = &lineScore{Product: k.Product, Outcome: "asked", Got: l.Said}
+		} else {
 			scores[i] = &lineScore{Product: k.Product, Outcome: "missed"}
 		}
 	}
 	for _, s := range scores {
 		r.Lines = append(r.Lines, *s)
 	}
-	r.Extra = len(leftOK) + len(leftAsk)
+	// booked lines matching nothing the shop ordered are wrong bookings too; asked ones are extra questions
+	r.Extra = len(leftAsk)
+	for _, l := range leftOK {
+		got := l.ProductID
+		if p := cat.Get(l.ProductID); p != nil {
+			got = p.Name
+		}
+		r.Lines = append(r.Lines, lineScore{Product: "(not in the order)", Outcome: "wrong", Got: got + " (said: " + l.Said + ")", Level: l.Level})
+	}
 	db.Exec(`UPDATE drafts SET status = 'cancelled' WHERE chat_key = ?`, key)
 	return r
 }
@@ -276,6 +296,17 @@ func unitOK(got, want string) bool {
 		return got == "pack"
 	}
 	return got == "" || got == "unit"
+}
+
+// keyLines is the number of lines the shop ordered (a booking of something not ordered is not one).
+func keyLines(r result) int {
+	n := 0
+	for _, l := range r.Lines {
+		if l.Product != "(not in the order)" {
+			n++
+		}
+	}
+	return n
 }
 
 func count(r result) map[string]int {
@@ -304,7 +335,7 @@ func summary(rs []result) map[string]*agg {
 		}
 		c := count(r)
 		a.Orders++
-		a.Lines += len(r.Lines)
+		a.Lines += keyLines(r)
 		a.Right += c["right"]
 		a.QtyOK += c["qty"]
 		a.Asked += c["asked"]
@@ -355,6 +386,29 @@ func markdown(rs []result) string {
 		}
 	}
 	return b.String()
+}
+
+// overlap is the share of the shorter wording's words found in the other one.
+func overlap(a, b string) float64 {
+	wa, _ := catalog.Tokens(catalog.Normalize(a))
+	wb, _ := catalog.Tokens(catalog.Normalize(b))
+	if len(wa) == 0 || len(wb) == 0 {
+		return 0
+	}
+	n := 0
+	for _, x := range wa {
+		for _, y := range wb {
+			if catalog.WordSim(x, y) >= 0.8 {
+				n++
+				break
+			}
+		}
+	}
+	m := len(wa)
+	if len(wb) < m {
+		m = len(wb)
+	}
+	return float64(n) / float64(m)
 }
 
 func contains(xs []string, x string) bool {
