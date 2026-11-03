@@ -443,7 +443,28 @@ func dedupe(list []string) []string {
 // Compatible tells whether a product can be what the line says, attributes only (used to keep the
 // AI's shortlist honest: the model may only pick among products the code would accept).
 func Compatible(set *rules.Set, line rules.Profile, p *catalog.Product, cx Context) bool {
-	return compare(set, line, productProfile(set, p), cx).veto == ""
+	pr := productProfile(set, p)
+	return compare(set, line, pr, cx).veto == "" && codesAgree(line, pr)
+}
+
+// codesAgree: a word with a digit the line states (a model, a reference: "x21", "a51", "d3") must be
+// on the product too; "x21" is not "x21plus", so a product without it is never offered to the model.
+func codesAgree(line, prod rules.Profile) bool {
+	for _, w := range line.Words {
+		if strings.ContainsAny(w, "0123456789") && !in(w, prod.Words) {
+			return false
+		}
+	}
+	return true
+}
+
+func in(w string, list []string) bool {
+	for _, x := range list {
+		if x == w {
+			return true
+		}
+	}
+	return false
 }
 
 // AskText writes the question for an ambiguous line from what its candidates differ on.
