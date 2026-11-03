@@ -39,6 +39,10 @@ func TestBlocks(t *testing.T) {
 		{"BOISSON B12 PET", "b12", "x12"},
 		{"ROUGE A LEVRES N°02", "n2", ""},
 		{"PEINTURE VENUS 5L BLANC", "5000ml", ""},
+		{"TEL A51 8-256 SAMSUNG", "mem8x256", ""},
+		{"MOBILE SAMSUNG A51 8/256GB", "mem8x256", ""},
+		{"MOBILE 6 4+64 REDMI", "mem4x64", ""},
+		{"SAMSUNG GALAXY A16 6GB/128GB", "mem6x128", ""},
 	}
 	for _, c := range cases {
 		got := catalog.Normalize(c.in)
