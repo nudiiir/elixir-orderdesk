@@ -501,7 +501,17 @@ func NewPairCode(db *store.DB, customerID, role string) (string, error) {
 	return string(code), err
 }
 
+// isDemoCode: a public demo desk can publish one reusable code (settings demo_code and demo_customer) that
+// links any chat to a demo shop. Off unless both are set; owner codes stay single-use.
+func (d *Desk) isDemoCode(code string) bool {
+	dc := strings.ToUpper(strings.TrimSpace(d.DB.Setting("demo_code", "")))
+	return dc != "" && d.DB.Setting("demo_customer", "") != "" && strings.ToUpper(strings.TrimSpace(code)) == dc
+}
+
 func (d *Desk) codeExists(code string) bool {
+	if d.isDemoCode(code) {
+		return true
+	}
 	var n int
 	d.DB.QueryRow(`SELECT COUNT(*) FROM pair_codes WHERE code = ? AND used_at = '' AND created_at >= datetime('now', 'localtime', '-7 day')`,
 		strings.ToUpper(strings.TrimSpace(code))).Scan(&n)
@@ -523,6 +533,11 @@ func (d *Desk) pair(ctx context.Context, msg *telegram.TgMessage, code string) {
 	var customerID, name, role string
 	err := d.DB.QueryRow(`SELECT p.customer_id, COALESCE(c.name, ''), p.role FROM pair_codes p LEFT JOIN customers c ON c.id = p.customer_id
 		WHERE p.code = ? AND p.used_at = '' AND p.created_at >= datetime('now', 'localtime', '-7 day')`, code).Scan(&customerID, &name, &role)
+	demo := d.isDemoCode(code)
+	if demo {
+		customerID, role, err = d.DB.Setting("demo_customer", ""), "shop", nil
+		d.DB.QueryRow(`SELECT name FROM customers WHERE id = ?`, customerID).Scan(&name)
+	}
 	if err != nil {
 		d.say(ctx, chat, "Ce code n'est pas valide ou a expiré. Demandez un nouveau code à votre distributeur.")
 		return
@@ -537,7 +552,9 @@ func (d *Desk) pair(ctx context.Context, msg *telegram.TgMessage, code string) {
 		d.say(ctx, chat, "✅ Ce compte "+channelName(chat)+" est maintenant lié comme <b>propriétaire</b>.\n\n"+ownerHelp)
 		return
 	}
-	d.DB.Exec(`UPDATE pair_codes SET used_at = ? WHERE code = ?`, store.Now(), code)
+	if !demo {
+		d.DB.Exec(`UPDATE pair_codes SET used_at = ? WHERE code = ?`, store.Now(), code)
+	}
 	d.DB.Event("chat.linked", customerID, who, map[string]string{"chat": chatKey(chat), "customer": name})
 	d.say(ctx, chat, fmt.Sprintf("✅ Ce compte %s est maintenant lié à <b>%s</b>.\n\n%s", channelName(chat), esc(name), helpText))
 }

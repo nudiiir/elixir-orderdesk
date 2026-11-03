@@ -10,6 +10,7 @@ package main
 import (
 	"bufio"
 	"context"
+	"encoding/json"
 	"flag"
 	"log"
 	"net"
@@ -33,6 +34,8 @@ import (
 	"github.com/nudiiir/elixir-orderdesk/internal/desk"
 	"github.com/nudiiir/elixir-orderdesk/internal/engineer"
 	"github.com/nudiiir/elixir-orderdesk/internal/meta"
+	"github.com/nudiiir/elixir-orderdesk/internal/profile"
+	"github.com/nudiiir/elixir-orderdesk/internal/search"
 	"github.com/nudiiir/elixir-orderdesk/internal/store"
 	"github.com/nudiiir/elixir-orderdesk/internal/telegram"
 	"github.com/nudiiir/elixir-orderdesk/internal/twilio"
@@ -95,6 +98,7 @@ func main() {
 	if u, t := db.Setting("erp_url", ""), db.Setting("erp_token", ""); u != "" && t != "" {
 		connect(db.Setting("erp_kind", "elixir"), u, db.Setting("erp_db", ""), db.Setting("erp_login", ""), t)
 	}
+	afterSync := func() {} // set once the desk exists: the matching is rebuilt on the new catalogue
 	sync := func(ctx context.Context) error {
 		e := current()
 		if e == nil {
@@ -122,6 +126,7 @@ func main() {
 		db.SetSetting("erp_error", "")
 		db.SetSetting("erp_synced_at", store.Now())
 		cat.Reload()
+		afterSync()
 		log.Printf("[sync] %d products from %s", len(cat.Products()), e.Name())
 		return nil
 	}
@@ -131,7 +136,18 @@ func main() {
 
 	eng := &engineer.Engineer{DB: db, Cat: cat, Meta: mc}
 	d := &desk.Desk{DB: db, Cat: cat, Meta: mc, ERP: current, DataDir: *dataDir,
-		OnLearn: func() { eng.MaybeRun(context.Background()) }}
+		OnLearn: func() { eng.MaybeRun(context.Background()) }, Threshold: 0.9}
+	// The matching Muse Spark designed for this desk (first-pass blocks, vocabulary, search method) and the
+	// autonomy its steps earned: without them the live desk matched with none of what it learned.
+	d.Autonomy = desk.NewAutonomy(0.99)
+	json.Unmarshal([]byte(db.Setting("autonomy", "{}")), d.Autonomy)
+	afterSync = func() {
+		if p := profile.Load(db); p != nil {
+			p.Install(cat)
+			d.Search = search.Build(cat, p.Search)
+		}
+	}
+	afterSync()
 	// Channels: Telegram (polled) and WhatsApp (Cloud API webhook), behind one Messenger.
 	mux := &telegram.Mux{}
 	d.TG = mux
