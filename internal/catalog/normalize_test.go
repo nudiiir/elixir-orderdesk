@@ -1,6 +1,24 @@
 package catalog
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
+
+func TestModelCodeIsNotACount(t *testing.T) {
+	for in, want := range map[string][]string{
+		"CÂBLE HOCO X21 IPHONE": {"cable", "hoco", "x21", "iphone"},
+		"CABLE HOCO X21 IP":     {"cable", "hoco", "x21", "ip"},
+		"COCA COLA 1L X6":       {"coca", "cola"},
+		"X6 IFRI 1,5L":          {"ifri"},
+		"BISCUIT KOOL X12":      {"biscuit", "kool"},
+	} {
+		got, _ := Tokens(Normalize(in))
+		if strings.Join(got, " ") != strings.Join(want, " ") {
+			t.Errorf("Tokens(%q) = %v, want %v", in, got, want)
+		}
+	}
+}
 
 func TestNormalizeSizeGluedToCount(t *testing.T) {
 	for in, want := range map[string]string{

@@ -168,6 +168,22 @@ func IsCount(w string) bool {
 	return err == nil
 }
 
+// CountAt tells whether words[i] is a pack count in its place: "x21" between two name words is a model
+// ("cable hoco x21 iphone"), not 21 per pack ("coca 1500ml x6", "x6 1500ml", "biscuit x12").
+func CountAt(words []string, i int) bool {
+	if !IsCount(words[i]) {
+		return false
+	}
+	nameWord := func(j int) bool {
+		if j < 0 || j >= len(words) {
+			return false
+		}
+		w := strings.Trim(words[j], ".")
+		return w != "" && !IsSize(w) && !IsNumber(w) && !IsCount(w) && UnitWords[w] == "" && !StopWords[w] && !UnitNames[w]
+	}
+	return !(nameWord(i-1) && nameWord(i+1))
+}
+
 // Numbers said in words: Darja (Latin and Arabic script), French, Arabic.
 var NumberWords = map[string]float64{
 	"wahed": 1, "wa7ed": 1, "zouj": 2, "zoudj": 2, "jouj": 2, "tlata": 3, "tleta": 3, "rebaa": 4, "arba": 4, "arba3": 4,
@@ -198,7 +214,8 @@ var StopWords = map[string]bool{"de": true, "du": true, "des": true, "la": true,
 
 // Tokens returns the words of a normalised text that can name a product, and its first size.
 func Tokens(norm string) (words []string, size string) {
-	for _, w := range wordRe.FindAllString(norm, -1) {
+	all := wordRe.FindAllString(norm, -1)
+	for i, w := range all {
 		w = strings.Trim(w, ".")
 		if w == "" || StopWords[w] || UnitWords[w] != "" || UnitNames[w] {
 			continue
@@ -209,7 +226,7 @@ func Tokens(norm string) (words []string, size string) {
 			}
 			continue
 		}
-		if IsCount(w) {
+		if CountAt(all, i) {
 			continue
 		}
 		if f, err := strconv.ParseFloat(w, 64); err == nil && IsNumber(w) {

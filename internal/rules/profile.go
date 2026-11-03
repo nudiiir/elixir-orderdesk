@@ -142,7 +142,8 @@ func (s *Set) Profile(text, customerID, supplierID string, catalogue bool) Profi
 		t = b.String()
 		p.Used = append(p.Used, r.ID)
 	}
-	for _, w := range wordRe.FindAllString(t, -1) {
+	all := wordRe.FindAllString(t, -1)
+	for i, w := range all {
 		w = strings.Trim(w, ".")
 		if w == "" || catalog.StopWords[w] || catalog.UnitWords[w] != "" || catalog.UnitNames[w] {
 			continue
@@ -151,7 +152,7 @@ func (s *Set) Profile(text, customerID, supplierID string, catalogue bool) Profi
 			p.add("size", Val{V: w}, "")
 			continue
 		}
-		if catalog.IsCount(w) {
+		if catalog.CountAt(all, i) {
 			n, _ := strconv.Atoi(w[1:])
 			p.add("count", Val{V: strconv.Itoa(n)}, "")
 			continue
