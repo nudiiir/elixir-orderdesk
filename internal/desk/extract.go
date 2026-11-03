@@ -28,13 +28,20 @@ var (
 	// Signs of a conversation rather than a list: the parser hands these to the AI.
 	chatty = []string{"?", "comme", "habitude", "nafs", "kima", "meme", "dernier", "derniere", "la fois", "annul", "change",
 		"au lieu", "plutot", "non ", "hier", "combien", "chhal", "prix", "kifach", "wach", "ajoute", "zid", "na9as", "enleve",
-		"retire", "remplace", "same", "last", "نفس", "كيما", "بدل", "زيد", "نقص", "شحال", "واش", "؟"}
+		"retire", "remplace", "same", "last", "نفس", "كيما", "بدل", "زيد", "نقص", "شحال", "واش", "؟",
+		// greetings, fillers and self-corrections: a sentence, not a list
+		"salam", "bonjour", "bonsoir", "allo", "allô", "merci", "saha", "khouya", "khoya", "smahli", "pardon", "la la",
+		"...", "s'il", "svp", "stp", "mettez", "il me faut", "ab3ath", "3tini", "a3tini", "hatli", "7otli", "zidli"}
+	arabicRe = regexp.MustCompile(`\p{Arabic}`) // Arabic script: number words and word order the parser does not read
 )
 
 // Parse is the deterministic reader for text lists ("3 cartons selecto 2l\n2 fardou ifri").
 // It returns ok=false whenever the message looks like a conversation; the AI reads those.
 func Parse(text string) ([]resolve.Mention, bool) {
 	low := " " + strings.ToLower(text) + " "
+	if arabicRe.MatchString(text) {
+		return nil, false
+	}
 	for _, w := range chatty {
 		if strings.Contains(low, w) {
 			return nil, false
@@ -115,7 +122,8 @@ func ExtractAI(ctx context.Context, m *meta.Client, brands []string, text, ref s
 		Items      []resolve.Mention `json:"items"`
 	}
 	prompt := strings.Replace(extractPrompt, "%BRANDS%", strings.Join(brands, ", "), 1)
-	cost, err := m.JSON(ctx, meta.Spark, "extract", ref, prompt, text, nil, 1500, &out)
+	// 1,500 tokens (reasoning included) cut long orders mid-JSON and lost every item; 9 items with hints need more
+	cost, err := m.JSON(ctx, meta.Spark, "extract", ref, prompt, text, nil, 4000, &out)
 	ex := Extraction{Intent: out.Intent, RepeatLast: out.RepeatLast, Reply: out.Reply, Method: "ai", AICost: cost}
 	for _, it := range out.Items {
 		it.Said = strings.TrimSpace(it.Said)

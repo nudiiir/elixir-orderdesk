@@ -16,7 +16,9 @@ func TestParse(t *testing.T) {
 	if ms[2].Qty != 1 || ms[2].Unit != "carton" || ms[2].Said != "hns" {
 		t.Fatalf("line 3: %+v", ms[2])
 	}
-	for _, chat := range []string{"comme la dernière fois", "combien le dove ?", "zid 2 cartons dove"} {
+	for _, chat := range []string{"comme la dernière fois", "combien le dove ?", "zid 2 cartons dove",
+		"Salam khouya, ab3athli 12 Nivea crème, 30 ml", "12 Colgate Total... la la, smahli, Colgate Herbal",
+		"حطلي أربعة أفان كلينانس جال"} {
 		if _, ok := Parse(chat); ok {
 			t.Fatalf("%q must go to the AI", chat)
 		}
