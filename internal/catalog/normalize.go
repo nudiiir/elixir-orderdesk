@@ -203,6 +203,10 @@ var UnitWords = map[string]string{
 	"bouteille": "unit", "bouteilles": "unit", "piece": "unit", "pieces": "unit", "unite": "unit", "unites": "unit", "boite": "unit",
 	"boites": "unit", "flacon": "unit", "flacons": "unit", "tube": "unit", "tubes": "unit", "sachet": "unit", "sachets": "unit",
 	"u": "unit", "pcs": "unit", "حبة": "unit", "قرعة": "unit",
+	// how shops abbreviate them on typed lists and order sheets, and the Darja plurals
+	"ctn": "carton", "ctns": "carton", "crt": "carton", "kartonat": "carton", "كرطونات": "carton", "كرطونة": "carton",
+	"fdx": "pack", "fard": "pack", "fardouyat": "pack", "فاردوات": "pack",
+	"bt": "unit", "bte": "unit", "btes": "unit", "pce": "unit", "pces": "unit", "habba": "unit", "habbat": "unit", "حبات": "unit", "علبة": "unit", "علب": "unit",
 }
 
 // Words that never name a product.

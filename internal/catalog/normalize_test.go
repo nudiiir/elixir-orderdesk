@@ -5,6 +5,14 @@ import (
 	"testing"
 )
 
+func TestShopUnitAbbreviations(t *testing.T) {
+	for w, want := range map[string]string{"ctn": "carton", "fdx": "pack", "bt": "unit", "kartonat": "carton", "كرطونات": "carton", "habbat": "unit"} {
+		if UnitWords[w] != want {
+			t.Errorf("UnitWords[%q] = %q, want %q", w, UnitWords[w], want)
+		}
+	}
+}
+
 func TestModelCodeIsNotACount(t *testing.T) {
 	for in, want := range map[string][]string{
 		"CÂBLE HOCO X21 IPHONE": {"cable", "hoco", "x21", "iphone"},
