@@ -59,6 +59,7 @@ func main() {
 	keys := flag.String("keys", "", "keys file with META_MODEL_API_KEY")
 	bar := flag.Float64("bar", 0.99, "95 % lower bound the code's precision must clear before Spark stops checking every answer")
 	calib := flag.String("calib", "15,30", "calibrate after these training invoices")
+	evalat := flag.String("evalat", "", "also measure the test invoices before training (0) and after these training invoices, e.g. 0,10,20,30 (nothing learned)")
 	creditDB := flag.String("credit", "", "only print who made the free answers possible, for the desk database of an earlier run")
 	breakDB := flag.String("break", "", "only run the breaker against every rule the rule engineer got through the gate, in the desk database of an earlier run (needs -keys)")
 	flag.Parse()
@@ -87,12 +88,7 @@ func main() {
 	}
 	os.RemoveAll(*out)
 	ctx := context.Background()
-	calAt := map[int]bool{}
-	for _, s := range strings.Split(*calib, ",") {
-		if n, err := strconv.Atoi(strings.TrimSpace(s)); err == nil {
-			calAt[n] = true
-		}
-	}
+	calAt, evalAt := ints(*calib), ints(*evalat)
 
 	db, err := store.Open(filepath.Join(*out, "desk", "orderdesk.db"))
 	if err != nil {
@@ -133,6 +129,22 @@ func main() {
 
 	var rows []row
 	var cals []profile.Calibration
+	var phases []string
+	// measure: the test invoices as the desk stands now; nothing answered or learned.
+	measure := func(phase string) {
+		phases = append(phases, phase)
+		for _, inv := range data.Invoices {
+			if inv.Split != "test" {
+				continue
+			}
+			r := d.Replay(ctx, supplierID(inv.Supplier), inv.ID, inv.Month+"-01", inv.Lines, false)
+			rows = append(rows, row{Phase: phase, Invoice: inv.ID, Supplier: inv.Supplier, ReplayResult: r})
+			log.Printf("[%s] %s: %d lines, alias %d, rules %d, ai %d, asked %d, wrong %d, $%.4f", phase, inv.ID, r.Lines, r.Alias, r.Rules, r.AI, r.Asked, r.Wrong, r.AICost)
+		}
+	}
+	if evalAt[0] {
+		measure("test after 0")
+	}
 	n, unlockedAt := 0, 0
 	for _, inv := range data.Invoices {
 		if inv.Split != "train" {
@@ -168,6 +180,9 @@ func main() {
 			cals = append(cals, c)
 			log.Printf("[%s] accepted %d, rejected %d; %s → %s; search %s; engineer %v ($%.4f)", stage, c.Accepted, c.Rejected, c.Before, c.After, c.SearchAfter, c.EngineerRules, c.Cost)
 		}
+		if evalAt[n] {
+			measure(fmt.Sprintf("test after %d", n))
+		}
 	}
 	// autonomy at the end of training
 	if unlockedAt == 0 {
@@ -177,23 +192,22 @@ func main() {
 	}
 
 	// Test: invoices the desk never saw; nothing learned.
-	for _, inv := range data.Invoices {
-		if inv.Split != "test" {
-			continue
-		}
-		r := d.Replay(ctx, supplierID(inv.Supplier), inv.ID, inv.Month+"-01", inv.Lines, false)
-		rows = append(rows, row{Phase: "test", Invoice: inv.ID, Supplier: inv.Supplier, ReplayResult: r})
-		log.Printf("[test] %s: %d lines, alias %d, rules %d, ai %d, asked %d, wrong %d, $%.4f", inv.ID, r.Lines, r.Alias, r.Rules, r.AI, r.Asked, r.Wrong, r.AICost)
+	if len(evalAt) == 0 {
+		measure("test")
 	}
+	phases = append([]string{"spark-checks-all", "learning"}, phases...)
 	final := profile.Load(db)
 	ruleList, _ := rules.List(db, false)
 	var spent float64
 	db.QueryRow(`SELECT COALESCE(SUM(cost),0) FROM ai_usage`).Scan(&spent)
 	credit := Attribute(db)
-	rep := map[string]any{"profile": final, "calibrations": cals, "rows": rows, "rules": ruleList, "spent": spent, "credit": credit,
-		"phases": map[string]agg{"spark-checks-all": sum(rows, "spark-checks-all"), "learning": sum(rows, "learning"), "test": sum(rows, "test")}}
+	sums := map[string]agg{}
+	for _, ph := range phases {
+		sums[ph] = sum(rows, ph)
+	}
+	rep := map[string]any{"profile": final, "calibrations": cals, "rows": rows, "rules": ruleList, "spent": spent, "credit": credit, "phases": sums}
 	os.WriteFile(filepath.Join(*out, "report.json"), []byte(store.JSON(rep)), 0o644)
-	md := markdown(final, cals, rows, ruleList, spent) + credit.Markdown()
+	md := markdown(final, cals, rows, ruleList, spent, phases) + credit.Markdown()
 	os.WriteFile(filepath.Join(*out, "report.md"), []byte(md), 0o644)
 	fmt.Println(md)
 	db.Close()
@@ -242,7 +256,17 @@ func pct(a, b int) string {
 	return fmt.Sprintf("%.0f %%", 100*float64(a)/float64(b))
 }
 
-func markdown(p *profile.Profile, cals []profile.Calibration, rows []row, rl []*rules.Rule, spent float64) string {
+func ints(s string) map[int]bool {
+	m := map[int]bool{}
+	for _, f := range strings.Split(s, ",") {
+		if n, err := strconv.Atoi(strings.TrimSpace(f)); err == nil {
+			m[n] = true
+		}
+	}
+	return m
+}
+
+func markdown(p *profile.Profile, cals []profile.Calibration, rows []row, rl []*rules.Rule, spent float64, phases []string) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, "# What Muse Spark identified: %s\n\n%s\n\n", p.Industry, p.Reading)
 	b.WriteString("## First-pass blocks\n\n")
@@ -271,7 +295,7 @@ func markdown(p *profile.Profile, cals []profile.Calibration, rows []row, rl []*
 		b.WriteString("\n")
 	}
 	b.WriteString("\n## Phases\n\n| phase | invoices | lines | free (alias + rules) | AI | asked | wrong auto | Spark agreed with code | Spark alone right | AI cost |\n|---|---|---|---|---|---|---|---|---|---|\n")
-	for _, ph := range []string{"spark-checks-all", "learning", "test"} {
+	for _, ph := range phases {
 		a := sum(rows, ph)
 		fmt.Fprintf(&b, "| %s | %d | %d | %d (%s) | %d (%s) | %d (%s) | %d | %d/%d | %d/%d | $%.4f |\n", ph, a.Invoices, a.Lines,
 			a.Alias+a.Rules, pct(a.Alias+a.Rules, a.Lines), a.AI, pct(a.AI, a.Lines), a.Asked, pct(a.Asked, a.Lines), a.Wrong,

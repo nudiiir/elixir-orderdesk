@@ -37,6 +37,9 @@ var (
 	wordRe       = regexp.MustCompile(`[\p{L}\p{N}.]+`)
 	// "1l5" is how people type 1.5 L.
 	litreGlued = regexp.MustCompile(`\b(\d)l(\d{1,2})\b`)
+	// "2lx10", "240gx12", "500g*16": a wholesaler glues the pack count to the size; split them so the
+	// size is read ("2l x10").
+	sizeGluedCount = regexp.MustCompile(`(\d(?:litres?|liters?|ltrs?|lt|l|cl|ml|cc|kgs?|grs?|g|mg))([x*]\d{1,3})\b`)
 	// "6x1.5l", "6 x 1500ml", "1500ml x 6", "x 6": the count of a pack, written "x6" once sizes are canonical.
 	countBefore = regexp.MustCompile(`\b(\d{1,3})\s*[x*]\s*(\d+(?:\.\d+)?(?:ml|mg|g))\b`)
 	countAfter  = regexp.MustCompile(`\b(\d+(?:\.\d+)?(?:ml|mg|g))\s*[x*]\s*(\d{1,3})\b`)
@@ -69,6 +72,7 @@ func Normalize(s string) string {
 	s = dottedWords.ReplaceAllString(s, "$1 $2") // "comp.sec", "sol.buv": two words glued by a dot
 	s = dottedWords.ReplaceAllString(s, "$1 $2")
 	s = litreGlued.ReplaceAllString(s, "$1.${2}l")
+	s = sizeGluedCount.ReplaceAllString(s, "$1 $2")
 	s = sizeRe.ReplaceAllStringFunc(s, canonicalSize)
 	s = percentRe.ReplaceAllString(s, "${1}pct")
 	s = countBefore.ReplaceAllString(s, "x$1 $2")
