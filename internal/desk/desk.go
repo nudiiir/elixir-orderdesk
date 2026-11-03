@@ -13,6 +13,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -176,7 +177,7 @@ func (d *Desk) onMessage(ctx context.Context, msg *telegram.TgMessage) {
 			return
 		}
 		if code == "" && customerID != "" {
-			d.say(ctx, chat, fmt.Sprintf("Bonjour %s 👋\n%s", esc(shop), helpText))
+			d.say(ctx, chat, fmt.Sprintf("Bonjour %s 👋\n%s", esc(shop), d.helpText()))
 			return
 		}
 		d.pair(ctx, msg, code)
@@ -217,7 +218,7 @@ func (d *Desk) onMessage(ctx context.Context, msg *telegram.TgMessage) {
 		}
 		return
 	case "/aide", "/help":
-		d.say(ctx, chat, helpText)
+		d.say(ctx, chat, d.helpText())
 		return
 	}
 
@@ -286,7 +287,10 @@ func (d *Desk) onMessage(ctx context.Context, msg *telegram.TgMessage) {
 	if res.Draft == "" {
 		reply := res.Ex.Reply
 		if reply == "" {
-			reply = "Je n'ai pas trouvé de produit dans ce message. Envoyez par exemple : « 3 cartons Dove shampooing 250 ml »."
+			reply = "Je n'ai pas trouvé de produit dans ce message."
+			if ex := d.example(3, "cartons", 1); ex != "" {
+				reply += " Envoyez par exemple : « " + ex + " »."
+			}
 		}
 		if heard != "" {
 			reply = heard + "\n\n" + esc(reply)
@@ -556,7 +560,7 @@ func (d *Desk) pair(ctx context.Context, msg *telegram.TgMessage, code string) {
 		d.DB.Exec(`UPDATE pair_codes SET used_at = ? WHERE code = ?`, store.Now(), code)
 	}
 	d.DB.Event("chat.linked", customerID, who, map[string]string{"chat": chatKey(chat), "customer": name})
-	d.say(ctx, chat, fmt.Sprintf("✅ Ce compte %s est maintenant lié à <b>%s</b>.\n\n%s", channelName(chat), esc(name), helpText))
+	d.say(ctx, chat, fmt.Sprintf("✅ Ce compte %s est maintenant lié à <b>%s</b>.\n\n%s", channelName(chat), esc(name), d.helpText()))
 }
 
 const ownerHelp = `Envoyez ici les <b>factures fournisseurs</b> : une photo nette ou le PDF.
@@ -595,13 +599,36 @@ func (d *Desk) onOwnerMessage(ctx context.Context, msg *telegram.TgMessage) {
 	d.next(ctx, chat, draft)
 }
 
-const helpText = `Comment commander :
-• écrivez : « 3 cartons Dove shampooing 250 ml, 2 Nivea crème »
-• ou envoyez une <b>note vocale</b> (darja, français, arabe)
+const helpTail = `• ou envoyez une <b>note vocale</b> (darja, français, arabe)
 • ou une <b>photo de votre liste</b>, ou des <b>produits</b> eux-mêmes (étiquettes visibles)
 • « comme la dernière fois » reprend votre dernière commande
 
 /commande voir la commande en cours · /annuler l'annuler · /deconnecter délier ce compte`
+
+// example is an order line in this desk's own catalogue ("3 cartons kool cookies 8p"), so the help never
+// names a product the distributor does not sell.
+func (d *Desk) example(qty int, unit string, nth int) string {
+	var short []string
+	for _, p := range d.Cat.Products() {
+		if w := strings.Fields(strings.ToLower(p.Name)); len(w) >= 2 && len(w) <= 4 {
+			short = append(short, strings.Join(w, " "))
+		}
+	}
+	if len(short) == 0 {
+		return ""
+	}
+	sort.Strings(short)
+	ex := strings.TrimSpace(fmt.Sprintf("%d %s %s", qty, unit, short[(nth*len(short)/3)%len(short)]))
+	return strings.Join(strings.Fields(ex), " ")
+}
+
+func (d *Desk) helpText() string {
+	a, b := d.example(3, "cartons", 1), d.example(2, "", 2)
+	if a == "" {
+		return "Comment commander :\n• écrivez votre commande, un produit par ligne\n" + helpTail
+	}
+	return fmt.Sprintf("Comment commander :\n• écrivez : « %s, %s »\n%s", a, b, helpTail)
+}
 
 // ---- helpers ---------------------------------------------------------------------------
 
@@ -686,3 +713,4 @@ func (d *Desk) resolver(live *rules.Set, shadow []*rules.Rule) *resolve.Resolver
 	}
 	return rv
 }
+
