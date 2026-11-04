@@ -228,7 +228,7 @@ function tryBox(custs) {
   return `<div class="card dashed" style="padding:16px;display:flex;flex-direction:column;gap:10px;margin-top:8px">
     <span class="cap">Try a message · demo</span>
     <label class="l" for="t-shop">As shop</label><select id="t-shop" class="inp">${custs.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("")}</select>
-    <label class="l" for="t-msg">Message</label><textarea id="t-msg" class="inp ev" rows="3" placeholder="3 cartons selecto 2l&#10;2 fardou ifri 1.5&#10;1 candia"></textarea>
+    <label class="l" for="t-msg">Message</label><textarea id="t-msg" class="inp ev" rows="3" placeholder="6 ctn amour double concentre 30% tomate 400g&#10;1 ctn moutarde molle 200g&#10;salam, ab3athli 5 amour couscous"></textarea>
     <label class="l" for="t-photo">Or a photo · a list, or the products</label><input id="t-photo" class="inp" type="file" accept="image/*">
     <div class="row" style="justify-content:space-between"><span class="muted" style="font-size:11px;max-width:200px">Runs the real pipeline. Lists use the free parser; chatty text goes to Muse Spark, voice notes to Muse Voice Transcribe; photos of products use SAM 3.1 and Muse Spark.</span>
     <button class="btn primary sm" id="t-run" type="button">Run</button></div></div>`;

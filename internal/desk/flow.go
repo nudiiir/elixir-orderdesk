@@ -389,6 +389,15 @@ func (d *Desk) Confirm(ctx context.Context, draft, origin string) (adapter.Order
 		return adapter.OrderRef{}, fmt.Errorf("draft is %s", status)
 	}
 	lines := DraftLines(d.DB, draft, false)
+	open := 0
+	for _, l := range lines {
+		if l.Status != "ok" {
+			open++
+		}
+	}
+	if open > 0 { // never book an order with lines left out silently: answer them or remove them first
+		return adapter.OrderRef{}, fmt.Errorf("%d line(s) still need an answer", open)
+	}
 	// the shop and the channel only: the ERP's users never see the name of the person who wrote
 	o := adapter.Order{CustomerID: customerID, ExternalRef: "orderdesk:" + draft,
 		Notes: "Commande reçue par Order Desk (" + strings.SplitN(key, ":", 2)[0] + ")"}

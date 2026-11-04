@@ -258,6 +258,9 @@ func Deterministic(cat *catalog.Catalog, set *rules.Set, m Mention, cx Context) 
 	used = dedupe(append(used, v.Decisive...))
 	switch v.Kind {
 	case "match":
+		if len(out.Used) == 0 && oneGenericWord(out.Text, v.Products[0]) {
+			break // "3 sel", "2 the": one common word fits one name by chance (unless a rule said what it means)
+		}
 		r.ProductID, r.Level, r.Status, r.Confidence = v.Products[0].ID, LRules, "ok", 1
 		r.Used = append(used, "match")
 		return r
@@ -292,6 +295,17 @@ func Deterministic(cat *catalog.Catalog, set *rules.Set, m Mention, cx Context) 
 		r.Used = used
 	}
 	return r
+}
+
+// oneGenericWord: the line is a single word and it is not the product's brand. Such a match is not booked
+// free; it goes on to Muse Spark or the shop.
+func oneGenericWord(text string, p *catalog.Product) bool {
+	words, _ := catalog.Tokens(text)
+	if len(words) != 1 {
+		return false
+	}
+	brand, _ := catalog.Tokens(catalog.Normalize(p.Brand))
+	return len(brand) == 0 || catalog.WordSim(words[0], brand[0]) < 0.85
 }
 
 // askable: the line's words all name catalogue products and several fit; only the shop knows

@@ -261,7 +261,13 @@ func WordSim(a, b string) float64 {
 	}
 	la, lb := len([]rune(a)), len([]rune(b))
 	if la >= 3 && lb >= 3 && (strings.HasPrefix(b, a) || strings.HasPrefix(a, b)) {
-		return 0.85
+		// a plural ending, or a real abbreviation ("choco" for chocolat); a short word that only starts a
+		// longer one is another product ("sel" is not "selecto", "javel" is not "javellisant")
+		short, long := min(la, lb), max(la, lb)
+		if long-short <= 2 || (short >= 4 && float64(short)/float64(long) >= 0.5) {
+			return 0.85
+		}
+		return 0
 	}
 	if la < 4 || lb < 4 {
 		return 0

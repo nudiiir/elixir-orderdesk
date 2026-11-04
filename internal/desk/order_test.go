@@ -182,3 +182,29 @@ func TestLearnOnlyChecked(t *testing.T) {
 		t.Fatal("a person's confirmation trusts the wording")
 	}
 }
+
+// An order with a line still asked is not booked without it: answer or remove it first.
+func TestConfirmRefusesOpenLines(t *testing.T) {
+	d := testDesk(t)
+	f := &fakeERP{orders: map[string]adapter.OrderRef{}}
+	res, err := d.Ingest(context.Background(), "tg:42", "C1", store.NewID("msg"), "text", "3 cartons moutarde amora\n2 zzz inconnu", "")
+	if err != nil || len(res.Lines) != 2 || res.Lines[1].Status == "ok" {
+		t.Fatalf("err %v, lines %+v", err, res.Lines)
+	}
+	d.ERP = func() adapter.ERP { return f }
+	if _, err := d.Confirm(context.Background(), res.Draft, "clerk"); err == nil || f.created != 0 {
+		t.Fatalf("booked with a line still asked: err %v, %d orders", err, f.created)
+	}
+}
+
+// One common word that fits one product name by chance is not booked free.
+func TestOneGenericWordIsNotBooked(t *testing.T) {
+	d := testDesk(t)
+	res, err := d.Ingest(context.Background(), "panel:C1", "C1", store.NewID("msg"), "text", "3 cacao", "")
+	if err != nil || len(res.Lines) != 1 {
+		t.Fatalf("err %v, lines %+v", err, res.Lines)
+	}
+	if l := res.Lines[0]; l.Status == "ok" {
+		t.Errorf("one common word booked %s with no check", l.ProductID)
+	}
+}
