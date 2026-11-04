@@ -1,0 +1,14 @@
+2026/11/03 18:01:51 [COS-02] 21 lines: right 19, wrong 0, unsure 2 ($0.0223)
+2026/11/03 18:01:59 [COS-03] 24 lines: right 24, wrong 0, unsure 0 ($0.0220)
+2026/11/03 18:02:08 [COS-06] 26 lines: right 26, wrong 0, unsure 0 ($0.0220)
+2026/11/03 18:02:16 [COS-16] 18 lines: right 15, wrong 0, unsure 3 ($0.0212)
+2026/11/03 18:02:23 [COS-19] 18 lines: right 17, wrong 0, unsure 1 ($0.0204)
+2026/11/03 18:02:32 [COS-29] 15 lines: right 14, wrong 0, unsure 1 ($0.0205)
+2026/11/03 18:02:39 [COS-30] 16 lines: right 16, wrong 0, unsure 0 ($0.0202)
+2026/11/03 18:02:46 [COS-35] 16 lines: right 15, wrong 0, unsure 1 ($0.0204)
+2026/11/03 18:02:55 [COS-37] 22 lines: right 21, wrong 0, unsure 1 ($0.0219)
+2026/11/03 18:03:05 [COS-38] 15 lines: right 14, wrong 1, unsure 0 ($0.0217)
+Spark alone on 10 test invoices, 191 lines
+  at its own word: right 181, wrong 1, unsure 9
+  with the 0.90 threshold: booked right 166, booked wrong 0, sent to a person 25
+  Meta spend: $0.2129

@@ -1,0 +1,14 @@
+2026/11/03 17:57:36 [SUP-03] 23 lines: right 19, wrong 0, unsure 4 ($0.0221)
+2026/11/03 17:57:48 [SUP-04] 26 lines: right 23, wrong 1, unsure 2 ($0.0230)
+2026/11/03 17:57:58 [SUP-09] 23 lines: right 22, wrong 0, unsure 1 ($0.0211)
+2026/11/03 17:58:10 [SUP-25] 24 lines: right 20, wrong 2, unsure 2 ($0.0227)
+2026/11/03 17:58:20 [SUP-31] 20 lines: right 20, wrong 0, unsure 0 ($0.0207)
+2026/11/03 17:58:30 [SUP-32] 19 lines: right 18, wrong 0, unsure 1 ($0.0217)
+2026/11/03 17:58:39 [SUP-35] 19 lines: right 19, wrong 0, unsure 0 ($0.0208)
+2026/11/03 17:58:47 [SUP-36] 12 lines: right 11, wrong 1, unsure 0 ($0.0196)
+2026/11/03 17:58:59 [SUP-37] 21 lines: right 16, wrong 2, unsure 3 ($0.0223)
+2026/11/03 17:59:09 [SUP-38] 25 lines: right 25, wrong 0, unsure 0 ($0.0217)
+Spark alone on 10 test invoices, 212 lines
+  at its own word: right 193, wrong 6, unsure 13
+  with the 0.90 threshold: booked right 178, booked wrong 2, sent to a person 32
+  Meta spend: $0.2157

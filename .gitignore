@@ -18,3 +18,4 @@ keys.env
 outbox*.jsonl
 /run-*/
 tools/whatsapp-sim/media/VOICE1
+!/bench/trained-desks/*/orderdesk.db

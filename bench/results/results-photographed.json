@@ -1,0 +1,1403 @@
+{
+ "supermarket": {
+  "curve": [
+   {
+    "after": 0,
+    "lines": 212,
+    "free": 158,
+    "spark": 13,
+    "asked": 40,
+    "wrong": 1,
+    "auto": 171,
+    "checked": 158,
+    "cost": 0.0801
+   },
+   {
+    "after": 10,
+    "lines": 212,
+    "free": 157,
+    "spark": 12,
+    "asked": 43,
+    "wrong": 0,
+    "auto": 169,
+    "checked": 157,
+    "cost": 0.0848
+   },
+   {
+    "after": 20,
+    "lines": 212,
+    "free": 159,
+    "spark": 11,
+    "asked": 41,
+    "wrong": 1,
+    "auto": 170,
+    "checked": 159,
+    "cost": 0.0802
+   },
+   {
+    "after": 30,
+    "lines": 212,
+    "free": 160,
+    "spark": 11,
+    "asked": 40,
+    "wrong": 1,
+    "auto": 171,
+    "checked": 160,
+    "cost": 0.0827
+   }
+  ],
+  "train_lines": 612,
+  "train_wrong": 2,
+  "spent": 1.916,
+  "errors": [
+   {
+    "invoice": "SUP-04",
+    "after": "test after 0",
+    "said": "SOSEMIE PATES COURTES",
+    "got": "SOSEMIE PATES COURTES",
+    "want": "SOSEMIE PATES COURTES TLITLI",
+    "level": "ai"
+   },
+   {
+    "invoice": "SUP-04",
+    "after": "test after 20",
+    "said": "SOSEMIE PATES COURTES",
+    "got": "SOSEMIE PATES COURTES",
+    "want": "SOSEMIE PATES COURTES TLITLI",
+    "level": "ai"
+   },
+   {
+    "invoice": "SUP-04",
+    "after": "test after 30",
+    "said": "SOSEMIE PATES COURTES",
+    "got": "SOSEMIE PATES COURTES",
+    "want": "SOSEMIE PATES COURTES TLITLI",
+    "level": "ai"
+   }
+  ],
+  "rules": [
+   {
+    "id": "R-0009",
+    "status": "rejected",
+    "sentence": "\"linge machine\" is the usage \"machine\", in orders, invoices and catalogue names alike; a usage stated on one side only, or a different one, is never the same product.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0008",
+    "status": "shadow",
+    "sentence": "\"frmg\" means \"fromage\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0007",
+    "status": "rejected",
+    "sentence": "\"stick\" is the form \"stick\", in orders, invoices and catalogue names alike; a form stated on one side only, or a different one, is never the same product.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0006",
+    "status": "rejected",
+    "sentence": "\"machine\" is the usage \"machine\", in orders, invoices and catalogue names alike; a usage stated on one side only, or a different one, is never the same product.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0005",
+    "status": "rejected",
+    "sentence": "\"sach\" means \"sachet\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0004",
+    "status": "rejected",
+    "sentence": "\"frs\" means \"fraise\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0003",
+    "status": "rejected",
+    "sentence": "\"fourre\", \"enrobe\", \"sandwich\", \"gaufrette\", \"moulu\", \"soluble\" each name a form, in orders, invoices and catalogue names alike; two texts whose form differs are never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0002",
+    "status": "live",
+    "sentence": "\"blanc\", \"white\", \"noir\", \"black\" each name a colour, in orders, invoices and catalogue names alike; two texts whose colour differs are never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0001",
+    "status": "rejected",
+    "sentence": "\"chocolat\", \"vanille\", \"fraise\", \"abricot\", \"caramel\", \"pistache\", \"ananas\", \"thon\", \"menthe\", \"citron\" each name a flavour, in orders, invoices and catalogue names alike; two texts whose flavour differs are never the same product.",
+    "author": "muse-spark-profile"
+   }
+  ],
+  "lexicon": [
+   {
+    "from": "choco",
+    "to": "chocolat",
+    "status": "live"
+   },
+   {
+    "from": "bisc",
+    "to": "biscuit",
+    "status": "rejected"
+   },
+   {
+    "from": "conf",
+    "to": "confiture",
+    "status": "rejected"
+   },
+   {
+    "from": "frmg",
+    "to": "fromage",
+    "status": "shadow"
+   },
+   {
+    "from": "shamp",
+    "to": "shampooing",
+    "status": "rejected"
+   },
+   {
+    "from": "liq",
+    "to": "liquide",
+    "status": "rejected"
+   },
+   {
+    "from": "خل",
+    "to": "vinaigre",
+    "status": "rejected"
+   },
+   {
+    "from": "صلصه",
+    "to": "sauce",
+    "status": "rejected"
+   },
+   {
+    "from": "ياغورت",
+    "to": "yaourt",
+    "status": "rejected"
+   },
+   {
+    "from": "هريسه",
+    "to": "harissa",
+    "status": "rejected"
+   },
+   {
+    "from": "كراس",
+    "to": "cahier",
+    "status": "rejected"
+   },
+   {
+    "from": "مصباح",
+    "to": "lampe",
+    "status": "rejected"
+   },
+   {
+    "from": "جبن",
+    "to": "fromage",
+    "status": "rejected"
+   },
+   {
+    "from": "قوفريت",
+    "to": "gaufrette",
+    "status": "rejected"
+   },
+   {
+    "from": "خردل",
+    "to": "moutarde",
+    "status": "live"
+   },
+   {
+    "from": "مربي",
+    "to": "confiture",
+    "status": "shadow"
+   },
+   {
+    "from": "سكر",
+    "to": "sucre",
+    "status": "rejected"
+   },
+   {
+    "from": "بسكويت",
+    "to": "biscuit",
+    "status": "rejected"
+   },
+   {
+    "from": "شوكولاطه",
+    "to": "chocolat",
+    "status": "rejected"
+   },
+   {
+    "from": "عجاين",
+    "to": "pates",
+    "status": "rejected"
+   },
+   {
+    "from": "حليب",
+    "to": "lait",
+    "status": "rejected"
+   },
+   {
+    "from": "gr",
+    "to": "g",
+    "status": "rejected"
+   },
+   {
+    "from": "صلصة",
+    "to": "sauce",
+    "status": "rejected"
+   },
+   {
+    "from": "هريسة",
+    "to": "harissa",
+    "status": "rejected"
+   },
+   {
+    "from": "مربى",
+    "to": "confiture",
+    "status": "rejected"
+   },
+   {
+    "from": "شوكولاطة",
+    "to": "chocolat",
+    "status": "rejected"
+   },
+   {
+    "from": "عجائن",
+    "to": "pates",
+    "status": "rejected"
+   },
+   {
+    "from": "confi",
+    "to": "confiture",
+    "status": "rejected"
+   },
+   {
+    "from": "frs",
+    "to": "fraise",
+    "status": "rejected"
+   }
+  ],
+  "industry": "supermarket / FMCG",
+  "alone": {
+   "Lines": 212,
+   "Right": 193,
+   "Wrong": 6,
+   "Unsure": 13,
+   "RightAt": 178,
+   "WrongAt": 2,
+   "AskedAt": 32,
+   "cost": 0.21566999999999997
+  },
+  "alone_errors": [
+   {
+    "said": "SOSEMIE PATES COURTES",
+    "got": "SOSEMIE PATES COURTES",
+    "want": "SOSEMIE PATES COURTES TLITLI",
+    "conf": 0.85
+   },
+   {
+    "said": "LIA BY TCHIN LAIT LAITIERE PARTIELLEMENT",
+    "got": "LIA BY TCHIN LAIT YAOURT PARTIELLEMENT ECREME SUCRE ET AROMATISE",
+    "want": "LIA BY TCHIN LAIT SPECIALITE LAITIERE PARTIELLEMENT ECREMEE, SUCREE ET AROMATISEE YAOURT BRASSEE",
+    "conf": 0.55
+   },
+   {
+    "said": "TARTINELLA PATE TARTINER 350 GR",
+    "got": "TARTINELLA PATE A TARTINER 350G",
+    "want": "TARTINELLA PATE A TARTINER BEURRE CACAHUETE 350G",
+    "conf": 0.98
+   },
+   {
+    "said": "TIP TOP FRMG FONDU 16P*8",
+    "got": "TIP TOP FROMAGE FONDU EN PORTION 16P",
+    "want": "TIP TOP FROMAGE FONDU A TARTINER PORTION EDAM 16P",
+    "conf": 0.7
+   },
+   {
+    "said": "شوكولاطة NESQUIK",
+    "got": "NESQUIK CHOCOLAT",
+    "want": "NESQUIK CHOCOLAT EN POUDRE STICK",
+    "conf": 0.6
+   },
+   {
+    "said": "LAITIERE AMANI FRUITS YAOURT",
+    "got": "AMANI PREPARATION LAITIERE AUX FRUITS YAOURT",
+    "want": "AMANI PREPARATION LAITIERE AUX FRUITS YAOURT AMINE",
+    "conf": 0.9
+   }
+  ]
+ },
+ "pharmacy": {
+  "curve": [
+   {
+    "after": 0,
+    "lines": 201,
+    "free": 88,
+    "spark": 79,
+    "asked": 33,
+    "wrong": 1,
+    "auto": 167,
+    "checked": 88,
+    "cost": 0.0737
+   },
+   {
+    "after": 10,
+    "lines": 201,
+    "free": 125,
+    "spark": 37,
+    "asked": 38,
+    "wrong": 1,
+    "auto": 162,
+    "checked": 125,
+    "cost": 0.0692
+   },
+   {
+    "after": 20,
+    "lines": 201,
+    "free": 126,
+    "spark": 34,
+    "asked": 40,
+    "wrong": 1,
+    "auto": 160,
+    "checked": 126,
+    "cost": 0.0739
+   },
+   {
+    "after": 30,
+    "lines": 201,
+    "free": 133,
+    "spark": 28,
+    "asked": 39,
+    "wrong": 1,
+    "auto": 161,
+    "checked": 133,
+    "cost": 0.0774
+   }
+  ],
+  "train_lines": 582,
+  "train_wrong": 1,
+  "spent": 1.9061,
+  "errors": [
+   {
+    "invoice": "MED-14",
+    "after": "test after 0",
+    "said": "Betabio Sol Buv Gttes",
+    "got": "BETABIO 0.05% GTTES FL 30ML",
+    "want": "BETABIO CP 2M B/20 DISP",
+    "level": "ai"
+   },
+   {
+    "invoice": "MED-14",
+    "after": "test after 10",
+    "said": "Betabio Sol Buv Gttes",
+    "got": "BETABIO 0.05% GTTES FL 30ML",
+    "want": "BETABIO CP 2M B/20 DISP",
+    "level": "ai"
+   },
+   {
+    "invoice": "MED-14",
+    "after": "test after 20",
+    "said": "Betabio Sol Buv Gttes",
+    "got": "BETABIO 0.05% GTTES FL 30ML",
+    "want": "BETABIO CP 2M B/20 DISP",
+    "level": "ai"
+   },
+   {
+    "invoice": "MED-14",
+    "after": "test after 30",
+    "said": "Betabio Sol Buv Gttes",
+    "got": "BETABIO 0.05% GTTES FL 30ML",
+    "want": "BETABIO CP 2M B/20 DISP",
+    "level": "ai"
+   }
+  ],
+  "rules": [
+   {
+    "id": "R-0014",
+    "status": "shadow",
+    "sentence": "\"ss\" or \"s s\" is the variant \"ss\", in orders, invoices and catalogue names alike; a variant stated on one side only, or a different one, is never the same product.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0013",
+    "status": "shadow",
+    "sentence": "\"oro disp\" is written as \"orod\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0012",
+    "status": "rejected",
+    "sentence": "\"enfant\" means \"enf\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0011",
+    "status": "shadow",
+    "sentence": "\"flc\" means \"fl\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0010",
+    "status": "shadow",
+    "sentence": "\"cr\" means \"creme\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0009",
+    "status": "rejected",
+    "sentence": "\"sol buv\" means \"susp buv\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0008",
+    "status": "shadow",
+    "sentence": "\"sol inj\" means \"inj\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0007",
+    "status": "shadow",
+    "sentence": "\"comp\" or \"comprimes\" or \"comprime\" or \"compr\" means \"cp\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0006",
+    "status": "live",
+    "sentence": "\"pel\" or \"enro\" or \"pell\" or \"pelli\" or \"pellicule\" or \"pelliculaire\" or \"enrob\" or \"enrobe\" describes a product but never tells two products apart.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0005",
+    "status": "shadow",
+    "sentence": "\"sir\" or \"srp\" or \"sirop\" is the form \"sp\", in orders, invoices and catalogue names alike.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0004",
+    "status": "rejected",
+    "sentence": "\"flc\" or \"flacon\" means \"fl\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0003",
+    "status": "live",
+    "sentence": "\"cp\", \"gles\", \"gels\", \"sp\", \"supp\", \"ovul\", \"amp\", \"inj\", \"collyre\", \"gel\", \"creme\", \"pommade\" each name a form, in orders, invoices and catalogue names alike; two texts whose form differs are never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0002",
+    "status": "rejected",
+    "sentence": "\"lp\", \"orod\", \"disp\", \"efferv\", \"retard\" each name a release, in orders, invoices and catalogue names alike; a release stated on one side only, or a different one, is never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0001",
+    "status": "live",
+    "sentence": "\"ad\", \"adultes\", \"enf\", \"nourrisson\", \"bebe\" each name a population, in orders, invoices and catalogue names alike; two texts whose population differs are never the same product.",
+    "author": "muse-spark-profile"
+   }
+  ],
+  "lexicon": [
+   {
+    "from": "comprime",
+    "to": "cp",
+    "status": "live"
+   },
+   {
+    "from": "comprimes",
+    "to": "cp",
+    "status": "rejected"
+   },
+   {
+    "from": "gelule",
+    "to": "gles",
+    "status": "rejected"
+   },
+   {
+    "from": "gelules",
+    "to": "gles",
+    "status": "rejected"
+   },
+   {
+    "from": "sirop",
+    "to": "sp",
+    "status": "live"
+   },
+   {
+    "from": "sachet",
+    "to": "sacht",
+    "status": "rejected"
+   },
+   {
+    "from": "sachets",
+    "to": "sacht",
+    "status": "rejected"
+   },
+   {
+    "from": "poudre",
+    "to": "pdre",
+    "status": "rejected"
+   },
+   {
+    "from": "flacon",
+    "to": "fl",
+    "status": "rejected"
+   },
+   {
+    "from": "gouttes",
+    "to": "gttes",
+    "status": "rejected"
+   },
+   {
+    "from": "ampoule",
+    "to": "amp",
+    "status": "rejected"
+   },
+   {
+    "from": "suppositoire",
+    "to": "supp",
+    "status": "rejected"
+   },
+   {
+    "from": "boite",
+    "to": "b",
+    "status": "rejected"
+   },
+   {
+    "from": "bte",
+    "to": "b",
+    "status": "rejected"
+   },
+   {
+    "from": "tube",
+    "to": "t",
+    "status": "rejected"
+   },
+   {
+    "from": "cpr",
+    "to": "cp",
+    "status": "rejected"
+   },
+   {
+    "from": "comp",
+    "to": "cp",
+    "status": "live"
+   },
+   {
+    "from": "sir",
+    "to": "",
+    "status": "shadow"
+   },
+   {
+    "from": "srp",
+    "to": "",
+    "status": "live"
+   },
+   {
+    "from": "crm",
+    "to": "creme",
+    "status": "rejected"
+   },
+   {
+    "from": "flc",
+    "to": "flacon",
+    "status": "rejected"
+   },
+   {
+    "from": "physiopharm",
+    "to": "physio",
+    "status": "rejected"
+   },
+   {
+    "from": "vit",
+    "to": "vitamine",
+    "status": "rejected"
+   },
+   {
+    "from": "caps",
+    "to": "gles",
+    "status": "rejected"
+   },
+   {
+    "from": "inh",
+    "to": "inhal",
+    "status": "rejected"
+   },
+   {
+    "from": "sach",
+    "to": "sacht",
+    "status": "rejected"
+   },
+   {
+    "from": "pellic",
+    "to": "pelli",
+    "status": "rejected"
+   },
+   {
+    "from": "pellicule",
+    "to": "pelli",
+    "status": "rejected"
+   },
+   {
+    "from": "sacht",
+    "to": "sachet",
+    "status": "rejected"
+   },
+   {
+    "from": "ad",
+    "to": "adultes",
+    "status": "rejected"
+   },
+   {
+    "from": "enfants",
+    "to": "enf",
+    "status": "rejected"
+   },
+   {
+    "from": "gels",
+    "to": "gles",
+    "status": "rejected"
+   },
+   {
+    "from": "sachetes",
+    "to": "sachet",
+    "status": "rejected"
+   },
+   {
+    "from": "nrs",
+    "to": "nourrissant",
+    "status": "rejected"
+   }
+  ],
+  "industry": "pharmacy / medicines",
+  "alone": {
+   "Lines": 201,
+   "Right": 199,
+   "Wrong": 1,
+   "Unsure": 1,
+   "RightAt": 192,
+   "WrongAt": 0,
+   "AskedAt": 9,
+   "cost": 0.20756750000000002
+  },
+  "alone_errors": [
+   {
+    "said": "Betabio Sol Buv Gttes",
+    "got": "BETABIO 0.05% GTTES FL 30ML",
+    "want": "BETABIO CP 2M B/20 DISP",
+    "conf": 0.85
+   }
+  ]
+ },
+ "electronics": {
+  "curve": [
+   {
+    "after": 0,
+    "lines": 209,
+    "free": 124,
+    "spark": 59,
+    "asked": 26,
+    "wrong": 0,
+    "auto": 183,
+    "checked": 124,
+    "cost": 0.0634
+   },
+   {
+    "after": 10,
+    "lines": 209,
+    "free": 152,
+    "spark": 31,
+    "asked": 26,
+    "wrong": 0,
+    "auto": 183,
+    "checked": 152,
+    "cost": 0.0669
+   },
+   {
+    "after": 20,
+    "lines": 209,
+    "free": 157,
+    "spark": 26,
+    "asked": 26,
+    "wrong": 0,
+    "auto": 183,
+    "checked": 11,
+    "cost": 0.0247
+   },
+   {
+    "after": 30,
+    "lines": 209,
+    "free": 166,
+    "spark": 18,
+    "asked": 25,
+    "wrong": 0,
+    "auto": 184,
+    "checked": 9,
+    "cost": 0.02
+   }
+  ],
+  "train_lines": 597,
+  "train_wrong": 0,
+  "spent": 1.2256,
+  "errors": [],
+  "rules": [
+   {
+    "id": "R-0009",
+    "status": "shadow",
+    "sentence": "\"galaxy\" describes a product but never tells two products apart.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0008",
+    "status": "shadow",
+    "sentence": "\"haut parleur\" means \"baffle\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0007",
+    "status": "shadow",
+    "sentence": "\"verre trempe\" means \"glass\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0006",
+    "status": "rejected",
+    "sentence": "\"coque\" means \"pochette\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0005",
+    "status": "shadow",
+    "sentence": "\"pc portable\" means \"laptop\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0004",
+    "status": "shadow",
+    "sentence": "\"headset\" means \"casque\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0003",
+    "status": "rejected",
+    "sentence": "\"rgb\", \"gaming\", \"privacy\" each name a light, in orders, invoices and catalogue names alike; a light stated on one side only, or a different one, is never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0002",
+    "status": "live",
+    "sentence": "\"pro\", \"max\", \"plus\", \"ultra\" each name a version, in orders, invoices and catalogue names alike; two texts whose version differs are never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0001",
+    "status": "live",
+    "sentence": "\"original\", \"copy\", \"recupiration\" each name a quality, in orders, invoices and catalogue names alike; two texts whose quality differs are never the same product.",
+    "author": "muse-spark-profile"
+   }
+  ],
+  "lexicon": [
+   {
+    "from": "org",
+    "to": "original",
+    "status": "rejected"
+   },
+   {
+    "from": "orig",
+    "to": "original",
+    "status": "rejected"
+   },
+   {
+    "from": "bluetooth",
+    "to": "bl-tooth",
+    "status": "live"
+   },
+   {
+    "from": "bt",
+    "to": "bl-tooth",
+    "status": "rejected"
+   },
+   {
+    "from": "typec",
+    "to": "type-c",
+    "status": "rejected"
+   },
+   {
+    "from": "smartphone",
+    "to": "mobile",
+    "status": "live"
+   },
+   {
+    "from": "tel",
+    "to": "mobile",
+    "status": "live"
+   },
+   {
+    "from": "tab",
+    "to": "tablette",
+    "status": "live"
+   },
+   {
+    "from": "notebook",
+    "to": "laptop",
+    "status": "live"
+   },
+   {
+    "from": "portable",
+    "to": "laptop",
+    "status": "rejected"
+   },
+   {
+    "from": "pc",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "charger",
+    "to": "chargeur",
+    "status": "live"
+   },
+   {
+    "from": "cbl",
+    "to": "cable",
+    "status": "live"
+   },
+   {
+    "from": "usb-c",
+    "to": "type-c",
+    "status": "rejected"
+   },
+   {
+    "from": "t-c",
+    "to": "type-c",
+    "status": "rejected"
+   },
+   {
+    "from": "coque",
+    "to": "pochette",
+    "status": "rejected"
+   },
+   {
+    "from": "verre",
+    "to": "glass",
+    "status": "rejected"
+   },
+   {
+    "from": "trempe",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "protection",
+    "to": "glass",
+    "status": "rejected"
+   },
+   {
+    "from": "ecran",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "mouse",
+    "to": "souris",
+    "status": "live"
+   },
+   {
+    "from": "speaker",
+    "to": "baffle",
+    "status": "live"
+   },
+   {
+    "from": "holder",
+    "to": "support",
+    "status": "live"
+   },
+   {
+    "from": "headset",
+    "to": "casque",
+    "status": "rejected"
+   },
+   {
+    "from": "watch",
+    "to": "montre",
+    "status": "rejected"
+   },
+   {
+    "from": "core",
+    "to": "",
+    "status": "live"
+   },
+   {
+    "from": "galaxy",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "xiaomi",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "11eme",
+    "to": "11th",
+    "status": "rejected"
+   },
+   {
+    "from": "8eme",
+    "to": "8th",
+    "status": "rejected"
+   },
+   {
+    "from": "s-fil",
+    "to": "sans-fil",
+    "status": "rejected"
+   },
+   {
+    "from": "etui",
+    "to": "pochette",
+    "status": "live"
+   },
+   {
+    "from": "keyboard",
+    "to": "clavier",
+    "status": "live"
+   },
+   {
+    "from": "haut",
+    "to": "baffle",
+    "status": "rejected"
+   },
+   {
+    "from": "parleur",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "usb",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "v8",
+    "to": "micro",
+    "status": "rejected"
+   },
+   {
+    "from": "cle",
+    "to": "flash",
+    "status": "rejected"
+   },
+   {
+    "from": "10eme",
+    "to": "10th",
+    "status": "rejected"
+   },
+   {
+    "from": "sam",
+    "to": "samsung",
+    "status": "rejected"
+   },
+   {
+    "from": "t",
+    "to": "type",
+    "status": "live"
+   },
+   {
+    "from": "10gb",
+    "to": "",
+    "status": "rejected"
+   }
+  ],
+  "industry": "mobile phones and accessories",
+  "alone": {
+   "Lines": 209,
+   "Right": 208,
+   "Wrong": 1,
+   "Unsure": 0,
+   "RightAt": 203,
+   "WrongAt": 1,
+   "AskedAt": 5,
+   "cost": 0.2484155
+  },
+  "alone_errors": [
+   {
+    "said": "BOUTEILLE ENCRE UNIVERSEL HP/CANON/EPSON/BROTHER PACK",
+    "got": "PACK BOUTEILLE ENCRE UNIVERSEL 500ML",
+    "want": "PACK BOUTEILLE ENCRE UNIVERSEL HP/CANON/EPSON/BROTHER",
+    "conf": 0.97
+   }
+  ]
+ },
+ "cosmetics": {
+  "curve": [
+   {
+    "after": 0,
+    "lines": 191,
+    "free": 140,
+    "spark": 23,
+    "asked": 27,
+    "wrong": 1,
+    "auto": 163,
+    "checked": 140,
+    "cost": 0.0787
+   },
+   {
+    "after": 10,
+    "lines": 191,
+    "free": 139,
+    "spark": 21,
+    "asked": 30,
+    "wrong": 1,
+    "auto": 160,
+    "checked": 139,
+    "cost": 0.0833
+   },
+   {
+    "after": 20,
+    "lines": 191,
+    "free": 146,
+    "spark": 19,
+    "asked": 25,
+    "wrong": 1,
+    "auto": 165,
+    "checked": 41,
+    "cost": 0.0457
+   },
+   {
+    "after": 30,
+    "lines": 191,
+    "free": 149,
+    "spark": 17,
+    "asked": 24,
+    "wrong": 1,
+    "auto": 166,
+    "checked": 45,
+    "cost": 0.0462
+   }
+  ],
+  "train_lines": 579,
+  "train_wrong": 0,
+  "spent": 1.4705,
+  "errors": [
+   {
+    "invoice": "COS-29",
+    "after": "test after 0",
+    "said": "BPN MAGNESIUM 500 G BISGLYCINATE",
+    "got": "BPN MAGNESIUM BISGLYCINATE B/90",
+    "want": "BPN MAGNESIUM BISGLYCINATE 500 MG B/40",
+    "level": "rules"
+   },
+   {
+    "invoice": "COS-29",
+    "after": "test after 10",
+    "said": "BPN MAGNESIUM 500 G BISGLYCINATE",
+    "got": "BPN MAGNESIUM BISGLYCINATE B/90",
+    "want": "BPN MAGNESIUM BISGLYCINATE 500 MG B/40",
+    "level": "rules"
+   },
+   {
+    "invoice": "COS-29",
+    "after": "test after 20",
+    "said": "BPN MAGNESIUM 500 G BISGLYCINATE",
+    "got": "BPN MAGNESIUM BISGLYCINATE B/90",
+    "want": "BPN MAGNESIUM BISGLYCINATE 500 MG B/40",
+    "level": "rules"
+   },
+   {
+    "invoice": "COS-29",
+    "after": "test after 30",
+    "said": "BPN MAGNESIUM 500 G BISGLYCINATE",
+    "got": "BPN MAGNESIUM BISGLYCINATE B/90",
+    "want": "BPN MAGNESIUM BISGLYCINATE 500 MG B/40",
+    "level": "rules"
+   }
+  ],
+  "rules": [
+   {
+    "id": "R-0008",
+    "status": "shadow",
+    "sentence": "\"citron\", \"orange\", \"pomme\", \"aloe vera\" each name a flavour, in orders, invoices and catalogue names alike.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0007",
+    "status": "shadow",
+    "sentence": "\"en\" is never part of a product name.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0006",
+    "status": "rejected",
+    "sentence": "\"{n}cap\" is written as \"{n} caps\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0005",
+    "status": "shadow",
+    "sentence": "\"crem\" means \"creme\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0004",
+    "status": "shadow",
+    "sentence": "\"bad\" describes a product but never tells two products apart.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0003",
+    "status": "shadow",
+    "sentence": "\"fl\" describes a product but never tells two products apart.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0002",
+    "status": "live",
+    "sentence": "\"fraise\", \"menthe\", \"mint\", \"vanille\" each name a flavour, in orders, invoices and catalogue names alike; two texts whose flavour differs are never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0001",
+    "status": "live",
+    "sentence": "\"bleu\", \"rouge\", \"noir\", \"vert\", \"rose\", \"gris\", \"jaune\" each name a colour, in orders, invoices and catalogue names alike; two texts whose colour differs are never the same product.",
+    "author": "muse-spark-profile"
+   }
+  ],
+  "lexicon": [
+   {
+    "from": "biberon",
+    "to": "bib",
+    "status": "rejected"
+   },
+   {
+    "from": "brosse",
+    "to": "bad",
+    "status": "rejected"
+   },
+   {
+    "from": "dentifrice",
+    "to": "dent",
+    "status": "rejected"
+   },
+   {
+    "from": "shampooing",
+    "to": "shamp",
+    "status": "rejected"
+   },
+   {
+    "from": "shampoing",
+    "to": "shamp",
+    "status": "rejected"
+   },
+   {
+    "from": "crem",
+    "to": "creme",
+    "status": "rejected"
+   },
+   {
+    "from": "comprime",
+    "to": "cp",
+    "status": "rejected"
+   },
+   {
+    "from": "comp",
+    "to": "cp",
+    "status": "rejected"
+   },
+   {
+    "from": "flacon",
+    "to": "fl",
+    "status": "rejected"
+   },
+   {
+    "from": "gouttes",
+    "to": "gtt",
+    "status": "rejected"
+   },
+   {
+    "from": "vit",
+    "to": "vitamine",
+    "status": "rejected"
+   },
+   {
+    "from": "bb",
+    "to": "bebe",
+    "status": "live"
+   },
+   {
+    "from": "compresse",
+    "to": "comp",
+    "status": "rejected"
+   },
+   {
+    "from": "solu",
+    "to": "solution",
+    "status": "rejected"
+   },
+   {
+    "from": "plas",
+    "to": "plastique",
+    "status": "rejected"
+   },
+   {
+    "from": "anti",
+    "to": "a",
+    "status": "rejected"
+   },
+   {
+    "from": "adulte",
+    "to": "ad",
+    "status": "live"
+   },
+   {
+    "from": "cul",
+    "to": "culottes",
+    "status": "rejected"
+   },
+   {
+    "from": "b10",
+    "to": "b/10",
+    "status": "rejected"
+   },
+   {
+    "from": "b30",
+    "to": "b/30",
+    "status": "rejected"
+   },
+   {
+    "from": "fl",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "en",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "eff",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "steriles",
+    "to": "sterile",
+    "status": "rejected"
+   },
+   {
+    "from": "steril",
+    "to": "sterile",
+    "status": "rejected"
+   },
+   {
+    "from": "crm",
+    "to": "creme",
+    "status": "live"
+   },
+   {
+    "from": "magnesium",
+    "to": "mag",
+    "status": "shadow"
+   },
+   {
+    "from": "gellule",
+    "to": "gellules",
+    "status": "rejected"
+   },
+   {
+    "from": "f",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "bouch",
+    "to": "bouche",
+    "status": "rejected"
+   },
+   {
+    "from": "grossess",
+    "to": "grossesse",
+    "status": "rejected"
+   },
+   {
+    "from": "ecran",
+    "to": "ecra",
+    "status": "rejected"
+   },
+   {
+    "from": "totale",
+    "to": "total",
+    "status": "rejected"
+   },
+   {
+    "from": "cotonyde",
+    "to": "cotonnhyde",
+    "status": "rejected"
+   },
+   {
+    "from": "cheviller",
+    "to": "chevillere",
+    "status": "rejected"
+   },
+   {
+    "from": "b18",
+    "to": "x18",
+    "status": "rejected"
+   },
+   {
+    "from": "b100",
+    "to": "x100",
+    "status": "rejected"
+   },
+   {
+    "from": "09ml",
+    "to": "9ml",
+    "status": "rejected"
+   },
+   {
+    "from": "vitamine",
+    "to": "vit",
+    "status": "live"
+   },
+   {
+    "from": "sterile",
+    "to": "sterille",
+    "status": "rejected"
+   },
+   {
+    "from": "net",
+    "to": "nettoyant",
+    "status": "rejected"
+   },
+   {
+    "from": "pom",
+    "to": "pd",
+    "status": "shadow"
+   },
+   {
+    "from": "pde",
+    "to": "creme",
+    "status": "shadow"
+   }
+  ],
+  "industry": "pharmacy and parapharmacy",
+  "alone": {
+   "Lines": 191,
+   "Right": 181,
+   "Wrong": 1,
+   "Unsure": 9,
+   "RightAt": 166,
+   "WrongAt": 0,
+   "AskedAt": 25,
+   "cost": 0.21286174999999996
+  },
+  "alone_errors": [
+   {
+    "said": "KIDS HEAVEN BIB PLAST GM",
+    "got": "KIDS HEAVEN BIB PLASTIC A/BRAS 300 ML LARGE",
+    "want": "KIDS HEAVEN BIB PLASTIQUE A/B 240 ML",
+    "conf": 0.65
+   }
+  ]
+ }
+}

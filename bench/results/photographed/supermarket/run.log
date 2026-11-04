@@ -1,0 +1,407 @@
+2026/11/04 00:00:04 [bootstrap] supermarket / FMCG: blocks [split_glued dimensions units_glue pack_count], lexicon 3, search BM25 (brand ×2) + 0.5·trigrams ($0.0210)
+2026/11/04 00:00:11 [test after 0] SUP-03: 23 lines, alias 0, rules 19, ai 0, asked 4, wrong 0, $0.0071
+2026/11/04 00:00:24 [test after 0] SUP-04: 26 lines, alias 0, rules 20, ai 2, asked 3, wrong 1, $0.0106
+2026/11/04 00:00:32 [test after 0] SUP-09: 23 lines, alias 0, rules 18, ai 1, asked 4, wrong 0, $0.0076
+2026/11/04 00:00:41 [test after 0] SUP-25: 24 lines, alias 0, rules 16, ai 3, asked 5, wrong 0, $0.0081
+2026/11/04 00:00:48 [test after 0] SUP-31: 20 lines, alias 0, rules 15, ai 1, asked 4, wrong 0, $0.0060
+2026/11/04 00:00:59 [test after 0] SUP-32: 19 lines, alias 0, rules 17, ai 0, asked 2, wrong 0, $0.0084
+2026/11/04 00:01:08 [test after 0] SUP-35: 19 lines, alias 0, rules 14, ai 0, asked 5, wrong 0, $0.0071
+2026/11/04 00:01:20 [test after 0] SUP-36: 12 lines, alias 0, rules 11, ai 0, asked 1, wrong 0, $0.0082
+2026/11/04 00:01:31 [test after 0] SUP-37: 21 lines, alias 0, rules 10, ai 3, asked 8, wrong 0, $0.0077
+2026/11/04 00:01:41 [test after 0] SUP-38: 25 lines, alias 0, rules 18, ai 3, asked 4, wrong 0, $0.0092
+2026/11/04 00:01:49 [desk] learned from 21 line(s)
+2026/11/04 00:01:49 [spark-checks-all 1] SUP-02: 21 lines, alias 0, rules 17, ai 0, asked 4, wrong 0 | agree 17/17, disagree 0, spark alone 0/0, $0.0078
+2026/11/04 00:01:56 [desk] learned from 15 line(s)
+2026/11/04 00:01:56 [spark-checks-all 2] SUP-40: 15 lines, alias 0, rules 12, ai 2, asked 1, wrong 0 | agree 12/12, disagree 0, spark alone 2/2, $0.0061
+2026/11/04 00:02:11 [desk] learned from 30 line(s)
+2026/11/04 00:02:11 [spark-checks-all 3] SUP-07: 30 lines, alias 0, rules 11, ai 10, asked 8, wrong 1 | agree 11/11, disagree 0, spark alone 10/11, $0.0137
+2026/11/04 00:02:24 [desk] learned from 21 line(s)
+2026/11/04 00:02:24 [spark-checks-all 4] SUP-12: 21 lines, alias 0, rules 16, ai 0, asked 5, wrong 0 | agree 16/16, disagree 0, spark alone 0/0, $0.0097
+2026/11/04 00:02:33 [desk] learned from 23 line(s)
+2026/11/04 00:02:33 [spark-checks-all 5] SUP-20: 23 lines, alias 0, rules 22, ai 1, asked 0, wrong 0 | agree 22/22, disagree 0, spark alone 1/1, $0.0087
+2026/11/04 00:02:39 [desk] learned from 15 line(s)
+2026/11/04 00:02:39 [spark-checks-all 6] SUP-15: 15 lines, alias 0, rules 7, ai 4, asked 4, wrong 0 | agree 7/7, disagree 0, spark alone 4/4, $0.0047
+2026/11/04 00:02:57 [desk] learned from 19 line(s)
+2026/11/04 00:02:57 [spark-checks-all 7] SUP-27: 19 lines, alias 0, rules 14, ai 0, asked 5, wrong 0 | agree 14/14, disagree 0, spark alone 0/0, $0.0105
+2026/11/04 00:03:06 [desk] learned from 23 line(s)
+2026/11/04 00:03:06 [spark-checks-all 8] SUP-10: 23 lines, alias 0, rules 15, ai 2, asked 6, wrong 0 | agree 15/15, disagree 0, spark alone 2/2, $0.0071
+2026/11/04 00:03:15 [desk] learned from 26 line(s)
+2026/11/04 00:03:15 [spark-checks-all 9] SUP-39: 26 lines, alias 0, rules 18, ai 1, asked 7, wrong 0 | agree 18/18, disagree 0, spark alone 1/1, $0.0079
+2026/11/04 00:03:31 [desk] learned from 25 line(s)
+2026/11/04 00:03:31 [spark-checks-all 10] SUP-08: 25 lines, alias 0, rules 19, ai 0, asked 6, wrong 0 | agree 19/19, disagree 0, spark alone 0/0, $0.0116
+2026/11/04 00:05:33 [engineer] list_residue {"limit":70}
+2026/11/04 00:05:33 [engineer] list_rules {}
+2026/11/04 00:05:33 [engineer] read_catalogue {"limit":50}
+2026/11/04 00:05:35 [engineer] list_residue {"limit":100}
+2026/11/04 00:05:51 [engineer] search_catalogue {"query":"pate pates confiture fraise biscuit nettoyant liquide sachet"}
+2026/11/04 00:05:51 [engineer] search_catalogue {"query":"CHOC STORY SOLEO"}
+2026/11/04 00:05:51 [engineer] read_catalogue {"query":"AFTIS MENAA LINA SAFINA AMOUR"}
+2026/11/04 00:06:08 [engineer] run_benchmark {"items":[{"action":{"replace":"confiture"},"pattern":"confi","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"fraise"},"pattern":"frs","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"biscuit"},"pattern":"bisc","scope":{"kind":"global"},"type":"synonym"},{"action":…
+2026/11/04 00:06:08 [engineer] run_benchmark {"action":{"replace":"confiture"},"pattern":"confi","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:06:08 [engineer] run_benchmark {"action":{"replace":"fraise"},"pattern":"frs","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:06:08 [engineer] run_benchmark {"action":{"replace":"biscuit"},"pattern":"bisc","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:06:08 [engineer] run_benchmark {"action":{"replace":"liquide"},"pattern":"liq","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:06:08 [engineer] run_benchmark {"action":{"replace":"nettoyant"},"pattern":"nett","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:06:08 [engineer] run_benchmark {"action":{"replace":"sachet"},"pattern":"sach","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:06:08 [engineer] run_benchmark {"action":{"replace":"pates"},"pattern":"pate","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:06:12 [engineer] run_benchmark {"items":[{"rule":{"action":{"replace":"confiture"},"pattern":"confi","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"replace":"fraise"},"pattern":"frs","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"replace":"biscuit"},"pattern":"bisc","scope":{"kind":"global"},"t…
+2026/11/04 00:06:12 [engineer] run_benchmark {"rule":{"action":{"replace":"confiture"},"pattern":"confi","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:06:13 [engineer] run_benchmark {"rule":{"action":{"replace":"fraise"},"pattern":"frs","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:06:13 [engineer] run_benchmark {"rule":{"action":{"replace":"biscuit"},"pattern":"bisc","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:06:14 [engineer] run_benchmark {"rule":{"action":{"replace":"liquide"},"pattern":"liq","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:06:15 [engineer] run_benchmark {"rule":{"action":{"replace":"nettoyant"},"pattern":"nett","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:06:15 [engineer] run_benchmark {"rule":{"action":{"replace":"sachet"},"pattern":"sach","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:06:16 [engineer] run_benchmark {"rule":{"action":{"replace":"pates"},"pattern":"pate","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:06:37 [engineer] search_catalogue {"query":"safina"}
+2026/11/04 00:06:37 [engineer] search_catalogue {"query":"semoulerie amour"}
+2026/11/04 00:06:37 [engineer] search_catalogue {"query":"nesquik stick chocolat poudre"}
+2026/11/04 00:07:06 [engineer] submit_rule {"items":[{"inspired_by":["ln_be3f885daf7c"],"rationale":"supplier abbreviates fraise as frs","rule":{"action":{"replace":"fraise"},"pattern":"frs","scope":{"kind":"global"},"type":"synonym"}},{"inspired_by":["ln_b97254116b68"],"rationale":"supplier truncates sachet as sach","rule":{"action":{"repla…
+2026/11/04 00:07:06 [engineer] submit_rule {"inspired_by":["ln_be3f885daf7c"],"rationale":"supplier abbreviates fraise as frs","rule":{"action":{"replace":"fraise"},"pattern":"frs","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:07:07 [engineer] submit_rule {"inspired_by":["ln_b97254116b68"],"rationale":"supplier truncates sachet as sach","rule":{"action":{"replace":"sachet"},"pattern":"sach","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:07:07 [engineer] run_benchmark {"items":[{"rule":{"action":{"attr":"flavour","policy":"marker","value":"fraise"},"pattern":"fraise","scope":{"kind":"global"},"type":"attribute"}},{"rule":{"action":{"attr":"flavour","policy":"marker","value":"{match}"},"pattern":"citron|cola|ananas","scope":{"kind":"global"},"type":"attribute"}},{…
+2026/11/04 00:07:07 [engineer] run_benchmark {"rule":{"action":{"attr":"flavour","policy":"marker","value":"fraise"},"pattern":"fraise","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:07:08 [engineer] run_benchmark {"rule":{"action":{"attr":"flavour","policy":"marker","value":"{match}"},"pattern":"citron|cola|ananas","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:07:09 [engineer] run_benchmark {"rule":{"action":{"attr":"form","policy":"marker","value":"{match}"},"pattern":"stick","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:07:22 [engineer] run_benchmark {"items":[{"rule":{"action":{"attr":"variant","policy":"marker","value":"{match}"},"pattern":"fraise|stick","scope":{"kind":"global"},"type":"attribute"}},{"rule":{"action":{"attr":"variant","policy":"marker","value":"{match}"},"pattern":"fraise|stick|trio|ecran|meuble|ananas","scope":{"kind":"globa…
+2026/11/04 00:07:22 [engineer] run_benchmark {"rule":{"action":{"attr":"variant","policy":"marker","value":"{match}"},"pattern":"fraise|stick","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:07:23 [engineer] run_benchmark {"rule":{"action":{"attr":"variant","policy":"marker","value":"{match}"},"pattern":"fraise|stick|trio|ecran|meuble|ananas","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:07:24 [engineer] calibration after 10 invoices: muse-spark-1.3, residue 62, accepted [], rejected [R-0004 R-0005], $0.1911
+2026/11/04 00:07:24 [calibration after 10 invoices] accepted 0, rejected 25; 111/163 right with no AI (68 %), 0 wrong → 111/163 right with no AI (68 %), 0 wrong; search trigrams: 99.4 % in the top 8 (MRR 0.93); engineer [] ($0.2170)
+2026/11/04 00:07:36 [test after 10] SUP-03: 23 lines, alias 0, rules 19, ai 0, asked 4, wrong 0, $0.0087
+2026/11/04 00:07:50 [test after 10] SUP-04: 26 lines, alias 0, rules 20, ai 1, asked 5, wrong 0, $0.0116
+2026/11/04 00:08:00 [test after 10] SUP-09: 23 lines, alias 0, rules 18, ai 1, asked 4, wrong 0, $0.0082
+2026/11/04 00:08:08 [test after 10] SUP-25: 24 lines, alias 0, rules 16, ai 3, asked 5, wrong 0, $0.0076
+2026/11/04 00:08:16 [test after 10] SUP-31: 20 lines, alias 0, rules 15, ai 1, asked 4, wrong 0, $0.0065
+2026/11/04 00:08:27 [test after 10] SUP-32: 19 lines, alias 0, rules 16, ai 0, asked 3, wrong 0, $0.0085
+2026/11/04 00:08:35 [test after 10] SUP-35: 19 lines, alias 0, rules 14, ai 0, asked 5, wrong 0, $0.0066
+2026/11/04 00:08:44 [test after 10] SUP-36: 12 lines, alias 0, rules 11, ai 0, asked 1, wrong 0, $0.0071
+2026/11/04 00:08:58 [test after 10] SUP-37: 21 lines, alias 0, rules 10, ai 3, asked 8, wrong 0, $0.0096
+2026/11/04 00:09:10 [test after 10] SUP-38: 25 lines, alias 0, rules 18, ai 3, asked 4, wrong 0, $0.0105
+2026/11/04 00:09:27 [desk] learned from 17 line(s)
+2026/11/04 00:09:27 [spark-checks-all 11] SUP-16: 17 lines, alias 0, rules 14, ai 1, asked 2, wrong 0 | agree 14/14, disagree 0, spark alone 1/1, $0.0103
+2026/11/04 00:09:35 [desk] learned from 20 line(s)
+2026/11/04 00:09:35 [spark-checks-all 12] SUP-26: 20 lines, alias 0, rules 17, ai 1, asked 2, wrong 0 | agree 17/17, disagree 0, spark alone 1/1, $0.0064
+2026/11/04 00:09:50 [desk] learned from 24 line(s)
+2026/11/04 00:09:50 [spark-checks-all 13] SUP-14: 24 lines, alias 0, rules 19, ai 2, asked 3, wrong 0 | agree 19/19, disagree 0, spark alone 2/2, $0.0108
+2026/11/04 00:09:57 [desk] learned from 22 line(s)
+2026/11/04 00:09:57 [spark-checks-all 14] SUP-23: 22 lines, alias 0, rules 11, ai 1, asked 10, wrong 0 | agree 11/11, disagree 0, spark alone 1/1, $0.0049
+2026/11/04 00:10:15 [desk] learned from 18 line(s)
+2026/11/04 00:10:15 [spark-checks-all 15] SUP-24: 18 lines, alias 0, rules 16, ai 0, asked 2, wrong 0 | agree 16/16, disagree 0, spark alone 0/0, $0.0125
+2026/11/04 00:10:24 [desk] learned from 20 line(s)
+2026/11/04 00:10:24 [spark-checks-all 16] SUP-33: 20 lines, alias 0, rules 14, ai 1, asked 5, wrong 0 | agree 14/14, disagree 0, spark alone 1/1, $0.0067
+2026/11/04 00:10:39 [desk] learned from 22 line(s)
+2026/11/04 00:10:39 [spark-checks-all 17] SUP-13: 22 lines, alias 0, rules 14, ai 0, asked 8, wrong 0 | agree 14/14, disagree 0, spark alone 0/0, $0.0096
+2026/11/04 00:10:51 [desk] learned from 14 line(s)
+2026/11/04 00:10:51 [spark-checks-all 18] SUP-06: 14 lines, alias 0, rules 8, ai 1, asked 4, wrong 1 | agree 8/8, disagree 0, spark alone 1/2, $0.0085
+2026/11/04 00:11:00 [desk] learned from 24 line(s)
+2026/11/04 00:11:00 [spark-checks-all 19] SUP-05: 24 lines, alias 0, rules 16, ai 1, asked 7, wrong 0 | agree 16/16, disagree 0, spark alone 1/1, $0.0068
+2026/11/04 00:11:11 [desk] learned from 25 line(s)
+2026/11/04 00:11:11 [spark-checks-all 20] SUP-01: 25 lines, alias 0, rules 20, ai 1, asked 4, wrong 0 | agree 20/20, disagree 0, spark alone 1/1, $0.0085
+2026/11/04 00:14:27 [engineer] list_residue {"limit":50}
+2026/11/04 00:14:27 [engineer] list_rules {}
+2026/11/04 00:14:27 [engineer] read_catalogue {"limit":50}
+2026/11/04 00:14:29 [engineer] list_residue {"limit":109}
+2026/11/04 00:14:47 [engineer] search_catalogue {"query":"poupoune couche"}
+2026/11/04 00:14:48 [engineer] search_catalogue {"query":"biscuit"}
+2026/11/04 00:14:48 [engineer] search_catalogue {"query":"vinaigre"}
+2026/11/04 00:14:48 [engineer] search_catalogue {"query":"fromage fondu"}
+2026/11/04 00:15:04 [engineer] search_catalogue {"query":"fraise"}
+2026/11/04 00:15:04 [engineer] search_catalogue {"query":"machine liquide"}
+2026/11/04 00:15:04 [engineer] search_catalogue {"query":"stick"}
+2026/11/04 00:15:04 [engineer] search_catalogue {"query":"edam"}
+2026/11/04 00:15:24 [engineer] run_benchmark {"items":[{"action":{"replace":"fromage"},"pattern":"from|frmg","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"biscuit"},"pattern":"bisc","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"vinaigre"},"pattern":"vngr","scope":{"kind":"global"},"type":"synonym"},{"act…
+2026/11/04 00:15:24 [engineer] run_benchmark {"action":{"replace":"fromage"},"pattern":"from|frmg","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:24 [engineer] run_benchmark {"action":{"replace":"biscuit"},"pattern":"bisc","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:24 [engineer] run_benchmark {"action":{"replace":"vinaigre"},"pattern":"vngr","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:24 [engineer] run_benchmark {"action":{"replace":"nettoyant"},"pattern":"nett","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:24 [engineer] run_benchmark {"action":{"replace":"couche"},"pattern":"che","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:24 [engineer] run_benchmark {"action":{"replace":"bebe"},"pattern":"bb","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:24 [engineer] run_benchmark {"action":{"replace":"yaourt"},"pattern":"yaou","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:24 [engineer] run_benchmark {"action":{"replace":"couche"},"pattern":"couches","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:28 [engineer] run_benchmark {"action":"{\"replace\": \"fromage\"}","pattern":"from|frmg","scope":"{\"kind\": \"global\"}","type":"synonym"}
+2026/11/04 00:15:32 [engineer] list_rules {}
+2026/11/04 00:15:34 [engineer] search_catalogue {"query":"tartiner pate"}
+2026/11/04 00:15:36 [engineer] list_residue {"limit":109}
+2026/11/04 00:15:36 [engineer] list_rules {}
+2026/11/04 00:15:46 [engineer] read_catalogue {"limit":200}
+2026/11/04 00:16:17 [engineer] list_residue {"limit":50}
+2026/11/04 00:16:17 [engineer] search_catalogue {"query":"fibres"}
+2026/11/04 00:16:17 [engineer] search_catalogue {"query":"crunchy"}
+2026/11/04 00:16:17 [engineer] search_catalogue {"query":"stick"}
+2026/11/04 00:16:39 [engineer] run_benchmark {"items":[{"rule":{"type":"attribute","pattern":"machine","scope":{"kind":"global"},"action":{"attr":"usage","value":"machine","policy":"marker"}}},{"rule":{"type":"attribute","pattern":"stick","scope":{"kind":"global"},"action":{"attr":"form","value":"stick","policy":"marker"}}},{"rule":{"type":"at…
+2026/11/04 00:16:39 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"machine","scope":{"kind":"global"},"action":{"attr":"usage","value":"machine","policy":"marker"}}}
+2026/11/04 00:16:41 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"stick","scope":{"kind":"global"},"action":{"attr":"form","value":"stick","policy":"marker"}}}
+2026/11/04 00:16:43 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"crunchy","scope":{"kind":"global"},"action":{"attr":"texture","value":"crunchy","policy":"marker"}}}
+2026/11/04 00:16:45 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"fibres","scope":{"kind":"global"},"action":{"attr":"variant","value":"fibres","policy":"marker"}}}
+2026/11/04 00:16:46 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"brasse","scope":{"kind":"global"},"action":{"attr":"variant","value":"brasse","policy":"marker"}}}
+2026/11/04 00:16:47 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"frais","scope":{"kind":"global"},"action":{"attr":"variant","value":"frais","policy":"marker"}}}
+2026/11/04 00:16:49 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"edam","scope":{"kind":"global"},"action":{"attr":"cheese","value":"edam","policy":"marker"}}}
+2026/11/04 00:16:50 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"tranche","scope":{"kind":"global"},"action":{"attr":"form","value":"tranche","policy":"marker"}}}
+2026/11/04 00:16:52 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"bisc","scope":{"kind":"global"},"action":{"replace":"biscuit"}}}
+2026/11/04 00:16:53 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"nett","scope":{"kind":"global"},"action":{"replace":"nettoyant"}}}
+2026/11/04 00:16:55 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"vngr","scope":{"kind":"global"},"action":{"replace":"vinaigre"}}}
+2026/11/04 00:16:56 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"frmg","scope":{"kind":"global"},"action":{"replace":"fromage"}}}
+2026/11/04 00:17:19 [engineer] submit_rule {"items":[{"rule":{"type":"attribute","pattern":"machine","scope":{"kind":"global"},"action":{"attr":"usage","value":"machine","policy":"marker"}},"rationale":"LINA CLEAN plain vs MACHINE products are told apart only by the word machine, which the plain product lacks","inspired_by":["ln_2861519a9b23…
+2026/11/04 00:17:19 [engineer] submit_rule {"rule":{"type":"attribute","pattern":"machine","scope":{"kind":"global"},"action":{"attr":"usage","value":"machine","policy":"marker"}},"rationale":"LINA CLEAN plain vs MACHINE products are told apart only by the word machine, which the plain product lacks","inspired_by":["ln_2861519a9b23"]}
+2026/11/04 00:17:20 [engineer] submit_rule {"rule":{"type":"attribute","pattern":"stick","scope":{"kind":"global"},"action":{"attr":"form","value":"stick","policy":"marker"}},"rationale":"NESQUIK POUDRE plain vs STICK product are told apart only by stick, which the plain product lacks","inspired_by":["ln_71b5a1752fb7"]}
+2026/11/04 00:17:21 [engineer] submit_rule {"rule":{"type":"synonym","pattern":"frmg","scope":{"kind":"global"},"action":{"replace":"fromage"}},"rationale":"frmg is a consonant abbreviation of fromage used on supplier invoices","inspired_by":["ln_6d9b32b5bcad"]}
+2026/11/04 00:17:50 [engineer] run_benchmark {"items":[{"rule":{"type":"attribute","pattern":"linge machine","scope":{"kind":"global"},"action":{"attr":"usage","value":"machine","policy":"marker"}}},{"rule":{"type":"attribute","pattern":"poudre stick","scope":{"kind":"global"},"action":{"attr":"form","value":"stick","policy":"marker"}}},{"rule…
+2026/11/04 00:17:50 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"linge machine","scope":{"kind":"global"},"action":{"attr":"usage","value":"machine","policy":"marker"}}}
+2026/11/04 00:17:52 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"poudre stick","scope":{"kind":"global"},"action":{"attr":"form","value":"stick","policy":"marker"}}}
+2026/11/04 00:17:54 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"yaourt aux fruits fibres","scope":{"kind":"global"},"action":{"attr":"variant","value":"fibres","policy":"marker"}}}
+2026/11/04 00:17:56 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"aux fruits fibres|yaourt brasse","scope":{"kind":"global"},"action":{"attr":"variant","value":"{match}","policy":"marker"}}}
+2026/11/04 00:17:58 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"bisc","scope":{"kind":"global"},"action":{"replace":"biscuit"}}}
+2026/11/04 00:18:00 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"nett","scope":{"kind":"global"},"action":{"replace":"nettoyant"}}}
+2026/11/04 00:18:01 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"couches","scope":{"kind":"global"},"action":{"replace":"couche"}}}
+2026/11/04 00:18:03 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"pate","scope":{"kind":"global"},"action":{"replace":"pates"}}}
+2026/11/04 00:18:08 [engineer] search_catalogue {"query":"lina clean liquide linge"}
+2026/11/04 00:18:08 [engineer] search_catalogue {"query":"nesquik poudre"}
+2026/11/04 00:18:17 [engineer] submit_rule {"items":[{"rule":{"type":"attribute","pattern":"linge machine","scope":{"kind":"global"},"action":{"attr":"usage","value":"machine","policy":"marker"}},"rationale":"Only Lina Clean linge products use 'linge machine'; the plain linge product lacks machine, so absence distinguishes it","inspired_by":…
+2026/11/04 00:18:17 [engineer] submit_rule {"rule":{"type":"attribute","pattern":"linge machine","scope":{"kind":"global"},"action":{"attr":"usage","value":"machine","policy":"marker"}},"rationale":"Only Lina Clean linge products use 'linge machine'; the plain linge product lacks machine, so absence distinguishes it","inspired_by":["ln_28615…
+2026/11/04 00:18:19 [engineer] calibration after 20 invoices: muse-spark-1.3 → muse-wonder-1.0, residue 109, accepted [R-0008], rejected [R-0006 R-0007 R-0009], $0.8483
+2026/11/04 00:18:19 [calibration after 20 invoices] accepted 1, rejected 9; 229/318 right with no AI (72 %), 0 wrong → 232/318 right with no AI (73 %), 0 wrong; search trigrams: 99.7 % in the top 8 (MRR 0.95); engineer [R-0008] ($0.8729)
+2026/11/04 00:18:29 [test after 20] SUP-03: 23 lines, alias 0, rules 19, ai 0, asked 4, wrong 0, $0.0081
+2026/11/04 00:18:44 [test after 20] SUP-04: 26 lines, alias 0, rules 21, ai 1, asked 3, wrong 1, $0.0115
+2026/11/04 00:18:51 [test after 20] SUP-09: 23 lines, alias 0, rules 18, ai 1, asked 4, wrong 0, $0.0067
+2026/11/04 00:19:01 [test after 20] SUP-25: 24 lines, alias 0, rules 16, ai 3, asked 5, wrong 0, $0.0080
+2026/11/04 00:19:07 [test after 20] SUP-31: 20 lines, alias 0, rules 15, ai 1, asked 4, wrong 0, $0.0056
+2026/11/04 00:19:16 [test after 20] SUP-32: 19 lines, alias 0, rules 17, ai 0, asked 2, wrong 0, $0.0071
+2026/11/04 00:19:27 [test after 20] SUP-35: 19 lines, alias 0, rules 14, ai 0, asked 5, wrong 0, $0.0082
+2026/11/04 00:19:38 [test after 20] SUP-36: 12 lines, alias 0, rules 11, ai 0, asked 1, wrong 0, $0.0075
+2026/11/04 00:19:48 [test after 20] SUP-37: 21 lines, alias 0, rules 10, ai 2, asked 9, wrong 0, $0.0071
+2026/11/04 00:20:00 [test after 20] SUP-38: 25 lines, alias 0, rules 18, ai 3, asked 4, wrong 0, $0.0105
+2026/11/04 00:20:09 [desk] learned from 16 line(s)
+2026/11/04 00:20:09 [spark-checks-all 21] SUP-11: 16 lines, alias 0, rules 14, ai 1, asked 1, wrong 0 | agree 14/14, disagree 0, spark alone 1/1, $0.0063
+2026/11/04 00:20:20 [desk] learned from 20 line(s)
+2026/11/04 00:20:20 [spark-checks-all 22] SUP-18: 20 lines, alias 0, rules 13, ai 0, asked 7, wrong 0 | agree 13/13, disagree 0, spark alone 0/0, $0.0086
+2026/11/04 00:20:34 [desk] learned from 26 line(s)
+2026/11/04 00:20:34 [spark-checks-all 23] SUP-34: 26 lines, alias 0, rules 16, ai 2, asked 8, wrong 0 | agree 16/16, disagree 0, spark alone 2/2, $0.0102
+2026/11/04 00:20:47 [desk] learned from 25 line(s)
+2026/11/04 00:20:47 [spark-checks-all 24] SUP-19: 25 lines, alias 0, rules 19, ai 2, asked 4, wrong 0 | agree 19/19, disagree 0, spark alone 2/2, $0.0102
+2026/11/04 00:20:54 [desk] learned from 15 line(s)
+2026/11/04 00:20:54 [spark-checks-all 25] SUP-29: 15 lines, alias 0, rules 12, ai 2, asked 1, wrong 0 | agree 12/12, disagree 0, spark alone 2/2, $0.0062
+2026/11/04 00:21:07 [desk] learned from 23 line(s)
+2026/11/04 00:21:07 [spark-checks-all 26] SUP-28: 23 lines, alias 0, rules 13, ai 1, asked 9, wrong 0 | agree 13/13, disagree 0, spark alone 1/1, $0.0091
+2026/11/04 00:21:13 [desk] learned from 9 line(s)
+2026/11/04 00:21:13 [spark-checks-all 27] SUP-21: 9 lines, alias 0, rules 8, ai 1, asked 0, wrong 0 | agree 8/8, disagree 0, spark alone 1/1, $0.0053
+2026/11/04 00:21:28 [desk] learned from 19 line(s)
+2026/11/04 00:21:28 [spark-checks-all 28] SUP-22: 19 lines, alias 0, rules 8, ai 4, asked 7, wrong 0 | agree 8/8, disagree 0, spark alone 4/4, $0.0101
+2026/11/04 00:21:40 [desk] learned from 17 line(s)
+2026/11/04 00:21:40 [spark-checks-all 29] SUP-30: 17 lines, alias 0, rules 11, ai 4, asked 2, wrong 0 | agree 11/11, disagree 0, spark alone 4/4, $0.0086
+2026/11/04 00:21:48 [desk] learned from 18 line(s)
+2026/11/04 00:21:48 [spark-checks-all 30] SUP-17: 18 lines, alias 0, rules 17, ai 0, asked 1, wrong 0 | agree 17/17, disagree 0, spark alone 0/0, $0.0071
+2026/11/04 00:25:45 [engineer] list_residue {"limit":50}
+2026/11/04 00:25:45 [engineer] list_rules {}
+2026/11/04 00:25:45 [engineer] read_catalogue {"limit":50}
+2026/11/04 00:25:47 [engineer] list_residue {"limit":158}
+2026/11/04 00:26:07 [engineer] search_catalogue {"query":"CADENCE"}
+2026/11/04 00:26:07 [engineer] search_catalogue {"query":"COCOATY SPORT"}
+2026/11/04 00:26:07 [engineer] search_catalogue {"query":"PALMARY SANDWICH"}
+2026/11/04 00:26:07 [engineer] search_catalogue {"query":"MLETA PASTA"}
+2026/11/04 00:26:07 [engineer] search_catalogue {"query":"LINA CLEAN"}
+2026/11/04 00:26:46 [engineer] search_catalogue {"query":"ARWA SODA"}
+2026/11/04 00:26:46 [engineer] search_catalogue {"query":"KOOL BREAK"}
+2026/11/04 00:26:46 [engineer] search_catalogue {"query":"KOOL CRACK"}
+2026/11/04 00:27:22 [engineer] run_benchmark {"items":[{"action":{"role":"descriptor"},"pattern":"شوكولاطه|قهوه|جبن|شامبو|بسكويت|حليب|منظف|خل|فرينه|قفازات|ياغورت","scope":{"kind":"global"},"type":"word"},{"action":{"attr":"flavour","policy":"marker","value":"{match}"},"pattern":"cidre|cola|g…
+2026/11/04 00:27:22 [engineer] run_benchmark {"action":{"role":"descriptor"},"pattern":"شوكولاطه|قهوه|جبن|شامبو|بسكويت|حليب|منظف|خل|فرينه|قفازات|ياغورت","scope":{"kind":"global"},"type":"word"}
+2026/11/04 00:27:22 [engineer] run_benchmark {"action":{"attr":"flavour","policy":"marker","value":"{match}"},"pattern":"cidre|cola|gazeuse|fraise","scope":{"kind":"global"},"type":"attribute"}
+2026/11/04 00:27:22 [engineer] run_benchmark {"action":{"replace":"pates"},"pattern":"pate","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:27:22 [engineer] run_benchmark {"action":{"replace":"liquide"},"pattern":"liq","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:27:30 [engineer] list_residue {"limit":5}
+2026/11/04 00:27:33 [engineer] run_benchmark {"rule":{"action":{"replace":"liquide"},"pattern":"liq","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:27:43 [engineer] run_benchmark {"items":[{"rule":{"action":{"replace":"liquide"},"pattern":"liq","scope":{"kind":"global"},"type":"synonym"}}]}
+2026/11/04 00:27:43 [engineer] run_benchmark {"rule":{"action":{"replace":"liquide"},"pattern":"liq","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:27:48 [engineer] calibration after 30 invoices: muse-spark-1.3, residue 158, accepted [], rejected [], $0.1970
+2026/11/04 00:27:48 [calibration after 30 invoices] accepted 1, rejected 8; 334/459 right with no AI (73 %), 0 wrong → 336/459 right with no AI (73 %), 0 wrong; search trigrams: 99.8 % in the top 8 (MRR 0.94); engineer [] ($0.2229)
+2026/11/04 00:27:56 [test after 30] SUP-03: 23 lines, alias 0, rules 19, ai 0, asked 4, wrong 0, $0.0065
+2026/11/04 00:28:12 [test after 30] SUP-04: 26 lines, alias 0, rules 21, ai 1, asked 3, wrong 1, $0.0112
+2026/11/04 00:28:22 [test after 30] SUP-09: 23 lines, alias 0, rules 18, ai 1, asked 4, wrong 0, $0.0074
+2026/11/04 00:28:32 [test after 30] SUP-25: 24 lines, alias 0, rules 16, ai 3, asked 5, wrong 0, $0.0079
+2026/11/04 00:28:42 [test after 30] SUP-31: 20 lines, alias 0, rules 15, ai 1, asked 4, wrong 0, $0.0071
+2026/11/04 00:28:52 [test after 30] SUP-32: 19 lines, alias 0, rules 17, ai 0, asked 2, wrong 0, $0.0077
+2026/11/04 00:29:02 [test after 30] SUP-35: 19 lines, alias 0, rules 15, ai 0, asked 4, wrong 0, $0.0075
+2026/11/04 00:29:21 [test after 30] SUP-36: 12 lines, alias 0, rules 11, ai 0, asked 1, wrong 0, $0.0112
+2026/11/04 00:29:33 [test after 30] SUP-37: 21 lines, alias 0, rules 10, ai 3, asked 8, wrong 0, $0.0078
+2026/11/04 00:29:43 [test after 30] SUP-38: 25 lines, alias 0, rules 18, ai 2, asked 5, wrong 0, $0.0082
+# What Muse Spark identified: supermarket / FMCG
+
+Catalogue names are French food and household names, usually brand first then type and variant: BISCUIT SANDWICH, YAOURT AROMATISE, CONFITURE ABRICOT, HARISSA, MOUTARDE. Sizes are weights and volumes glued to the number: 400G, 1KG, 1.8KG, 1L, 75CL, 125ML, 180ML, 500ML, plus 12W and 7W for lamps. Packs are counts with P or X: 3P, 6P, 8P, 14P, 16P, X4, 9X24, 120P. Two products of one brand differ only by variant fruit or flavour, form or recipe, and size or pack: KOOL BREAK vs KOOL BREAK WHITE, CONFITURE ABRICOT vs FRAISE, FOURRE vs ENROBE vs SANDWICH, 400G vs 800G vs 1KG.
+
+## First-pass blocks
+
+- **split_glued** ON — supplier lines glue brand or word to size or pack: harissa380g, koolx4, biscuit3p must split before matching
+  - evidence: reads 2 catalogue names differently; products that read alike 13 → 13
+- **dimensions** ON — stationery format 17X22 in HILLAL 1-CAHIER SPIRAL FORMAT 17X22 120P must become one token so 17x22 never matches another size
+  - evidence: reads 1 catalogue names differently; products that read alike 13 → 13
+- **units_glue** ON — sizes written spaced 400 G, 1 L, 75 CL, 12 W must glue to 400g, 1l, 75cl, 12w to match catalogue 400G, 1L, 75CL
+  - evidence: reads 1 catalogue names differently; products that read alike 13 → 13
+- **pack_count** ON — counts 3P, 6P, 8P, 14P, 16P, X4, 9X24 define the product and must become x3, x6, x8, x14, x4 distinct from weights
+  - evidence: reads 0 catalogue names differently; products that read alike 13 → 13
+
+## The desk's own vocabulary (lexicon)
+
+- `choco` → `chocolat` [live] — suppliers of this industry write choco for the catalogue's chocolat
+  - evidence: seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « CHOCO STICK NESQUIK » → NESQUIK CHOCOLAT EN POUDRE STICK; « CHOCO LAIT TRANCHES COCOATY DELICE 100GX24 » → COCOATY DELICE CHOCOLAT AU LAIT TRANCHES 100G; « CHOCO LAIT TRANCHES COCOATY DELICE 100GX24 » → COCOATY DELICE CHOCOLAT AU LAIT TRANCHES 100G
+- `bisc` → `biscuit` [rejected] — suppliers write bisc for the catalogue's biscuit
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `conf` → `confiture` [rejected] — suppliers write conf for the catalogue's confiture
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `frmg` → `fromage` [shadow] — supplier abbrev for FROMAGE FONDU lines
+  - evidence: seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « FRMG FONDU LAGRATANIA 900GX24 » → LAGRATANIA FROMAGE FONDU 900G; « FRMG TIP TOP FONDU SLICE 150G » → TIP TOP FROMAGE FONDU SLICE 150G; « FRMG TIP TOP FONDU TARTINER 800G*48 » → TIP TOP FROMAGE FONDU A TARTINER 800G
+- `shamp` → `shampooing` [rejected] — DOUBLE SENS SHAMP vs SHAMPOOING
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `liq` → `liquide` [rejected] — LINA CLEAN LIQ LINGE vs LIQUIDE
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `خل` → `vinaigre` [rejected] — Arabic vinegar for CORNICHONS AU VINAIGRE
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « خل CORNICHONS » → CORNICHONS AU VINAIGRE
+- `صلصه` → `sauce` [rejected] — Arabic sauce for EXTRA SAUCE 720G
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « صلصة EXTRA 720G » → EXTRA SAUCE 720G
+- `ياغورت` → `yaourt` [rejected] — Arabic yaourt for TREFLE YAOURT
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `هريسه` → `harissa` [rejected] — Arabic harissa for IZDIHAR HARISSA
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « هريسة IZDIHAR 200G » → IZDIHAR HARISSA 200G
+- `كراس` → `cahier` [rejected] — Arabic notebook for VERTEX CAHIER
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « كراس VERTEX 32P » → VERTEX CAHIER DESSIN QUADRILLE 32P
+- `مصباح` → `lampe` [rejected] — Arabic lamp for ALL LAMPE LED
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « مصباح ALL 15W » → ALL LAMPE LED A BULB 15W
+- `جبن` → `fromage` [rejected] — Arabic cheese for FROMAGE FONDU
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « جبن SANDWICH 330G » → SANDWICH FROMAGE FONDU 330G
+- `قوفريت` → `gaufrette` [rejected] — Arabic gaufrette for KOOL GAUFRETTE
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « قوفريت KOOL IN'JOY » → KOOL IN'JOY GAUFRETTE FOURRE
+- `خردل` → `moutarde` [live] — Arabic mustard for EXTRA/MOLLE MOUTARDE
+  - evidence: seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « خردل EXTRA 200G » → EXTRA MOUTARDE 200G; « خردل MOLLE 140G » → MOLLE MOUTARDE 140G
+- `مربي` → `confiture` [shadow] — Arabic jam for CONFITURE
+  - evidence: seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « مربى AZZOUZ 400G » → AZZOUZ CONFITURE TRADITIONNELLE D'ABRICOT 400G; « مربى CONSERVERIE DE L'EST CONSERVERIE GUELMA 900G » → CONSERVERIE DE L'EST GUELMA CONSERVE CONFITURE 900G
+- `سكر` → `sucre` [rejected] — Arabic sugar for GALETTES SUCRE
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « سكر BISCWIK » → BISCWIK GALETTES SUCRE BOITE
+- `بسكويت` → `biscuit` [rejected] — Arabic biscuit for BISCUIT ENROBE
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « بسكويت 4 WINNERS WHITE » → 4 WINNERS WHITE BISCUIT ENROBE KOOL
+- `شوكولاطه` → `chocolat` [rejected] — Arabic chocolate for ARWA CHOCOLAT
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « شوكولاطة ARWA CHOCOLAT 200ML » → ARWA CHOCOLAT BOISSONS LACTEE MILK 200ML
+- `عجاين` → `pates` [rejected] — Arabic pasta for PATES ALIMENTAIRE
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « عجائن EL MAICENNE PATES » → EL MAICENNE PATES PATE ALIMENTAIRE
+- `حليب` → `lait` [rejected] — Arabic milk to rank LAIT vs SBAH and keep milk signal
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 1 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « حليب ACTIVIA » → ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L instead of ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE; « حليب ACTIVIA 1L » → ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L
+- `gr` → `g` [rejected] — 750 GR and 350 GR mean 750G 350G with digit words needing exact match
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `صلصة` → `sauce` [rejected] — Arabic sauce means SAUCE
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `هريسة` → `harissa` [rejected] — Arabic harissa means HARISSA
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `مربى` → `confiture` [rejected] — Arabic jam means CONFITURE
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `شوكولاطة` → `chocolat` [rejected] — Arabic chocolate means CHOCOLAT
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `عجائن` → `pates` [rejected] — Arabic pasta means PATES
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `confi` → `confiture` [rejected] — CONFI MENAA = CONFITURE
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `frs` → `fraise` [rejected] — FRS = FRAISE in MENAA TAMISEE
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « CONFI MENAA TAMISEE FRS 400GX24 » → MENAA CONFITURE TAMISEE FRAISE 400G
+
+## Search method
+
+**trigrams** (trigrams)
+
+## Rules (rule engineer and attributes)
+
+- R-0009 [rejected] "linge machine" is the usage "machine", in orders, invoices and catalogue names alike; a usage stated on one side only, or a different one, is never the same product. — by rule-engineer (a marker needs a plain product beside the variant: 5 of 5 products it marks have none (e.g. LINA CLEAN LIQUIDE LINGE MACHINE 10L))
+- R-0008 [shadow] "frmg" means "fromage". — by rule-engineer
+- R-0007 [rejected] "stick" is the form "stick", in orders, invoices and catalogue names alike; a form stated on one side only, or a different one, is never the same product. — by rule-engineer (a marker needs a plain product beside the variant: 2 of 2 products it marks have none (e.g. NESQUIK CHOCOLAT EN POUDRE STICK))
+- R-0006 [rejected] "machine" is the usage "machine", in orders, invoices and catalogue names alike; a usage stated on one side only, or a different one, is never the same product. — by rule-engineer (a marker needs a plain product beside the variant: 8 of 9 products it marks have none (e.g. ASTUCE NETTOYANT MACHINE A LAVER))
+- R-0005 [rejected] "sach" means "sachet". — by rule-engineer (resolves only 1 new line(s) and brings 0 closer; the gate needs 2 resolved or 6 closer)
+- R-0004 [rejected] "frs" means "fraise". — by rule-engineer (resolves only 1 new line(s) and brings 0 closer; the gate needs 2 resolved or 6 closer)
+- R-0003 [rejected] "fourre", "enrobe", "sandwich", "gaufrette", "moulu", "soluble" each name a form, in orders, invoices and catalogue names alike; two texts whose form differs are never the same product. — by muse-spark-profile (would make 1 pair(s) of different products read the same)
+- R-0002 [live] "blanc", "white", "noir", "black" each name a colour, in orders, invoices and catalogue names alike; two texts whose colour differs are never the same product. — by muse-spark-profile
+- R-0001 [rejected] "chocolat", "vanille", "fraise", "abricot", "caramel", "pistache", "ananas", "thon", "menthe", "citron" each name a flavour, in orders, invoices and catalogue names alike; two texts whose flavour differs are never the same product. — by muse-spark-profile (disagreed in shadow mode on « CHOC STORY SOLEO »)
+
+## Phases
+
+| phase | invoices | lines | free (alias + rules) | AI | asked | wrong auto | Spark agreed with code | Spark alone right | AI cost |
+|---|---|---|---|---|---|---|---|---|---|
+| spark-checks-all | 30 | 612 | 431 (70 %) | 46 (8 %) | 133 (22 %) | 2 | 431/431 | 46/48 | $0.2545 |
+| learning | 0 | 0 | 0 (—) | 0 (—) | 0 (—) | 0 | 0/0 | 0/0 | $0.0000 |
+| test after 0 | 10 | 212 | 158 (75 %) | 13 (6 %) | 40 (19 %) | 1 | 158/158 | 13/14 | $0.0801 |
+| test after 10 | 10 | 212 | 157 (74 %) | 12 (6 %) | 43 (20 %) | 0 | 157/157 | 12/12 | $0.0848 |
+| test after 20 | 10 | 212 | 159 (75 %) | 11 (5 %) | 41 (19 %) | 1 | 159/159 | 11/12 | $0.0802 |
+| test after 30 | 10 | 212 | 160 (75 %) | 11 (5 %) | 40 (19 %) | 1 | 160/160 | 11/12 | $0.0827 |
+
+## Calibrations
+
+- **calibration after 10 invoices** (163 seen + 55 unseen lines): 111/163 right with no AI (68 %), 0 wrong → 111/163 right with no AI (68 %), 0 wrong; accepted 0, rejected 25; search: BM25 (brand ×2) + 0.5·trigrams: right product in the top 8 for 98.2 % of lines (MRR 0.94) → trigrams: 99.4 % in the top 8 (MRR 0.93); engineer rules []; $0.2170. Spark: FMCG mismatches are Arabic/French synonyms and abbrevs plus dimensions block corrupting X-pack counts.
+- **calibration after 20 invoices** (318 seen + 106 unseen lines): 229/318 right with no AI (72 %), 0 wrong → 232/318 right with no AI (73 %), 0 wrong; accepted 1, rejected 9; search: trigrams: right product in the top 8 for 99.7 % of lines (MRR 0.95) → trigrams: 99.7 % in the top 8 (MRR 0.95); engineer rules [R-0008]; $0.8729. Spark: unresolved are French abbreviations and Arabic equivalents of catalogue French words needing lexicon, digit words need exact glue fix for GR to G; search already 99.7% top8 so no change
+- **calibration after 30 invoices** (459 seen + 153 unseen lines): 334/459 right with no AI (73 %), 0 wrong → 336/459 right with no AI (73 %), 0 wrong; accepted 1, rejected 8; search: trigrams: right product in the top 8 for 99.8 % of lines (MRR 0.94) → trigrams: 99.8 % in the top 8 (MRR 0.94); engineer rules []; $0.2229. Spark: unresolved is mostly Arabic generic words and French abbreviations frmg liq shamp confi frs gr with no product token match
+
+## Experiment log
+
+- [bootstrap] block · accepted: split_glued (reads 2 catalogue names differently; products that read alike 13 → 13, by muse-spark) — supplier lines glue brand or word to size or pack: harissa380g, koolx4, biscuit3p must split before matching
+- [bootstrap] block · accepted: dimensions (reads 1 catalogue names differently; products that read alike 13 → 13, by muse-spark) — stationery format 17X22 in HILLAL 1-CAHIER SPIRAL FORMAT 17X22 120P must become one token so 17x22 never matches another size
+- [bootstrap] block · accepted: units_glue (reads 1 catalogue names differently; products that read alike 13 → 13, by muse-spark) — sizes written spaced 400 G, 1 L, 75 CL, 12 W must glue to 400g, 1l, 75cl, 12w to match catalogue 400G, 1L, 75CL
+- [bootstrap] block · accepted: pack_count (reads 0 catalogue names differently; products that read alike 13 → 13, by muse-spark) — counts 3P, 6P, 8P, 14P, 16P, X4, 9X24 define the product and must become x3, x6, x8, x14, x4 distinct from weights
+- [bootstrap] lexicon · accepted: "choco" → "chocolat" (proposed before any invoice (reads 5 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — suppliers of this industry write choco for the catalogue's chocolat
+- [bootstrap] lexicon · accepted: "bisc" → "biscuit" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — suppliers write bisc for the catalogue's biscuit
+- [bootstrap] lexicon · accepted: "conf" → "confiture" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — suppliers write conf for the catalogue's confiture
+- [bootstrap] search · accepted: BM25 (brand ×2) + 0.5·trigrams (not measured yet: no line has a known answer, by muse-spark) — 286 brands with shared words like KOOL, YAOURT AROMATISE need high brand_boost to stay in brand; bm25 rewards rare variant words like pistache or winners; moderate trigram tolerates aromatise/chapelure typos without merging different codes
+- [bootstrap] attribute · accepted: "chocolat", "vanille", "fraise", "abricot", "caramel", "pistache", "ananas", "thon", "menthe", "citron" each name a flavour, in orders, invoices and catalogue names alike; two texts whose flavour differs are never the same product. (reads 51 catalogue names, 0 pairs made alike → shadow, by muse-spark) — fruit or flavour tells KOOL, confiture, yaourt variants apart; both say it and differ means different product
+- [bootstrap] attribute · accepted: "blanc", "white", "noir", "black" each name a colour, in orders, invoices and catalogue names alike; two texts whose colour differs are never the same product. (reads 14 catalogue names, 0 pairs made alike → shadow, by muse-spark) — KOOL BREAK vs KOOL BREAK WHITE and similar white or noir versions are different products
+- [bootstrap] attribute · rejected: "fourre", "enrobe", "sandwich", "gaufrette", "moulu", "soluble" each name a form, in orders, invoices and catalogue names alike; two texts whose form differs are never the same product. (reads 32 catalogue names, 1 pairs made alike → rejected, by muse-spark) — sandwich vs fourre vs enrobe vs gaufrette tells biscuit products of one brand apart
+- [calibration after 10 invoices] block · rejected: dimensions off (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — no screws in FMCG; it turns packs like 9X24/192PX16/900GX24 into dimension tokens and breaks pack matching
+- [calibration after 10 invoices] lexicon · rejected: "frmg" → "fromage" (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « FRMG FONDU LAGRATANIA 900GX24 » → LAGRATANIA FROMAGE FONDU 900G; « FRMG TIP TOP FONDU SLICE 150G » → TIP TOP FROMAGE FONDU SLICE 150G, by muse-spark) — supplier abbrev for FROMAGE FONDU lines
+- [calibration after 10 invoices] lexicon · rejected: "shamp" → "shampooing" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — DOUBLE SENS SHAMP vs SHAMPOOING
+- [calibration after 10 invoices] lexicon · rejected: "liq" → "liquide" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — LINA CLEAN LIQ LINGE vs LIQUIDE
+- [calibration after 10 invoices] lexicon · rejected: "خل" → "vinaigre" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « خل CORNICHONS » → CORNICHONS AU VINAIGRE, by muse-spark) — Arabic vinegar for CORNICHONS AU VINAIGRE
+- [calibration after 10 invoices] lexicon · rejected: "صلصه" → "sauce" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « صلصة EXTRA 720G » → EXTRA SAUCE 720G, by muse-spark) — Arabic sauce for EXTRA SAUCE 720G
+- [calibration after 10 invoices] lexicon · rejected: "ياغورت" → "yaourt" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Arabic yaourt for TREFLE YAOURT
+- [calibration after 10 invoices] lexicon · rejected: "هريسه" → "harissa" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « هريسة IZDIHAR 200G » → IZDIHAR HARISSA 200G, by muse-spark) — Arabic harissa for IZDIHAR HARISSA
+- [calibration after 10 invoices] lexicon · rejected: "كراس" → "cahier" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « كراس VERTEX 32P » → VERTEX CAHIER DESSIN QUADRILLE 32P, by muse-spark) — Arabic notebook for VERTEX CAHIER
+- [calibration after 10 invoices] lexicon · rejected: "مصباح" → "lampe" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « مصباح ALL 15W » → ALL LAMPE LED A BULB 15W, by muse-spark) — Arabic lamp for ALL LAMPE LED
+- [calibration after 10 invoices] lexicon · rejected: "جبن" → "fromage" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « جبن SANDWICH 330G » → SANDWICH FROMAGE FONDU 330G, by muse-spark) — Arabic cheese for FROMAGE FONDU
+- [calibration after 10 invoices] lexicon · rejected: "قوفريت" → "gaufrette" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « قوفريت KOOL IN'JOY » → KOOL IN'JOY GAUFRETTE FOURRE, by muse-spark) — Arabic gaufrette for KOOL GAUFRETTE
+- [calibration after 10 invoices] lexicon · rejected: "خردل" → "moutarde" (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « خردل EXTRA 200G » → EXTRA MOUTARDE 200G; « خردل MOLLE 140G » → MOLLE MOUTARDE 140G, by muse-spark) — Arabic mustard for EXTRA/MOLLE MOUTARDE
+- [calibration after 10 invoices] lexicon · rejected: "مربي" → "confiture" (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « مربى AZZOUZ 400G » → AZZOUZ CONFITURE TRADITIONNELLE D'ABRICOT 400G; « مربى CONSERVERIE DE L'EST CONSERVERIE GUELMA 900G » → CONSERVERIE DE L'EST GUELMA CONSERVE CONFITURE 900G, by muse-spark) — Arabic jam for CONFITURE
+- [calibration after 10 invoices] lexicon · rejected: "سكر" → "sucre" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « سكر BISCWIK » → BISCWIK GALETTES SUCRE BOITE, by muse-spark) — Arabic sugar for GALETTES SUCRE
+- [calibration after 10 invoices] lexicon · rejected: "بسكويت" → "biscuit" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « بسكويت 4 WINNERS WHITE » → 4 WINNERS WHITE BISCUIT ENROBE KOOL, by muse-spark) — Arabic biscuit for BISCUIT ENROBE
+- [calibration after 10 invoices] lexicon · rejected: "شوكولاطه" → "chocolat" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « شوكولاطة ARWA CHOCOLAT 200ML » → ARWA CHOCOLAT BOISSONS LACTEE MILK 200ML, by muse-spark) — Arabic chocolate for ARWA CHOCOLAT
+- [calibration after 10 invoices] lexicon · rejected: "عجاين" → "pates" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « عجائن EL MAICENNE PATES » → EL MAICENNE PATES PATE ALIMENTAIRE, by muse-spark) — Arabic pasta for PATES ALIMENTAIRE
+- [calibration after 10 invoices] lexicon · rejected: "حليب" → "lait" (seen lines: +1 newly resolved (1 distinct wordings), 1 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « حليب ACTIVIA » → ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L instead of ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE; « حليب ACTIVIA 1L » → ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L, by muse-spark) — Arabic milk to rank LAIT vs SBAH and keep milk signal
+- [calibration after 10 invoices] lexicon · rejected: "choco" → "chocolat" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « CHOCO STICK NESQUIK » → NESQUIK CHOCOLAT EN POUDRE STICK; « CHOCO LAIT TRANCHES COCOATY DELICE 100GX24 » → COCOATY DELICE CHOCOLAT AU LAIT TRANCHES 100G, by muse-spark) — suppliers of this industry write choco for the catalogue's chocolat
+- [calibration after 10 invoices] lexicon · rejected: "bisc" → "biscuit" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write bisc for the catalogue's biscuit
+- [calibration after 10 invoices] lexicon · rejected: "conf" → "confiture" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write conf for the catalogue's confiture
+- [calibration after 10 invoices] lexicon · rejected: "frmg" → "fromage" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « FRMG FONDU LAGRATANIA 900GX24 » → LAGRATANIA FROMAGE FONDU 900G; « FRMG TIP TOP FONDU SLICE 150G » → TIP TOP FROMAGE FONDU SLICE 150G, by muse-spark) — supplier abbrev for FROMAGE FONDU lines
+- [calibration after 10 invoices] lexicon · rejected: "خردل" → "moutarde" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « خردل EXTRA 200G » → EXTRA MOUTARDE 200G; « خردل MOLLE 140G » → MOLLE MOUTARDE 140G, by muse-spark) — Arabic mustard for EXTRA/MOLLE MOUTARDE
+- [calibration after 10 invoices] lexicon · rejected: "مربي" → "confiture" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « مربى AZZOUZ 400G » → AZZOUZ CONFITURE TRADITIONNELLE D'ABRICOT 400G; « مربى CONSERVERIE DE L'EST CONSERVERIE GUELMA 900G » → CONSERVERIE DE L'EST GUELMA CONSERVE CONFITURE 900G, by muse-spark) — Arabic jam for CONFITURE
+- [calibration after 10 invoices] search · accepted: trigrams [trigrams] (classic word similarity [word similarity]: 99.4 % in top 8, MRR 0.93; BM25 [BM25]: 98.2 % in top 8, MRR 0.94; BM25, brand ×2 [BM25 (brand ×2)]: 98.2 % in top 8, MRR 0.94; trigrams [trigrams]: 99.4 % in top 8, MRR 0.93; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 98.2 % in top 8, MRR 0.94; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 98.2 % in top 8, MRR 0.94; Spark: current [BM25 (brand ×2) + 0.5·trigrams]: 98.2 % in top 8, MRR 0.94; Spark: typo-tolerant [BM25 (brand ×2) + trigrams + 0.5·word similarity]: 98.2 % in top 8, MRR 0.94; Spark: plain-bm25 [BM25 + 0.2·trigrams]: 98.2 % in top 8, MRR 0.94; current: Spark's first guess [BM25 (brand ×2) + 0.5·trigrams]: 98.2 % in top 8, MRR 0.94. Chosen: 99.4 % in top 8 on seen lines; on unseen lines 100.0 % vs 100.0 % for the current method, by library) — 
+- [calibration after 20 invoices] lexicon · rejected: "gr" → "g" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — 750 GR and 350 GR mean 750G 350G with digit words needing exact match
+- [calibration after 20 invoices] lexicon · rejected: "صلصة" → "sauce" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Arabic sauce means SAUCE
+- [calibration after 20 invoices] lexicon · rejected: "هريسة" → "harissa" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Arabic harissa means HARISSA
+- [calibration after 20 invoices] lexicon · rejected: "مربى" → "confiture" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Arabic jam means CONFITURE
+- [calibration after 20 invoices] lexicon · rejected: "شوكولاطة" → "chocolat" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Arabic chocolate means CHOCOLAT
+- [calibration after 20 invoices] lexicon · rejected: "عجائن" → "pates" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Arabic pasta means PATES
+- [calibration after 20 invoices] lexicon · accepted: "choco" → "chocolat" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « CHOCO STICK NESQUIK » → NESQUIK CHOCOLAT EN POUDRE STICK; « CHOCO LAIT TRANCHES COCOATY DELICE 100GX24 » → COCOATY DELICE CHOCOLAT AU LAIT TRANCHES 100G; « CHOCO LAIT TRANCHES COCOATY DELICE 100GX24 » → COCOATY DELICE CHOCOLAT AU LAIT TRANCHES 100G, by muse-spark) — suppliers of this industry write choco for the catalogue's chocolat
+- [calibration after 20 invoices] lexicon · rejected: "frmg" → "fromage" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « FRMG FONDU LAGRATANIA 900GX24 » → LAGRATANIA FROMAGE FONDU 900G; « FRMG TIP TOP FONDU SLICE 150G » → TIP TOP FROMAGE FONDU SLICE 150G, by muse-spark) — supplier abbrev for FROMAGE FONDU lines
+- [calibration after 20 invoices] lexicon · rejected: "خردل" → "moutarde" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « خردل EXTRA 200G » → EXTRA MOUTARDE 200G; « خردل MOLLE 140G » → MOLLE MOUTARDE 140G, by muse-spark) — Arabic mustard for EXTRA/MOLLE MOUTARDE
+- [calibration after 20 invoices] lexicon · rejected: "مربي" → "confiture" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « مربى AZZOUZ 400G » → AZZOUZ CONFITURE TRADITIONNELLE D'ABRICOT 400G; « مربى CONSERVERIE DE L'EST CONSERVERIE GUELMA 900G » → CONSERVERIE DE L'EST GUELMA CONSERVE CONFITURE 900G, by muse-spark) — Arabic jam for CONFITURE
+- [calibration after 20 invoices] search · accepted: trigrams [trigrams] (classic word similarity [word similarity]: 99.7 % in top 8, MRR 0.93; BM25 [BM25]: 99.1 % in top 8, MRR 0.95; BM25, brand ×2 [BM25 (brand ×2)]: 99.1 % in top 8, MRR 0.95; trigrams [trigrams]: 99.7 % in top 8, MRR 0.95; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 99.1 % in top 8, MRR 0.96; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 99.1 % in top 8, MRR 0.96; current: trigrams [trigrams]: 99.7 % in top 8, MRR 0.95. Chosen: 99.7 % in top 8 on seen lines; on unseen lines 100.0 % vs 100.0 % for the current method, by library) — 
+- [calibration after 20 invoices] rekey · accepted: re-read every known wording (12 alias(es) moved to the new reading, no collision, by code) — 
+- [calibration after 30 invoices] block · rejected: inch off (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — no plumbing inches in food catalogue
+- [calibration after 30 invoices] block · rejected: strength off (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — no mg dosages
+- [calibration after 30 invoices] block · rejected: memory off (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — no phones
+- [calibration after 30 invoices] block · rejected: shade off (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — no cosmetics shades
+- [calibration after 30 invoices] lexicon · rejected: "confi" → "confiture" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — CONFI MENAA = CONFITURE
+- [calibration after 30 invoices] lexicon · rejected: "frs" → "fraise" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « CONFI MENAA TAMISEE FRS 400GX24 » → MENAA CONFITURE TAMISEE FRAISE 400G, by muse-spark) — FRS = FRAISE in MENAA TAMISEE
+- [calibration after 30 invoices] lexicon · rejected: "frmg" → "fromage" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « FRMG FONDU LAGRATANIA 900GX24 » → LAGRATANIA FROMAGE FONDU 900G; « FRMG TIP TOP FONDU SLICE 150G » → TIP TOP FROMAGE FONDU SLICE 150G; « FRMG TIP TOP FONDU TARTINER 800G*48 » → TIP TOP FROMAGE FONDU A TARTINER 800G, by muse-spark) — supplier abbrev for FROMAGE FONDU lines
+- [calibration after 30 invoices] lexicon · accepted: "خردل" → "moutarde" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « خردل EXTRA 200G » → EXTRA MOUTARDE 200G; « خردل MOLLE 140G » → MOLLE MOUTARDE 140G, by muse-spark) — Arabic mustard for EXTRA/MOLLE MOUTARDE
+- [calibration after 30 invoices] lexicon · rejected: "مربي" → "confiture" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « مربى AZZOUZ 400G » → AZZOUZ CONFITURE TRADITIONNELLE D'ABRICOT 400G; « مربى CONSERVERIE DE L'EST CONSERVERIE GUELMA 900G » → CONSERVERIE DE L'EST GUELMA CONSERVE CONFITURE 900G, by muse-spark) — Arabic jam for CONFITURE
+- [calibration after 30 invoices] search · accepted: trigrams [trigrams] (classic word similarity [word similarity]: 99.8 % in top 8, MRR 0.93; BM25 [BM25]: 99.3 % in top 8, MRR 0.95; BM25, brand ×2 [BM25 (brand ×2)]: 99.3 % in top 8, MRR 0.95; trigrams [trigrams]: 99.8 % in top 8, MRR 0.94; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 99.3 % in top 8, MRR 0.95; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 99.3 % in top 8, MRR 0.95; Spark: trigram brand [BM25 (brand ×2) + 0.5·trigrams]: 99.3 % in top 8, MRR 0.95; current: trigrams [trigrams]: 99.8 % in top 8, MRR 0.94. Chosen: 99.8 % in top 8 on seen lines; on unseen lines 99.3 % vs 99.3 % for the current method, by library) — 
+- [calibration after 30 invoices] rekey · accepted: re-read every known wording (3 alias(es) moved to the new reading, no collision, by code) — 
+- [end of training] autonomy · rejected: the desk stays supervised: Spark keeps checking every code answer (438 code answers confirmed, 2 wrong (95 % lower bound 98.63 % < bar 99 %), by code) — 
+
+Meta model spend for the whole run: $1.9160
+
+## Who made the free answers possible (test invoices)
+
+634 free answers: Muse Spark found 11 (2 %), the matching Muse Spark designed gave 623 (98 %), a person taught 0 (0 %).
+
+- catalogue match through the matching Muse Spark designed: 623
+- rule Muse Spark wrote: 11
+

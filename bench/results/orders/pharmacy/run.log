@@ -1,0 +1,65 @@
+2026/11/04 01:06:08 desk: 524 products, autonomy unlocked: true, 50 orders to read
+2026/11/04 01:06:20 [mixed] PHA-O01: right 2/3 (qty 2), asked 1, wrong 0, missed 0, extra 0, $0.0100 
+2026/11/04 01:06:29 [darja_latin] PHA-O02: right 6/8 (qty 6), asked 2, wrong 0, missed 0, extra 0, $0.0087 
+2026/11/04 01:06:36 [screenshot] PHA-O03: right 5/6 (qty 5), asked 1, wrong 0, missed 0, extra 0, $0.0067 
+2026/11/04 01:06:45 [darja_latin] PHA-O04: right 3/3 (qty 3), asked 0, wrong 0, missed 0, extra 0, $0.0083 
+2026/11/04 01:06:55 [mixed] PHA-O05: right 4/7 (qty 4), asked 3, wrong 0, missed 0, extra 0, $0.0100 
+2026/11/04 01:07:04 [darja_latin] PHA-O06: right 5/7 (qty 5), asked 2, wrong 0, missed 0, extra 0, $0.0091 
+2026/11/04 01:07:16 [darja_latin] PHA-O07: right 10/10 (qty 10), asked 0, wrong 0, missed 0, extra 0, $0.0126 
+2026/11/04 01:07:51 [voice] PHA-O08: right 1/10 (qty 1), asked 1, wrong 0, missed 8, extra 2, $0.0236 
+2026/11/04 01:08:02 [mixed] PHA-O09: right 3/5 (qty 3), asked 2, wrong 0, missed 0, extra 0, $0.0097 
+2026/11/04 01:08:13 [darja_latin] PHA-O10: right 7/9 (qty 7), asked 2, wrong 0, missed 0, extra 0, $0.0100 
+2026/11/04 01:08:19 [screenshot] PHA-O11: right 3/3 (qty 3), asked 0, wrong 0, missed 0, extra 0, $0.0058 
+2026/11/04 01:08:29 [french] PHA-O12: right 6/8 (qty 6), asked 2, wrong 0, missed 0, extra 0, $0.0099 
+2026/11/04 01:08:39 [darja_latin] PHA-O13: right 6/7 (qty 6), asked 1, wrong 0, missed 0, extra 0, $0.0101 
+2026/11/04 01:08:47 [screenshot] PHA-O14: right 3/4 (qty 3), asked 1, wrong 0, missed 0, extra 0, $0.0056 
+2026/11/04 01:09:19 [voice] PHA-O15: right 3/5 (qty 3), asked 2, wrong 0, missed 0, extra 0, $0.0211 
+2026/11/04 01:09:30 [darja_latin] PHA-O16: right 5/10 (qty 5), asked 5, wrong 0, missed 0, extra 0, $0.0101 
+2026/11/04 01:09:38 [darja_latin] PHA-O17: right 3/5 (qty 3), asked 2, wrong 0, missed 0, extra 0, $0.0082 
+2026/11/04 01:09:47 [mixed] PHA-O18: right 5/10 (qty 5), asked 5, wrong 0, missed 0, extra 0, $0.0094 
+2026/11/04 01:09:59 [screenshot] PHA-O19: right 5/8 (qty 5), asked 3, wrong 0, missed 0, extra 0, $0.0092 
+2026/11/04 01:10:10 [mixed] PHA-O20: right 7/10 (qty 7), asked 3, wrong 0, missed 0, extra 0, $0.0107 
+2026/11/04 01:10:20 [mixed] PHA-O21: right 9/10 (qty 9), asked 1, wrong 0, missed 0, extra 0, $0.0102 
+2026/11/04 01:10:46 [mixed] PHA-O22: right 3/7 (qty 3), asked 4, wrong 1, missed 0, extra 0, $0.0176 
+2026/11/04 01:10:54 [screenshot] PHA-O23: right 4/5 (qty 4), asked 1, wrong 0, missed 0, extra 0, $0.0069 
+2026/11/04 01:11:04 [screenshot] PHA-O24: right 7/8 (qty 7), asked 1, wrong 0, missed 0, extra 0, $0.0088 
+2026/11/04 01:11:24 [voice] PHA-O25: right 1/3 (qty 1), asked 1, wrong 0, missed 1, extra 1, $0.0136 
+2026/11/04 01:11:34 [french] PHA-O26: right 7/7 (qty 7), asked 0, wrong 0, missed 0, extra 0, $0.0102 
+2026/11/04 01:11:49 [french] PHA-O27: right 5/10 (qty 5), asked 5, wrong 0, missed 0, extra 0, $0.0115 
+2026/11/04 01:11:57 [mixed] PHA-O28: right 5/7 (qty 5), asked 2, wrong 0, missed 0, extra 0, $0.0094 
+2026/11/04 01:12:13 [voice] PHA-O29: right 4/4 (qty 4), asked 0, wrong 0, missed 0, extra 0, $0.0128 
+2026/11/04 01:12:18 [french] PHA-O30: right 2/3 (qty 2), asked 1, wrong 0, missed 0, extra 0, $0.0057 
+2026/11/04 01:12:28 [french] PHA-O31: right 6/8 (qty 6), asked 2, wrong 0, missed 0, extra 0, $0.0104 
+2026/11/04 01:12:32 [screenshot] PHA-O32: right 3/4 (qty 3), asked 1, wrong 0, missed 0, extra 0, $0.0041 
+2026/11/04 01:12:45 [screenshot] PHA-O33: right 5/6 (qty 5), asked 1, wrong 0, missed 0, extra 0, $0.0133 
+2026/11/04 01:12:54 [french] PHA-O34: right 6/8 (qty 6), asked 2, wrong 0, missed 0, extra 0, $0.0096 
+2026/11/04 01:13:05 [french] PHA-O35: right 7/9 (qty 7), asked 2, wrong 0, missed 0, extra 0, $0.0102 
+2026/11/04 01:13:09 [french] PHA-O36: right 4/5 (qty 4), asked 1, wrong 0, missed 0, extra 0, $0.0064 
+2026/11/04 01:13:37 [voice] PHA-O37: right 1/7 (qty 1), asked 6, wrong 0, missed 0, extra 0, $0.0172 
+2026/11/04 01:13:44 [darja_latin] PHA-O38: right 2/3 (qty 2), asked 1, wrong 0, missed 0, extra 0, $0.0079 
+2026/11/04 01:14:03 [voice] PHA-O39: right 3/3 (qty 3), asked 0, wrong 0, missed 0, extra 0, $0.0141 
+2026/11/04 01:14:13 [mixed] PHA-O40: right 6/6 (qty 6), asked 0, wrong 0, missed 0, extra 0, $0.0102 
+2026/11/04 01:14:23 [darja_latin] PHA-O41: right 5/8 (qty 5), asked 3, wrong 0, missed 0, extra 0, $0.0101 
+2026/11/04 01:14:46 [voice] PHA-O42: right 6/7 (qty 6), asked 1, wrong 0, missed 0, extra 0, $0.0181 
+2026/11/04 01:14:52 [screenshot] PHA-O43: right 3/4 (qty 3), asked 1, wrong 0, missed 0, extra 0, $0.0061 
+2026/11/04 01:15:18 [voice] PHA-O44: right 8/9 (qty 6), asked 1, wrong 0, missed 0, extra 0, $0.0197 
+2026/11/04 01:15:44 [voice] PHA-O45: right 2/4 (qty 2), asked 1, wrong 0, missed 1, extra 1, $0.0175 
+2026/11/04 01:16:07 [voice] PHA-O46: right 4/6 (qty 4), asked 2, wrong 0, missed 0, extra 0, $0.0159 
+2026/11/04 01:16:16 [french] PHA-O47: right 7/8 (qty 7), asked 1, wrong 0, missed 0, extra 0, $0.0093 
+2026/11/04 01:16:33 [mixed] PHA-O48: right 6/7 (qty 6), asked 1, wrong 0, missed 0, extra 0, $0.0146 
+2026/11/04 01:16:41 [screenshot] PHA-O49: right 4/7 (qty 4), asked 3, wrong 0, missed 0, extra 0, $0.0065 
+2026/11/04 01:16:51 [french] PHA-O50: right 7/8 (qty 7), asked 1, wrong 0, missed 0, extra 0, $0.0105 
+| channel | orders | lines | booked right | right qty+unit | asked | **wrong** | missed by reader | extra | Meta cost |
+|---|---|---|---|---|---|---|---|---|---|
+| all | 50 | 329 | 234 (71 %) | 232 (99 %) | 85 (26 %) | **1** | 10 (3 %) | 4 | $0.547 |
+| darja_latin | 10 | 70 | 52 (74 %) | 52 (100 %) | 18 (26 %) | **0** | 0 (0 %) | 0 | $0.095 |
+| french | 10 | 74 | 57 (77 %) | 57 (100 %) | 17 (23 %) | **0** | 0 (0 %) | 0 | $0.094 |
+| mixed | 10 | 72 | 50 (69 %) | 50 (100 %) | 22 (31 %) | **1** | 0 (0 %) | 0 | $0.112 |
+| screenshot | 10 | 55 | 42 (76 %) | 42 (100 %) | 13 (24 %) | **0** | 0 (0 %) | 0 | $0.073 |
+| voice | 10 | 58 | 33 (57 %) | 31 (94 %) | 15 (26 %) | **0** | 10 (17 %) | 4 | $0.174 |
+| voice: generated (Gemini TTS) | 4 | 29 | 19 (66 %) | 17 (89 %) | 10 (34 %) | **0** | 0 (0 %) | 0 | $0.071 |
+| voice: uploaded | 6 | 29 | 14 (48 %) | 14 (100 %) | 5 (17 %) | **0** | 10 (34 %) | 4 | $0.103 |
+
+## Wrong bookings
+
+- PHA-O22 (mixed): (not in the order) → PEPTIDAC SUSP BUV FL 200ML PERGOVERIS 150UI /75UI INJ 12756,8 31/07/27 0 (said: pergoveris 150ui /75ui) [rules]

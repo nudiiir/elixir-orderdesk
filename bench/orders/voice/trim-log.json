@@ -1,0 +1,124 @@
+{
+ "COS-O01": {
+  "cut_at": 22.9,
+  "predicted": 24.38,
+  "kept_s": 21.7
+ },
+ "COS-O02": {
+  "cut_at": 23.16,
+  "predicted": 24.29,
+  "kept_s": 29.6
+ },
+ "COS-O13": {
+  "cut_at": 21.62,
+  "predicted": 22.61,
+  "kept_s": 26.6
+ },
+ "COS-O14": {
+  "cut_at": 20.86,
+  "predicted": 22.5,
+  "kept_s": 20.4
+ },
+ "COS-O18": {
+  "cut_at": 23.58,
+  "predicted": 24.35,
+  "kept_s": 29.9
+ },
+ "COS-O25": {
+  "cut_at": 21.12,
+  "predicted": 25.06,
+  "kept_s": 28.9
+ },
+ "COS-O36": {
+  "cut_at": 22.22,
+  "predicted": 24.0,
+  "kept_s": 15.0
+ },
+ "COS-O45": {
+  "cut_at": 22.54,
+  "predicted": 23.7,
+  "kept_s": 22.1
+ },
+ "ELE-O03": {
+  "cut_at": 22.6,
+  "predicted": 26.83,
+  "kept_s": 30.0
+ },
+ "ELE-O04": {
+  "cut_at": 22.16,
+  "predicted": 27.54,
+  "kept_s": 20.7
+ },
+ "ELE-O18": {
+  "cut_at": 22.28,
+  "predicted": 27.11,
+  "kept_s": 27.9
+ },
+ "ELE-O44": {
+  "cut_at": 22.54,
+  "predicted": 25.77,
+  "kept_s": 36.7
+ },
+ "PHA-O37": {
+  "cut_at": 24.4,
+  "predicted": 24.71,
+  "kept_s": 24.8
+ },
+ "PHA-O42": {
+  "cut_at": 23.72,
+  "predicted": 28.52,
+  "kept_s": 33.5
+ },
+ "PHA-O44": {
+  "cut_at": 21.66,
+  "predicted": 23.95,
+  "kept_s": 32.1
+ },
+ "PHA-O46": {
+  "cut_at": 21.42,
+  "predicted": 23.65,
+  "kept_s": 23.1
+ },
+ "SUP-O05": {
+  "cut_at": 23.82,
+  "predicted": 24.48,
+  "kept_s": 23.7
+ },
+ "SUP-O49": {
+  "cut_at": 24.4,
+  "predicted": 24.49,
+  "kept_s": 16.4
+ },
+ "COS-O15": {
+  "cut_at": 0,
+  "note": "no instruction spoken"
+ },
+ "ELE-O14": {
+  "cut_at": 0,
+  "note": "no instruction spoken"
+ },
+ "ELE-O15": {
+  "cut_at": 22.32,
+  "kept_s": 15.2
+ },
+ "ELE-O28": {
+  "cut_at": 0,
+  "note": "no instruction spoken"
+ },
+ "ELE-O30": {
+  "cut_at": 0,
+  "note": "no instruction spoken"
+ },
+ "ELE-O48": {
+  "cut_at": 23.82,
+  "kept_s": 26.7
+ },
+ "SUP-O26": {
+  "cut_at": 0,
+  "note": "no instruction spoken"
+ },
+ "ELE-O08": {
+  "cut_at": 23.88,
+  "kept_s": 49.0
+ }
+}

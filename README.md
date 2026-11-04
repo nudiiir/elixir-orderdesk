@@ -158,6 +158,11 @@ mistakes, and Muse Spark recalibrates the desk every 30 invoices (vocabulary, fi
 the rule engineer's rules). **Locked invoices are never learned from**: they are scored before training and
 after every round, with nothing answered or corrected.
 
+**Every number here can be checked.** The catalogues, all 600 invoices with their answer keys, the 200 orders
+with their voice notes and screenshots, every run's line-by-line report and the four trained desks are in
+[`bench/`](bench/). `python bench/check.py` recomputes these tables from them in a second, with no API key;
+[`bench/README.md`](bench/README.md) has the commands to run it all again.
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/media/benchmark-dark.png">
   <img src="docs/media/benchmark-light.png" alt="Four panels, one per industry: on the locked invoices the share of lines booked free grows round after round, questions shrink, and the cost per invoice falls far below Muse Spark alone">

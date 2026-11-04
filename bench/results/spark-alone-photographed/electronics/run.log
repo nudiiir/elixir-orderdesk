@@ -1,0 +1,14 @@
+2026/11/03 18:00:40 [ELE-03] 24 lines: right 24, wrong 0, unsure 0 ($0.0253)
+2026/11/03 18:00:45 [ELE-04] 15 lines: right 15, wrong 0, unsure 0 ($0.0232)
+2026/11/03 18:00:50 [ELE-09] 18 lines: right 18, wrong 0, unsure 0 ($0.0240)
+2026/11/03 18:00:59 [ELE-25] 24 lines: right 24, wrong 0, unsure 0 ($0.0259)
+2026/11/03 18:01:06 [ELE-31] 19 lines: right 19, wrong 0, unsure 0 ($0.0247)
+2026/11/03 18:01:13 [ELE-32] 24 lines: right 24, wrong 0, unsure 0 ($0.0257)
+2026/11/03 18:01:21 [ELE-35] 26 lines: right 25, wrong 1, unsure 0 ($0.0264)
+2026/11/03 18:01:27 [ELE-36] 17 lines: right 17, wrong 0, unsure 0 ($0.0232)
+2026/11/03 18:01:33 [ELE-37] 22 lines: right 22, wrong 0, unsure 0 ($0.0250)
+2026/11/03 18:01:40 [ELE-38] 20 lines: right 20, wrong 0, unsure 0 ($0.0251)
+Spark alone on 10 test invoices, 209 lines
+  at its own word: right 208, wrong 1, unsure 0
+  with the 0.90 threshold: booked right 203, booked wrong 1, sent to a person 5
+  Meta spend: $0.2484

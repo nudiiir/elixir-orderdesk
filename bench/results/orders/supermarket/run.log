@@ -1,0 +1,64 @@
+2026/11/04 01:24:18 desk: 587 products, autonomy unlocked: true, 50 orders to read
+2026/11/04 01:24:44 [voice] SUP-O01: right 2/4 (qty 1), asked 2, wrong 0, missed 0, extra 0, $0.0172 
+2026/11/04 01:25:19 [voice] SUP-O02: right 0/7 (qty 0), asked 1, wrong 0, missed 6, extra 1, $0.0213 
+2026/11/04 01:25:24 [french] SUP-O03: right 6/7 (qty 6), asked 1, wrong 0, missed 0, extra 0, $0.0069 
+2026/11/04 01:25:31 [mixed] SUP-O04: right 4/4 (qty 4), asked 0, wrong 0, missed 0, extra 0, $0.0071 
+2026/11/04 01:25:50 [voice] SUP-O05: right 4/6 (qty 4), asked 2, wrong 0, missed 0, extra 0, $0.0150 
+2026/11/04 01:25:59 [mixed] SUP-O06: right 9/10 (qty 9), asked 1, wrong 0, missed 0, extra 0, $0.0094 
+2026/11/04 01:26:08 [darja_latin] SUP-O07: right 8/8 (qty 8), asked 0, wrong 0, missed 0, extra 0, $0.0087 
+2026/11/04 01:26:15 [darja_latin] SUP-O08: right 9/9 (qty 9), asked 0, wrong 0, missed 0, extra 0, $0.0076 
+2026/11/04 01:26:22 [mixed] SUP-O09: right 9/9 (qty 9), asked 0, wrong 0, missed 0, extra 0, $0.0080 
+2026/11/04 01:26:29 [mixed] SUP-O10: right 2/3 (qty 2), asked 1, wrong 0, missed 0, extra 0, $0.0064 
+2026/11/04 01:26:39 [french] SUP-O11: right 9/9 (qty 9), asked 0, wrong 0, missed 0, extra 0, $0.0099 
+2026/11/04 01:27:04 [voice] SUP-O12: right 1/4 (qty 1), asked 3, wrong 0, missed 0, extra 0, $0.0180 
+2026/11/04 01:27:13 [mixed] SUP-O13: right 6/9 (qty 6), asked 3, wrong 0, missed 0, extra 0, $0.0091 
+2026/11/04 01:27:17 [screenshot] SUP-O14: right 5/5 (qty 5), asked 0, wrong 0, missed 0, extra 0, $0.0043 
+2026/11/04 01:27:28 [french] SUP-O15: right 7/7 (qty 7), asked 0, wrong 0, missed 0, extra 0, $0.0098 
+2026/11/04 01:27:30 [screenshot] SUP-O16: right 1/3 (qty 1), asked 2, wrong 0, missed 0, extra 0, $0.0035 
+2026/11/04 01:27:50 [voice] SUP-O17: right 2/3 (qty 2), asked 1, wrong 0, missed 0, extra 0, $0.0144 
+2026/11/04 01:27:52 [screenshot] SUP-O18: right 2/3 (qty 2), asked 1, wrong 0, missed 0, extra 0, $0.0037 
+2026/11/04 01:27:57 [mixed] SUP-O19: right 3/3 (qty 3), asked 0, wrong 0, missed 0, extra 0, $0.0058 
+2026/11/04 01:28:08 [screenshot] SUP-O20: right 5/5 (qty 5), asked 0, wrong 0, missed 0, extra 0, $0.0125 
+2026/11/04 01:28:16 [french] SUP-O21: right 7/8 (qty 7), asked 1, wrong 0, missed 0, extra 0, $0.0079 
+2026/11/04 01:28:25 [darja_latin] SUP-O22: right 10/10 (qty 10), asked 0, wrong 0, missed 0, extra 0, $0.0091 
+2026/11/04 01:28:34 [screenshot] SUP-O23: right 7/10 (qty 7), asked 3, wrong 0, missed 0, extra 0, $0.0076 
+2026/11/04 01:28:39 [darja_latin] SUP-O24: right 5/5 (qty 5), asked 0, wrong 0, missed 0, extra 0, $0.0066 
+2026/11/04 01:28:44 [darja_latin] SUP-O25: right 3/5 (qty 3), asked 2, wrong 0, missed 0, extra 0, $0.0053 
+2026/11/04 01:29:08 [voice] SUP-O26: right 1/6 (qty 1), asked 2, wrong 0, missed 3, extra 0, $0.0166 
+2026/11/04 01:29:16 [darja_latin] SUP-O27: right 7/7 (qty 7), asked 0, wrong 0, missed 0, extra 0, $0.0089 
+2026/11/04 01:29:32 [voice] SUP-O28: right 1/3 (qty 1), asked 2, wrong 0, missed 0, extra 0, $0.0121 
+2026/11/04 01:29:45 [screenshot] SUP-O29: right 6/6 (qty 6), asked 0, wrong 0, missed 0, extra 0, $0.0142 
+2026/11/04 01:29:52 [darja_latin] SUP-O30: right 4/5 (qty 4), asked 1, wrong 0, missed 0, extra 0, $0.0078 
+2026/11/04 01:29:57 [screenshot] SUP-O31: right 8/10 (qty 8), asked 2, wrong 0, missed 0, extra 0, $0.0053 
+2026/11/04 01:30:04 [french] SUP-O32: right 3/5 (qty 3), asked 2, wrong 0, missed 0, extra 0, $0.0075 
+2026/11/04 01:30:14 [mixed] SUP-O33: right 9/10 (qty 9), asked 1, wrong 0, missed 0, extra 0, $0.0100 
+2026/11/04 01:30:21 [french] SUP-O34: right 4/5 (qty 4), asked 1, wrong 0, missed 0, extra 0, $0.0078 
+2026/11/04 01:30:29 [darja_latin] SUP-O35: right 7/8 (qty 7), asked 1, wrong 0, missed 0, extra 0, $0.0086 
+2026/11/04 01:30:33 [screenshot] SUP-O36: right 5/6 (qty 5), asked 1, wrong 0, missed 0, extra 0, $0.0047 
+2026/11/04 01:30:38 [screenshot] SUP-O37: right 6/10 (qty 6), asked 4, wrong 0, missed 0, extra 0, $0.0057 
+2026/11/04 01:30:53 [screenshot] SUP-O38: right 9/9 (qty 9), asked 0, wrong 0, missed 0, extra 0, $0.0150 
+2026/11/04 01:30:58 [french] SUP-O39: right 4/5 (qty 4), asked 1, wrong 0, missed 0, extra 0, $0.0063 
+2026/11/04 01:31:07 [french] SUP-O40: right 7/9 (qty 7), asked 2, wrong 0, missed 0, extra 0, $0.0089 
+2026/11/04 01:31:30 [voice] SUP-O41: right 2/3 (qty 2), asked 1, wrong 0, missed 0, extra 0, $0.0160 
+2026/11/04 01:31:39 [mixed] SUP-O42: right 8/8 (qty 8), asked 0, wrong 0, missed 0, extra 0, $0.0090 
+2026/11/04 01:32:10 [voice] SUP-O43: right 0/4 (qty 0), asked 2, wrong 0, missed 2, extra 2, $0.0196 
+2026/11/04 01:32:18 [french] SUP-O44: right 4/4 (qty 4), asked 0, wrong 0, missed 0, extra 0, $0.0076 
+2026/11/04 01:32:26 [french] SUP-O45: right 4/4 (qty 4), asked 0, wrong 0, missed 0, extra 0, $0.0079 
+2026/11/04 01:32:33 [mixed] SUP-O46: right 7/7 (qty 7), asked 0, wrong 0, missed 0, extra 0, $0.0070 
+2026/11/04 01:32:39 [darja_latin] SUP-O47: right 4/4 (qty 4), asked 0, wrong 0, missed 0, extra 0, $0.0063 
+2026/11/04 01:32:47 [mixed] SUP-O48: right 8/9 (qty 8), asked 1, wrong 0, missed 0, extra 0, $0.0082 
+2026/11/04 01:33:05 [voice] SUP-O49: right 3/4 (qty 3), asked 1, wrong 0, missed 0, extra 0, $0.0132 
+2026/11/04 01:33:11 [darja_latin] SUP-O50: right 8/10 (qty 8), asked 2, wrong 0, missed 0, extra 0, $0.0072 
+| channel | orders | lines | booked right | right qty+unit | asked | **wrong** | missed by reader | extra | Meta cost |
+|---|---|---|---|---|---|---|---|---|---|
+| all | 50 | 317 | 255 (80 %) | 254 (100 %) | 51 (16 %) | **0** | 11 (3 %) | 3 | $0.476 |
+| darja_latin | 10 | 71 | 65 (92 %) | 65 (100 %) | 6 (8 %) | **0** | 0 (0 %) | 0 | $0.076 |
+| french | 10 | 63 | 55 (87 %) | 55 (100 %) | 8 (13 %) | **0** | 0 (0 %) | 0 | $0.081 |
+| mixed | 10 | 72 | 65 (90 %) | 65 (100 %) | 7 (10 %) | **0** | 0 (0 %) | 0 | $0.080 |
+| screenshot | 10 | 67 | 54 (81 %) | 54 (100 %) | 13 (19 %) | **0** | 0 (0 %) | 0 | $0.076 |
+| voice | 10 | 44 | 16 (36 %) | 15 (94 %) | 17 (39 %) | **0** | 11 (25 %) | 3 | $0.163 |
+| voice: generated (Gemini TTS) | 3 | 16 | 8 (50 %) | 8 (100 %) | 5 (31 %) | **0** | 3 (19 %) | 0 | $0.045 |
+| voice: human | 7 | 28 | 8 (29 %) | 7 (88 %) | 12 (43 %) | **0** | 8 (29 %) | 3 | $0.119 |
+
+## Wrong bookings
+

@@ -1,0 +1,760 @@
+2026/11/04 00:00:09 [bootstrap] mobile phones and accessories / consumer electronics: blocks [inch memory units_glue], lexicon 8, search BM25 (brand ×2) + 0.5·trigrams ($0.0214)
+2026/11/04 00:00:14 [test after 0] ELE-S121: 13 lines, alias 0, rules 6, ai 6, asked 1, wrong 0, $0.0042
+2026/11/04 00:00:22 [test after 0] ELE-S122: 13 lines, alias 0, rules 10, ai 2, asked 1, wrong 0, $0.0055
+2026/11/04 00:00:28 [test after 0] ELE-S123: 21 lines, alias 0, rules 12, ai 8, asked 1, wrong 0, $0.0067
+2026/11/04 00:00:36 [test after 0] ELE-S124: 18 lines, alias 0, rules 11, ai 4, asked 3, wrong 0, $0.0060
+2026/11/04 00:00:45 [test after 0] ELE-S125: 12 lines, alias 0, rules 4, ai 5, asked 3, wrong 0, $0.0066
+2026/11/04 00:00:56 [test after 0] ELE-S126: 19 lines, alias 0, rules 11, ai 6, asked 2, wrong 0, $0.0086
+2026/11/04 00:01:03 [test after 0] ELE-S127: 19 lines, alias 0, rules 11, ai 7, asked 1, wrong 0, $0.0063
+2026/11/04 00:01:10 [test after 0] ELE-S128: 14 lines, alias 0, rules 8, ai 4, asked 2, wrong 0, $0.0061
+2026/11/04 00:01:18 [test after 0] ELE-S129: 24 lines, alias 0, rules 16, ai 8, asked 0, wrong 0, $0.0075
+2026/11/04 00:01:25 [test after 0] ELE-S130: 19 lines, alias 0, rules 11, ai 7, asked 1, wrong 0, $0.0051
+2026/11/04 00:01:30 [test after 0] ELE-S131: 19 lines, alias 0, rules 13, ai 3, asked 3, wrong 0, $0.0048
+2026/11/04 00:01:35 [test after 0] ELE-S132: 12 lines, alias 0, rules 10, ai 2, asked 0, wrong 0, $0.0050
+2026/11/04 00:01:41 [test after 0] ELE-S133: 21 lines, alias 0, rules 11, ai 7, asked 3, wrong 0, $0.0059
+2026/11/04 00:01:48 [test after 0] ELE-S134: 19 lines, alias 0, rules 12, ai 6, asked 1, wrong 0, $0.0071
+2026/11/04 00:01:54 [test after 0] ELE-S135: 15 lines, alias 0, rules 10, ai 4, asked 1, wrong 0, $0.0049
+2026/11/04 00:02:07 [test after 0] ELE-S136: 25 lines, alias 0, rules 11, ai 10, asked 4, wrong 0, $0.0102
+2026/11/04 00:02:16 [test after 0] ELE-S137: 22 lines, alias 0, rules 9, ai 8, asked 5, wrong 0, $0.0078
+2026/11/04 00:02:21 [test after 0] ELE-S138: 12 lines, alias 0, rules 5, ai 6, asked 1, wrong 0, $0.0045
+2026/11/04 00:02:27 [test after 0] ELE-S139: 19 lines, alias 0, rules 12, ai 3, asked 4, wrong 0, $0.0059
+2026/11/04 00:02:33 [test after 0] ELE-S140: 22 lines, alias 0, rules 15, ai 3, asked 4, wrong 0, $0.0052
+2026/11/04 00:02:39 [test after 0] ELE-S141: 13 lines, alias 0, rules 8, ai 4, asked 1, wrong 0, $0.0052
+2026/11/04 00:02:43 [test after 0] ELE-S142: 14 lines, alias 0, rules 8, ai 6, asked 0, wrong 0, $0.0046
+2026/11/04 00:02:52 [test after 0] ELE-S143: 21 lines, alias 0, rules 13, ai 5, asked 3, wrong 0, $0.0082
+2026/11/04 00:03:00 [test after 0] ELE-S144: 25 lines, alias 0, rules 18, ai 4, asked 3, wrong 0, $0.0085
+2026/11/04 00:03:05 [test after 0] ELE-S145: 12 lines, alias 0, rules 7, ai 5, asked 0, wrong 0, $0.0047
+2026/11/04 00:03:13 [test after 0] ELE-S146: 13 lines, alias 0, rules 8, ai 3, asked 2, wrong 0, $0.0056
+2026/11/04 00:03:26 [test after 0] ELE-S147: 22 lines, alias 0, rules 14, ai 6, asked 2, wrong 0, $0.0104
+2026/11/04 00:03:31 [test after 0] ELE-S148: 20 lines, alias 0, rules 13, ai 2, asked 5, wrong 0, $0.0047
+2026/11/04 00:03:37 [test after 0] ELE-S149: 13 lines, alias 0, rules 11, ai 2, asked 0, wrong 0, $0.0050
+2026/11/04 00:03:46 [test after 0] ELE-S150: 24 lines, alias 0, rules 14, ai 7, asked 3, wrong 0, $0.0079
+2026/11/04 00:03:56 [desk] learned from 25 line(s)
+2026/11/04 00:03:56 [spark-checks-all 1] ELE-S001: 25 lines, alias 0, rules 17, ai 7, asked 1, wrong 0 | agree 17/17, disagree 0, spark alone 7/7, $0.0083
+2026/11/04 00:04:05 [desk] learned from 21 line(s)
+2026/11/04 00:04:05 [spark-checks-all 2] ELE-S002: 21 lines, alias 0, rules 16, ai 5, asked 0, wrong 0 | agree 16/16, disagree 0, spark alone 5/5, $0.0070
+2026/11/04 00:04:13 [desk] learned from 20 line(s)
+2026/11/04 00:04:13 [spark-checks-all 3] ELE-S003: 20 lines, alias 0, rules 14, ai 5, asked 1, wrong 0 | agree 14/14, disagree 0, spark alone 5/5, $0.0060
+2026/11/04 00:04:19 [desk] learned from 16 line(s)
+2026/11/04 00:04:19 [spark-checks-all 4] ELE-S004: 16 lines, alias 0, rules 14, ai 1, asked 1, wrong 0 | agree 14/14, disagree 0, spark alone 1/1, $0.0053
+2026/11/04 00:04:27 [desk] learned from 16 line(s)
+2026/11/04 00:04:27 [spark-checks-all 5] ELE-S005: 16 lines, alias 0, rules 11, ai 4, asked 1, wrong 0 | agree 11/11, disagree 0, spark alone 4/4, $0.0060
+2026/11/04 00:04:37 [desk] learned from 23 line(s)
+2026/11/04 00:04:37 [spark-checks-all 6] ELE-S006: 23 lines, alias 0, rules 15, ai 6, asked 2, wrong 0 | agree 15/15, disagree 0, spark alone 6/6, $0.0079
+2026/11/04 00:04:45 [desk] learned from 18 line(s)
+2026/11/04 00:04:45 [spark-checks-all 7] ELE-S007: 18 lines, alias 0, rules 14, ai 3, asked 1, wrong 0 | agree 14/14, disagree 0, spark alone 3/3, $0.0049
+2026/11/04 00:04:52 [desk] learned from 18 line(s)
+2026/11/04 00:04:52 [spark-checks-all 8] ELE-S008: 18 lines, alias 0, rules 11, ai 4, asked 3, wrong 0 | agree 11/11, disagree 0, spark alone 4/4, $0.0058
+2026/11/04 00:04:59 [desk] learned from 18 line(s)
+2026/11/04 00:04:59 [spark-checks-all 9] ELE-S009: 18 lines, alias 0, rules 11, ai 5, asked 1, wrong 1 | agree 11/12, disagree 0, spark alone 5/5, $0.0055
+2026/11/04 00:05:06 [desk] learned from 16 line(s)
+2026/11/04 00:05:06 [spark-checks-all 10] ELE-S010: 16 lines, alias 0, rules 10, ai 4, asked 2, wrong 0 | agree 10/10, disagree 0, spark alone 4/4, $0.0057
+2026/11/04 00:05:13 [desk] learned from 14 line(s)
+2026/11/04 00:05:13 [spark-checks-all 11] ELE-S011: 14 lines, alias 4, rules 6, ai 3, asked 1, wrong 0 | agree 10/10, disagree 0, spark alone 3/3, $0.0054
+2026/11/04 00:05:21 [desk] learned from 22 line(s)
+2026/11/04 00:05:21 [spark-checks-all 12] ELE-S012: 22 lines, alias 0, rules 13, ai 8, asked 1, wrong 0 | agree 13/13, disagree 0, spark alone 8/8, $0.0068
+2026/11/04 00:05:27 [desk] learned from 14 line(s)
+2026/11/04 00:05:27 [spark-checks-all 13] ELE-S013: 14 lines, alias 0, rules 10, ai 2, asked 2, wrong 0 | agree 10/10, disagree 0, spark alone 2/2, $0.0045
+2026/11/04 00:05:35 [desk] learned from 18 line(s)
+2026/11/04 00:05:35 [spark-checks-all 14] ELE-S014: 18 lines, alias 0, rules 14, ai 3, asked 1, wrong 0 | agree 14/14, disagree 0, spark alone 3/3, $0.0068
+2026/11/04 00:05:41 [desk] learned from 18 line(s)
+2026/11/04 00:05:41 [spark-checks-all 15] ELE-S015: 18 lines, alias 0, rules 10, ai 3, asked 5, wrong 0 | agree 10/10, disagree 0, spark alone 3/3, $0.0053
+2026/11/04 00:05:47 [desk] learned from 13 line(s)
+2026/11/04 00:05:47 [spark-checks-all 16] ELE-S016: 13 lines, alias 0, rules 7, ai 3, asked 3, wrong 0 | agree 7/7, disagree 0, spark alone 3/3, $0.0046
+2026/11/04 00:05:53 [desk] learned from 15 line(s)
+2026/11/04 00:05:53 [spark-checks-all 17] ELE-S017: 15 lines, alias 0, rules 7, ai 5, asked 3, wrong 0 | agree 7/7, disagree 0, spark alone 5/5, $0.0051
+2026/11/04 00:06:03 [desk] learned from 20 line(s)
+2026/11/04 00:06:03 [spark-checks-all 18] ELE-S018: 20 lines, alias 0, rules 12, ai 4, asked 4, wrong 0 | agree 12/12, disagree 1, spark alone 4/4, $0.0077
+2026/11/04 00:06:18 [desk] learned from 22 line(s)
+2026/11/04 00:06:18 [spark-checks-all 19] ELE-S019: 22 lines, alias 0, rules 11, ai 6, asked 5, wrong 0 | agree 11/11, disagree 0, spark alone 6/6, $0.0098
+2026/11/04 00:06:28 [desk] learned from 25 line(s)
+2026/11/04 00:06:28 [spark-checks-all 20] ELE-S020: 25 lines, alias 6, rules 12, ai 6, asked 1, wrong 0 | agree 18/18, disagree 0, spark alone 6/6, $0.0082
+2026/11/04 00:06:33 [desk] learned from 14 line(s)
+2026/11/04 00:06:33 [spark-checks-all 21] ELE-S021: 14 lines, alias 0, rules 12, ai 1, asked 1, wrong 0 | agree 12/12, disagree 0, spark alone 1/1, $0.0037
+2026/11/04 00:06:39 [desk] learned from 12 line(s)
+2026/11/04 00:06:39 [spark-checks-all 22] ELE-S022: 12 lines, alias 3, rules 6, ai 1, asked 2, wrong 0 | agree 9/9, disagree 0, spark alone 1/1, $0.0046
+2026/11/04 00:06:43 [desk] learned from 12 line(s)
+2026/11/04 00:06:43 [spark-checks-all 23] ELE-S023: 12 lines, alias 2, rules 4, ai 5, asked 1, wrong 0 | agree 6/6, disagree 0, spark alone 5/5, $0.0038
+2026/11/04 00:06:50 [desk] learned from 14 line(s)
+2026/11/04 00:06:50 [spark-checks-all 24] ELE-S024: 14 lines, alias 0, rules 11, ai 3, asked 0, wrong 0 | agree 11/11, disagree 0, spark alone 3/3, $0.0056
+2026/11/04 00:06:57 [desk] learned from 12 line(s)
+2026/11/04 00:06:57 [spark-checks-all 25] ELE-S025: 12 lines, alias 2, rules 5, ai 5, asked 0, wrong 0 | agree 7/7, disagree 0, spark alone 5/5, $0.0058
+2026/11/04 00:07:05 [desk] learned from 15 line(s)
+2026/11/04 00:07:05 [spark-checks-all 26] ELE-S026: 15 lines, alias 7, rules 4, ai 3, asked 1, wrong 0 | agree 11/11, disagree 0, spark alone 3/3, $0.0064
+2026/11/04 00:07:14 [desk] learned from 23 line(s)
+2026/11/04 00:07:14 [spark-checks-all 27] ELE-S027: 23 lines, alias 0, rules 8, ai 11, asked 4, wrong 0 | agree 8/8, disagree 0, spark alone 11/11, $0.0071
+2026/11/04 00:07:24 [desk] learned from 25 line(s)
+2026/11/04 00:07:24 [spark-checks-all 28] ELE-S028: 25 lines, alias 3, rules 17, ai 3, asked 2, wrong 0 | agree 20/20, disagree 0, spark alone 3/3, $0.0080
+2026/11/04 00:07:34 [desk] learned from 14 line(s)
+2026/11/04 00:07:34 [spark-checks-all 29] ELE-S029: 14 lines, alias 4, rules 7, ai 2, asked 1, wrong 0 | agree 11/11, disagree 0, spark alone 2/2, $0.0072
+2026/11/04 00:07:44 [desk] learned from 25 line(s)
+2026/11/04 00:07:44 [spark-checks-all 30] ELE-S030: 25 lines, alias 7, rules 13, ai 2, asked 3, wrong 0 | agree 20/20, disagree 0, spark alone 2/2, $0.0076
+2026/11/04 00:14:10 [engineer] list_residue {"limit":60}
+2026/11/04 00:14:10 [engineer] list_rules {}
+2026/11/04 00:14:10 [engineer] read_catalogue {"limit":50}
+2026/11/04 00:14:21 [engineer] search_catalogue {"query":"coque pochette"}
+2026/11/04 00:14:21 [engineer] search_catalogue {"query":"glass verre trempe"}
+2026/11/04 00:14:21 [engineer] search_catalogue {"query":"tablette tab"}
+2026/11/04 00:14:21 [engineer] search_catalogue {"query":"clavier keyboard"}
+2026/11/04 00:14:21 [engineer] search_catalogue {"query":"iphone cable"}
+2026/11/04 00:14:36 [engineer] list_residue {"limit":60}
+2026/11/04 00:14:55 [engineer] search_catalogue {"query":"redmi xiaomi"}
+2026/11/04 00:14:55 [engineer] search_catalogue {"query":"t-c type"}
+2026/11/04 00:14:55 [engineer] search_catalogue {"query":"chargeur charger"}
+2026/11/04 00:14:55 [engineer] search_catalogue {"query":"laptop portable"}
+2026/11/04 00:15:10 [engineer] list_residue {"limit":200}
+2026/11/04 00:15:28 [engineer] read_catalogue {"query":"charger chargeur keyboard clavier t-c type usb"}
+2026/11/04 00:15:28 [engineer] read_catalogue {"query":"11eme 11th core portable laptop mobile"}
+2026/11/04 00:15:56 [engineer] search_catalogue {"query":"coque"}
+2026/11/04 00:15:56 [engineer] search_catalogue {"query":"verre protection ecran"}
+2026/11/04 00:15:56 [engineer] search_catalogue {"query":"core"}
+2026/11/04 00:16:07 [engineer] search_catalogue {"query":"X21"}
+2026/11/04 00:16:07 [engineer] search_catalogue {"query":"U55"}
+2026/11/04 00:16:07 [engineer] search_catalogue {"query":"MOBILE"}
+2026/11/04 00:16:07 [engineer] calibration after 30 invoices: muse-spark-1.3, residue 56, accepted [], rejected [], $0.2094
+2026/11/04 00:16:07 [calibration after 30 invoices] accepted 14, rejected 27; 263/403 right with no AI (65 %), 1 wrong → 327/403 right with no AI (81 %), 1 wrong; search BM25: 91.8 % in the top 8 (MRR 0.92); engineer [] ($0.2424)
+2026/11/04 00:16:12 [test after 30] ELE-S121: 13 lines, alias 0, rules 9, ai 3, asked 1, wrong 0, $0.0046
+2026/11/04 00:16:18 [test after 30] ELE-S122: 13 lines, alias 0, rules 11, ai 1, asked 1, wrong 0, $0.0049
+2026/11/04 00:16:26 [test after 30] ELE-S123: 21 lines, alias 10, rules 9, ai 2, asked 0, wrong 0, $0.0076
+2026/11/04 00:16:33 [test after 30] ELE-S124: 18 lines, alias 0, rules 12, ai 3, asked 3, wrong 0, $0.0058
+2026/11/04 00:16:41 [test after 30] ELE-S125: 12 lines, alias 0, rules 8, ai 1, asked 3, wrong 0, $0.0059
+2026/11/04 00:17:05 [test after 30] ELE-S126: 19 lines, alias 0, rules 14, ai 3, asked 2, wrong 0, $0.0086
+2026/11/04 00:17:12 [test after 30] ELE-S127: 19 lines, alias 3, rules 15, ai 1, asked 0, wrong 0, $0.0069
+2026/11/04 00:17:25 [test after 30] ELE-S128: 14 lines, alias 7, rules 6, ai 0, asked 1, wrong 0, $0.0056
+2026/11/04 00:17:33 [test after 30] ELE-S129: 24 lines, alias 5, rules 18, ai 1, asked 0, wrong 0, $0.0070
+2026/11/04 00:17:39 [test after 30] ELE-S130: 19 lines, alias 4, rules 13, ai 1, asked 1, wrong 0, $0.0061
+2026/11/04 00:17:46 [test after 30] ELE-S131: 19 lines, alias 7, rules 10, ai 0, asked 2, wrong 0, $0.0063
+2026/11/04 00:17:53 [test after 30] ELE-S132: 12 lines, alias 0, rules 11, ai 1, asked 0, wrong 0, $0.0053
+2026/11/04 00:17:59 [test after 30] ELE-S133: 21 lines, alias 0, rules 14, ai 4, asked 3, wrong 0, $0.0066
+2026/11/04 00:18:06 [test after 30] ELE-S134: 19 lines, alias 0, rules 14, ai 4, asked 1, wrong 0, $0.0066
+2026/11/04 00:18:12 [test after 30] ELE-S135: 15 lines, alias 8, rules 7, ai 0, asked 0, wrong 0, $0.0055
+2026/11/04 00:18:24 [test after 30] ELE-S136: 25 lines, alias 3, rules 17, ai 1, asked 4, wrong 0, $0.0097
+2026/11/04 00:18:35 [test after 30] ELE-S137: 22 lines, alias 3, rules 12, ai 3, asked 4, wrong 0, $0.0094
+2026/11/04 00:18:40 [test after 30] ELE-S138: 12 lines, alias 0, rules 7, ai 4, asked 1, wrong 0, $0.0043
+2026/11/04 00:18:46 [test after 30] ELE-S139: 19 lines, alias 7, rules 11, ai 1, asked 0, wrong 0, $0.0059
+2026/11/04 00:18:55 [test after 30] ELE-S140: 22 lines, alias 6, rules 16, ai 0, asked 0, wrong 0, $0.0071
+2026/11/04 00:19:00 [test after 30] ELE-S141: 13 lines, alias 0, rules 9, ai 3, asked 1, wrong 0, $0.0050
+2026/11/04 00:19:07 [test after 30] ELE-S142: 14 lines, alias 0, rules 12, ai 2, asked 0, wrong 0, $0.0055
+2026/11/04 00:19:16 [test after 30] ELE-S143: 21 lines, alias 9, rules 10, ai 1, asked 1, wrong 0, $0.0080
+2026/11/04 00:19:27 [test after 30] ELE-S144: 25 lines, alias 0, rules 21, ai 1, asked 3, wrong 0, $0.0080
+2026/11/04 00:19:32 [test after 30] ELE-S145: 12 lines, alias 4, rules 7, ai 1, asked 0, wrong 0, $0.0045
+2026/11/04 00:19:39 [test after 30] ELE-S146: 13 lines, alias 5, rules 7, ai 1, asked 0, wrong 0, $0.0051
+2026/11/04 00:19:47 [test after 30] ELE-S147: 22 lines, alias 3, rules 16, ai 3, asked 0, wrong 0, $0.0083
+2026/11/04 00:19:53 [test after 30] ELE-S148: 20 lines, alias 0, rules 14, ai 1, asked 5, wrong 0, $0.0052
+2026/11/04 00:19:58 [test after 30] ELE-S149: 13 lines, alias 1, rules 11, ai 1, asked 0, wrong 0, $0.0052
+2026/11/04 00:20:08 [test after 30] ELE-S150: 24 lines, alias 0, rules 19, ai 2, asked 3, wrong 0, $0.0081
+2026/11/04 00:20:12 [desk] learned from 13 line(s)
+2026/11/04 00:20:12 [spark-checks-all 31] ELE-S031: 13 lines, alias 0, rules 11, ai 0, asked 2, wrong 0 | agree 11/11, disagree 0, spark alone 0/0, $0.0033
+2026/11/04 00:20:18 [desk] learned from 15 line(s)
+2026/11/04 00:20:18 [spark-checks-all 32] ELE-S032: 15 lines, alias 2, rules 7, ai 2, asked 4, wrong 0 | agree 9/9, disagree 0, spark alone 2/2, $0.0040
+2026/11/04 00:20:29 [desk] learned from 25 line(s)
+2026/11/04 00:20:29 [spark-checks-all 33] ELE-S033: 25 lines, alias 9, rules 14, ai 0, asked 2, wrong 0 | agree 23/23, disagree 0, spark alone 0/0, $0.0082
+2026/11/04 00:20:37 [desk] learned from 20 line(s)
+2026/11/04 00:20:37 [spark-checks-all 34] ELE-S034: 20 lines, alias 8, rules 8, ai 2, asked 2, wrong 0 | agree 16/16, disagree 0, spark alone 2/2, $0.0056
+2026/11/04 00:20:47 [desk] learned from 25 line(s)
+2026/11/04 00:20:47 [spark-checks-all 35] ELE-S035: 25 lines, alias 3, rules 20, ai 0, asked 2, wrong 0 | agree 23/23, disagree 0, spark alone 0/0, $0.0071
+2026/11/04 00:20:55 [desk] learned from 23 line(s)
+2026/11/04 00:20:55 [spark-checks-all 36] ELE-S036: 23 lines, alias 0, rules 19, ai 3, asked 1, wrong 0 | agree 19/19, disagree 0, spark alone 3/3, $0.0061
+2026/11/04 00:21:02 [desk] learned from 12 line(s)
+2026/11/04 00:21:02 [spark-checks-all 37] ELE-S037: 12 lines, alias 8, rules 2, ai 1, asked 1, wrong 0 | agree 10/10, disagree 0, spark alone 1/1, $0.0050
+2026/11/04 00:21:09 [desk] learned from 12 line(s)
+2026/11/04 00:21:09 [spark-checks-all 38] ELE-S038: 12 lines, alias 0, rules 9, ai 1, asked 2, wrong 0 | agree 9/9, disagree 0, spark alone 1/1, $0.0053
+2026/11/04 00:21:17 [desk] learned from 12 line(s)
+2026/11/04 00:21:17 [spark-checks-all 39] ELE-S039: 12 lines, alias 1, rules 9, ai 1, asked 1, wrong 0 | agree 10/10, disagree 0, spark alone 1/1, $0.0050
+2026/11/04 00:21:23 [desk] learned from 13 line(s)
+2026/11/04 00:21:23 [spark-checks-all 40] ELE-S040: 13 lines, alias 4, rules 9, ai 0, asked 0, wrong 0 | agree 13/13, disagree 0, spark alone 0/0, $0.0050
+2026/11/04 00:21:33 [desk] learned from 25 line(s)
+2026/11/04 00:21:33 [spark-checks-all 41] ELE-S041: 25 lines, alias 0, rules 17, ai 6, asked 2, wrong 0 | agree 17/17, disagree 0, spark alone 6/6, $0.0087
+2026/11/04 00:21:41 [desk] learned from 18 line(s)
+2026/11/04 00:21:41 [spark-checks-all 42] ELE-S042: 18 lines, alias 8, rules 9, ai 1, asked 0, wrong 0 | agree 17/17, disagree 0, spark alone 1/1, $0.0052
+2026/11/04 00:21:53 [desk] learned from 18 line(s)
+2026/11/04 00:21:53 [spark-checks-all 43] ELE-S043: 18 lines, alias 10, rules 7, ai 0, asked 1, wrong 0 | agree 17/17, disagree 0, spark alone 0/0, $0.0083
+2026/11/04 00:22:04 [desk] learned from 20 line(s)
+2026/11/04 00:22:04 [spark-checks-all 44] ELE-S044: 20 lines, alias 2, rules 15, ai 0, asked 3, wrong 0 | agree 17/17, disagree 0, spark alone 0/0, $0.0071
+2026/11/04 00:22:11 [desk] learned from 23 line(s)
+2026/11/04 00:22:11 [spark-checks-all 45] ELE-S045: 23 lines, alias 0, rules 17, ai 4, asked 2, wrong 0 | agree 17/17, disagree 0, spark alone 4/4, $0.0053
+2026/11/04 00:22:19 [desk] learned from 15 line(s)
+2026/11/04 00:22:19 [spark-checks-all 46] ELE-S046: 15 lines, alias 0, rules 12, ai 1, asked 2, wrong 0 | agree 12/12, disagree 0, spark alone 1/1, $0.0054
+2026/11/04 00:22:26 [desk] learned from 15 line(s)
+2026/11/04 00:22:26 [learning 47] ELE-S047: 15 lines, alias 4, rules 9, ai 1, asked 1, wrong 0 | agree 7/7, disagree 0, spark alone 1/1, $0.0049
+2026/11/04 00:22:32 [desk] learned from 15 line(s)
+2026/11/04 00:22:32 [learning 48] ELE-S048: 15 lines, alias 3, rules 9, ai 3, asked 0, wrong 0 | agree 2/2, disagree 0, spark alone 3/3, $0.0030
+2026/11/04 00:22:37 [desk] learned from 12 line(s)
+2026/11/04 00:22:37 [learning 49] ELE-S049: 12 lines, alias 4, rules 6, ai 0, asked 2, wrong 0 | agree 5/5, disagree 0, spark alone 0/0, $0.0028
+2026/11/04 00:22:42 [desk] learned from 21 line(s)
+2026/11/04 00:22:42 [learning 50] ELE-S050: 21 lines, alias 4, rules 13, ai 1, asked 3, wrong 0 | agree 3/3, disagree 0, spark alone 1/1, $0.0023
+2026/11/04 00:22:48 [desk] learned from 21 line(s)
+2026/11/04 00:22:48 [learning 51] ELE-S051: 21 lines, alias 13, rules 7, ai 1, asked 0, wrong 0 | agree 3/3, disagree 0, spark alone 1/1, $0.0031
+2026/11/04 00:22:58 [desk] learned from 23 line(s)
+2026/11/04 00:22:58 [learning 52] ELE-S052: 23 lines, alias 0, rules 19, ai 3, asked 1, wrong 0 | agree 1/1, disagree 0, spark alone 3/3, $0.0054
+2026/11/04 00:23:06 [desk] learned from 24 line(s)
+2026/11/04 00:23:06 [learning 53] ELE-S053: 24 lines, alias 9, rules 12, ai 3, asked 0, wrong 0 | agree 7/7, disagree 0, spark alone 3/3, $0.0042
+2026/11/04 00:23:12 [desk] learned from 24 line(s)
+2026/11/04 00:23:12 [learning 54] ELE-S054: 24 lines, alias 15, rules 7, ai 0, asked 2, wrong 0 | agree 4/4, disagree 0, spark alone 0/0, $0.0027
+2026/11/04 00:23:17 [desk] learned from 24 line(s)
+2026/11/04 00:23:17 [learning 55] ELE-S055: 24 lines, alias 16, rules 8, ai 0, asked 0, wrong 0 | agree 6/6, disagree 0, spark alone 0/0, $0.0028
+2026/11/04 00:23:23 [desk] learned from 18 line(s)
+2026/11/04 00:23:23 [learning 56] ELE-S056: 18 lines, alias 2, rules 12, ai 2, asked 2, wrong 0 | agree 2/2, disagree 0, spark alone 2/2, $0.0026
+2026/11/04 00:23:28 [desk] learned from 18 line(s)
+2026/11/04 00:23:28 [learning 57] ELE-S057: 18 lines, alias 0, rules 13, ai 3, asked 2, wrong 0 | agree 1/1, disagree 0, spark alone 3/3, $0.0033
+2026/11/04 00:23:41 [desk] learned from 24 line(s)
+2026/11/04 00:23:41 [learning 58] ELE-S058: 24 lines, alias 7, rules 13, ai 2, asked 2, wrong 0 | agree 7/7, disagree 0, spark alone 2/2, $0.0067
+2026/11/04 00:23:46 [desk] learned from 13 line(s)
+2026/11/04 00:23:46 [learning 59] ELE-S059: 13 lines, alias 4, rules 8, ai 1, asked 0, wrong 0 | agree 3/3, disagree 0, spark alone 1/1, $0.0031
+2026/11/04 00:23:55 [desk] learned from 21 line(s)
+2026/11/04 00:23:55 [learning 60] ELE-S060: 21 lines, alias 6, rules 12, ai 3, asked 0, wrong 0 | agree 4/4, disagree 0, spark alone 3/3, $0.0046
+2026/11/04 00:28:42 [engineer] list_residue {"limit":74}
+2026/11/04 00:28:42 [engineer] list_rules {}
+2026/11/04 00:28:42 [engineer] read_catalogue {"limit":50}
+2026/11/04 00:28:54 [engineer] search_catalogue {"query":"tablette samsung"}
+2026/11/04 00:28:54 [engineer] search_catalogue {"query":"glass protection ecran verre trempe"}
+2026/11/04 00:28:54 [engineer] search_catalogue {"query":"baffle haut parleur"}
+2026/11/04 00:28:54 [engineer] search_catalogue {"query":"clavier keyboard"}
+2026/11/04 00:28:54 [engineer] search_catalogue {"query":"laptop portable"}
+2026/11/04 00:28:56 [engineer] list_residue {"limit":100}
+2026/11/04 00:29:17 [engineer] search_catalogue {"query":"mobile realme"}
+2026/11/04 00:29:17 [engineer] search_catalogue {"query":"cable hoco"}
+2026/11/04 00:29:17 [engineer] search_catalogue {"query":"pochette coque"}
+2026/11/04 00:29:17 [engineer] search_catalogue {"query":"power bank"}
+2026/11/04 00:29:17 [engineer] search_catalogue {"query":"manette xbox"}
+2026/11/04 00:29:37 [engineer] run_benchmark {"items":[{"action":{"replace":"tablette"},"pattern":"tab","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"samsung"},"pattern":"sam","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"global"},"type":"synonym"},{"action…
+2026/11/04 00:29:37 [engineer] run_benchmark {"action":{"replace":"tablette"},"pattern":"tab","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:29:37 [engineer] run_benchmark {"action":{"replace":"samsung"},"pattern":"sam","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:29:37 [engineer] run_benchmark {"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:29:37 [engineer] run_benchmark {"action":{"replace":"glass"},"pattern":"protection ecran|verre trempe","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:29:37 [engineer] run_benchmark {"action":{"replace":"baffle"},"pattern":"haut parleur","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:29:37 [engineer] run_benchmark {"action":{"replace":"pochette"},"pattern":"coque","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:29:41 [engineer] run_benchmark {"items":[{"rule":{"action":{"replace":"tablette"},"pattern":"tab","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"replace":"samsung"},"pattern":"sam","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"global"},…
+2026/11/04 00:29:41 [engineer] run_benchmark {"rule":{"action":{"replace":"tablette"},"pattern":"tab","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:29:47 [engineer] run_benchmark {"rule":{"action":{"replace":"samsung"},"pattern":"sam","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:29:52 [engineer] run_benchmark {"rule":{"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:29:58 [engineer] run_benchmark {"rule":{"action":{"replace":"glass"},"pattern":"protection ecran|verre trempe","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:30:04 [engineer] run_benchmark {"rule":{"action":{"replace":"baffle"},"pattern":"haut parleur","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:30:10 [engineer] run_benchmark {"rule":{"action":{"replace":"pochette"},"pattern":"coque","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:30:41 [engineer] search_catalogue {"query":"galaxy"}
+2026/11/04 00:30:41 [engineer] search_catalogue {"query":"flash disk disque"}
+2026/11/04 00:30:41 [engineer] search_catalogue {"query":"xiaomi"}
+2026/11/04 00:30:41 [engineer] search_catalogue {"query":"laptop dell"}
+2026/11/04 00:30:58 [engineer] search_catalogue {"query":"redmi"}
+2026/11/04 00:30:58 [engineer] search_catalogue {"query":"tel mobile"}
+2026/11/04 00:30:58 [engineer] search_catalogue {"query":"portable"}
+2026/11/04 00:30:58 [engineer] calibration after 60 invoices: muse-spark-1.3, residue 74, accepted [], rejected [], $0.1970
+2026/11/04 00:30:58 [calibration after 60 invoices] accepted 2, rejected 7; 677/825 right with no AI (82 %), 1 wrong → 684/825 right with no AI (83 %), 1 wrong; search BM25: 92.6 % in the top 8 (MRR 0.92); engineer [] ($0.2278)
+2026/11/04 00:31:02 [test after 60] ELE-S121: 13 lines, alias 3, rules 7, ai 2, asked 1, wrong 0, $0.0030
+2026/11/04 00:31:08 [test after 60] ELE-S122: 13 lines, alias 2, rules 9, ai 0, asked 2, wrong 0, $0.0040
+2026/11/04 00:31:12 [test after 60] ELE-S123: 21 lines, alias 10, rules 10, ai 1, asked 0, wrong 0, $0.0029
+2026/11/04 00:31:18 [test after 60] ELE-S124: 18 lines, alias 7, rules 7, ai 2, asked 2, wrong 0, $0.0043
+2026/11/04 00:31:22 [test after 60] ELE-S125: 12 lines, alias 5, rules 3, ai 2, asked 2, wrong 0, $0.0029
+2026/11/04 00:31:28 [test after 60] ELE-S126: 19 lines, alias 5, rules 9, ai 4, asked 1, wrong 0, $0.0041
+2026/11/04 00:31:31 [test after 60] ELE-S127: 19 lines, alias 3, rules 15, ai 1, asked 0, wrong 0, $0.0019
+2026/11/04 00:31:43 [test after 60] ELE-S128: 14 lines, alias 10, rules 3, ai 0, asked 1, wrong 0, $0.0038
+2026/11/04 00:31:47 [test after 60] ELE-S129: 24 lines, alias 5, rules 18, ai 1, asked 0, wrong 0, $0.0033
+2026/11/04 00:31:50 [test after 60] ELE-S130: 19 lines, alias 7, rules 11, ai 1, asked 0, wrong 0, $0.0024
+2026/11/04 00:31:53 [test after 60] ELE-S131: 19 lines, alias 12, rules 5, ai 0, asked 2, wrong 0, $0.0024
+2026/11/04 00:31:58 [test after 60] ELE-S132: 12 lines, alias 1, rules 10, ai 1, asked 0, wrong 0, $0.0036
+2026/11/04 00:32:04 [test after 60] ELE-S133: 21 lines, alias 8, rules 9, ai 2, asked 2, wrong 0, $0.0051
+2026/11/04 00:32:10 [test after 60] ELE-S134: 19 lines, alias 6, rules 11, ai 1, asked 1, wrong 0, $0.0041
+2026/11/04 00:32:12 [test after 60] ELE-S135: 15 lines, alias 8, rules 7, ai 0, asked 0, wrong 0, $0.0019
+2026/11/04 00:32:22 [test after 60] ELE-S136: 25 lines, alias 8, rules 13, ai 1, asked 3, wrong 0, $0.0069
+2026/11/04 00:32:35 [test after 60] ELE-S137: 22 lines, alias 11, rules 6, ai 3, asked 2, wrong 0, $0.0069
+2026/11/04 00:32:39 [test after 60] ELE-S138: 12 lines, alias 3, rules 5, ai 3, asked 1, wrong 0, $0.0030
+2026/11/04 00:32:42 [test after 60] ELE-S139: 19 lines, alias 7, rules 12, ai 0, asked 0, wrong 0, $0.0024
+2026/11/04 00:32:46 [test after 60] ELE-S140: 22 lines, alias 6, rules 16, ai 0, asked 0, wrong 0, $0.0032
+2026/11/04 00:32:50 [test after 60] ELE-S141: 13 lines, alias 5, rules 5, ai 2, asked 1, wrong 0, $0.0036
+2026/11/04 00:32:55 [test after 60] ELE-S142: 14 lines, alias 0, rules 12, ai 2, asked 0, wrong 0, $0.0025
+2026/11/04 00:33:00 [test after 60] ELE-S143: 21 lines, alias 9, rules 10, ai 1, asked 1, wrong 0, $0.0034
+2026/11/04 00:33:04 [test after 60] ELE-S144: 25 lines, alias 9, rules 15, ai 0, asked 1, wrong 0, $0.0033
+2026/11/04 00:33:07 [test after 60] ELE-S145: 12 lines, alias 5, rules 7, ai 0, asked 0, wrong 0, $0.0029
+2026/11/04 00:33:11 [test after 60] ELE-S146: 13 lines, alias 5, rules 7, ai 1, asked 0, wrong 0, $0.0028
+2026/11/04 00:33:15 [test after 60] ELE-S147: 22 lines, alias 3, rules 16, ai 3, asked 0, wrong 0, $0.0034
+2026/11/04 00:33:18 [test after 60] ELE-S148: 20 lines, alias 7, rules 8, ai 1, asked 4, wrong 0, $0.0026
+2026/11/04 00:33:21 [test after 60] ELE-S149: 13 lines, alias 1, rules 11, ai 1, asked 0, wrong 0, $0.0020
+2026/11/04 00:33:28 [test after 60] ELE-S150: 24 lines, alias 6, rules 14, ai 0, asked 4, wrong 0, $0.0043
+2026/11/04 00:33:34 [desk] learned from 17 line(s)
+2026/11/04 00:33:34 [learning 61] ELE-S061: 17 lines, alias 8, rules 7, ai 1, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 1/1, $0.0029
+2026/11/04 00:33:40 [desk] learned from 14 line(s)
+2026/11/04 00:33:40 [learning 62] ELE-S062: 14 lines, alias 14, rules 0, ai 0, asked 0, wrong 0 | agree 6/6, disagree 0, spark alone 0/0, $0.0036
+2026/11/04 00:33:46 [desk] learned from 16 line(s)
+2026/11/04 00:33:46 [learning 63] ELE-S063: 16 lines, alias 1, rules 13, ai 2, asked 0, wrong 0 | agree 3/3, disagree 0, spark alone 2/2, $0.0035
+2026/11/04 00:33:51 [desk] learned from 15 line(s)
+2026/11/04 00:33:51 [learning 64] ELE-S064: 15 lines, alias 4, rules 10, ai 0, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 0/0, $0.0027
+2026/11/04 00:34:00 [desk] learned from 23 line(s)
+2026/11/04 00:34:00 [learning 65] ELE-S065: 23 lines, alias 10, rules 8, ai 2, asked 3, wrong 0 | agree 9/9, disagree 0, spark alone 2/2, $0.0054
+2026/11/04 00:34:03 [desk] learned from 12 line(s)
+2026/11/04 00:34:03 [learning 66] ELE-S066: 12 lines, alias 2, rules 10, ai 0, asked 0, wrong 0 | agree 3/3, disagree 0, spark alone 0/0, $0.0019
+2026/11/04 00:34:08 [desk] learned from 13 line(s)
+2026/11/04 00:34:08 [learning 67] ELE-S067: 13 lines, alias 3, rules 9, ai 1, asked 0, wrong 0 | agree 3/3, disagree 0, spark alone 1/1, $0.0023
+2026/11/04 00:34:15 [desk] learned from 19 line(s)
+2026/11/04 00:34:15 [learning 68] ELE-S068: 19 lines, alias 6, rules 10, ai 2, asked 1, wrong 0 | agree 4/4, disagree 0, spark alone 2/2, $0.0037
+2026/11/04 00:34:22 [desk] learned from 23 line(s)
+2026/11/04 00:34:22 [learning 69] ELE-S069: 23 lines, alias 7, rules 12, ai 2, asked 2, wrong 0 | agree 3/3, disagree 0, spark alone 2/2, $0.0032
+2026/11/04 00:34:28 [desk] learned from 25 line(s)
+2026/11/04 00:34:28 [learning 70] ELE-S070: 25 lines, alias 9, rules 13, ai 2, asked 1, wrong 0 | agree 4/4, disagree 0, spark alone 2/2, $0.0034
+2026/11/04 00:34:34 [desk] learned from 12 line(s)
+2026/11/04 00:34:34 [learning 71] ELE-S071: 12 lines, alias 3, rules 6, ai 1, asked 2, wrong 0 | agree 2/2, disagree 0, spark alone 1/1, $0.0027
+2026/11/04 00:34:41 [desk] learned from 19 line(s)
+2026/11/04 00:34:41 [learning 72] ELE-S072: 19 lines, alias 5, rules 11, ai 0, asked 3, wrong 0 | agree 3/3, disagree 0, spark alone 0/0, $0.0034
+2026/11/04 00:34:49 [desk] learned from 25 line(s)
+2026/11/04 00:34:49 [learning 73] ELE-S073: 25 lines, alias 9, rules 11, ai 4, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 4/4, $0.0043
+2026/11/04 00:34:54 [desk] learned from 12 line(s)
+2026/11/04 00:34:54 [learning 74] ELE-S074: 12 lines, alias 3, rules 9, ai 0, asked 0, wrong 0 | agree 3/3, disagree 0, spark alone 0/0, $0.0032
+2026/11/04 00:35:03 [desk] learned from 25 line(s)
+2026/11/04 00:35:03 [learning 75] ELE-S075: 25 lines, alias 5, rules 17, ai 0, asked 3, wrong 0 | agree 7/7, disagree 0, spark alone 0/0, $0.0046
+2026/11/04 00:35:08 [desk] learned from 17 line(s)
+2026/11/04 00:35:08 [learning 76] ELE-S076: 17 lines, alias 5, rules 11, ai 0, asked 1, wrong 0 | agree 2/2, disagree 0, spark alone 0/0, $0.0018
+2026/11/04 00:35:15 [desk] learned from 24 line(s)
+2026/11/04 00:35:15 [learning 77] ELE-S077: 24 lines, alias 7, rules 13, ai 3, asked 1, wrong 0 | agree 6/6, disagree 0, spark alone 3/3, $0.0033
+2026/11/04 00:35:23 [desk] learned from 13 line(s)
+2026/11/04 00:35:23 [learning 78] ELE-S078: 13 lines, alias 5, rules 8, ai 0, asked 0, wrong 0 | agree 3/3, disagree 0, spark alone 0/0, $0.0034
+2026/11/04 00:35:30 [desk] learned from 19 line(s)
+2026/11/04 00:35:30 [learning 79] ELE-S079: 19 lines, alias 7, rules 7, ai 4, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 4/4, $0.0041
+2026/11/04 00:35:36 [desk] learned from 21 line(s)
+2026/11/04 00:35:36 [learning 80] ELE-S080: 21 lines, alias 6, rules 14, ai 1, asked 0, wrong 0 | agree 5/5, disagree 0, spark alone 1/1, $0.0031
+2026/11/04 00:35:43 [desk] learned from 14 line(s)
+2026/11/04 00:35:43 [learning 81] ELE-S081: 14 lines, alias 9, rules 2, ai 1, asked 2, wrong 0 | agree 7/7, disagree 0, spark alone 1/1, $0.0038
+2026/11/04 00:35:50 [desk] learned from 18 line(s)
+2026/11/04 00:35:50 [learning 82] ELE-S082: 18 lines, alias 10, rules 6, ai 1, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 1/1, $0.0038
+2026/11/04 00:35:55 [desk] learned from 13 line(s)
+2026/11/04 00:35:55 [learning 83] ELE-S083: 13 lines, alias 6, rules 6, ai 1, asked 0, wrong 0 | agree 2/2, disagree 0, spark alone 1/1, $0.0019
+2026/11/04 00:36:03 [desk] learned from 20 line(s)
+2026/11/04 00:36:03 [learning 84] ELE-S084: 20 lines, alias 10, rules 7, ai 2, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 2/2, $0.0039
+2026/11/04 00:36:08 [desk] learned from 21 line(s)
+2026/11/04 00:36:08 [learning 85] ELE-S085: 21 lines, alias 12, rules 7, ai 1, asked 1, wrong 0 | agree 4/4, disagree 0, spark alone 1/1, $0.0029
+2026/11/04 00:36:15 [desk] learned from 23 line(s)
+2026/11/04 00:36:15 [learning 86] ELE-S086: 23 lines, alias 7, rules 13, ai 2, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 2/2, $0.0033
+2026/11/04 00:36:20 [desk] learned from 18 line(s)
+2026/11/04 00:36:20 [learning 87] ELE-S087: 18 lines, alias 10, rules 5, ai 0, asked 3, wrong 0 | agree 4/4, disagree 0, spark alone 0/0, $0.0025
+2026/11/04 00:36:24 [desk] learned from 16 line(s)
+2026/11/04 00:36:24 [learning 88] ELE-S088: 16 lines, alias 0, rules 15, ai 0, asked 1, wrong 0 | agree 1/1, disagree 0, spark alone 0/0, $0.0013
+2026/11/04 00:36:34 [desk] learned from 19 line(s)
+2026/11/04 00:36:34 [learning 89] ELE-S089: 19 lines, alias 14, rules 4, ai 1, asked 0, wrong 0 | agree 7/7, disagree 0, spark alone 1/1, $0.0055
+2026/11/04 00:36:37 [desk] learned from 13 line(s)
+2026/11/04 00:36:37 [learning 90] ELE-S090: 13 lines, alias 8, rules 5, ai 0, asked 0, wrong 0 | agree 2/2, disagree 0, spark alone 0/0, $0.0019
+2026/11/04 00:41:30 [engineer] list_residue {"limit":67}
+2026/11/04 00:41:31 [engineer] list_rules {}
+2026/11/04 00:41:38 [engineer] read_catalogue {"limit":100,"query":"baffle glass protection etui pochette clavier keyboard flash xiaomi sam watch montre"}
+2026/11/04 00:41:38 [engineer] list_residue {"limit":67}
+2026/11/04 00:41:45 [engineer] search_catalogue {"query":"baffle"}
+2026/11/04 00:41:45 [engineer] search_catalogue {"query":"glass"}
+2026/11/04 00:41:45 [engineer] search_catalogue {"query":"galaxy"}
+2026/11/04 00:41:45 [engineer] search_catalogue {"query":"xiaomi redmi"}
+2026/11/04 00:41:45 [engineer] search_catalogue {"query":"combo"}
+2026/11/04 00:41:57 [engineer] search_catalogue {"query":"pochette"}
+2026/11/04 00:41:57 [engineer] search_catalogue {"query":"etui"}
+2026/11/04 00:41:57 [engineer] search_catalogue {"query":"cable"}
+2026/11/04 00:41:57 [engineer] search_catalogue {"query":"clavier"}
+2026/11/04 00:41:57 [engineer] search_catalogue {"query":"flash"}
+2026/11/04 00:42:23 [engineer] run_benchmark {"items":[{"action":{"replace":"baffle"},"pattern":"haut parleur","scope":{"kind":"global"}},{"action":{"replace":"glass"},"pattern":"protection ecran|verre trempe","scope":{"kind":"global"}},{"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"global"}},{"action":{"replace":"pochet…
+2026/11/04 00:42:23 [engineer] run_benchmark {"action":{"replace":"baffle"},"pattern":"haut parleur","scope":{"kind":"global"}}
+2026/11/04 00:42:23 [engineer] run_benchmark {"action":{"replace":"glass"},"pattern":"protection ecran|verre trempe","scope":{"kind":"global"}}
+2026/11/04 00:42:23 [engineer] run_benchmark {"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"global"}}
+2026/11/04 00:42:23 [engineer] run_benchmark {"action":{"replace":"pochette"},"pattern":"etui","scope":{"kind":"global"}}
+2026/11/04 00:42:23 [engineer] run_benchmark {"action":{"replace":"samsung"},"pattern":"sam","scope":{"kind":"global"}}
+2026/11/04 00:42:23 [engineer] run_benchmark {"action":{"replace":"ip"},"pattern":"lightning","scope":{"kind":"global"}}
+2026/11/04 00:42:23 [engineer] run_benchmark {"action":{"replace":"disk"},"pattern":"disque","scope":{"kind":"global"}}
+2026/11/04 00:42:23 [engineer] run_benchmark {"action":{"replace":"bl tooth"},"pattern":"bt","scope":{"kind":"global"}}
+2026/11/04 00:42:25 [engineer] run_benchmark {"items":[{"action":{"replace":"baffle"},"pattern":"haut parleur","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"glass"},"pattern":"protection ecran|verre trempe","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"glob…
+2026/11/04 00:42:25 [engineer] run_benchmark {"action":{"replace":"baffle"},"pattern":"haut parleur","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:42:25 [engineer] run_benchmark {"action":{"replace":"glass"},"pattern":"protection ecran|verre trempe","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:42:25 [engineer] run_benchmark {"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:42:25 [engineer] run_benchmark {"action":{"replace":"pochette"},"pattern":"etui","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:42:25 [engineer] run_benchmark {"action":{"replace":"samsung"},"pattern":"sam","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:42:25 [engineer] run_benchmark {"action":{"replace":"ip"},"pattern":"lightning","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:42:25 [engineer] run_benchmark {"action":{"replace":"disk"},"pattern":"disque","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:42:25 [engineer] run_benchmark {"action":{"replace":"bl tooth"},"pattern":"bt","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:42:29 [engineer] run_benchmark {"rule":{"action":{"replace":"baffle"},"pattern":"haut parleur","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:42:38 [engineer] run_benchmark {"items":[{"rule":{"action":{"replace":"glass"},"pattern":"protection ecran|verre trempe","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"replace":"pochette"},"pattern":"etui","…
+2026/11/04 00:42:38 [engineer] run_benchmark {"rule":{"action":{"replace":"glass"},"pattern":"protection ecran|verre trempe","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:42:43 [engineer] run_benchmark {"rule":{"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:42:48 [engineer] run_benchmark {"rule":{"action":{"replace":"pochette"},"pattern":"etui","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:42:53 [engineer] run_benchmark {"rule":{"action":{"replace":"samsung"},"pattern":"sam","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:42:59 [engineer] run_benchmark {"rule":{"action":{"replace":"ip"},"pattern":"lightning","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:43:04 [engineer] run_benchmark {"rule":{"action":{"replace":"disk"},"pattern":"disque","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:43:09 [engineer] run_benchmark {"rule":{"action":{"replace":"bl tooth"},"pattern":"bt","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:43:15 [engineer] calibration after 90 invoices: muse-spark-1.3, residue 67, accepted [], rejected [], $0.1558
+2026/11/04 00:43:15 [calibration after 90 invoices] accepted 2, rejected 2; 1020/1229 right with no AI (83 %), 1 wrong → 1045/1229 right with no AI (85 %), 1 wrong; search BM25 + 0.5·word similarity: 93.0 % in the top 8 (MRR 0.93); engineer [] ($0.1799)
+2026/11/04 00:43:18 [test after 90] ELE-S121: 13 lines, alias 4, rules 7, ai 1, asked 1, wrong 0, $0.0024
+2026/11/04 00:43:21 [test after 90] ELE-S122: 13 lines, alias 7, rules 5, ai 0, asked 1, wrong 0, $0.0022
+2026/11/04 00:43:25 [test after 90] ELE-S123: 21 lines, alias 11, rules 10, ai 0, asked 0, wrong 0, $0.0026
+2026/11/04 00:43:32 [test after 90] ELE-S124: 18 lines, alias 12, rules 6, ai 0, asked 0, wrong 0, $0.0037
+2026/11/04 00:43:35 [test after 90] ELE-S125: 12 lines, alias 6, rules 3, ai 0, asked 3, wrong 0, $0.0020
+2026/11/04 00:43:43 [test after 90] ELE-S126: 19 lines, alias 5, rules 10, ai 2, asked 2, wrong 0, $0.0042
+2026/11/04 00:43:49 [test after 90] ELE-S127: 19 lines, alias 10, rules 8, ai 1, asked 0, wrong 0, $0.0048
+2026/11/04 00:43:53 [test after 90] ELE-S128: 14 lines, alias 10, rules 3, ai 0, asked 1, wrong 0, $0.0024
+2026/11/04 00:44:03 [test after 90] ELE-S129: 24 lines, alias 9, rules 14, ai 1, asked 0, wrong 0, $0.0067
+2026/11/04 00:44:07 [test after 90] ELE-S130: 19 lines, alias 8, rules 11, ai 0, asked 0, wrong 0, $0.0025
+2026/11/04 00:44:11 [test after 90] ELE-S131: 19 lines, alias 12, rules 5, ai 0, asked 2, wrong 0, $0.0024
+2026/11/04 00:44:16 [test after 90] ELE-S132: 12 lines, alias 8, rules 4, ai 0, asked 0, wrong 0, $0.0028
+2026/11/04 00:44:20 [test after 90] ELE-S133: 21 lines, alias 10, rules 8, ai 1, asked 2, wrong 0, $0.0032
+2026/11/04 00:44:25 [test after 90] ELE-S134: 19 lines, alias 6, rules 11, ai 1, asked 1, wrong 0, $0.0034
+2026/11/04 00:44:27 [test after 90] ELE-S135: 15 lines, alias 10, rules 5, ai 0, asked 0, wrong 0, $0.0017
+2026/11/04 00:44:37 [test after 90] ELE-S136: 25 lines, alias 8, rules 14, ai 1, asked 2, wrong 0, $0.0060
+2026/11/04 00:44:46 [test after 90] ELE-S137: 22 lines, alias 11, rules 7, ai 2, asked 2, wrong 0, $0.0062
+2026/11/04 00:44:52 [test after 90] ELE-S138: 12 lines, alias 4, rules 5, ai 2, asked 1, wrong 0, $0.0035
+2026/11/04 00:44:54 [test after 90] ELE-S139: 19 lines, alias 7, rules 12, ai 0, asked 0, wrong 0, $0.0022
+2026/11/04 00:45:00 [test after 90] ELE-S140: 22 lines, alias 6, rules 16, ai 0, asked 0, wrong 0, $0.0037
+2026/11/04 00:45:03 [test after 90] ELE-S141: 13 lines, alias 7, rules 4, ai 1, asked 1, wrong 0, $0.0025
+2026/11/04 00:45:07 [test after 90] ELE-S142: 14 lines, alias 2, rules 10, ai 2, asked 0, wrong 0, $0.0025
+2026/11/04 00:45:18 [test after 90] ELE-S143: 21 lines, alias 12, rules 8, ai 0, asked 1, wrong 0, $0.0030
+2026/11/04 00:45:23 [test after 90] ELE-S144: 25 lines, alias 16, rules 9, ai 0, asked 0, wrong 0, $0.0033
+2026/11/04 00:45:28 [test after 90] ELE-S145: 12 lines, alias 5, rules 7, ai 0, asked 0, wrong 0, $0.0024
+2026/11/04 00:45:30 [test after 90] ELE-S146: 13 lines, alias 8, rules 5, ai 0, asked 0, wrong 0, $0.0014
+2026/11/04 00:45:37 [test after 90] ELE-S147: 22 lines, alias 4, rules 15, ai 2, asked 1, wrong 0, $0.0035
+2026/11/04 00:45:40 [test after 90] ELE-S148: 20 lines, alias 8, rules 7, ai 1, asked 4, wrong 0, $0.0022
+2026/11/04 00:45:44 [test after 90] ELE-S149: 13 lines, alias 2, rules 10, ai 1, asked 0, wrong 0, $0.0022
+2026/11/04 00:45:53 [test after 90] ELE-S150: 24 lines, alias 10, rules 11, ai 0, asked 3, wrong 0, $0.0039
+2026/11/04 00:45:58 [desk] learned from 15 line(s)
+2026/11/04 00:45:58 [learning 91] ELE-S091: 15 lines, alias 7, rules 6, ai 1, asked 1, wrong 0 | agree 2/2, disagree 0, spark alone 1/1, $0.0025
+2026/11/04 00:46:02 [desk] learned from 19 line(s)
+2026/11/04 00:46:02 [learning 92] ELE-S092: 19 lines, alias 3, rules 16, ai 0, asked 0, wrong 0 | agree 1/1, disagree 0, spark alone 0/0, $0.0018
+2026/11/04 00:46:08 [desk] learned from 16 line(s)
+2026/11/04 00:46:08 [learning 93] ELE-S093: 16 lines, alias 9, rules 6, ai 0, asked 1, wrong 0 | agree 7/7, disagree 0, spark alone 0/0, $0.0030
+2026/11/04 00:46:13 [desk] learned from 15 line(s)
+2026/11/04 00:46:13 [learning 94] ELE-S094: 15 lines, alias 6, rules 9, ai 0, asked 0, wrong 0 | agree 5/5, disagree 0, spark alone 0/0, $0.0026
+2026/11/04 00:46:18 [desk] learned from 23 line(s)
+2026/11/04 00:46:18 [learning 95] ELE-S095: 23 lines, alias 13, rules 9, ai 0, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 0/0, $0.0024
+2026/11/04 00:46:25 [desk] learned from 22 line(s)
+2026/11/04 00:46:25 [learning 96] ELE-S096: 22 lines, alias 10, rules 11, ai 1, asked 0, wrong 0 | agree 6/6, disagree 0, spark alone 1/1, $0.0034
+2026/11/04 00:46:32 [desk] learned from 25 line(s)
+2026/11/04 00:46:32 [learning 97] ELE-S097: 25 lines, alias 13, rules 12, ai 0, asked 0, wrong 0 | agree 7/7, disagree 0, spark alone 0/0, $0.0037
+2026/11/04 00:46:42 [desk] learned from 24 line(s)
+2026/11/04 00:46:42 [learning 98] ELE-S098: 24 lines, alias 5, rules 11, ai 3, asked 5, wrong 0 | agree 7/7, disagree 0, spark alone 3/3, $0.0050
+2026/11/04 00:46:46 [desk] learned from 16 line(s)
+2026/11/04 00:46:46 [learning 99] ELE-S099: 16 lines, alias 12, rules 3, ai 0, asked 1, wrong 0 | agree 2/2, disagree 0, spark alone 0/0, $0.0018
+2026/11/04 00:46:50 [desk] learned from 15 line(s)
+2026/11/04 00:46:50 [learning 100] ELE-S100: 15 lines, alias 5, rules 10, ai 0, asked 0, wrong 0 | agree 2/2, disagree 0, spark alone 0/0, $0.0016
+2026/11/04 00:46:57 [desk] learned from 21 line(s)
+2026/11/04 00:46:57 [learning 101] ELE-S101: 21 lines, alias 10, rules 9, ai 1, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 1/1, $0.0030
+2026/11/04 00:47:10 [desk] learned from 23 line(s)
+2026/11/04 00:47:10 [learning 102] ELE-S102: 23 lines, alias 8, rules 12, ai 0, asked 3, wrong 0 | agree 4/4, disagree 0, spark alone 0/0, $0.0060
+2026/11/04 00:47:15 [desk] learned from 17 line(s)
+2026/11/04 00:47:15 [learning 103] ELE-S103: 17 lines, alias 8, rules 8, ai 0, asked 1, wrong 0 | agree 3/3, disagree 0, spark alone 0/0, $0.0023
+2026/11/04 00:47:22 [desk] learned from 21 line(s)
+2026/11/04 00:47:22 [learning 104] ELE-S104: 21 lines, alias 4, rules 12, ai 3, asked 2, wrong 0 | agree 5/5, disagree 0, spark alone 3/3, $0.0038
+2026/11/04 00:47:29 [desk] learned from 13 line(s)
+2026/11/04 00:47:29 [learning 105] ELE-S105: 13 lines, alias 6, rules 6, ai 1, asked 0, wrong 0 | agree 6/6, disagree 0, spark alone 1/1, $0.0033
+2026/11/04 00:47:37 [desk] learned from 24 line(s)
+2026/11/04 00:47:37 [learning 106] ELE-S106: 24 lines, alias 10, rules 11, ai 2, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 2/2, $0.0039
+2026/11/04 00:47:43 [desk] learned from 14 line(s)
+2026/11/04 00:47:43 [learning 107] ELE-S107: 14 lines, alias 5, rules 9, ai 0, asked 0, wrong 0 | agree 4/4, disagree 0, spark alone 0/0, $0.0031
+2026/11/04 00:47:49 [desk] learned from 13 line(s)
+2026/11/04 00:47:49 [learning 108] ELE-S108: 13 lines, alias 7, rules 6, ai 0, asked 0, wrong 0 | agree 6/6, disagree 0, spark alone 0/0, $0.0037
+2026/11/04 00:47:58 [desk] learned from 21 line(s)
+2026/11/04 00:47:58 [learning 109] ELE-S109: 21 lines, alias 9, rules 10, ai 1, asked 1, wrong 0 | agree 6/6, disagree 0, spark alone 1/1, $0.0043
+2026/11/04 00:48:03 [desk] learned from 13 line(s)
+2026/11/04 00:48:03 [learning 110] ELE-S110: 13 lines, alias 10, rules 3, ai 0, asked 0, wrong 0 | agree 4/4, disagree 0, spark alone 0/0, $0.0027
+2026/11/04 00:48:07 [desk] learned from 14 line(s)
+2026/11/04 00:48:07 [learning 111] ELE-S111: 14 lines, alias 7, rules 7, ai 0, asked 0, wrong 0 | agree 2/2, disagree 0, spark alone 0/0, $0.0016
+2026/11/04 00:48:13 [desk] learned from 14 line(s)
+2026/11/04 00:48:13 [learning 112] ELE-S112: 14 lines, alias 9, rules 5, ai 0, asked 0, wrong 0 | agree 6/6, disagree 0, spark alone 0/0, $0.0035
+2026/11/04 00:48:21 [desk] learned from 25 line(s)
+2026/11/04 00:48:21 [learning 113] ELE-S113: 25 lines, alias 8, rules 14, ai 2, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 2/2, $0.0042
+2026/11/04 00:48:27 [desk] learned from 17 line(s)
+2026/11/04 00:48:27 [learning 114] ELE-S114: 17 lines, alias 6, rules 8, ai 1, asked 2, wrong 0 | agree 3/3, disagree 0, spark alone 1/1, $0.0031
+2026/11/04 00:48:32 [desk] learned from 14 line(s)
+2026/11/04 00:48:32 [learning 115] ELE-S115: 14 lines, alias 9, rules 3, ai 0, asked 2, wrong 0 | agree 5/5, disagree 0, spark alone 0/0, $0.0027
+2026/11/04 00:48:38 [desk] learned from 22 line(s)
+2026/11/04 00:48:38 [learning 116] ELE-S116: 22 lines, alias 13, rules 7, ai 1, asked 1, wrong 0 | agree 1/1, disagree 0, spark alone 1/1, $0.0024
+2026/11/04 00:48:49 [desk] learned from 25 line(s)
+2026/11/04 00:48:49 [learning 117] ELE-S117: 25 lines, alias 6, rules 12, ai 2, asked 5, wrong 0 | agree 2/2, disagree 0, spark alone 2/2, $0.0048
+2026/11/04 00:48:52 [desk] learned from 14 line(s)
+2026/11/04 00:48:52 [learning 118] ELE-S118: 14 lines, alias 2, rules 10, ai 0, asked 2, wrong 0 | agree 2/2, disagree 0, spark alone 0/0, $0.0017
+2026/11/04 00:48:59 [desk] learned from 20 line(s)
+2026/11/04 00:48:59 [learning 119] ELE-S119: 20 lines, alias 11, rules 8, ai 1, asked 0, wrong 0 | agree 5/5, disagree 0, spark alone 1/1, $0.0033
+2026/11/04 00:49:07 [desk] learned from 21 line(s)
+2026/11/04 00:49:07 [learning 120] ELE-S120: 21 lines, alias 9, rules 10, ai 2, asked 0, wrong 0 | agree 5/5, disagree 0, spark alone 2/2, $0.0038
+2026/11/04 00:55:42 [engineer] list_residue {"limit":80}
+2026/11/04 00:55:52 [engineer] list_rules {}
+2026/11/04 00:55:52 [engineer] search_catalogue {"query":"GLASS VERRE"}
+2026/11/04 00:55:52 [engineer] search_catalogue {"query":"CHARGEUR CHARG"}
+2026/11/04 00:56:13 [engineer] search_catalogue {"query":"FLASH DISK CLE"}
+2026/11/04 00:56:13 [engineer] search_catalogue {"query":"LAPTOP NOTEBOOK PORTABLE"}
+2026/11/04 00:56:13 [engineer] search_catalogue {"query":"MOBILE SMARTPHONE"}
+2026/11/04 00:56:13 [engineer] search_catalogue {"query":"POCKET COMBO DJI"}
+2026/11/04 00:56:13 [engineer] search_catalogue {"query":"TYPE-C USB-C T-C"}
+2026/11/04 00:56:32 [engineer] read_catalogue {"limit":30,"query":"SMART WATCH MONTRE"}
+2026/11/04 00:56:32 [engineer] read_catalogue {"limit":30,"query":"CABLE TYPE-C T-C USB-C"}
+2026/11/04 00:56:32 [engineer] read_catalogue {"limit":30,"query":"11TH 11EME X1 CARBON DELL 7420"}
+2026/11/04 00:56:32 [engineer] read_catalogue {"limit":30,"query":"ENCRE UNIVERSEL BOUTEILLE PACK"}
+2026/11/04 00:57:03 [engineer] run_benchmark {"items":[{"action":{"replace":"glass"},"pattern":"verre trempe|protection ecran","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"laptop"},"pattern":"pc portable|notebook","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"chargeur"},"pattern":"charg","scope":{"kind"…
+2026/11/04 00:57:03 [engineer] run_benchmark {"action":{"replace":"glass"},"pattern":"verre trempe|protection ecran","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:57:03 [engineer] run_benchmark {"action":{"replace":"laptop"},"pattern":"pc portable|notebook","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:57:03 [engineer] run_benchmark {"action":{"replace":"chargeur"},"pattern":"charg","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:57:03 [engineer] run_benchmark {"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:57:03 [engineer] run_benchmark {"action":{"attr":"variant","policy":"marker","value":"{match}"},"pattern":"combo|pro|sport|max","scope":{"kind":"global"},"type":"attribute"}
+2026/11/04 00:57:07 [engineer] run_benchmark {"items":[{"rule":{"action":{"replace":"glass"},"pattern":"verre trempe|protection ecran","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"replace":"laptop"},"pattern":"pc portable|notebook","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"replace":"chargeur"},"patter…
+2026/11/04 00:57:07 [engineer] run_benchmark {"rule":{"action":{"replace":"glass"},"pattern":"verre trempe|protection ecran","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:57:11 [engineer] run_benchmark {"rule":{"action":{"replace":"laptop"},"pattern":"pc portable|notebook","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:57:15 [engineer] run_benchmark {"rule":{"action":{"replace":"chargeur"},"pattern":"charg","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:57:18 [engineer] run_benchmark {"rule":{"action":{"replace":"clavier"},"pattern":"keyboard","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:57:22 [engineer] run_benchmark {"rule":{"action":{"attr":"variant","policy":"marker","value":"{match}"},"pattern":"combo|pro|sport|max","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:57:34 [engineer] search_catalogue {"query":"X70 OPPO REALME"}
+2026/11/04 00:57:34 [engineer] search_catalogue {"query":"11G 11EME 11TH"}
+2026/11/04 00:57:36 [engineer] run_benchmark {"items":[{"rule":{"action":{"replace":"laptop"},"pattern":"pc portable|notebook","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"replace":"smartphone"},"pattern":"mobile","scope":{"kind":"global"},"type":"synonym"}}]}
+2026/11/04 00:57:36 [engineer] run_benchmark {"rule":{"action":{"replace":"laptop"},"pattern":"pc portable|notebook","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:57:39 [engineer] run_benchmark {"rule":{"action":{"replace":"smartphone"},"pattern":"mobile","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:57:43 [engineer] calibration after 120 invoices: muse-spark-1.3, residue 80, accepted [], rejected [], $0.1556
+2026/11/04 00:57:43 [calibration after 120 invoices] accepted 0, rejected 3; 1400/1646 right with no AI (85 %), 1 wrong → 1400/1646 right with no AI (85 %), 1 wrong; search BM25 + 0.5·word similarity: 93.6 % in the top 8 (MRR 0.93); engineer [] ($0.1808)
+2026/11/04 00:57:47 [test after 120] ELE-S121: 13 lines, alias 6, rules 5, ai 1, asked 1, wrong 0, $0.0029
+2026/11/04 00:57:51 [test after 120] ELE-S122: 13 lines, alias 7, rules 5, ai 0, asked 1, wrong 0, $0.0026
+2026/11/04 00:57:56 [test after 120] ELE-S123: 21 lines, alias 14, rules 7, ai 0, asked 0, wrong 0, $0.0028
+2026/11/04 00:58:00 [test after 120] ELE-S124: 18 lines, alias 12, rules 6, ai 0, asked 0, wrong 0, $0.0027
+2026/11/04 00:58:03 [test after 120] ELE-S125: 12 lines, alias 7, rules 2, ai 0, asked 3, wrong 0, $0.0016
+2026/11/04 00:58:08 [test after 120] ELE-S126: 19 lines, alias 8, rules 8, ai 2, asked 1, wrong 0, $0.0033
+2026/11/04 00:58:11 [test after 120] ELE-S127: 19 lines, alias 13, rules 6, ai 0, asked 0, wrong 0, $0.0024
+2026/11/04 00:58:16 [test after 120] ELE-S128: 14 lines, alias 10, rules 3, ai 0, asked 1, wrong 0, $0.0023
+2026/11/04 00:58:22 [test after 120] ELE-S129: 24 lines, alias 12, rules 11, ai 1, asked 0, wrong 0, $0.0044
+2026/11/04 00:58:26 [test after 120] ELE-S130: 19 lines, alias 8, rules 11, ai 0, asked 0, wrong 0, $0.0027
+2026/11/04 00:58:29 [test after 120] ELE-S131: 19 lines, alias 12, rules 5, ai 0, asked 2, wrong 0, $0.0018
+2026/11/04 00:58:33 [test after 120] ELE-S132: 12 lines, alias 8, rules 4, ai 0, asked 0, wrong 0, $0.0027
+2026/11/04 00:58:39 [test after 120] ELE-S133: 21 lines, alias 10, rules 8, ai 1, asked 2, wrong 0, $0.0035
+2026/11/04 00:58:45 [test after 120] ELE-S134: 19 lines, alias 11, rules 7, ai 1, asked 0, wrong 0, $0.0048
+2026/11/04 00:58:45 [test after 120] ELE-S135: 15 lines, alias 12, rules 3, ai 0, asked 0, wrong 0, $0.0000
+2026/11/04 00:58:51 [test after 120] ELE-S136: 25 lines, alias 11, rules 11, ai 2, asked 1, wrong 0, $0.0040
+2026/11/04 00:59:00 [test after 120] ELE-S137: 22 lines, alias 13, rules 5, ai 2, asked 2, wrong 0, $0.0059
+2026/11/04 00:59:05 [test after 120] ELE-S138: 12 lines, alias 5, rules 4, ai 2, asked 1, wrong 0, $0.0028
+2026/11/04 00:59:09 [test after 120] ELE-S139: 19 lines, alias 9, rules 10, ai 0, asked 0, wrong 0, $0.0030
+2026/11/04 00:59:12 [test after 120] ELE-S140: 22 lines, alias 10, rules 12, ai 0, asked 0, wrong 0, $0.0026
+2026/11/04 00:59:16 [test after 120] ELE-S141: 13 lines, alias 7, rules 4, ai 1, asked 1, wrong 0, $0.0022
+2026/11/04 00:59:19 [test after 120] ELE-S142: 14 lines, alias 6, rules 8, ai 0, asked 0, wrong 0, $0.0022
+2026/11/04 00:59:25 [test after 120] ELE-S143: 21 lines, alias 13, rules 7, ai 0, asked 1, wrong 0, $0.0040
+2026/11/04 00:59:30 [test after 120] ELE-S144: 25 lines, alias 16, rules 9, ai 0, asked 0, wrong 0, $0.0038
+2026/11/04 00:59:34 [test after 120] ELE-S145: 12 lines, alias 6, rules 6, ai 0, asked 0, wrong 0, $0.0032
+2026/11/04 00:59:37 [test after 120] ELE-S146: 13 lines, alias 9, rules 4, ai 0, asked 0, wrong 0, $0.0014
+2026/11/04 00:59:45 [test after 120] ELE-S147: 22 lines, alias 12, rules 7, ai 3, asked 0, wrong 0, $0.0063
+2026/11/04 00:59:50 [test after 120] ELE-S148: 20 lines, alias 13, rules 3, ai 1, asked 3, wrong 0, $0.0034
+2026/11/04 00:59:53 [test after 120] ELE-S149: 13 lines, alias 3, rules 9, ai 1, asked 0, wrong 0, $0.0026
+2026/11/04 00:59:59 [test after 120] ELE-S150: 24 lines, alias 10, rules 10, ai 0, asked 4, wrong 0, $0.0040
+# What Muse Spark identified: mobile phones and accessories / consumer electronics
+
+Names are brand + type + model code + key specs, order varies. Phones/tablets/laptops are told apart by RAM/storage written as 12/256GB, 12+12/256GB, 8+8/256GB or 32/256SSD and by storage 64GB/128GB/1TB. Chargers/cables are told apart by connector type-c/micro/lighting-ios/jack, power 25W/60W/100W, voltage/current 19V/3.42A and length 1.5M/2M/20M, plus codes like BW29, YSW13, KSC-813. Original vs copy/org/orig and with box vs sans boite also separate otherwise identical lines.
+
+## First-pass blocks
+
+- **inch** ON — tablet and glass sizes written with inch sign like 8" and 10.2" need normalizing to in8/in10.2; no plumbing bare fractions in this catalogue
+  - evidence: reads 5 catalogue names differently; products that read alike 34 → 34
+- **memory** ON — phones, tablets, PCs write RAM/storage as 12/256GB, 8+16/256GB, 12+12/256GB, 4/64GB, 16/256SSD that must become one token mem12x256 etc.
+  - evidence: reads 130 catalogue names differently; products that read alike 35 → 34
+- **units_glue** ON — catalogue lives on 19V, 3.42A, 60W, 20000MAH, 1.5M, 22MM, 64GB that must glue to 19v, 3.42a, 60w, 20000mah, 1.5m, 22mm
+  - evidence: reads 4 catalogue names differently; products that read alike 34 → 34
+
+## The desk's own vocabulary (lexicon)
+
+- `org` → `original` [rejected] — suppliers write org for the catalogue's original
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 1 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. lost « CHARG ACER 19V 3.42A 3.0*1.1 ORG MICRO »
+- `orig` → `original` [rejected] — suppliers write orig for the catalogue's original
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `bluetooth` → `bl-tooth` [live] — suppliers write bluetooth for the catalogue's bl-tooth
+  - evidence: seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « BLUETOOTH AIRPODS LENOVO XT92/XT83 » → BL-TOOTH AIRPODS LENOVO XT92/XT83; « HEADSET BLUETOOTH BROROFONE BO11 » → CASQUE BL-TOOTH BROROFONE BO11; « SPEAKER BLUETOOTH HOCO BS33 » → BAFFLE BL-TOOTH HOCO BS33
+- `tc` → `type-c` [rejected] — suppliers write tc for the catalogue's type-c
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `t-c` → `type-c` [rejected] — short form t-c used interchangeably with type-c must normalize
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `sf` → `s-f` [rejected] — suppliers write sf for the catalogue's s-f sans-fil
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `lightning` → `lighting` [rejected] — catalogue writes lighting for lightning iphone cable, suppliers write lightning
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `metres` → `m` [rejected] — suppliers write 2metres for the catalogue's 2m lengths
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `smartphone` → `mobile` [live] — catalogue says MOBILE not SMARTPHONE
+  - evidence: seen lines: +7 newly resolved (5 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « SUPPORT SMARTPHONE KSC-329 KAKUSIGA » → SUPPORT MOBILE KAKUSIGA KSC-329; « SMARTPHONE REALME C2 3-32 » → MOBILE REALME C2 3/32GB; « DJI OSMO SMARTPHONE 8 » → DJI OSMO MOBILE 8
+- `tel` → `mobile` [live] — TEL REDMI -> MOBILE REDMI
+  - evidence: seen lines: +4 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « TEL REDMI NOTE 11S 6+128 » → MOBILE REDMI NOTE 11S 6/128GB; « TEL T-6 MANETTE » → MANETTE MOBILE T-6; « TEL VIVO Y36 8/128GB » → MOBILE VIVO Y36 8/128GB
+- `etui` → `pochette` [live] — ETUI XUNDO -> POCHETTE XUNDO
+  - evidence: seen lines: +5 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « ETUI XUNDO IPAD PRO 2024 11* » → POCHETTE XUNDO IPAD PRO 2024 11*; « ETUI XUNDO SIMPLE IPHONE » → POCHETTE IPHONE XUNDO SIMPLE; « ETUI TAB TAB A8 10" KAKU » → POCHETTE TABLETTE KAKU TAB A8 10"
+- `holder` → `support` [live] — HOLDER AUTO -> SUPPORT AUTO
+  - evidence: seen lines: +7 newly resolved (6 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « HOLDER AUTO YESIDO C38 » → SUPPORT AUTO YESIDO C38; « HOLDER ALUM 360° HOCO PH52+ LAPTOP » → SUPPORT LAPTOP ALUM 360° HOCO PH52+; « HOLDER HOCO CA63 AUTO » → SUPPORT AUTO HOCO CA63
+- `charger` → `chargeur` [live] — CHARGER HOCO -> CHARGEUR HOCO
+  - evidence: seen lines: +5 newly resolved (5 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « CHARGER HOCO N5 TYPE C 20W » → CHARGEUR HOCO N5 TYPE-C 20W; « CHARGER 12V/2A MODEM » → CHARGEUR MODEM 12V/2A; « CHARGER AUTO HOCO Z42 20W BOITE » → BOITE CHARGEUR AUTO HOCO Z42 20W
+- `mouse` → `souris` [live] — MOUSE JEDEL -> SOURIS JEDEL
+  - evidence: seen lines: +5 newly resolved (5 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « MOUSE S-F JEDEL W690 » → SOURIS S-F JEDEL W690; « MOUSE HAVIT SANS FIL MS622 » → SOURIS HAVIT SANS-FIL MS622; « MOUSE CAPSYS G212 WIFI » → SOURIS WIFI CAPSYS G212
+- `watch` → `montre` [live] — WATCH HOMME -> MONTRE HOMME
+  - evidence: seen lines: +5 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « WATCH HOMME CASIO CLASSIQUE » → MONTRE HOMME CASIO CLASSIQUE; « WATCH SWATCH HOMME » → MONTRE HOMME SWATCH; « WATCH SWATCH HOMME » → MONTRE HOMME SWATCH
+- `speaker` → `baffle` [live] — SPEAKER HOCO -> BAFFLE HOCO
+  - evidence: seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « SPEAKER HOCO BS31 » → BAFFLE HOCO BS31; « SPEAKER HOCO BS31 » → BAFFLE HOCO BS31
+- `haut` → `baffle` [rejected] — HAUT PARLEUR -> BAFFLE
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `parleur` → `` [rejected] — drop redundant second word of haut parleur
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `headset` → `casque` [live] — HEADSET YESIDO -> CASQUE YESIDO
+  - evidence: seen lines: +4 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « HEADSET YESIDO EK03 GAMING » → CASQUE GAMING YESIDO EK03; « HEADSET YESIDO EK01 GAMING » → CASQUE GAMING YESIDO EK01; « HEADSET YESIDO EK01 GAMING » → CASQUE GAMING YESIDO EK01
+- `cbl` → `cable` [live] — CBL RENO -> CABLE OPPO RENO
+  - evidence: seen lines: +4 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +5 newly resolved (4 distinct wordings), 0 wrong, 0 lost; e.g. « CBL RENO VOOC 6A ORIG OPPO » → CABLE OPPO RENO VOOC 6A ORIG; « CBL 2M IOS CB42-IOS MOXON » → CABLE MOXON 2M IOS CB42-IOS; « CBL IMPRIMANTE AVEC FILTRE 5M USB » → CABLE IMPRIMANTE AVEC FILTRE 5M USB
+- `cle` → `flash` [rejected] — CLE USB -> FLASH DISK
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `disque` → `disk` [rejected] — DISQUE -> DISK in FLASH DISK
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `verre` → `glass` [rejected] — VERRE TREMPE -> GLASS
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `trempe` → `` [rejected] — TREMPE never in catalogue, drop
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `protection` → `glass` [rejected] — PROTECTION ECRAN -> GLASS UV
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `ecran` → `` [rejected] — ECRAN never in GLASS names, drop
+  - evidence: refused: catalogue names use this word; dropping it would erase a difference between products
+- `notebook` → `laptop` [live] — NOTEBOOK -> LAPTOP catalogue
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « SUPPORT NOTEBOOK ALUM 360° HOCO PH52+ » → SUPPORT LAPTOP ALUM 360° HOCO PH52+
+- `portable` → `laptop` [rejected] — PC PORTABLE DELL -> LAPTOP DELL
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `pc` → `` [rejected] — PC extra vs LAPTOP
+  - evidence: refused: catalogue names use this word; dropping it would erase a difference between products
+- `core` → `` [live] — CORE I5 -> I5, CORE never in catalogue
+  - evidence: seen lines: +7 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « LENOVO T460 CORE I5 6EME 8/256SSD » → LENOVO T460 I5 6EME 8/256SSD; « LAPTOP DELL 5580 CORE I5 7G 8/256SSD » → LAPTOP DELL 5580 I5 7EME 8/256SSD; « LAPTOP ACER ASPIRE 3 CORE I5 12G 16/512 SSD » → LAPTOP ACER ASPIRE 3 I5 12TH 16/512 SSD
+- `galaxy` → `` [live] — GALAXY extra in SAMSUNG accessories, catalogue omits
+  - evidence: seen lines: +5 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « GLASS UV SAMSUNG GALAXY S10 » → GLASS UV SAMSUNG S10; « OTG SAMSUNG GALAXY T-C ORG » → OTG SAMSUNG T-C ORG; « TABLETTE SAMSUNG GALAXY A 8° 2-32GB » → TABLETTE SAMSUNG A 8° 2-32GB
+- `wireless` → `sans-fil` [rejected] — WIRELESS -> SANS-FIL
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « SOURIS HAVIT WIRELESS MS76GT PLUS RECHAREGABLE » → SOURIS HAVIT SANS-FIL MS76GT PLUS RECHAREGABLE
+- `type` → `t` [live] — TYPE C -> T-C after cleanup
+  - evidence: seen lines: +5 newly resolved (5 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « HOCO M101MAX TYPE C KIT-MAIN » → KIT-MAIN HOCO M101MAX T-C; « CHARGER TYPE-C SAMSUNG 25W ORG PORT » → PORT CHARGER T-C SAMSUNG 25W ORG; « CABLE HOCO 3.0A USB TO TYPE-C U55 » → CABLE HOCO 3.0A USB TO T-C U55
+- `type-c` → `t-c` [rejected] — TYPE-C hyphen form -> T-C
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `usb-c` → `t-c` [rejected] — USB-C synonym of TYPE-C in this catalogue
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `10eme` → `10th` [rejected] — 10EME -> 10TH generation
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « LENOVO THINKPAD L13 I5 10EME 8/256SSD » → LENOVO THINKPAD L13 I5 10TH 8/256SSD
+- `8eme` → `8th` [live] — 8EME -> 8TH generation
+  - evidence: seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « LAPTOP ASUS PRO P5440 I5 8EME 8GB/512GB SSD » → LAPTOP ASUS PRO P5440 I5 8TH 8/512 SSD; « NOTEBOOK LENOVO IDEAPAD FLEX I5 8EME 8/256SSD 360* TACTIL » → LAPTOP LENOVO IDEAPAD FLEX I5 8TH 8/256SSD 360* TACTIL
+- `12eme` → `12th` [rejected] — 12EME -> 12TH generation
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `coque` → `pochette` [live] — COQUE lines must meet POCHETTE catalogue
+  - evidence: seen lines: +9 newly resolved (7 distinct wordings), 0 wrong, 0 lost; unseen lines: +12 newly resolved (8 distinct wordings), 0 wrong, 0 lost; e.g. « COQUE IPAD AIR 4/5/6 XUNDO » → POCHETTE XUNDO IPAD AIR 4/5/6; « COQUE MOTIF UNIBIT IPHONE » → POCHETTE IPHONE MOTIF UNIBIT; « COQUE IPHONE ORG » → POCHETTE IPHONE ORG
+- `charg` → `chargeur` [rejected] — CHARG abbreviation for CHARGEUR
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `8g` → `8th` [rejected] — 8G means 8TH generation in laptop lines
+  - evidence: refused: a size or pack token belongs to the clean-up, not the vocabulary
+- `10g` → `10th` [rejected] — 10G means 10TH generation in laptop lines
+  - evidence: refused: a size or pack token belongs to the clean-up, not the vocabulary
+- `tab` → `tablette` [live] — TAB A8 = TABLETTE SAMSUNG A8
+  - evidence: seen lines: +16 newly resolved (11 distinct wordings), 0 wrong, 0 lost; unseen lines: +7 newly resolved (6 distinct wordings), 0 wrong, 0 lost; e.g. « TAB A8 10" 4-64 SAMSUNG » → TABLETTE SAMSUNG A8 10" 4/64GB; « TAB T805 SAMSUNG » → TABLETTE SAMSUNG T805; « TAB ITEL VISTATAB 30 » → TABLETTE ITEL VISTATAB 30
+- `11eme` → `11th` [rejected] — cover other French generations
+  - evidence: seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « DELL LATITUDE 3520 I3 11EME 8/256SSD » → DELL LATITUDE 3520 I3 11TH 8/256SSD; « DELL LATITUDE 3520 I3 11EME 8/256SSD » → DELL LATITUDE 3520 I3 11TH 8/256SSD
+- `mletubl` → `metubl` [rejected] — typo MLETUBL -> METUBL glass brand
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+
+## Search method
+
+**BM25 + 0.5·word similarity** (Spark: bm25-wordsim)
+
+## Rules (rule engineer and attributes)
+
+- R-0003 [live] "lighting", "micro", "jack" each name a connector, in orders, invoices and catalogue names alike; two texts whose connector differs are never the same product. — by muse-spark-profile
+- R-0002 [live] "box", "boite", "sans" each name a packaging, in orders, invoices and catalogue names alike; two texts whose packaging differs are never the same product. — by muse-spark-profile
+- R-0001 [live] "original", "copy" each name a authenticity, in orders, invoices and catalogue names alike; two texts whose authenticity differs are never the same product. — by muse-spark-profile
+
+## Phases
+
+| phase | invoices | lines | free (alias + rules) | AI | asked | wrong auto | Spark agreed with code | Spark alone right | AI cost |
+|---|---|---|---|---|---|---|---|---|---|
+| spark-checks-all | 46 | 827 | 600 (73 %) | 145 (18 %) | 81 (10 %) | 1 | 600/601 | 145/145 | $0.2810 |
+| learning | 74 | 1368 | 1212 (89 %) | 79 (6 %) | 77 (6 %) | 0 | 311/311 | 79/79 | $0.2437 |
+| test after 0 | 30 | 535 | 322 (60 %) | 153 (29 %) | 60 (11 %) | 0 | 322/322 | 153/153 | $0.1887 |
+| test after 30 | 30 | 535 | 445 (83 %) | 50 (9 %) | 40 (7 %) | 0 | 445/445 | 50/50 | $0.1924 |
+| test after 60 | 30 | 535 | 468 (87 %) | 36 (7 %) | 31 (6 %) | 0 | 121/121 | 36/36 | $0.1029 |
+| test after 90 | 30 | 535 | 488 (91 %) | 19 (4 %) | 28 (5 %) | 0 | 112/112 | 19/19 | $0.0956 |
+| test after 120 | 30 | 535 | 493 (92 %) | 18 (3 %) | 24 (4 %) | 0 | 131/131 | 18/18 | $0.0919 |
+
+## Calibrations
+
+- **calibration after 30 invoices** (403 seen + 135 unseen lines): 263/403 right with no AI (65 %), 1 wrong → 327/403 right with no AI (81 %), 1 wrong; accepted 14, rejected 27; search: BM25 (brand ×2) + 0.5·trigrams: right product in the top 8 for 91.6 % of lines (MRR 0.91) → BM25: 91.8 % in the top 8 (MRR 0.92); engineer rules []; $0.2424. Spark: suppliers use english generic words while catalogue uses french, plus T-C/TYPE-C/USB-C and generation synonyms, storage-only lines need fuzzy search
+- **calibration after 60 invoices** (825 seen + 275 unseen lines): 677/825 right with no AI (82 %), 1 wrong → 684/825 right with no AI (83 %), 1 wrong; accepted 2, rejected 7; search: BM25: right product in the top 8 for 92.4 % of lines (MRR 0.92) → BM25: 92.6 % in the top 8 (MRR 0.92); engineer rules []; $0.2278. Spark: glass/flash/baffle/pochette synonyms plus eme/th generation plus memory-off for storage-only phone/laptop lines
+- **calibration after 90 invoices** (1229 seen + 410 unseen lines): 1020/1229 right with no AI (83 %), 1 wrong → 1045/1229 right with no AI (85 %), 1 wrong; accepted 2, rejected 2; search: BM25: right product in the top 8 for 93.0 % of lines (MRR 0.93) → BM25 + 0.5·word similarity: 93.0 % in the top 8 (MRR 0.93); engineer rules []; $0.1799. Spark: screen protectors, USB keys, speakers and cases use different words than catalogue; generations and portable/pc also block exact match
+- **calibration after 120 invoices** (1646 seen + 549 unseen lines): 1400/1646 right with no AI (85 %), 1 wrong → 1400/1646 right with no AI (85 %), 1 wrong; accepted 0, rejected 3; search: BM25 + 0.5·word similarity: right product in the top 8 for 93.6 % of lines (MRR 0.93) → BM25 + 0.5·word similarity: 93.6 % in the top 8 (MRR 0.93); engineer rules []; $0.1808. Spark: Glass/screen, USB flash, speaker and laptop synonyms plus generation and connector variants block auto-match; storage-only phone lines need fuzzy search.
+
+## Experiment log
+
+- [bootstrap] block · accepted: memory (reads 130 catalogue names differently; products that read alike 35 → 34, by muse-spark) — phones, tablets, PCs write RAM/storage as 12/256GB, 8+16/256GB, 12+12/256GB, 4/64GB, 16/256SSD that must become one token mem12x256 etc.
+- [bootstrap] block · accepted: units_glue (reads 4 catalogue names differently; products that read alike 34 → 34, by muse-spark) — catalogue lives on 19V, 3.42A, 60W, 20000MAH, 1.5M, 22MM, 64GB that must glue to 19v, 3.42a, 60w, 20000mah, 1.5m, 22mm
+- [bootstrap] block · accepted: inch (reads 5 catalogue names differently; products that read alike 34 → 34, by muse-spark) — tablet and glass sizes written with inch sign like 8" and 10.2" need normalizing to in8/in10.2; no plumbing bare fractions in this catalogue
+- [bootstrap] lexicon · accepted: "org" → "original" (proposed before any invoice (reads 11 catalogue names differently; products that read alike 34 → 34): waits in shadow until known lines prove it, by muse-spark) — suppliers write org for the catalogue's original
+- [bootstrap] lexicon · accepted: "orig" → "original" (proposed before any invoice (reads 4 catalogue names differently; products that read alike 34 → 34): waits in shadow until known lines prove it, by muse-spark) — suppliers write orig for the catalogue's original
+- [bootstrap] lexicon · accepted: "bluetooth" → "bl-tooth" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 34 → 34): waits in shadow until known lines prove it, by muse-spark) — suppliers write bluetooth for the catalogue's bl-tooth
+- [bootstrap] lexicon · accepted: "tc" → "type-c" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 34 → 34): waits in shadow until known lines prove it, by muse-spark) — suppliers write tc for the catalogue's type-c
+- [bootstrap] lexicon · accepted: "t-c" → "type-c" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 34 → 34): waits in shadow until known lines prove it, by muse-spark) — short form t-c used interchangeably with type-c must normalize
+- [bootstrap] lexicon · accepted: "sf" → "s-f" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 34 → 34): waits in shadow until known lines prove it, by muse-spark) — suppliers write sf for the catalogue's s-f sans-fil
+- [bootstrap] lexicon · accepted: "lightning" → "lighting" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 34 → 34): waits in shadow until known lines prove it, by muse-spark) — catalogue writes lighting for lightning iphone cable, suppliers write lightning
+- [bootstrap] lexicon · accepted: "metres" → "m" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 34 → 34): waits in shadow until known lines prove it, by muse-spark) — suppliers write 2metres for the catalogue's 2m lengths
+- [bootstrap] search · accepted: BM25 (brand ×2) + 0.5·trigrams (not measured yet: no line has a known answer, by muse-spark) — rare model codes like ysw13, ksc-813, bw300 must dominate via bm25 and brand_boost, trigram helps typos and glued 11pro+/11 pro + variants, wordsim off because codes must match exactly
+- [bootstrap] attribute · accepted: "original", "copy" each name a authenticity, in orders, invoices and catalogue names alike; two texts whose authenticity differs are never the same product. (reads 26 catalogue names, 0 pairs made alike → shadow, by muse-spark) — original vs copy/high-copy tells apart otherwise identical chargers and cables
+- [bootstrap] attribute · accepted: "box", "boite", "sans" each name a packaging, in orders, invoices and catalogue names alike; two texts whose packaging differs are never the same product. (reads 22 catalogue names, 0 pairs made alike → shadow, by muse-spark) — with box vs sans boite/sans manette separates airpods, xbox, honor phones
+- [bootstrap] attribute · accepted: "lighting", "micro", "jack" each name a connector, in orders, invoices and catalogue names alike; two texts whose connector differs are never the same product. (reads 32 catalogue names, 0 pairs made alike → shadow, by muse-spark) — connector type is the main differentiator inside one cable/charger brand family
+- [calibration after 30 invoices] block · rejected: inch (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — keep current plumbing/inch handling, no evidence of harm
+- [calibration after 30 invoices] lexicon · accepted: "smartphone" → "mobile" (seen lines: +7 newly resolved (5 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « SUPPORT SMARTPHONE KSC-329 KAKUSIGA » → SUPPORT MOBILE KAKUSIGA KSC-329; « SMARTPHONE REALME C2 3-32 » → MOBILE REALME C2 3/32GB; « DJI OSMO SMARTPHONE 8 » → DJI OSMO MOBILE 8, by muse-spark) — catalogue says MOBILE not SMARTPHONE
+- [calibration after 30 invoices] lexicon · accepted: "tel" → "mobile" (seen lines: +4 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « TEL REDMI NOTE 11S 6+128 » → MOBILE REDMI NOTE 11S 6/128GB; « TEL T-6 MANETTE » → MANETTE MOBILE T-6; « TEL VIVO Y36 8/128GB » → MOBILE VIVO Y36 8/128GB, by muse-spark) — TEL REDMI -> MOBILE REDMI
+- [calibration after 30 invoices] lexicon · accepted: "etui" → "pochette" (seen lines: +5 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « ETUI XUNDO IPAD PRO 2024 11* » → POCHETTE XUNDO IPAD PRO 2024 11*; « ETUI XUNDO SIMPLE IPHONE » → POCHETTE IPHONE XUNDO SIMPLE; « ETUI TAB TAB A8 10" KAKU » → POCHETTE TABLETTE KAKU TAB A8 10", by muse-spark) — ETUI XUNDO -> POCHETTE XUNDO
+- [calibration after 30 invoices] lexicon · accepted: "holder" → "support" (seen lines: +7 newly resolved (6 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « HOLDER AUTO YESIDO C38 » → SUPPORT AUTO YESIDO C38; « HOLDER ALUM 360° HOCO PH52+ LAPTOP » → SUPPORT LAPTOP ALUM 360° HOCO PH52+; « HOLDER HOCO CA63 AUTO » → SUPPORT AUTO HOCO CA63, by muse-spark) — HOLDER AUTO -> SUPPORT AUTO
+- [calibration after 30 invoices] lexicon · accepted: "charger" → "chargeur" (seen lines: +5 newly resolved (5 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « CHARGER HOCO N5 TYPE C 20W » → CHARGEUR HOCO N5 TYPE-C 20W; « CHARGER 12V/2A MODEM » → CHARGEUR MODEM 12V/2A; « CHARGER AUTO HOCO Z42 20W BOITE » → BOITE CHARGEUR AUTO HOCO Z42 20W, by muse-spark) — CHARGER HOCO -> CHARGEUR HOCO
+- [calibration after 30 invoices] lexicon · accepted: "mouse" → "souris" (seen lines: +5 newly resolved (5 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « MOUSE S-F JEDEL W690 » → SOURIS S-F JEDEL W690; « MOUSE HAVIT SANS FIL MS622 » → SOURIS HAVIT SANS-FIL MS622; « MOUSE CAPSYS G212 WIFI » → SOURIS WIFI CAPSYS G212, by muse-spark) — MOUSE JEDEL -> SOURIS JEDEL
+- [calibration after 30 invoices] lexicon · accepted: "watch" → "montre" (seen lines: +5 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « WATCH HOMME CASIO CLASSIQUE » → MONTRE HOMME CASIO CLASSIQUE; « WATCH SWATCH HOMME » → MONTRE HOMME SWATCH; « WATCH SWATCH HOMME » → MONTRE HOMME SWATCH, by muse-spark) — WATCH HOMME -> MONTRE HOMME
+- [calibration after 30 invoices] lexicon · accepted: "speaker" → "baffle" (seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « SPEAKER HOCO BS31 » → BAFFLE HOCO BS31; « SPEAKER HOCO BS31 » → BAFFLE HOCO BS31, by muse-spark) — SPEAKER HOCO -> BAFFLE HOCO
+- [calibration after 30 invoices] lexicon · rejected: "haut" → "baffle" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — HAUT PARLEUR -> BAFFLE
+- [calibration after 30 invoices] lexicon · rejected: "parleur" → "" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — drop redundant second word of haut parleur
+- [calibration after 30 invoices] lexicon · accepted: "headset" → "casque" (seen lines: +4 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « HEADSET YESIDO EK03 GAMING » → CASQUE GAMING YESIDO EK03; « HEADSET YESIDO EK01 GAMING » → CASQUE GAMING YESIDO EK01; « HEADSET YESIDO EK01 GAMING » → CASQUE GAMING YESIDO EK01, by muse-spark) — HEADSET YESIDO -> CASQUE YESIDO
+- [calibration after 30 invoices] lexicon · accepted: "cbl" → "cable" (seen lines: +4 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +5 newly resolved (4 distinct wordings), 0 wrong, 0 lost; e.g. « CBL RENO VOOC 6A ORIG OPPO » → CABLE OPPO RENO VOOC 6A ORIG; « CBL 2M IOS CB42-IOS MOXON » → CABLE MOXON 2M IOS CB42-IOS; « CBL IMPRIMANTE AVEC FILTRE 5M USB » → CABLE IMPRIMANTE AVEC FILTRE 5M USB, by muse-spark) — CBL RENO -> CABLE OPPO RENO
+- [calibration after 30 invoices] lexicon · rejected: "cle" → "flash" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — CLE USB -> FLASH DISK
+- [calibration after 30 invoices] lexicon · rejected: "disque" → "disk" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — DISQUE -> DISK in FLASH DISK
+- [calibration after 30 invoices] lexicon · rejected: "verre" → "glass" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — VERRE TREMPE -> GLASS
+- [calibration after 30 invoices] lexicon · rejected: "trempe" → "" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — TREMPE never in catalogue, drop
+- [calibration after 30 invoices] lexicon · rejected: "protection" → "glass" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — PROTECTION ECRAN -> GLASS UV
+- [calibration after 30 invoices] lexicon · rejected: "ecran" → "" (refused: catalogue names use this word; dropping it would erase a difference between products, by muse-spark) — ECRAN never in GLASS names, drop
+- [calibration after 30 invoices] lexicon · accepted: "notebook" → "laptop" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « SUPPORT NOTEBOOK ALUM 360° HOCO PH52+ » → SUPPORT LAPTOP ALUM 360° HOCO PH52+, by muse-spark) — NOTEBOOK -> LAPTOP catalogue
+- [calibration after 30 invoices] lexicon · rejected: "portable" → "laptop" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — PC PORTABLE DELL -> LAPTOP DELL
+- [calibration after 30 invoices] lexicon · rejected: "pc" → "" (refused: catalogue names use this word; dropping it would erase a difference between products, by muse-spark) — PC extra vs LAPTOP
+- [calibration after 30 invoices] lexicon · accepted: "core" → "" (seen lines: +7 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « LENOVO T460 CORE I5 6EME 8/256SSD » → LENOVO T460 I5 6EME 8/256SSD; « LAPTOP DELL 5580 CORE I5 7G 8/256SSD » → LAPTOP DELL 5580 I5 7EME 8/256SSD; « LAPTOP ACER ASPIRE 3 CORE I5 12G 16/512 SSD » → LAPTOP ACER ASPIRE 3 I5 12TH 16/512 SSD, by muse-spark) — CORE I5 -> I5, CORE never in catalogue
+- [calibration after 30 invoices] lexicon · accepted: "galaxy" → "" (seen lines: +5 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « GLASS UV SAMSUNG GALAXY S10 » → GLASS UV SAMSUNG S10; « OTG SAMSUNG GALAXY T-C ORG » → OTG SAMSUNG T-C ORG; « TABLETTE SAMSUNG GALAXY A 8° 2-32GB » → TABLETTE SAMSUNG A 8° 2-32GB, by muse-spark) — GALAXY extra in SAMSUNG accessories, catalogue omits
+- [calibration after 30 invoices] lexicon · rejected: "wireless" → "sans-fil" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « SOURIS HAVIT WIRELESS MS76GT PLUS RECHAREGABLE » → SOURIS HAVIT SANS-FIL MS76GT PLUS RECHAREGABLE, by muse-spark) — WIRELESS -> SANS-FIL
+- [calibration after 30 invoices] lexicon · rejected: "type" → "t" (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « HOCO M101MAX TYPE C KIT-MAIN » → KIT-MAIN HOCO M101MAX T-C; « CHARGER TYPE-C SAMSUNG 25W ORG PORT » → PORT CHARGER T-C SAMSUNG 25W ORG; « CABLE HOCO 3.0A USB TO TYPE-C U55 » → CABLE HOCO 3.0A USB TO T-C U55, by muse-spark) — TYPE C -> T-C after cleanup
+- [calibration after 30 invoices] lexicon · rejected: "type-c" → "t-c" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — TYPE-C hyphen form -> T-C
+- [calibration after 30 invoices] lexicon · rejected: "usb-c" → "t-c" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — USB-C synonym of TYPE-C in this catalogue
+- [calibration after 30 invoices] lexicon · rejected: "10eme" → "10th" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « LENOVO THINKPAD L13 I5 10EME 8/256SSD » → LENOVO THINKPAD L13 I5 10TH 8/256SSD, by muse-spark) — 10EME -> 10TH generation
+- [calibration after 30 invoices] lexicon · rejected: "8eme" → "8th" (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « LAPTOP ASUS PRO P5440 I5 8EME 8GB/512GB SSD » → LAPTOP ASUS PRO P5440 I5 8TH 8/512 SSD; « NOTEBOOK LENOVO IDEAPAD FLEX I5 8EME 8/256SSD 360* TACTIL » → LAPTOP LENOVO IDEAPAD FLEX I5 8TH 8/256SSD 360* TACTIL, by muse-spark) — 8EME -> 8TH generation
+- [calibration after 30 invoices] lexicon · rejected: "12eme" → "12th" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — 12EME -> 12TH generation
+- [calibration after 30 invoices] lexicon · rejected: "org" → "original" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 1 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. lost « CHARG ACER 19V 3.42A 3.0*1.1 ORG MICRO », by muse-spark) — suppliers write org for the catalogue's original
+- [calibration after 30 invoices] lexicon · rejected: "orig" → "original" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write orig for the catalogue's original
+- [calibration after 30 invoices] lexicon · accepted: "bluetooth" → "bl-tooth" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « BLUETOOTH AIRPODS LENOVO XT92/XT83 » → BL-TOOTH AIRPODS LENOVO XT92/XT83; « HEADSET BLUETOOTH BROROFONE BO11 » → CASQUE BL-TOOTH BROROFONE BO11; « SPEAKER BLUETOOTH HOCO BS33 » → BAFFLE BL-TOOTH HOCO BS33, by muse-spark) — suppliers write bluetooth for the catalogue's bl-tooth
+- [calibration after 30 invoices] lexicon · rejected: "tc" → "type-c" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write tc for the catalogue's type-c
+- [calibration after 30 invoices] lexicon · rejected: "t-c" → "type-c" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — short form t-c used interchangeably with type-c must normalize
+- [calibration after 30 invoices] lexicon · rejected: "sf" → "s-f" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write sf for the catalogue's s-f sans-fil
+- [calibration after 30 invoices] lexicon · rejected: "lightning" → "lighting" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — catalogue writes lighting for lightning iphone cable, suppliers write lightning
+- [calibration after 30 invoices] lexicon · rejected: "metres" → "m" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write 2metres for the catalogue's 2m lengths
+- [calibration after 30 invoices] lexicon · rejected: "type" → "t" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « HOCO M101MAX TYPE C KIT-MAIN » → KIT-MAIN HOCO M101MAX T-C; « CHARGER TYPE-C SAMSUNG 25W ORG PORT » → PORT CHARGER T-C SAMSUNG 25W ORG; « CABLE HOCO 3.0A USB TO TYPE-C U55 » → CABLE HOCO 3.0A USB TO T-C U55, by muse-spark) — TYPE C -> T-C after cleanup
+- [calibration after 30 invoices] lexicon · rejected: "8eme" → "8th" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « LAPTOP ASUS PRO P5440 I5 8EME 8GB/512GB SSD » → LAPTOP ASUS PRO P5440 I5 8TH 8/512 SSD; « NOTEBOOK LENOVO IDEAPAD FLEX I5 8EME 8/256SSD 360* TACTIL » → LAPTOP LENOVO IDEAPAD FLEX I5 8TH 8/256SSD 360* TACTIL, by muse-spark) — 8EME -> 8TH generation
+- [calibration after 30 invoices] search · accepted: BM25 [BM25] (classic word similarity [word similarity]: 91.6 % in top 8, MRR 0.90; BM25 [BM25]: 91.8 % in top 8, MRR 0.92; BM25, brand ×2 [BM25 (brand ×2)]: 91.8 % in top 8, MRR 0.91; trigrams [trigrams]: 91.6 % in top 8, MRR 0.90; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 91.6 % in top 8, MRR 0.91; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 91.6 % in top 8, MRR 0.91; Spark: bm25-brand-trigram [BM25 (brand ×2) + 0.5·trigrams]: 91.6 % in top 8, MRR 0.91; Spark: high-trigram-storage [BM25 (brand ×2) + trigrams]: 91.6 % in top 8, MRR 0.91; Spark: wordsim-syn [BM25 (brand ×2) + 0.5·trigrams + 0.5·word similarity]: 91.6 % in top 8, MRR 0.91; current: Spark's first guess [BM25 (brand ×2) + 0.5·trigrams]: 91.6 % in top 8, MRR 0.91. Chosen: 91.8 % in top 8 on seen lines; on unseen lines 94.1 % vs 94.1 % for the current method, by library) — 
+- [calibration after 30 invoices] rekey · accepted: re-read every known wording (105 alias(es) moved to the new reading, no collision, by code) — 
+- [after 46 invoices] autonomy · accepted: the desk's steps earned autonomy: Spark stops checking every answer (603 code answers confirmed, 601 right (95 % lower bound 99.00 % ≥ bar 99 %). While supervised: 827 lines, Spark agreed with the code on 601 (600 right), disagreed on 1; alone on 145, right on 145, by code) — 
+- [calibration after 60 invoices] block · rejected: inch (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — keep default, no inch conflict seen
+- [calibration after 60 invoices] block · rejected: memory off (seen lines: +13 newly resolved (8 distinct wordings), 0 wrong, 17 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 6 lost; would make 1 more products read alike; e.g. « X9D 512GB HONOR » → HONOR X9D 12/512GB; lost « OPPO A6X 4GB/128GB »; « TABLETTE SAMSUNG TAB S2 16GB OLED » → TABLETTE SAMSUNG TAB S2 2/16GB OLED, by muse-spark) — mem8x256 hides partial 512GB/128GB lines from BM25; split numbers still separate full RAM specs safely
+- [calibration after 60 invoices] lexicon · rejected: "coque" → "pochette" (seen lines: +9 newly resolved (7 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « COQUE IPAD AIR 4/5/6 XUNDO » → POCHETTE XUNDO IPAD AIR 4/5/6; « COQUE MOTIF UNIBIT IPHONE » → POCHETTE IPHONE MOTIF UNIBIT; « COQUE IPHONE ORG » → POCHETTE IPHONE ORG, by muse-spark) — COQUE lines must meet POCHETTE catalogue
+- [calibration after 60 invoices] lexicon · rejected: "charg" → "chargeur" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — CHARG abbreviation for CHARGEUR
+- [calibration after 60 invoices] lexicon · rejected: "8g" → "8th" (refused: a size or pack token belongs to the clean-up, not the vocabulary, by muse-spark) — 8G means 8TH generation in laptop lines
+- [calibration after 60 invoices] lexicon · rejected: "10g" → "10th" (refused: a size or pack token belongs to the clean-up, not the vocabulary, by muse-spark) — 10G means 10TH generation in laptop lines
+- [calibration after 60 invoices] lexicon · accepted: "type" → "t" (from shadow) (seen lines: +5 newly resolved (5 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « HOCO M101MAX TYPE C KIT-MAIN » → KIT-MAIN HOCO M101MAX T-C; « CHARGER TYPE-C SAMSUNG 25W ORG PORT » → PORT CHARGER T-C SAMSUNG 25W ORG; « CABLE HOCO 3.0A USB TO TYPE-C U55 » → CABLE HOCO 3.0A USB TO T-C U55, by muse-spark) — TYPE C -> T-C after cleanup
+- [calibration after 60 invoices] lexicon · accepted: "8eme" → "8th" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « LAPTOP ASUS PRO P5440 I5 8EME 8GB/512GB SSD » → LAPTOP ASUS PRO P5440 I5 8TH 8/512 SSD; « NOTEBOOK LENOVO IDEAPAD FLEX I5 8EME 8/256SSD 360* TACTIL » → LAPTOP LENOVO IDEAPAD FLEX I5 8TH 8/256SSD 360* TACTIL, by muse-spark) — 8EME -> 8TH generation
+- [calibration after 60 invoices] lexicon · rejected: "coque" → "pochette" (from shadow) (seen lines: +9 newly resolved (7 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « COQUE IPAD AIR 4/5/6 XUNDO » → POCHETTE XUNDO IPAD AIR 4/5/6; « COQUE MOTIF UNIBIT IPHONE » → POCHETTE IPHONE MOTIF UNIBIT; « COQUE IPHONE ORG » → POCHETTE IPHONE ORG, by muse-spark) — COQUE lines must meet POCHETTE catalogue
+- [calibration after 60 invoices] search · accepted: BM25 [BM25] (classic word similarity [word similarity]: 92.4 % in top 8, MRR 0.91; BM25 [BM25]: 92.6 % in top 8, MRR 0.92; BM25, brand ×2 [BM25 (brand ×2)]: 92.6 % in top 8, MRR 0.92; trigrams [trigrams]: 92.4 % in top 8, MRR 0.91; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 92.6 % in top 8, MRR 0.92; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 92.6 % in top 8, MRR 0.92; Spark: bm25+brand+tri [BM25 (brand ×2) + 0.6·trigrams]: 92.6 % in top 8, MRR 0.92; Spark: bm25+brand+wordsim [BM25 (brand ×2) + 0.6·word similarity]: 92.6 % in top 8, MRR 0.92; Spark: bm25+brand+both [BM25 (brand ×3) + 0.4·trigrams + 0.4·word similarity]: 92.6 % in top 8, MRR 0.92; current: BM25 [BM25]: 92.6 % in top 8, MRR 0.92. Chosen: 92.6 % in top 8 on seen lines; on unseen lines 93.1 % vs 93.1 % for the current method, by library) — 
+- [calibration after 60 invoices] rekey · accepted: re-read every known wording (30 alias(es) moved to the new reading, no collision, by code) — 
+- [calibration after 90 invoices] block · rejected: inch (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — keep 10-inch tablet size aligned on both sides
+- [calibration after 90 invoices] lexicon · accepted: "tab" → "tablette" (seen lines: +16 newly resolved (11 distinct wordings), 0 wrong, 0 lost; unseen lines: +7 newly resolved (6 distinct wordings), 0 wrong, 0 lost; e.g. « TAB A8 10" 4-64 SAMSUNG » → TABLETTE SAMSUNG A8 10" 4/64GB; « TAB T805 SAMSUNG » → TABLETTE SAMSUNG T805; « TAB ITEL VISTATAB 30 » → TABLETTE ITEL VISTATAB 30, by muse-spark) — TAB A8 = TABLETTE SAMSUNG A8
+- [calibration after 90 invoices] lexicon · rejected: "11eme" → "11th" (seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « DELL LATITUDE 3520 I3 11EME 8/256SSD » → DELL LATITUDE 3520 I3 11TH 8/256SSD; « DELL LATITUDE 3520 I3 11EME 8/256SSD » → DELL LATITUDE 3520 I3 11TH 8/256SSD, by muse-spark) — cover other French generations
+- [calibration after 90 invoices] lexicon · accepted: "coque" → "pochette" (from shadow) (seen lines: +9 newly resolved (7 distinct wordings), 0 wrong, 0 lost; unseen lines: +12 newly resolved (8 distinct wordings), 0 wrong, 0 lost; e.g. « COQUE IPAD AIR 4/5/6 XUNDO » → POCHETTE XUNDO IPAD AIR 4/5/6; « COQUE MOTIF UNIBIT IPHONE » → POCHETTE IPHONE MOTIF UNIBIT; « COQUE IPHONE ORG » → POCHETTE IPHONE ORG, by muse-spark) — COQUE lines must meet POCHETTE catalogue
+- [calibration after 90 invoices] search · accepted: Spark: bm25-wordsim [BM25 + 0.5·word similarity] (classic word similarity [word similarity]: 92.8 % in top 8, MRR 0.92; BM25 [BM25]: 93.0 % in top 8, MRR 0.93; BM25, brand ×2 [BM25 (brand ×2)]: 93.0 % in top 8, MRR 0.93; trigrams [trigrams]: 92.8 % in top 8, MRR 0.92; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 93.0 % in top 8, MRR 0.93; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 93.0 % in top 8, MRR 0.93; Spark: bm25-brand [BM25 (brand ×2)]: 93.0 % in top 8, MRR 0.93; Spark: bm25-brand-tri [BM25 (brand ×2) + 0.5·trigrams]: 93.0 % in top 8, MRR 0.93; Spark: bm25-wordsim [BM25 + 0.5·word similarity]: 93.0 % in top 8, MRR 0.93; current: BM25 [BM25]: 93.0 % in top 8, MRR 0.93. Chosen: 93.0 % in top 8 on seen lines; on unseen lines 95.1 % vs 95.1 % for the current method, by muse-spark) — wordsim helps glass/verre/flash/cle synonyms not fully covered
+- [calibration after 90 invoices] rekey · accepted: re-read every known wording (32 alias(es) moved to the new reading, no collision, by code) — 
+- [calibration after 120 invoices] block · rejected: inch (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — keep plumbing/inch normalization as before
+- [calibration after 120 invoices] block · rejected: dimensions (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 1 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. lost « TABLETTE 5G 8+256 X18 ATOUCH », by muse-spark) — normalize 4.0MM*1.7MM vs 4.0mm x 1.7mm tip sizes for chargers
+- [calibration after 120 invoices] lexicon · rejected: "mletubl" → "metubl" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — typo MLETUBL -> METUBL glass brand
+- [calibration after 120 invoices] search · accepted: current: Spark: bm25-wordsim [BM25 + 0.5·word similarity] (classic word similarity [word similarity]: 93.4 % in top 8, MRR 0.92; BM25 [BM25]: 93.6 % in top 8, MRR 0.93; BM25, brand ×2 [BM25 (brand ×2)]: 93.6 % in top 8, MRR 0.93; trigrams [trigrams]: 93.4 % in top 8, MRR 0.92; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 93.6 % in top 8, MRR 0.93; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 93.6 % in top 8, MRR 0.93; Spark: brand_trigram [BM25 (brand ×3) + 0.8·trigrams + 0.5·word similarity]: 93.6 % in top 8, MRR 0.93; Spark: high_trigram [BM25 (brand ×2) + 1.5·trigrams + 0.5·word similarity]: 93.6 % in top 8, MRR 0.93; Spark: wordsim_heavy [BM25 (brand ×2) + 0.5·trigrams + word similarity]: 93.6 % in top 8, MRR 0.93; Spark: short name [BM25 (brand ×2) + 0.5·trigrams]: 93.6 % in top 8, MRR 0.93; current: Spark: bm25-wordsim [BM25 + 0.5·word similarity]: 93.6 % in top 8, MRR 0.93. Chosen: 93.6 % in top 8 on seen lines; on unseen lines 95.3 % vs 95.3 % for the current method, by library) — wordsim helps glass/verre/flash/cle synonyms not fully covered
+
+Meta model spend for the whole run: $2.0485
+
+## Who made the free answers possible (test invoices)
+
+2216 free answers: Muse Spark found 263 (12 %), the matching Muse Spark designed gave 1856 (84 %), a person taught 97 (4 %).
+
+- catalogue match through the matching Muse Spark designed: 1314
+- alias first matched through the matching Muse Spark designed: 538
+- alias first found by Muse Spark: 173
+- rule Muse Spark wrote: 86
+- alias first answered by a person: 82
+- code first answered by a person: 15
+- code first found by Muse Spark: 4
+- code first matched through the matching Muse Spark designed: 4
+

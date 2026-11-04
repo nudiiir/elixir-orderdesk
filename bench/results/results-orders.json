@@ -1,0 +1,123 @@
+{
+ "ALL": {
+  "orders": 200,
+  "lines": 1272,
+  "cost": 2.0380135812499987,
+  "asked": 268,
+  "right": 969,
+  "qty": 962,
+  "missed": 34,
+  "wrong": 3
+ },
+ "supermarket": {
+  "orders": 50,
+  "lines": 317,
+  "cost": 0.47646754374999994,
+  "asked": 51,
+  "right": 255,
+  "qty": 254,
+  "missed": 11
+ },
+ "pharmacy": {
+  "orders": 50,
+  "lines": 329,
+  "cost": 0.547433775,
+  "asked": 85,
+  "right": 234,
+  "qty": 232,
+  "missed": 10,
+  "wrong": 1
+ },
+ "cosmetics": {
+  "orders": 50,
+  "lines": 312,
+  "cost": 0.5318940124999999,
+  "asked": 47,
+  "right": 254,
+  "qty": 251,
+  "missed": 11,
+  "wrong": 1
+ },
+ "electronics": {
+  "orders": 50,
+  "lines": 314,
+  "cost": 0.48221825000000007,
+  "right": 226,
+  "qty": 225,
+  "asked": 85,
+  "missed": 2,
+  "wrong": 1
+ },
+ "french": {
+  "orders": 40,
+  "lines": 258,
+  "cost": 0.3331772499999999,
+  "right": 217,
+  "qty": 217,
+  "asked": 41
+ },
+ "darja_latin": {
+  "orders": 40,
+  "lines": 268,
+  "cost": 0.36040750000000005,
+  "right": 225,
+  "qty": 224,
+  "asked": 43
+ },
+ "mixed": {
+  "orders": 40,
+  "lines": 270,
+  "cost": 0.36387975,
+  "right": 230,
+  "qty": 230,
+  "asked": 40,
+  "wrong": 1
+ },
+ "screenshot": {
+  "orders": 40,
+  "lines": 242,
+  "cost": 0.31039125000000006,
+  "right": 190,
+  "qty": 190,
+  "asked": 52,
+  "wrong": 1
+ },
+ "voice": {
+  "orders": 40,
+  "lines": 234,
+  "cost": 0.6701578312500002,
+  "asked": 92,
+  "right": 107,
+  "qty": 101,
+  "missed": 34,
+  "wrong": 1
+ },
+ "voice: human": {
+  "orders": 8,
+  "lines": 32,
+  "cost": 0.1324531,
+  "asked": 15,
+  "right": 8,
+  "qty": 7,
+  "missed": 9
+ },
+ "voice: uploaded": {
+  "orders": 6,
+  "lines": 29,
+  "cost": 0.10279961875,
+  "missed": 10,
+  "right": 14,
+  "qty": 14,
+  "asked": 5
+ },
+ "voice: generated (Gemini TTS)": {
+  "orders": 26,
+  "lines": 173,
+  "cost": 0.43490511249999986,
+  "right": 85,
+  "qty": 80,
+  "asked": 72,
+  "missed": 15,
+  "wrong": 1
+ }
+}

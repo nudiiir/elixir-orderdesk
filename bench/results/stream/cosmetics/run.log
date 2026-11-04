@@ -1,0 +1,758 @@
+2026/11/04 00:00:15 [bootstrap] pharmacy and parapharmacy: blocks [dimensions pack_count], lexicon 10, search BM25 (brand ×2) + 0.5·trigrams ($0.0255)
+2026/11/04 00:00:22 [test after 0] COS-S121: 14 lines, alias 0, rules 14, ai 0, asked 0, wrong 0, $0.0060
+2026/11/04 00:00:34 [test after 0] COS-S122: 20 lines, alias 0, rules 18, ai 0, asked 2, wrong 0, $0.0094
+2026/11/04 00:00:44 [test after 0] COS-S123: 21 lines, alias 0, rules 18, ai 3, asked 0, wrong 0, $0.0085
+2026/11/04 00:00:50 [test after 0] COS-S124: 13 lines, alias 0, rules 8, ai 1, asked 4, wrong 0, $0.0056
+2026/11/04 00:00:58 [test after 0] COS-S125: 13 lines, alias 0, rules 11, ai 0, asked 2, wrong 0, $0.0061
+2026/11/04 00:01:07 [test after 0] COS-S126: 21 lines, alias 0, rules 15, ai 2, asked 4, wrong 0, $0.0076
+2026/11/04 00:01:14 [test after 0] COS-S127: 18 lines, alias 0, rules 13, ai 1, asked 4, wrong 0, $0.0056
+2026/11/04 00:01:19 [test after 0] COS-S128: 12 lines, alias 0, rules 9, ai 1, asked 2, wrong 0, $0.0044
+2026/11/04 00:01:30 [test after 0] COS-S129: 19 lines, alias 0, rules 14, ai 4, asked 1, wrong 0, $0.0088
+2026/11/04 00:01:40 [test after 0] COS-S130: 19 lines, alias 0, rules 14, ai 2, asked 3, wrong 0, $0.0083
+2026/11/04 00:01:50 [test after 0] COS-S131: 14 lines, alias 0, rules 8, ai 2, asked 4, wrong 0, $0.0073
+2026/11/04 00:02:00 [test after 0] COS-S132: 24 lines, alias 0, rules 19, ai 1, asked 4, wrong 0, $0.0088
+2026/11/04 00:02:08 [test after 0] COS-S133: 19 lines, alias 0, rules 17, ai 0, asked 2, wrong 0, $0.0074
+2026/11/04 00:02:17 [test after 0] COS-S134: 19 lines, alias 0, rules 13, ai 2, asked 4, wrong 0, $0.0070
+2026/11/04 00:02:22 [test after 0] COS-S135: 12 lines, alias 0, rules 8, ai 3, asked 1, wrong 0, $0.0043
+2026/11/04 00:02:34 [test after 0] COS-S136: 21 lines, alias 0, rules 16, ai 1, asked 4, wrong 0, $0.0103
+2026/11/04 00:02:40 [test after 0] COS-S137: 19 lines, alias 0, rules 14, ai 3, asked 2, wrong 0, $0.0064
+2026/11/04 00:02:50 [test after 0] COS-S138: 15 lines, alias 0, rules 9, ai 4, asked 2, wrong 0, $0.0082
+2026/11/04 00:03:01 [test after 0] COS-S139: 25 lines, alias 0, rules 18, ai 2, asked 5, wrong 0, $0.0096
+2026/11/04 00:03:13 [test after 0] COS-S140: 22 lines, alias 0, rules 17, ai 0, asked 5, wrong 0, $0.0095
+2026/11/04 00:03:22 [test after 0] COS-S141: 12 lines, alias 0, rules 10, ai 1, asked 1, wrong 0, $0.0063
+2026/11/04 00:03:30 [test after 0] COS-S142: 19 lines, alias 0, rules 15, ai 1, asked 3, wrong 0, $0.0067
+2026/11/04 00:03:39 [test after 0] COS-S143: 22 lines, alias 0, rules 19, ai 0, asked 3, wrong 0, $0.0071
+2026/11/04 00:03:44 [test after 0] COS-S144: 13 lines, alias 0, rules 9, ai 1, asked 3, wrong 0, $0.0046
+2026/11/04 00:03:51 [test after 0] COS-S145: 14 lines, alias 0, rules 10, ai 0, asked 4, wrong 0, $0.0053
+2026/11/04 00:03:59 [test after 0] COS-S146: 21 lines, alias 0, rules 15, ai 4, asked 2, wrong 0, $0.0081
+2026/11/04 00:04:06 [test after 0] COS-S147: 25 lines, alias 0, rules 20, ai 2, asked 3, wrong 0, $0.0070
+2026/11/04 00:04:11 [test after 0] COS-S148: 12 lines, alias 0, rules 11, ai 0, asked 1, wrong 0, $0.0043
+2026/11/04 00:04:20 [test after 0] COS-S149: 13 lines, alias 0, rules 12, ai 1, asked 0, wrong 0, $0.0069
+2026/11/04 00:04:29 [test after 0] COS-S150: 22 lines, alias 0, rules 15, ai 4, asked 3, wrong 0, $0.0071
+2026/11/04 00:04:35 [desk] learned from 16 line(s)
+2026/11/04 00:04:35 [spark-checks-all 1] COS-S001: 16 lines, alias 0, rules 14, ai 1, asked 1, wrong 0 | agree 14/14, disagree 0, spark alone 1/1, $0.0052
+2026/11/04 00:04:40 [desk] learned from 13 line(s)
+2026/11/04 00:04:40 [spark-checks-all 2] COS-S002: 13 lines, alias 0, rules 13, ai 0, asked 0, wrong 0 | agree 13/13, disagree 0, spark alone 0/0, $0.0050
+2026/11/04 00:04:49 [desk] learned from 17 line(s)
+2026/11/04 00:04:49 [spark-checks-all 3] COS-S003: 17 lines, alias 0, rules 12, ai 1, asked 4, wrong 0 | agree 12/12, disagree 0, spark alone 1/1, $0.0066
+2026/11/04 00:04:55 [desk] learned from 13 line(s)
+2026/11/04 00:04:55 [spark-checks-all 4] COS-S004: 13 lines, alias 0, rules 9, ai 2, asked 2, wrong 0 | agree 9/9, disagree 0, spark alone 2/2, $0.0046
+2026/11/04 00:05:00 [desk] learned from 12 line(s)
+2026/11/04 00:05:00 [spark-checks-all 5] COS-S005: 12 lines, alias 0, rules 9, ai 2, asked 1, wrong 0 | agree 9/9, disagree 0, spark alone 2/2, $0.0041
+2026/11/04 00:05:10 [desk] learned from 25 line(s)
+2026/11/04 00:05:10 [spark-checks-all 6] COS-S006: 25 lines, alias 0, rules 17, ai 3, asked 5, wrong 0 | agree 17/17, disagree 0, spark alone 3/3, $0.0088
+2026/11/04 00:05:18 [desk] learned from 12 line(s)
+2026/11/04 00:05:18 [spark-checks-all 7] COS-S007: 12 lines, alias 0, rules 9, ai 1, asked 2, wrong 0 | agree 9/9, disagree 0, spark alone 1/1, $0.0058
+2026/11/04 00:05:25 [desk] learned from 14 line(s)
+2026/11/04 00:05:25 [spark-checks-all 8] COS-S008: 14 lines, alias 0, rules 12, ai 1, asked 1, wrong 0 | agree 12/12, disagree 0, spark alone 1/1, $0.0061
+2026/11/04 00:05:40 [desk] learned from 25 line(s)
+2026/11/04 00:05:40 [spark-checks-all 9] COS-S009: 25 lines, alias 0, rules 19, ai 1, asked 5, wrong 0 | agree 19/19, disagree 0, spark alone 1/1, $0.0119
+2026/11/04 00:05:47 [desk] learned from 13 line(s)
+2026/11/04 00:05:47 [spark-checks-all 10] COS-S010: 13 lines, alias 0, rules 11, ai 0, asked 2, wrong 0 | agree 11/11, disagree 0, spark alone 0/0, $0.0055
+2026/11/04 00:05:57 [desk] learned from 20 line(s)
+2026/11/04 00:05:57 [spark-checks-all 11] COS-S011: 20 lines, alias 0, rules 15, ai 1, asked 4, wrong 0 | agree 15/15, disagree 0, spark alone 1/1, $0.0081
+2026/11/04 00:06:07 [desk] learned from 22 line(s)
+2026/11/04 00:06:07 [spark-checks-all 12] COS-S012: 22 lines, alias 0, rules 17, ai 2, asked 3, wrong 0 | agree 17/17, disagree 0, spark alone 2/2, $0.0087
+2026/11/04 00:06:15 [desk] learned from 15 line(s)
+2026/11/04 00:06:15 [spark-checks-all 13] COS-S013: 15 lines, alias 0, rules 14, ai 0, asked 1, wrong 0 | agree 14/14, disagree 0, spark alone 0/0, $0.0066
+2026/11/04 00:06:23 [desk] learned from 16 line(s)
+2026/11/04 00:06:23 [spark-checks-all 14] COS-S014: 16 lines, alias 3, rules 12, ai 0, asked 1, wrong 0 | agree 15/15, disagree 0, spark alone 0/0, $0.0059
+2026/11/04 00:06:33 [desk] learned from 22 line(s)
+2026/11/04 00:06:33 [spark-checks-all 15] COS-S015: 22 lines, alias 0, rules 13, ai 6, asked 3, wrong 0 | agree 13/13, disagree 0, spark alone 6/6, $0.0086
+2026/11/04 00:06:40 [desk] learned from 16 line(s)
+2026/11/04 00:06:40 [spark-checks-all 16] COS-S016: 16 lines, alias 0, rules 12, ai 2, asked 2, wrong 0 | agree 12/12, disagree 0, spark alone 2/2, $0.0054
+2026/11/04 00:06:50 [desk] learned from 14 line(s)
+2026/11/04 00:06:50 [spark-checks-all 17] COS-S017: 14 lines, alias 0, rules 10, ai 2, asked 2, wrong 0 | agree 10/10, disagree 0, spark alone 2/2, $0.0076
+2026/11/04 00:07:03 [desk] learned from 23 line(s)
+2026/11/04 00:07:03 [spark-checks-all 18] COS-S018: 23 lines, alias 0, rules 18, ai 3, asked 2, wrong 0 | agree 18/18, disagree 0, spark alone 3/3, $0.0103
+2026/11/04 00:07:14 [desk] learned from 12 line(s)
+2026/11/04 00:07:14 [spark-checks-all 19] COS-S019: 12 lines, alias 0, rules 9, ai 1, asked 2, wrong 0 | agree 9/9, disagree 0, spark alone 1/1, $0.0074
+2026/11/04 00:07:22 [desk] learned from 20 line(s)
+2026/11/04 00:07:22 [spark-checks-all 20] COS-S020: 20 lines, alias 0, rules 13, ai 2, asked 5, wrong 0 | agree 13/13, disagree 0, spark alone 2/2, $0.0066
+2026/11/04 00:07:34 [desk] learned from 24 line(s)
+2026/11/04 00:07:34 [spark-checks-all 21] COS-S021: 24 lines, alias 3, rules 16, ai 0, asked 5, wrong 0 | agree 19/19, disagree 0, spark alone 0/0, $0.0093
+2026/11/04 00:07:41 [desk] learned from 17 line(s)
+2026/11/04 00:07:41 [spark-checks-all 22] COS-S022: 17 lines, alias 0, rules 14, ai 1, asked 2, wrong 0 | agree 14/14, disagree 0, spark alone 1/1, $0.0055
+2026/11/04 00:07:53 [desk] learned from 24 line(s)
+2026/11/04 00:07:53 [spark-checks-all 23] COS-S023: 24 lines, alias 0, rules 19, ai 2, asked 3, wrong 0 | agree 19/19, disagree 0, spark alone 2/2, $0.0071
+2026/11/04 00:08:00 [desk] learned from 13 line(s)
+2026/11/04 00:08:00 [spark-checks-all 24] COS-S024: 13 lines, alias 3, rules 8, ai 1, asked 1, wrong 0 | agree 11/11, disagree 0, spark alone 1/1, $0.0059
+2026/11/04 00:08:12 [desk] learned from 21 line(s)
+2026/11/04 00:08:12 [spark-checks-all 25] COS-S025: 21 lines, alias 1, rules 15, ai 3, asked 2, wrong 0 | agree 16/16, disagree 0, spark alone 3/3, $0.0094
+2026/11/04 00:08:22 [desk] learned from 19 line(s)
+2026/11/04 00:08:22 [spark-checks-all 26] COS-S026: 19 lines, alias 0, rules 15, ai 1, asked 3, wrong 0 | agree 15/15, disagree 0, spark alone 1/1, $0.0060
+2026/11/04 00:08:38 [desk] learned from 21 line(s)
+2026/11/04 00:08:38 [spark-checks-all 27] COS-S027: 21 lines, alias 3, rules 14, ai 1, asked 3, wrong 0 | agree 17/17, disagree 0, spark alone 1/1, $0.0123
+2026/11/04 00:08:45 [desk] learned from 16 line(s)
+2026/11/04 00:08:45 [spark-checks-all 28] COS-S028: 16 lines, alias 3, rules 12, ai 1, asked 0, wrong 0 | agree 15/15, disagree 0, spark alone 1/1, $0.0058
+2026/11/04 00:08:55 [desk] learned from 19 line(s)
+2026/11/04 00:08:55 [spark-checks-all 29] COS-S029: 19 lines, alias 5, rules 9, ai 2, asked 3, wrong 0 | agree 14/14, disagree 0, spark alone 2/2, $0.0076
+2026/11/04 00:09:02 [desk] learned from 14 line(s)
+2026/11/04 00:09:02 [spark-checks-all 30] COS-S030: 14 lines, alias 0, rules 11, ai 1, asked 2, wrong 0 | agree 11/11, disagree 0, spark alone 1/1, $0.0057
+2026/11/04 00:14:44 [engineer] list_residue {"limit":62}
+2026/11/04 00:14:44 [engineer] list_rules {}
+2026/11/04 00:14:44 [engineer] read_catalogue {"limit":50}
+2026/11/04 00:15:03 [engineer] search_catalogue {"query":"coliprev"}
+2026/11/04 00:15:03 [engineer] search_catalogue {"query":"solyne vitamine"}
+2026/11/04 00:15:03 [engineer] search_catalogue {"query":"venus"}
+2026/11/04 00:15:03 [engineer] search_catalogue {"query":"newtril"}
+2026/11/04 00:15:03 [engineer] search_catalogue {"query":"biomax"}
+2026/11/04 00:15:19 [engineer] list_residue {"limit":100}
+2026/11/04 00:15:19 [engineer] search_catalogue {"query":"vavo"}
+2026/11/04 00:15:19 [engineer] search_catalogue {"query":"durex preservatif"}
+2026/11/04 00:15:19 [engineer] read_catalogue {"query":"solyne"}
+2026/11/04 00:15:47 [engineer] run_benchmark {"items":[{"action":{"replace":"creme"},"pattern":"crm|crem","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"nettoyant"},"pattern":"net","scope":{"kind":"global"},"type":"synonym"},{"action":{"attr":"variant","policy":"marker","value":"plus"},"pattern":"plus","scope":{"kind":"globa…
+2026/11/04 00:15:47 [engineer] run_benchmark {"action":{"replace":"creme"},"pattern":"crm|crem","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:47 [engineer] run_benchmark {"action":{"replace":"nettoyant"},"pattern":"net","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:47 [engineer] run_benchmark {"action":{"attr":"variant","policy":"marker","value":"plus"},"pattern":"plus","scope":{"kind":"global"},"type":"attribute"}
+2026/11/04 00:15:47 [engineer] run_benchmark {"action":{"role":"stop"},"pattern":"shp|gtte|buv|fl","scope":{"kind":"global"},"type":"word"}
+2026/11/04 00:15:47 [engineer] run_benchmark {"action":{"replace":"ecra"},"pattern":"ecran","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:47 [engineer] run_benchmark {"action":{"replace":"insupene"},"pattern":"insupen","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:15:50 [engineer] run_benchmark {"rule":{"action":{"replace":"creme"},"pattern":"crm|crem","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:15:59 [engineer] run_benchmark {"rule":{"action":{"replace":"nettoyant"},"pattern":"net","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:16:01 [engineer] run_benchmark {"rule":{"action":{"attr":"variant","policy":"marker","value":"plus"},"pattern":"plus","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:16:02 [engineer] run_benchmark {"rule":{"action":{"replace":"ecra"},"pattern":"ecran","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:16:04 [engineer] run_benchmark {"rule":{"action":{"replace":"insupene"},"pattern":"insupen","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:16:27 [engineer] run_benchmark {"rule":{"action":{"attr":"variant","policy":"marker","value":"plus"},"pattern":"newtril plus","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:16:30 [engineer] run_benchmark {"rule":{"action":{"role":"stop"},"pattern":"shp","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:16:32 [engineer] run_benchmark {"rule":{"action":{"role":"stop"},"pattern":"gtte|buv","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:16:35 [engineer] run_benchmark {"rule":{"action":{"role":"stop"},"pattern":"fl","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:16:53 [engineer] run_benchmark {"rule":{"action":{"role":"stop"},"pattern":"gtte|buv|fl","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:16:55 [engineer] run_benchmark {"rule":{"action":{"replace":"vitamine"},"pattern":"vitamines","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:16:57 [engineer] run_benchmark {"rule":{"action":{"role":"stop"},"pattern":"anti","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:16:59 [engineer] run_benchmark {"rule":{"action":{"replace":"douceur"},"pattern":"dent","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:17:01 [engineer] calibration after 30 invoices: muse-spark-1.3, residue 62, accepted [], rejected [], $0.1964
+2026/11/04 00:17:01 [calibration after 30 invoices] accepted 5, rejected 28; 306/396 right with no AI (77 %), 1 wrong → 317/396 right with no AI (80 %), 1 wrong; search BM25 (brand ×1.5) + trigrams: 95.5 % in the top 8 (MRR 0.94); engineer [] ($0.2230)
+2026/11/04 00:17:06 [test after 30] COS-S121: 14 lines, alias 4, rules 10, ai 0, asked 0, wrong 0, $0.0051
+2026/11/04 00:17:16 [test after 30] COS-S122: 20 lines, alias 0, rules 19, ai 0, asked 1, wrong 0, $0.0090
+2026/11/04 00:17:26 [test after 30] COS-S123: 21 lines, alias 0, rules 21, ai 0, asked 0, wrong 0, $0.0078
+2026/11/04 00:17:32 [test after 30] COS-S124: 13 lines, alias 4, rules 5, ai 1, asked 3, wrong 0, $0.0050
+2026/11/04 00:17:39 [test after 30] COS-S125: 13 lines, alias 2, rules 9, ai 1, asked 1, wrong 0, $0.0059
+2026/11/04 00:17:48 [test after 30] COS-S126: 21 lines, alias 4, rules 13, ai 1, asked 3, wrong 0, $0.0076
+2026/11/04 00:17:57 [test after 30] COS-S127: 18 lines, alias 0, rules 13, ai 1, asked 4, wrong 0, $0.0060
+2026/11/04 00:18:01 [test after 30] COS-S128: 12 lines, alias 3, rules 7, ai 0, asked 2, wrong 0, $0.0038
+2026/11/04 00:18:09 [test after 30] COS-S129: 19 lines, alias 0, rules 15, ai 3, asked 1, wrong 0, $0.0068
+2026/11/04 00:18:20 [test after 30] COS-S130: 19 lines, alias 0, rules 15, ai 1, asked 3, wrong 0, $0.0082
+2026/11/04 00:18:27 [test after 30] COS-S131: 14 lines, alias 4, rules 6, ai 1, asked 3, wrong 0, $0.0057
+2026/11/04 00:18:40 [test after 30] COS-S132: 24 lines, alias 9, rules 12, ai 0, asked 3, wrong 0, $0.0101
+2026/11/04 00:18:56 [test after 30] COS-S133: 19 lines, alias 2, rules 15, ai 0, asked 2, wrong 0, $0.0058
+2026/11/04 00:19:07 [test after 30] COS-S134: 19 lines, alias 7, rules 8, ai 2, asked 2, wrong 0, $0.0075
+2026/11/04 00:19:14 [test after 30] COS-S135: 12 lines, alias 2, rules 8, ai 1, asked 1, wrong 0, $0.0058
+2026/11/04 00:19:26 [test after 30] COS-S136: 21 lines, alias 6, rules 11, ai 2, asked 2, wrong 0, $0.0089
+2026/11/04 00:19:32 [test after 30] COS-S137: 19 lines, alias 5, rules 10, ai 2, asked 2, wrong 0, $0.0058
+2026/11/04 00:19:41 [test after 30] COS-S138: 15 lines, alias 2, rules 9, ai 1, asked 3, wrong 0, $0.0071
+2026/11/04 00:19:55 [test after 30] COS-S139: 25 lines, alias 5, rules 15, ai 2, asked 3, wrong 0, $0.0104
+2026/11/04 00:20:08 [test after 30] COS-S140: 22 lines, alias 5, rules 12, ai 2, asked 3, wrong 0, $0.0108
+2026/11/04 00:20:25 [test after 30] COS-S141: 12 lines, alias 5, rules 7, ai 0, asked 0, wrong 0, $0.0089
+2026/11/04 00:20:33 [test after 30] COS-S142: 19 lines, alias 4, rules 13, ai 1, asked 1, wrong 0, $0.0066
+2026/11/04 00:20:42 [test after 30] COS-S143: 22 lines, alias 5, rules 15, ai 0, asked 2, wrong 0, $0.0081
+2026/11/04 00:20:47 [test after 30] COS-S144: 13 lines, alias 0, rules 9, ai 1, asked 3, wrong 0, $0.0043
+2026/11/04 00:20:53 [test after 30] COS-S145: 14 lines, alias 0, rules 11, ai 0, asked 3, wrong 0, $0.0051
+2026/11/04 00:21:01 [test after 30] COS-S146: 21 lines, alias 3, rules 15, ai 0, asked 3, wrong 0, $0.0078
+2026/11/04 00:21:11 [test after 30] COS-S147: 25 lines, alias 0, rules 20, ai 2, asked 3, wrong 0, $0.0086
+2026/11/04 00:21:16 [test after 30] COS-S148: 12 lines, alias 1, rules 10, ai 0, asked 1, wrong 0, $0.0046
+2026/11/04 00:21:21 [test after 30] COS-S149: 13 lines, alias 0, rules 13, ai 0, asked 0, wrong 0, $0.0047
+2026/11/04 00:21:29 [test after 30] COS-S150: 22 lines, alias 0, rules 17, ai 2, asked 3, wrong 0, $0.0071
+2026/11/04 00:21:36 [desk] learned from 14 line(s)
+2026/11/04 00:21:36 [spark-checks-all 31] COS-S031: 14 lines, alias 3, rules 10, ai 1, asked 0, wrong 0 | agree 13/13, disagree 0, spark alone 1/1, $0.0053
+2026/11/04 00:21:46 [desk] learned from 17 line(s)
+2026/11/04 00:21:46 [spark-checks-all 32] COS-S032: 17 lines, alias 5, rules 8, ai 1, asked 3, wrong 0 | agree 13/13, disagree 0, spark alone 1/1, $0.0078
+2026/11/04 00:21:54 [desk] learned from 24 line(s)
+2026/11/04 00:21:54 [learning 33] COS-S033: 24 lines, alias 8, rules 11, ai 3, asked 2, wrong 0 | agree 9/9, disagree 0, spark alone 3/3, $0.0052
+2026/11/04 00:21:59 [desk] learned from 25 line(s)
+2026/11/04 00:21:59 [learning 34] COS-S034: 25 lines, alias 0, rules 19, ai 5, asked 1, wrong 0 | agree 2/2, disagree 0, spark alone 5/5, $0.0030
+2026/11/04 00:22:05 [desk] learned from 12 line(s)
+2026/11/04 00:22:05 [learning 35] COS-S035: 12 lines, alias 2, rules 8, ai 0, asked 2, wrong 0 | agree 4/4, disagree 0, spark alone 0/0, $0.0031
+2026/11/04 00:22:10 [desk] learned from 13 line(s)
+2026/11/04 00:22:10 [learning 36] COS-S036: 13 lines, alias 4, rules 6, ai 2, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 2/2, $0.0035
+2026/11/04 00:22:17 [desk] learned from 21 line(s)
+2026/11/04 00:22:17 [learning 37] COS-S037: 21 lines, alias 4, rules 13, ai 1, asked 3, wrong 0 | agree 5/5, disagree 0, spark alone 1/1, $0.0047
+2026/11/04 00:22:21 [desk] learned from 13 line(s)
+2026/11/04 00:22:21 [learning 38] COS-S038: 13 lines, alias 7, rules 6, ai 0, asked 0, wrong 0 | agree 6/6, disagree 0, spark alone 0/0, $0.0026
+2026/11/04 00:22:31 [desk] learned from 13 line(s)
+2026/11/04 00:22:31 [learning 39] COS-S039: 13 lines, alias 2, rules 7, ai 2, asked 2, wrong 0 | agree 5/5, disagree 0, spark alone 2/2, $0.0067
+2026/11/04 00:22:38 [desk] learned from 22 line(s)
+2026/11/04 00:22:38 [learning 40] COS-S040: 22 lines, alias 6, rules 11, ai 2, asked 3, wrong 0 | agree 7/7, disagree 0, spark alone 2/2, $0.0043
+2026/11/04 00:22:42 [desk] learned from 12 line(s)
+2026/11/04 00:22:42 [learning 41] COS-S041: 12 lines, alias 0, rules 8, ai 1, asked 3, wrong 0 | agree 2/2, disagree 0, spark alone 1/1, $0.0027
+2026/11/04 00:22:54 [desk] learned from 17 line(s)
+2026/11/04 00:22:54 [learning 42] COS-S042: 17 lines, alias 0, rules 9, ai 4, asked 4, wrong 0 | agree 3/3, disagree 0, spark alone 4/4, $0.0071
+2026/11/04 00:23:06 [desk] learned from 12 line(s)
+2026/11/04 00:23:06 [learning 43] COS-S043: 12 lines, alias 6, rules 5, ai 0, asked 1, wrong 0 | agree 4/4, disagree 0, spark alone 0/0, $0.0070
+2026/11/04 00:23:12 [desk] learned from 19 line(s)
+2026/11/04 00:23:12 [learning 44] COS-S044: 19 lines, alias 9, rules 9, ai 0, asked 1, wrong 0 | agree 8/8, disagree 0, spark alone 0/0, $0.0036
+2026/11/04 00:23:17 [desk] learned from 12 line(s)
+2026/11/04 00:23:17 [learning 45] COS-S045: 12 lines, alias 5, rules 6, ai 0, asked 1, wrong 0 | agree 3/3, disagree 0, spark alone 0/0, $0.0032
+2026/11/04 00:23:28 [desk] learned from 25 line(s)
+2026/11/04 00:23:28 [learning 46] COS-S046: 25 lines, alias 0, rules 23, ai 0, asked 2, wrong 0 | agree 7/7, disagree 0, spark alone 0/0, $0.0056
+2026/11/04 00:23:36 [desk] learned from 25 line(s)
+2026/11/04 00:23:36 [learning 47] COS-S047: 25 lines, alias 9, rules 12, ai 1, asked 3, wrong 0 | agree 10/10, disagree 0, spark alone 1/1, $0.0056
+2026/11/04 00:23:41 [desk] learned from 15 line(s)
+2026/11/04 00:23:41 [learning 48] COS-S048: 15 lines, alias 8, rules 5, ai 1, asked 0, wrong 1 | agree 4/4, disagree 0, spark alone 1/1, $0.0030
+2026/11/04 00:23:48 [desk] learned from 15 line(s)
+2026/11/04 00:23:48 [learning 49] COS-S049: 15 lines, alias 3, rules 8, ai 2, asked 2, wrong 0 | agree 2/2, disagree 0, spark alone 2/2, $0.0036
+2026/11/04 00:24:01 [desk] learned from 22 line(s)
+2026/11/04 00:24:01 [learning 50] COS-S050: 22 lines, alias 10, rules 7, ai 0, asked 4, wrong 1 | agree 5/5, disagree 0, spark alone 0/0, $0.0071
+2026/11/04 00:24:10 [desk] learned from 13 line(s)
+2026/11/04 00:24:10 [learning 51] COS-S051: 13 lines, alias 5, rules 4, ai 2, asked 2, wrong 0 | agree 7/7, disagree 0, spark alone 2/2, $0.0062
+2026/11/04 00:24:23 [desk] learned from 19 line(s)
+2026/11/04 00:24:23 [learning 52] COS-S052: 19 lines, alias 9, rules 8, ai 1, asked 1, wrong 0 | agree 11/11, disagree 0, spark alone 1/1, $0.0078
+2026/11/04 00:24:33 [desk] learned from 17 line(s)
+2026/11/04 00:24:33 [learning 53] COS-S053: 17 lines, alias 7, rules 9, ai 1, asked 0, wrong 0 | agree 16/16, disagree 0, spark alone 1/1, $0.0073
+2026/11/04 00:24:40 [desk] learned from 25 line(s)
+2026/11/04 00:24:40 [learning 54] COS-S054: 25 lines, alias 13, rules 12, ai 0, asked 0, wrong 0 | agree 10/10, disagree 0, spark alone 0/0, $0.0036
+2026/11/04 00:24:46 [desk] learned from 15 line(s)
+2026/11/04 00:24:46 [learning 55] COS-S055: 15 lines, alias 5, rules 8, ai 2, asked 0, wrong 0 | agree 3/3, disagree 0, spark alone 2/2, $0.0028
+2026/11/04 00:24:55 [desk] learned from 18 line(s)
+2026/11/04 00:24:55 [learning 56] COS-S056: 18 lines, alias 10, rules 6, ai 1, asked 1, wrong 0 | agree 6/6, disagree 0, spark alone 1/1, $0.0054
+2026/11/04 00:25:08 [desk] learned from 16 line(s)
+2026/11/04 00:25:08 [learning 57] COS-S057: 16 lines, alias 12, rules 3, ai 1, asked 0, wrong 0 | agree 8/8, disagree 0, spark alone 1/1, $0.0074
+2026/11/04 00:25:13 [desk] learned from 12 line(s)
+2026/11/04 00:25:13 [learning 58] COS-S058: 12 lines, alias 0, rules 10, ai 1, asked 1, wrong 0 | agree 0/0, disagree 0, spark alone 1/1, $0.0024
+2026/11/04 00:25:20 [desk] learned from 12 line(s)
+2026/11/04 00:25:20 [learning 59] COS-S059: 12 lines, alias 5, rules 6, ai 0, asked 1, wrong 0 | agree 3/3, disagree 0, spark alone 0/0, $0.0034
+2026/11/04 00:25:29 [desk] learned from 14 line(s)
+2026/11/04 00:25:29 [learning 60] COS-S060: 14 lines, alias 8, rules 5, ai 0, asked 1, wrong 0 | agree 13/13, disagree 0, spark alone 0/0, $0.0062
+2026/11/04 00:32:42 [engineer] list_residue {"limit":72}
+2026/11/04 00:32:49 [engineer] read_catalogue {"limit":30,"query":"bib plastique chicco remond fiko cocco"}
+2026/11/04 00:32:49 [engineer] list_rules {}
+2026/11/04 00:32:49 [engineer] search_catalogue {"query":"bobogel hiposol stevia aldis med"}
+2026/11/04 00:33:01 [engineer] search_catalogue {"query":"bibron biberon plastique plastic chicco fiko"}
+2026/11/04 00:33:01 [engineer] search_catalogue {"query":"shamp junior gtt flacon dent sigadent"}
+2026/11/04 00:33:01 [engineer] search_catalogue {"query":"creme harrar heaven masse gencive"}
+2026/11/04 00:33:17 [engineer] search_catalogue {"query":"flacon flc plastique plastic"}
+2026/11/04 00:33:39 [engineer] run_benchmark {"items":[{"action":{"replace":"bib"},"pattern":"biberon|bibron","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"plastic"},"pattern":"plas|plast","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"shamp"},"pattern":"shampooing|shampoing","scope":{"kind":"global"},"ty…
+2026/11/04 00:33:39 [engineer] run_benchmark {"action":{"replace":"bib"},"pattern":"biberon|bibron","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:33:39 [engineer] run_benchmark {"action":{"replace":"plastic"},"pattern":"plas|plast","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:33:39 [engineer] run_benchmark {"action":{"replace":"shamp"},"pattern":"shampooing|shampoing","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:33:39 [engineer] run_benchmark {"action":{"replace":"gtt"},"pattern":"gouttes|goutte","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:33:39 [engineer] run_benchmark {"action":{"replace":"creme"},"pattern":"crm","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:33:39 [engineer] run_benchmark {"action":{"replace":"geant"},"pattern":"geante|geantes|geants","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:33:39 [engineer] run_benchmark {"action":{"replace":"vitamine"},"pattern":"vitamines","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:33:39 [engineer] run_benchmark {"action":{"replace":"b/{n}"},"pattern":"b{n}","scope":{"kind":"global"},"type":"rewrite"}
+2026/11/04 00:33:39 [engineer] run_benchmark {"action":{"role":"descriptor"},"pattern":"flc|flacon|flacons","scope":{"kind":"global"},"type":"word"}
+2026/11/04 00:33:39 [engineer] run_benchmark {"action":{"replace":"junior"},"pattern":"enf","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:33:42 [engineer] run_benchmark {"rule":{"action":{"replace":"bib"},"pattern":"biberon|bibron","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:33:54 [engineer] run_benchmark {"rule":{"action":{"replace":"plastic"},"pattern":"plas|plast","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:34:02 [engineer] run_benchmark {"rule":{"action":{"replace":"plastic"},"pattern":"plas","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:34:06 [engineer] calibration after 60 invoices: muse-spark-1.3, residue 72, accepted [], rejected [], $0.1310
+2026/11/04 00:34:06 [calibration after 60 invoices] accepted 3, rejected 9; 617/777 right with no AI (79 %), 1 wrong → 629/777 right with no AI (81 %), 1 wrong; search BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity: 97.2 % in the top 8 (MRR 0.96); engineer [] ($0.1610)
+2026/11/04 00:34:12 [test after 60] COS-S121: 14 lines, alias 8, rules 6, ai 0, asked 0, wrong 0, $0.0061
+2026/11/04 00:34:21 [test after 60] COS-S122: 20 lines, alias 2, rules 17, ai 0, asked 1, wrong 0, $0.0060
+2026/11/04 00:34:27 [test after 60] COS-S123: 21 lines, alias 0, rules 21, ai 0, asked 0, wrong 0, $0.0040
+2026/11/04 00:34:32 [test after 60] COS-S124: 13 lines, alias 6, rules 4, ai 0, asked 3, wrong 0, $0.0033
+2026/11/04 00:34:42 [test after 60] COS-S125: 13 lines, alias 2, rules 10, ai 0, asked 1, wrong 0, $0.0060
+2026/11/04 00:34:48 [test after 60] COS-S126: 21 lines, alias 8, rules 10, ai 1, asked 1, wrong 1, $0.0046
+2026/11/04 00:34:51 [test after 60] COS-S127: 18 lines, alias 3, rules 12, ai 0, asked 3, wrong 0, $0.0020
+2026/11/04 00:34:54 [test after 60] COS-S128: 12 lines, alias 5, rules 5, ai 0, asked 2, wrong 0, $0.0024
+2026/11/04 00:35:03 [test after 60] COS-S129: 19 lines, alias 2, rules 13, ai 3, asked 1, wrong 0, $0.0062
+2026/11/04 00:35:09 [test after 60] COS-S130: 19 lines, alias 0, rules 16, ai 0, asked 3, wrong 0, $0.0035
+2026/11/04 00:35:12 [test after 60] COS-S131: 14 lines, alias 11, rules 2, ai 0, asked 1, wrong 0, $0.0025
+2026/11/04 00:35:29 [test after 60] COS-S132: 24 lines, alias 13, rules 9, ai 0, asked 2, wrong 0, $0.0117
+2026/11/04 00:35:32 [test after 60] COS-S133: 19 lines, alias 4, rules 13, ai 0, asked 2, wrong 0, $0.0027
+2026/11/04 00:35:36 [test after 60] COS-S134: 19 lines, alias 11, rules 5, ai 2, asked 1, wrong 0, $0.0032
+2026/11/04 00:35:43 [test after 60] COS-S135: 12 lines, alias 2, rules 8, ai 1, asked 1, wrong 0, $0.0051
+2026/11/04 00:35:52 [test after 60] COS-S136: 21 lines, alias 9, rules 8, ai 3, asked 1, wrong 0, $0.0057
+2026/11/04 00:35:56 [test after 60] COS-S137: 19 lines, alias 7, rules 8, ai 2, asked 2, wrong 0, $0.0037
+2026/11/04 00:36:02 [test after 60] COS-S138: 15 lines, alias 4, rules 8, ai 1, asked 1, wrong 1, $0.0037
+2026/11/04 00:36:14 [test after 60] COS-S139: 25 lines, alias 6, rules 15, ai 2, asked 2, wrong 0, $0.0079
+2026/11/04 00:36:25 [test after 60] COS-S140: 22 lines, alias 6, rules 12, ai 1, asked 3, wrong 0, $0.0068
+2026/11/04 00:36:38 [test after 60] COS-S141: 12 lines, alias 6, rules 6, ai 0, asked 0, wrong 0, $0.0063
+2026/11/04 00:36:42 [test after 60] COS-S142: 19 lines, alias 5, rules 12, ai 2, asked 0, wrong 0, $0.0038
+2026/11/04 00:36:49 [test after 60] COS-S143: 22 lines, alias 7, rules 13, ai 1, asked 1, wrong 0, $0.0043
+2026/11/04 00:36:54 [test after 60] COS-S144: 13 lines, alias 3, rules 7, ai 0, asked 3, wrong 0, $0.0037
+2026/11/04 00:37:00 [test after 60] COS-S145: 14 lines, alias 1, rules 10, ai 0, asked 3, wrong 0, $0.0038
+2026/11/04 00:37:06 [test after 60] COS-S146: 21 lines, alias 6, rules 13, ai 0, asked 2, wrong 0, $0.0046
+2026/11/04 00:37:11 [test after 60] COS-S147: 25 lines, alias 7, rules 16, ai 0, asked 2, wrong 0, $0.0036
+2026/11/04 00:37:15 [test after 60] COS-S148: 12 lines, alias 4, rules 7, ai 0, asked 1, wrong 0, $0.0034
+2026/11/04 00:37:20 [test after 60] COS-S149: 13 lines, alias 0, rules 13, ai 0, asked 0, wrong 0, $0.0018
+2026/11/04 00:37:27 [test after 60] COS-S150: 22 lines, alias 0, rules 17, ai 2, asked 3, wrong 0, $0.0032
+2026/11/04 00:37:35 [desk] learned from 24 line(s)
+2026/11/04 00:37:35 [learning 61] COS-S061: 24 lines, alias 9, rules 14, ai 0, asked 1, wrong 0 | agree 11/11, disagree 0, spark alone 0/0, $0.0057
+2026/11/04 00:37:44 [desk] learned from 13 line(s)
+2026/11/04 00:37:44 [learning 62] COS-S062: 13 lines, alias 3, rules 8, ai 1, asked 1, wrong 0 | agree 4/4, disagree 0, spark alone 1/1, $0.0047
+2026/11/04 00:37:50 [desk] learned from 21 line(s)
+2026/11/04 00:37:50 [learning 63] COS-S063: 21 lines, alias 10, rules 8, ai 0, asked 3, wrong 0 | agree 9/9, disagree 0, spark alone 0/0, $0.0036
+2026/11/04 00:37:56 [desk] learned from 17 line(s)
+2026/11/04 00:37:56 [learning 64] COS-S064: 17 lines, alias 4, rules 11, ai 0, asked 1, wrong 1 | agree 4/4, disagree 0, spark alone 0/0, $0.0029
+2026/11/04 00:38:01 [desk] learned from 14 line(s)
+2026/11/04 00:38:01 [learning 65] COS-S065: 14 lines, alias 7, rules 5, ai 1, asked 1, wrong 0 | agree 4/4, disagree 0, spark alone 1/1, $0.0031
+2026/11/04 00:38:14 [desk] learned from 16 line(s)
+2026/11/04 00:38:14 [learning 66] COS-S066: 16 lines, alias 3, rules 12, ai 0, asked 1, wrong 0 | agree 8/8, disagree 0, spark alone 0/0, $0.0060
+2026/11/04 00:38:20 [desk] learned from 15 line(s)
+2026/11/04 00:38:20 [learning 67] COS-S067: 15 lines, alias 0, rules 11, ai 1, asked 3, wrong 0 | agree 1/1, disagree 0, spark alone 1/1, $0.0024
+2026/11/04 00:38:27 [desk] learned from 23 line(s)
+2026/11/04 00:38:27 [learning 68] COS-S068: 23 lines, alias 6, rules 14, ai 0, asked 3, wrong 0 | agree 7/7, disagree 0, spark alone 0/0, $0.0033
+2026/11/04 00:38:38 [desk] learned from 12 line(s)
+2026/11/04 00:38:38 [learning 69] COS-S069: 12 lines, alias 5, rules 4, ai 0, asked 3, wrong 0 | agree 9/9, disagree 1, spark alone 0/0, $0.0076
+2026/11/04 00:38:44 [desk] learned from 13 line(s)
+2026/11/04 00:38:44 [learning 70] COS-S070: 13 lines, alias 2, rules 9, ai 0, asked 2, wrong 0 | agree 6/6, disagree 0, spark alone 0/0, $0.0032
+2026/11/04 00:38:50 [desk] learned from 19 line(s)
+2026/11/04 00:38:50 [learning 71] COS-S071: 19 lines, alias 7, rules 10, ai 0, asked 2, wrong 0 | agree 8/8, disagree 0, spark alone 0/0, $0.0037
+2026/11/04 00:39:03 [desk] learned from 23 line(s)
+2026/11/04 00:39:03 [learning 72] COS-S072: 23 lines, alias 11, rules 8, ai 0, asked 4, wrong 0 | agree 7/7, disagree 0, spark alone 0/0, $0.0033
+2026/11/04 00:39:16 [desk] learned from 25 line(s)
+2026/11/04 00:39:16 [learning 73] COS-S073: 25 lines, alias 5, rules 16, ai 3, asked 1, wrong 0 | agree 21/21, disagree 0, spark alone 3/3, $0.0081
+2026/11/04 00:39:23 [desk] learned from 12 line(s)
+2026/11/04 00:39:23 [learning 74] COS-S074: 12 lines, alias 8, rules 3, ai 1, asked 0, wrong 0 | agree 6/6, disagree 0, spark alone 1/1, $0.0044
+2026/11/04 00:39:32 [desk] learned from 19 line(s)
+2026/11/04 00:39:32 [learning 75] COS-S075: 19 lines, alias 4, rules 12, ai 0, asked 3, wrong 0 | agree 10/10, disagree 0, spark alone 0/0, $0.0047
+2026/11/04 00:39:39 [desk] learned from 25 line(s)
+2026/11/04 00:39:39 [learning 76] COS-S076: 25 lines, alias 0, rules 22, ai 1, asked 2, wrong 0 | agree 8/8, disagree 0, spark alone 1/1, $0.0039
+2026/11/04 00:39:48 [desk] learned from 12 line(s)
+2026/11/04 00:39:48 [learning 77] COS-S077: 12 lines, alias 7, rules 4, ai 0, asked 1, wrong 0 | agree 11/11, disagree 0, spark alone 0/0, $0.0060
+2026/11/04 00:39:57 [desk] learned from 25 line(s)
+2026/11/04 00:39:57 [learning 78] COS-S078: 25 lines, alias 15, rules 6, ai 1, asked 3, wrong 0 | agree 5/5, disagree 0, spark alone 1/1, $0.0044
+2026/11/04 00:40:01 [desk] learned from 17 line(s)
+2026/11/04 00:40:01 [learning 79] COS-S079: 17 lines, alias 5, rules 12, ai 0, asked 0, wrong 0 | agree 3/3, disagree 0, spark alone 0/0, $0.0017
+2026/11/04 00:40:12 [desk] learned from 24 line(s)
+2026/11/04 00:40:12 [learning 80] COS-S080: 24 lines, alias 3, rules 20, ai 0, asked 1, wrong 0 | agree 9/9, disagree 0, spark alone 0/0, $0.0056
+2026/11/04 00:40:17 [desk] learned from 13 line(s)
+2026/11/04 00:40:17 [learning 81] COS-S081: 13 lines, alias 0, rules 10, ai 1, asked 2, wrong 0 | agree 2/2, disagree 0, spark alone 1/1, $0.0022
+2026/11/04 00:40:24 [desk] learned from 19 line(s)
+2026/11/04 00:40:24 [learning 82] COS-S082: 19 lines, alias 10, rules 8, ai 1, asked 0, wrong 0 | agree 11/11, disagree 0, spark alone 1/1, $0.0047
+2026/11/04 00:40:30 [desk] learned from 21 line(s)
+2026/11/04 00:40:30 [learning 83] COS-S083: 21 lines, alias 12, rules 8, ai 0, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 0/0, $0.0030
+2026/11/04 00:40:37 [desk] learned from 14 line(s)
+2026/11/04 00:40:37 [learning 84] COS-S084: 14 lines, alias 7, rules 6, ai 1, asked 0, wrong 0 | agree 8/8, disagree 0, spark alone 1/1, $0.0046
+2026/11/04 00:40:43 [desk] learned from 18 line(s)
+2026/11/04 00:40:43 [learning 85] COS-S085: 18 lines, alias 12, rules 5, ai 0, asked 1, wrong 0 | agree 6/6, disagree 0, spark alone 0/0, $0.0029
+2026/11/04 00:40:50 [desk] learned from 13 line(s)
+2026/11/04 00:40:50 [learning 86] COS-S086: 13 lines, alias 3, rules 7, ai 1, asked 2, wrong 0 | agree 3/3, disagree 0, spark alone 1/1, $0.0035
+2026/11/04 00:41:05 [desk] learned from 20 line(s)
+2026/11/04 00:41:05 [learning 87] COS-S087: 20 lines, alias 10, rules 10, ai 0, asked 0, wrong 0 | agree 9/9, disagree 0, spark alone 0/0, $0.0052
+2026/11/04 00:41:16 [desk] learned from 21 line(s)
+2026/11/04 00:41:16 [learning 88] COS-S088: 21 lines, alias 9, rules 10, ai 0, asked 2, wrong 0 | agree 8/8, disagree 0, spark alone 0/0, $0.0058
+2026/11/04 00:41:26 [desk] learned from 23 line(s)
+2026/11/04 00:41:26 [learning 89] COS-S089: 23 lines, alias 5, rules 14, ai 2, asked 2, wrong 0 | agree 9/9, disagree 0, spark alone 2/2, $0.0054
+2026/11/04 00:41:32 [desk] learned from 18 line(s)
+2026/11/04 00:41:32 [learning 90] COS-S090: 18 lines, alias 14, rules 4, ai 0, asked 0, wrong 0 | agree 6/6, disagree 0, spark alone 0/0, $0.0032
+2026/11/04 00:50:17 [engineer] list_residue {"limit":76}
+2026/11/04 00:50:17 [engineer] list_rules {}
+2026/11/04 00:50:35 [engineer] list_residue {"limit":200}
+2026/11/04 00:50:41 [engineer] read_catalogue {"limit":50,"query":"ACM DEPIWHITE CREME CRM"}
+2026/11/04 00:50:41 [engineer] search_catalogue {"query":"JOHENSONS SHAMP"}
+2026/11/04 00:50:41 [engineer] search_catalogue {"query":"VENUS ECRA"}
+2026/11/04 00:50:41 [engineer] search_catalogue {"query":"TANAKOR WIN GTT"}
+2026/11/04 00:50:58 [engineer] search_catalogue {"query":"DEPIWHITE"}
+2026/11/04 00:50:58 [engineer] search_catalogue {"query":"ALDISMED COMP OCULAIRE"}
+2026/11/04 00:50:58 [engineer] search_catalogue {"query":"SHAMPOOING M2 NEW"}
+2026/11/04 00:50:58 [engineer] search_catalogue {"query":"NARRAK BROSSE"}
+2026/11/04 00:51:29 [engineer] run_benchmark {"items":[{"pattern":"shampooing","scope":{"kind":"global"},"type":"synonym","action":{"replace":"shamp"}},{"pattern":"compresse","scope":{"kind":"global"},"type":"synonym","action":{"replace":"comp"}},{"pattern":"bib","scope":{"kind":"global"},"type":"synonym","action":{"replace":"biberon"}},{"patt…
+2026/11/04 00:51:29 [engineer] run_benchmark {"pattern":"shampooing","scope":{"kind":"global"},"type":"synonym","action":{"replace":"shamp"}}
+2026/11/04 00:51:29 [engineer] run_benchmark {"pattern":"compresse","scope":{"kind":"global"},"type":"synonym","action":{"replace":"comp"}}
+2026/11/04 00:51:29 [engineer] run_benchmark {"pattern":"bib","scope":{"kind":"global"},"type":"synonym","action":{"replace":"biberon"}}
+2026/11/04 00:51:29 [engineer] run_benchmark {"pattern":"crm|crem","scope":{"kind":"global"},"type":"synonym","action":{"replace":"creme"}}
+2026/11/04 00:51:29 [engineer] run_benchmark {"pattern":"gouttes|goutte","scope":{"kind":"global"},"type":"synonym","action":{"replace":"gtt"}}
+2026/11/04 00:51:29 [engineer] run_benchmark {"pattern":"ecra","scope":{"kind":"global"},"type":"synonym","action":{"replace":"ecran"}}
+2026/11/04 00:51:33 [engineer] run_benchmark {"action":"{\"replace\": \"shamp\"}","pattern":"shampooing","scope":"{\"kind\": \"global\"}","type":"synonym"}
+2026/11/04 00:51:37 [engineer] run_benchmark {"rule":{"action":{"replace":"shamp"},"pattern":"shampooing","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:51:47 [engineer] search_catalogue {"query":"FIKO BIBERON SILICONE"}
+2026/11/04 00:51:47 [engineer] search_catalogue {"query":"DERMACTIVE CREME JOUR"}
+2026/11/04 00:51:47 [engineer] search_catalogue {"query":"DERMILYNE LENTISCIA"}
+2026/11/04 00:51:47 [engineer] search_catalogue {"query":"APPETIT SCI PHARMA"}
+2026/11/04 00:51:47 [engineer] calibration after 90 invoices: muse-spark-1.3, residue 76, accepted [], rejected [], $0.1548
+2026/11/04 00:51:47 [calibration after 90 invoices] accepted 3, rejected 7; 970/1189 right with no AI (82 %), 5 wrong → 984/1189 right with no AI (83 %), 5 wrong; search BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity: 97.2 % in the top 8 (MRR 0.95); engineer [] ($0.1879)
+2026/11/04 00:51:55 [test after 90] COS-S121: 14 lines, alias 8, rules 6, ai 0, asked 0, wrong 0, $0.0066
+2026/11/04 00:52:03 [test after 90] COS-S122: 20 lines, alias 2, rules 17, ai 0, asked 1, wrong 0, $0.0054
+2026/11/04 00:52:09 [test after 90] COS-S123: 21 lines, alias 4, rules 17, ai 0, asked 0, wrong 0, $0.0035
+2026/11/04 00:52:17 [test after 90] COS-S124: 13 lines, alias 8, rules 4, ai 0, asked 1, wrong 0, $0.0048
+2026/11/04 00:52:21 [test after 90] COS-S125: 13 lines, alias 6, rules 7, ai 0, asked 0, wrong 0, $0.0029
+2026/11/04 00:52:28 [test after 90] COS-S126: 21 lines, alias 11, rules 8, ai 0, asked 1, wrong 1, $0.0042
+2026/11/04 00:52:31 [test after 90] COS-S127: 18 lines, alias 9, rules 6, ai 0, asked 3, wrong 0, $0.0022
+2026/11/04 00:52:35 [test after 90] COS-S128: 12 lines, alias 6, rules 4, ai 0, asked 2, wrong 0, $0.0029
+2026/11/04 00:52:43 [test after 90] COS-S129: 19 lines, alias 4, rules 11, ai 3, asked 1, wrong 0, $0.0052
+2026/11/04 00:52:48 [test after 90] COS-S130: 19 lines, alias 5, rules 11, ai 0, asked 3, wrong 0, $0.0037
+2026/11/04 00:52:53 [test after 90] COS-S131: 14 lines, alias 11, rules 2, ai 0, asked 1, wrong 0, $0.0032
+2026/11/04 00:53:13 [test after 90] COS-S132: 24 lines, alias 13, rules 8, ai 0, asked 3, wrong 0, $0.0132
+2026/11/04 00:53:22 [test after 90] COS-S133: 19 lines, alias 5, rules 11, ai 0, asked 3, wrong 0, $0.0044
+2026/11/04 00:53:27 [test after 90] COS-S134: 19 lines, alias 12, rules 4, ai 2, asked 1, wrong 0, $0.0035
+2026/11/04 00:53:35 [test after 90] COS-S135: 12 lines, alias 6, rules 4, ai 1, asked 1, wrong 0, $0.0051
+2026/11/04 00:53:45 [test after 90] COS-S136: 21 lines, alias 11, rules 8, ai 1, asked 1, wrong 0, $0.0060
+2026/11/04 00:53:49 [test after 90] COS-S137: 19 lines, alias 9, rules 7, ai 2, asked 1, wrong 0, $0.0035
+2026/11/04 00:53:56 [test after 90] COS-S138: 15 lines, alias 5, rules 7, ai 1, asked 1, wrong 1, $0.0047
+2026/11/04 00:54:08 [test after 90] COS-S139: 25 lines, alias 6, rules 15, ai 0, asked 4, wrong 0, $0.0080
+2026/11/04 00:54:17 [test after 90] COS-S140: 22 lines, alias 8, rules 12, ai 0, asked 2, wrong 0, $0.0054
+2026/11/04 00:54:24 [test after 90] COS-S141: 12 lines, alias 7, rules 5, ai 0, asked 0, wrong 0, $0.0047
+2026/11/04 00:54:35 [test after 90] COS-S142: 19 lines, alias 5, rules 12, ai 1, asked 1, wrong 0, $0.0063
+2026/11/04 00:54:41 [test after 90] COS-S143: 22 lines, alias 7, rules 13, ai 1, asked 1, wrong 0, $0.0046
+2026/11/04 00:54:45 [test after 90] COS-S144: 13 lines, alias 6, rules 4, ai 0, asked 3, wrong 0, $0.0021
+2026/11/04 00:54:50 [test after 90] COS-S145: 14 lines, alias 1, rules 10, ai 0, asked 3, wrong 0, $0.0034
+2026/11/04 00:54:59 [test after 90] COS-S146: 21 lines, alias 8, rules 11, ai 0, asked 2, wrong 0, $0.0063
+2026/11/04 00:55:03 [test after 90] COS-S147: 25 lines, alias 12, rules 11, ai 0, asked 2, wrong 0, $0.0034
+2026/11/04 00:55:08 [test after 90] COS-S148: 12 lines, alias 4, rules 7, ai 0, asked 1, wrong 0, $0.0029
+2026/11/04 00:55:13 [test after 90] COS-S149: 13 lines, alias 4, rules 9, ai 0, asked 0, wrong 0, $0.0027
+2026/11/04 00:55:18 [test after 90] COS-S150: 22 lines, alias 1, rules 16, ai 2, asked 3, wrong 0, $0.0036
+2026/11/04 00:55:26 [desk] learned from 16 line(s)
+2026/11/04 00:55:26 [learning 91] COS-S091: 16 lines, alias 1, rules 14, ai 0, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 0/0, $0.0041
+2026/11/04 00:55:32 [desk] learned from 19 line(s)
+2026/11/04 00:55:32 [learning 92] COS-S092: 19 lines, alias 14, rules 5, ai 0, asked 0, wrong 0 | agree 9/9, disagree 0, spark alone 0/0, $0.0038
+2026/11/04 00:55:40 [desk] learned from 13 line(s)
+2026/11/04 00:55:40 [learning 93] COS-S093: 13 lines, alias 8, rules 5, ai 0, asked 0, wrong 0 | agree 6/6, disagree 0, spark alone 0/0, $0.0043
+2026/11/04 00:55:45 [desk] learned from 15 line(s)
+2026/11/04 00:55:45 [learning 94] COS-S094: 15 lines, alias 6, rules 7, ai 1, asked 1, wrong 0 | agree 2/2, disagree 0, spark alone 1/1, $0.0029
+2026/11/04 00:55:52 [desk] learned from 19 line(s)
+2026/11/04 00:55:52 [learning 95] COS-S095: 19 lines, alias 1, rules 12, ai 3, asked 3, wrong 0 | agree 5/5, disagree 0, spark alone 3/3, $0.0041
+2026/11/04 00:56:00 [desk] learned from 16 line(s)
+2026/11/04 00:56:00 [learning 96] COS-S096: 16 lines, alias 9, rules 6, ai 1, asked 0, wrong 0 | agree 5/5, disagree 0, spark alone 1/1, $0.0040
+2026/11/04 00:56:15 [desk] learned from 15 line(s)
+2026/11/04 00:56:15 [learning 97] COS-S097: 15 lines, alias 12, rules 2, ai 1, asked 0, wrong 0 | agree 7/7, disagree 0, spark alone 1/1, $0.0059
+2026/11/04 00:56:23 [desk] learned from 23 line(s)
+2026/11/04 00:56:23 [learning 98] COS-S098: 23 lines, alias 7, rules 11, ai 1, asked 3, wrong 1 | agree 3/3, disagree 0, spark alone 1/1, $0.0044
+2026/11/04 00:56:34 [desk] learned from 22 line(s)
+2026/11/04 00:56:34 [learning 99] COS-S099: 22 lines, alias 4, rules 17, ai 0, asked 1, wrong 0 | agree 11/11, disagree 0, spark alone 0/0, $0.0065
+2026/11/04 00:56:42 [desk] learned from 25 line(s)
+2026/11/04 00:56:42 [learning 100] COS-S100: 25 lines, alias 17, rules 7, ai 1, asked 0, wrong 0 | agree 8/8, disagree 0, spark alone 1/1, $0.0048
+2026/11/04 00:56:55 [desk] learned from 24 line(s)
+2026/11/04 00:56:55 [learning 101] COS-S101: 24 lines, alias 4, rules 18, ai 1, asked 1, wrong 0 | agree 9/9, disagree 0, spark alone 1/1, $0.0078
+2026/11/04 00:57:05 [desk] learned from 16 line(s)
+2026/11/04 00:57:05 [learning 102] COS-S102: 16 lines, alias 9, rules 5, ai 0, asked 2, wrong 0 | agree 14/14, disagree 0, spark alone 0/0, $0.0072
+2026/11/04 00:57:10 [desk] learned from 15 line(s)
+2026/11/04 00:57:10 [learning 103] COS-S103: 15 lines, alias 5, rules 6, ai 1, asked 3, wrong 0 | agree 6/6, disagree 0, spark alone 1/1, $0.0035
+2026/11/04 00:57:18 [desk] learned from 21 line(s)
+2026/11/04 00:57:18 [learning 104] COS-S104: 21 lines, alias 12, rules 6, ai 3, asked 0, wrong 0 | agree 8/8, disagree 0, spark alone 3/3, $0.0052
+2026/11/04 00:57:26 [desk] learned from 23 line(s)
+2026/11/04 00:57:26 [learning 105] COS-S105: 23 lines, alias 7, rules 15, ai 0, asked 1, wrong 0 | agree 9/9, disagree 0, spark alone 0/0, $0.0046
+2026/11/04 00:57:32 [desk] learned from 17 line(s)
+2026/11/04 00:57:32 [learning 106] COS-S106: 17 lines, alias 10, rules 6, ai 0, asked 1, wrong 0 | agree 7/7, disagree 0, spark alone 0/0, $0.0038
+2026/11/04 00:57:40 [desk] learned from 21 line(s)
+2026/11/04 00:57:40 [learning 107] COS-S107: 21 lines, alias 6, rules 11, ai 1, asked 3, wrong 0 | agree 9/9, disagree 0, spark alone 1/1, $0.0048
+2026/11/04 00:57:51 [desk] learned from 13 line(s)
+2026/11/04 00:57:51 [learning 108] COS-S108: 13 lines, alias 4, rules 7, ai 0, asked 2, wrong 0 | agree 5/5, disagree 0, spark alone 0/0, $0.0064
+2026/11/04 00:58:00 [desk] learned from 24 line(s)
+2026/11/04 00:58:00 [learning 109] COS-S109: 24 lines, alias 9, rules 12, ai 1, asked 2, wrong 0 | agree 6/6, disagree 0, spark alone 1/1, $0.0051
+2026/11/04 00:58:06 [desk] learned from 14 line(s)
+2026/11/04 00:58:06 [learning 110] COS-S110: 14 lines, alias 3, rules 7, ai 1, asked 3, wrong 0 | agree 3/3, disagree 0, spark alone 1/1, $0.0032
+2026/11/04 00:58:11 [desk] learned from 13 line(s)
+2026/11/04 00:58:11 [learning 111] COS-S111: 13 lines, alias 6, rules 6, ai 0, asked 1, wrong 0 | agree 6/6, disagree 0, spark alone 0/0, $0.0031
+2026/11/04 00:58:22 [desk] learned from 21 line(s)
+2026/11/04 00:58:22 [learning 112] COS-S112: 21 lines, alias 8, rules 10, ai 2, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 2/2, $0.0061
+2026/11/04 00:58:30 [desk] learned from 13 line(s)
+2026/11/04 00:58:30 [learning 113] COS-S113: 13 lines, alias 8, rules 4, ai 0, asked 1, wrong 0 | agree 12/12, disagree 0, spark alone 0/0, $0.0055
+2026/11/04 00:58:34 [desk] learned from 14 line(s)
+2026/11/04 00:58:34 [learning 114] COS-S114: 14 lines, alias 5, rules 8, ai 1, asked 0, wrong 0 | agree 3/3, disagree 0, spark alone 1/1, $0.0026
+2026/11/04 00:58:38 [desk] learned from 14 line(s)
+2026/11/04 00:58:38 [learning 115] COS-S115: 14 lines, alias 5, rules 7, ai 0, asked 2, wrong 0 | agree 5/5, disagree 0, spark alone 0/0, $0.0026
+2026/11/04 00:58:47 [desk] learned from 25 line(s)
+2026/11/04 00:58:47 [learning 116] COS-S116: 25 lines, alias 11, rules 11, ai 0, asked 3, wrong 0 | agree 11/11, disagree 0, spark alone 0/0, $0.0053
+2026/11/04 00:58:52 [desk] learned from 17 line(s)
+2026/11/04 00:58:52 [learning 117] COS-S117: 17 lines, alias 7, rules 10, ai 0, asked 0, wrong 0 | agree 7/7, disagree 0, spark alone 0/0, $0.0033
+2026/11/04 00:58:57 [desk] learned from 14 line(s)
+2026/11/04 00:58:57 [learning 118] COS-S118: 14 lines, alias 6, rules 5, ai 1, asked 2, wrong 0 | agree 3/3, disagree 0, spark alone 1/1, $0.0026
+2026/11/04 00:59:02 [desk] learned from 22 line(s)
+2026/11/04 00:59:02 [learning 119] COS-S119: 22 lines, alias 15, rules 7, ai 0, asked 0, wrong 0 | agree 6/6, disagree 0, spark alone 0/0, $0.0035
+2026/11/04 00:59:10 [desk] learned from 25 line(s)
+2026/11/04 00:59:10 [learning 120] COS-S120: 25 lines, alias 6, rules 16, ai 1, asked 2, wrong 0 | agree 7/7, disagree 0, spark alone 1/1, $0.0044
+2026/11/04 01:06:18 [engineer] list_residue {"limit":84}
+2026/11/04 01:06:22 [engineer] list_rules {}
+2026/11/04 01:06:22 [engineer] read_catalogue {"limit":50,"query":"durex preservatif"}
+2026/11/04 01:06:22 [engineer] read_catalogue {"limit":50,"query":"photoblock plus"}
+2026/11/04 01:06:22 [engineer] read_catalogue {"limit":50,"query":"douce plus"}
+2026/11/04 01:06:22 [engineer] read_catalogue {"limit":50,"query":"sensodyne bad"}
+2026/11/04 01:06:38 [engineer] search_catalogue {"query":"shamp"}
+2026/11/04 01:06:38 [engineer] search_catalogue {"query":"gelules gel"}
+2026/11/04 01:06:38 [engineer] search_catalogue {"query":"plastique plastic"}
+2026/11/04 01:06:38 [engineer] search_catalogue {"query":"urgo dermyl"}
+2026/11/04 01:06:38 [engineer] search_catalogue {"query":"cocco sucette"}
+2026/11/04 01:06:56 [engineer] list_residue {"limit":84}
+2026/11/04 01:06:56 [engineer] search_catalogue {"query":"BAD brosse"}
+2026/11/04 01:06:56 [engineer] search_catalogue {"query":"flacon"}
+2026/11/04 01:06:56 [engineer] search_catalogue {"query":"gtt gouttes"}
+2026/11/04 01:07:02 [engineer] search_catalogue {"query":"solacy"}
+2026/11/04 01:07:02 [engineer] search_catalogue {"query":"gelules"}
+2026/11/04 01:07:02 [engineer] search_catalogue {"query":"brosse dent"}
+2026/11/04 01:07:02 [engineer] search_catalogue {"query":"biberon bibron bib"}
+2026/11/04 01:07:28 [engineer] search_catalogue {"query":"anti"}
+2026/11/04 01:07:28 [engineer] search_catalogue {"query":"sol"}
+2026/11/04 01:07:28 [engineer] search_catalogue {"query":"remond"}
+2026/11/04 01:07:28 [engineer] search_catalogue {"query":"creme"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"items":[{"action":{"replace":"shamp"},"pattern":"shampooing|shampoing|shp","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"gtt"},"pattern":"gouttes","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"physiologique"},"pattern":"physio","scope":{"kind":"global"},"typ…
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"replace":"shamp"},"pattern":"shampooing|shampoing|shp","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"replace":"gtt"},"pattern":"gouttes","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"replace":"physiologique"},"pattern":"physio","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"role":"descriptor"},"pattern":"cotonnhyde","scope":{"kind":"global"},"type":"word"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"role":"descriptor"},"pattern":"fl","scope":{"kind":"global"},"type":"word"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"replace":"bad"},"pattern":"brosse a dent|brosse dent","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"replace":"dermyl"},"pattern":"derm","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"role":"descriptor"},"pattern":"sol","scope":{"kind":"global"},"type":"word"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"replace":"b/{n}"},"pattern":"b{n}","scope":{"kind":"global"},"type":"rewrite"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"replace":"3 en 1"},"pattern":"3en1","scope":{"kind":"global"},"type":"rewrite"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"replace":"plastic"},"pattern":"plas","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 01:08:06 [engineer] run_benchmark {"action":{"replace":"photoblock plus"},"pattern":"photoblock plus creme","scope":{"kind":"global"},"type":"rewrite"}
+2026/11/04 01:08:14 [engineer] run_benchmark {"action":"{\"replace\": \"shamp\"}","pattern":"shampooing|shampoing|shp","scope":"{\"kind\": \"global\"}","type":"synonym"}
+2026/11/04 01:08:14 [engineer] calibration after 120 invoices: muse-spark-1.3, residue 84, accepted [], rejected [], $0.1855
+2026/11/04 01:08:14 [calibration after 120 invoices] accepted 1, rejected 9; 1335/1601 right with no AI (83 %), 5 wrong → 1341/1601 right with no AI (84 %), 5 wrong; search BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity: 97.0 % in the top 8 (MRR 0.95); engineer [] ($0.2107)
+2026/11/04 01:08:20 [test after 120] COS-S121: 14 lines, alias 8, rules 6, ai 0, asked 0, wrong 0, $0.0063
+2026/11/04 01:08:28 [test after 120] COS-S122: 20 lines, alias 11, rules 8, ai 1, asked 0, wrong 0, $0.0058
+2026/11/04 01:08:32 [test after 120] COS-S123: 21 lines, alias 6, rules 15, ai 0, asked 0, wrong 0, $0.0032
+2026/11/04 01:08:38 [test after 120] COS-S124: 13 lines, alias 8, rules 4, ai 0, asked 1, wrong 0, $0.0041
+2026/11/04 01:08:43 [test after 120] COS-S125: 13 lines, alias 5, rules 7, ai 0, asked 1, wrong 0, $0.0039
+2026/11/04 01:08:50 [test after 120] COS-S126: 21 lines, alias 13, rules 6, ai 0, asked 2, wrong 0, $0.0052
+2026/11/04 01:08:54 [test after 120] COS-S127: 18 lines, alias 9, rules 6, ai 0, asked 3, wrong 0, $0.0023
+2026/11/04 01:08:58 [test after 120] COS-S128: 12 lines, alias 6, rules 4, ai 0, asked 2, wrong 0, $0.0034
+2026/11/04 01:09:04 [test after 120] COS-S129: 19 lines, alias 9, rules 8, ai 2, asked 0, wrong 0, $0.0044
+2026/11/04 01:09:10 [test after 120] COS-S130: 19 lines, alias 9, rules 8, ai 0, asked 2, wrong 0, $0.0046
+2026/11/04 01:09:13 [test after 120] COS-S131: 14 lines, alias 11, rules 2, ai 0, asked 1, wrong 0, $0.0025
+2026/11/04 01:09:26 [test after 120] COS-S132: 24 lines, alias 14, rules 8, ai 0, asked 2, wrong 0, $0.0104
+2026/11/04 01:09:32 [test after 120] COS-S133: 19 lines, alias 7, rules 10, ai 0, asked 2, wrong 0, $0.0035
+2026/11/04 01:09:36 [test after 120] COS-S134: 19 lines, alias 12, rules 4, ai 2, asked 1, wrong 0, $0.0035
+2026/11/04 01:09:41 [test after 120] COS-S135: 12 lines, alias 6, rules 4, ai 1, asked 1, wrong 0, $0.0043
+2026/11/04 01:09:50 [test after 120] COS-S136: 21 lines, alias 12, rules 8, ai 0, asked 1, wrong 0, $0.0057
+2026/11/04 01:09:55 [test after 120] COS-S137: 19 lines, alias 11, rules 5, ai 2, asked 1, wrong 0, $0.0038
+2026/11/04 01:10:03 [test after 120] COS-S138: 15 lines, alias 11, rules 2, ai 1, asked 1, wrong 0, $0.0054
+2026/11/04 01:10:09 [test after 120] COS-S139: 25 lines, alias 12, rules 11, ai 1, asked 1, wrong 0, $0.0051
+2026/11/04 01:10:18 [test after 120] COS-S140: 22 lines, alias 12, rules 8, ai 0, asked 2, wrong 0, $0.0061
+2026/11/04 01:10:25 [test after 120] COS-S141: 12 lines, alias 7, rules 5, ai 0, asked 0, wrong 0, $0.0051
+2026/11/04 01:10:28 [test after 120] COS-S142: 19 lines, alias 8, rules 10, ai 1, asked 0, wrong 0, $0.0033
+2026/11/04 01:10:32 [test after 120] COS-S143: 22 lines, alias 12, rules 9, ai 0, asked 1, wrong 0, $0.0036
+2026/11/04 01:10:35 [test after 120] COS-S144: 13 lines, alias 6, rules 4, ai 0, asked 3, wrong 0, $0.0019
+2026/11/04 01:10:39 [test after 120] COS-S145: 14 lines, alias 7, rules 5, ai 0, asked 2, wrong 0, $0.0032
+2026/11/04 01:10:43 [test after 120] COS-S146: 21 lines, alias 11, rules 10, ai 0, asked 0, wrong 0, $0.0033
+2026/11/04 01:10:47 [test after 120] COS-S147: 25 lines, alias 12, rules 11, ai 0, asked 2, wrong 0, $0.0035
+2026/11/04 01:10:51 [test after 120] COS-S148: 12 lines, alias 4, rules 7, ai 0, asked 1, wrong 0, $0.0025
+2026/11/04 01:10:54 [test after 120] COS-S149: 13 lines, alias 7, rules 6, ai 0, asked 0, wrong 0, $0.0023
+2026/11/04 01:10:59 [test after 120] COS-S150: 22 lines, alias 10, rules 11, ai 0, asked 1, wrong 0, $0.0040
+# What Muse Spark identified: pharmacy and parapharmacy
+
+Catalogue names start with brand then function, often abbreviated: BAD for toothbrush, BIB for biberon, SHAMP for shampoo, DENT for dentifrice, CP for comprime. Sizes are volumes and masses glued with no space (250ML, 50G, 400MG, 0.05%) and bandages write length x width (4M X 10CM, 10CM X 4M). Packs are coded B/10, B/20, B/30, P/72, C/120, SACHET, BOITE and codes like S 2032, SP 752, YC 7889. Two products of one brand differ by dosage, volume, flavour or scent, colour, size or population (BEBE / ENFANT / ADULTE) and pack count.
+
+## First-pass blocks
+
+- **dimensions** ON — Bandages, sparadrap, compresses write 4M X 10CM vs 10CM X 4M with varied spaces; need one token for length x width.
+  - evidence: reads 1 catalogue names differently; products that read alike 13 → 13
+- **units_glue** ON — unify spaced vs glued sizes 10 CM vs 10CM and 500 ML vs 500ML
+  - evidence: seen lines: +3 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « ELASTOPLAST 10CM » → ELASTOPLAST OPTIPLAST 10 CM X 2.5 M; « ELASTOPLAST 10CM » → ELASTOPLAST OPTIPLAST 10 CM X 2.5 M; « PICSUPEN 3,5 MM » → PICSUPEN 3.5 MM
+- **pack_count** ON — Pack count is discriminating: B/10, B/20, B/12, B/30, B/100, P/30, P/72, C/120, C/240, S/30 must become x10, x30 etc.
+  - evidence: reads 146 catalogue names differently; products that read alike 13 → 13
+
+## The desk's own vocabulary (lexicon)
+
+- `brosse` → `bad` [rejected] — suppliers write brosse / brosse-a-dents, catalogue writes BAD
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « BROSSE KIT 6 PCS » → BAD KIT 6 PCS
+- `biberon` → `bib` [rejected] — suppliers write biberon, catalogue writes BIB
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `shampooing` → `shamp` [rejected] — suppliers write shampooing, catalogue writes SHAMP
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `shampoing` → `shamp` [rejected] — common spelling variant for catalogue SHAMP
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `comprime` → `cp` [rejected] — suppliers write comprime, catalogue writes CP
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `comprimes` → `cp` [rejected] — plural variant for catalogue CP
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `gelule` → `gelules` [rejected] — suppliers write gelule, catalogue writes GELULES
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `gellules` → `gelules` [rejected] — catalogue misspelling GELLULES must unify to GELULES
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `dentifrice` → `dent` [rejected] — suppliers write dentifrice, catalogue writes DENT
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `mouchoir` → `mouchoire` [rejected] — suppliers write mouchoir, catalogue writes MOUCHOIRE
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `vitamine` → `vit` [live] — catalogue abbreviates VITAMINE to VIT VIT D3 VIT B
+  - evidence: seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « BIONUTREX VITAMINE B12 » → BIONUTREX VIT B12 B/30 CP; « BIOMAX VITAMINE D3 50000 » → BIOMAX VIT D3 50000 B/08; « SOLYNE VITAMINE D3 1000 » → SOLYNE VIT D3 1000 UI B/24
+- `crem` → `creme` [live] — supplier CREM for catalogue CREME VG CREM HYDRATANTE
+  - evidence: seen lines: +6 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML; « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML; « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML
+- `cr` → `creme` [live] — FIXYPLUS CR ADHESIVE for CREME ADHESIVE
+  - evidence: seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « FIXYPLUS CR ADHESIVE SENSITIVE » → FIXYPLUS CREME ADHESIVE SENSITIVE; « FIXYPLUS CR ADHESIVE SENSITIVE » → FIXYPLUS CREME ADHESIVE SENSITIVE
+- `complexe` → `complex` [rejected] — VITAMINE B COMPLEXE for COMPLEX VIT B
+  - evidence: seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « VITAMINE B COMPLEXE NUTRAXIN B/60 » → NUTRAXIN COMPLEX VIT B B/60 CP; « VITAMINE B COMPLEXE NUTRAXIN B/60 » → NUTRAXIN COMPLEX VIT B B/60 CP
+- `collagene` → `collagen` [rejected] — ULTRA COLLAGENE for ULTRA COLLAGEN
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « ULTRA COLLAGENE » → ULTRA COLLAGEN C B/60 CP
+- `physio` → `physiologique` [live] — SERUM PHYSIO for SERUM PHYSIOLOGIQUE
+  - evidence: seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « SEROMED SERUM PHYSIO 500ML » → SEROMED SERUM PHYSIOLOGIQUE 500 ML AVEC SERINGUE C/20; « SEROMED SERUM PHYSIO 500ML » → SEROMED SERUM PHYSIOLOGIQUE 500 ML AVEC SERINGUE C/20
+- `shp` → `shamp` [rejected] — CHICCO SHP BEBE for SHAMP BEBE
+  - evidence: seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « CHICCO SHP BEBE 200 ML » → CHICCO SHAMP BEBE 200 ML; « CHICCO SHP BEBE 200 ML » → CHICCO SHAMP BEBE 200 ML
+- `bb` → `bebe` [live] — HIPOSOL SHAMP BB for SHAMP BEBE
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « HIPOSOL SHAMP BB 250 ML » → HIPOSOL SHAMP BEBE 250ML
+- `ad` → `adulte` [rejected] — PANARTHRO ECHARPE AD for ECHARPE ADULTE
+  - evidence: seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 4 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. lost « COUCHE ADULTE UNI-FORM MEDIUM B/10 »; lost « COUCHE ADULTE UNI FORM MEDIUM BT/10 »; « PANARTHRO ECHARPE AD » → PANARTHRO ECHARPE ADULTE
+- `anti` → `a` [live] — BANDE ANTI GAZ for BANDE A GAZ
+  - evidence: seen lines: +4 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « KIDS HEAVEN MASSE GENCIVE ANTI EAU » → KIDS HEAVEN MASSE GENCIVE A EAU; « ABN BANDE ANTI GAZ 4M X 10 CM » → ABN BANDE A GAZ 4M X 10 CM; « KIDS HEAVEN MASSE GENCIVE ANTI EAU » → KIDS HEAVEN MASSE GENCIVE A EAU
+- `sparadra` → `sparadrat` [live] — ALBUPLAST SPARADRA for SPARADRAT
+  - evidence: seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « ALBUPLAST SPARADRA PERFORE » → ALBUPLAST SPARADRAT 4M X 18CM PERFORE; « ALBUPLAST SPARADRA PERFORE » → ALBUPLAST SPARADRAT 4M X 18CM PERFORE
+- `br` → `bad` [live] — BR KIT for BAD KIT
+  - evidence: seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « BR KIT 4 PCS » → BAD KIT 4 PCS; « SANSIRO BR FORCHATI KIDS FK 10 » → SANSIRO BAD FORCHATI KIDS FK 10; « BR KIT 4 PCS » → BAD KIT 4 PCS
+- `sach` → `sachets` [rejected] — ULTRABIOTIQUE SACH for SACHETS
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « ULTRABIOTIQUE INFANTILE SACH B/7 » → ULTRABIOTIQUE INFANTIL SACHETS B/7
+- `infantile` → `infantil` [rejected] — ULTRABIOTIQUE INFANTILE for INFANTIL
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `gttes` → `fl` [rejected] — COLIPREV GTTES gouttes for FL flacon
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « COLIPREV GTTES » → COLIPREV FL 15 ML
+- `lp` → `` [rejected] — BIO MAG LP LP never names product drop it
+  - evidence: seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « BIO MAG LP » → BIO MAG 400 MG MAGNESIUM ET COMPLEX VIT B/15; « BIO MAG LP » → BIO MAG 400 MG MAGNESIUM ET COMPLEX VIT B/15
+- `7sachets` → `sachets` [rejected] — 7SACHETS number+word glue, keep word so count via B/7 still shortlists
+  - evidence: refused by the digit guard: it would change the digits of a word
+- `b20` → `x20` [rejected] — GENESIA B20 for B/20 pack token x20
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « GENESIA B20 » → GENESIA B/20
+- `b30` → `x30` [rejected] — WIN TANAKOR B30 BIOMAX B30 BIONUTREX B30 for B/30
+  - evidence: seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; would make 1 more products read alike; e.g. « WIN TANAKOR PLUS B30 CP » → WIN TANAKOR PLUS B/30 CP; « BIOMAX TESTO MAX B30 CP » → BIOMAX TESTO MAX B/30 CP; « BIONUTREX VITABOOST MULTIVITAMINE B30 CP » → BIONUTREX VITABOOST MULTIVITAMINE B/30 CP
+- `b50` → `x50` [live] — TEST GROSSESSE B50 for B/50
+  - evidence: seen lines: +4 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « TEST GROSSESSE TEST+ DMI CASSETTE B50 » → TEST GROSSESSE TEST+ DMI CASSETTE B/50; « TEST GROSSESSE TEST+ DMI CASSETTE B50 » → TEST GROSSESSE TEST+ DMI CASSETTE B/50; « TEST GROSSESSE TEST+ DMI CASSETTE B50 » → TEST GROSSESSE TEST+ DMI CASSETTE B/50
+- `b90` → `x90` [rejected] — BPN MAGNESIUM B90 for B/90
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `b3` → `x3` [rejected] — PRESERVATIF CONTROL B3 for B/3
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « PRESERVATIF CONTROL B3 » → PRESERVATIF CONTROL NATURE B/3 54
+- `sachet` → `sachets` [rejected] — singular/plural sachet vs sachets packs
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `magnesium` → `mag` [live] — JUVAMINE DUO MAGNESIUM means DUO MAG
+  - evidence: seen lines: +7 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « JUVAMINE DUO MAGNESIUM B/30 » → JUVAMINE DUO MAG B/30; « BIOMAX MAG MAX MAGNESIUM B1B2B6 B/30 » → BIOMAX MAG MAX B1 B2 B6 B/30 CAPS; « JUVAMINE DUO MAGNESIUM B/30 » → JUVAMINE DUO MAG B/30
+- `spray` → `` [rejected] — NOYE EAU DE ROSE SPRAY extra vs NATUREL product, spray never names product
+  - evidence: refused: catalogue names use this word; dropping it would erase a difference between products
+- `creme` → `` [rejected] — DERMA LIGHTENING CREME and CREME VENUS extra vs catalogues without CREME
+  - evidence: refused: catalogue names use this word; dropping it would erase a difference between products
+- `fl` → `` [rejected] — SEPTIDINE FL/125 ML extra vs 125 ML product
+  - evidence: refused: catalogue names use this word; dropping it would erase a difference between products
+- `b100` → `x100` [rejected] — SERINGUE B100 means B/100
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « SERINGUE NIPRO 2.5 CC B100 G22 INTRA MUSCULAIRE » → SERINGUE NIPRO 2.5 CC B/100 G22 INTRA MUSCULAIRE
+- `crm` → `creme` [live] — BARRAD CRM 120 ML vs CREME
+  - evidence: seen lines: +6 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « VG CRM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML; « FIXYPLUS CRM ADHESIVE FRESH MINT » → FIXYPLUS CREME ADHESIVE FRESH MINT; « FIXYPLUS CRM ADHESIVE FRESH MINT » → FIXYPLUS CREME ADHESIVE FRESH MINT
+- `comp` → `comprime` [rejected] — ALVITYL COMP vs COMPRIME, unify with CP
+  - evidence: seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 4 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « ALVITYL COMP B/40 » → ALVITYL COMPRIME B/40; lost « COMPRESS OCULAIRE CIC »; « ALVITYL COMP B/40 » → ALVITYL COMPRIME B/40
+- `cp` → `comprime` [rejected] — B30 CP vs B/30 CP vs COMPRIME unify pack descriptor
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `b60` → `x60` [rejected] — VITAMINE B COMPLEXE B/60 and B60 slash-less variant
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `b40` → `x40` [rejected] — BPN MAGNESIUM and ALVITYL B/40 slash-less
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `30gr` → `30g` [rejected] — DERMA CREME 30GR vs 30G mass spelling
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `50gr` → `50g` [rejected] — URGO FIX CREME AD 50GR vs 50 GR mass spelling
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+
+## Search method
+
+**BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity** (BM25 + trigrams + word similarity)
+
+## Rules (rule engineer and attributes)
+
+- R-0003 [live] "bebe", "enfant", "adulte", "kids", "homme" each name a population, in orders, invoices and catalogue names alike; two texts whose population differs are never the same product. — by muse-spark-profile
+- R-0002 [live] "fraise", "menthe", "mint", "vanille", "strawberry", "citron", "fresh" each name a flavour_scent, in orders, invoices and catalogue names alike; two texts whose flavour_scent differs are never the same product. — by muse-spark-profile
+- R-0001 [live] "bleu", "rouge", "noir", "vert", "rose", "gris", "jaune", "blanc" each name a colour, in orders, invoices and catalogue names alike; two texts whose colour differs are never the same product. — by muse-spark-profile
+
+## Phases
+
+| phase | invoices | lines | free (alias + rules) | AI | asked | wrong auto | Spark agreed with code | Spark alone right | AI cost |
+|---|---|---|---|---|---|---|---|---|---|
+| spark-checks-all | 32 | 559 | 438 (78 %) | 46 (8 %) | 75 (13 %) | 0 | 438/438 | 46/46 | $0.2265 |
+| learning | 88 | 1576 | 1376 (87 %) | 69 (4 %) | 127 (8 %) | 4 | 588/588 | 69/69 | $0.3985 |
+| test after 0 | 30 | 533 | 409 (77 %) | 46 (9 %) | 78 (15 %) | 0 | 409/409 | 46/46 | $0.2123 |
+| test after 30 | 30 | 533 | 445 (83 %) | 27 (5 %) | 61 (11 %) | 0 | 445/445 | 27/27 | $0.2087 |
+| test after 60 | 30 | 533 | 464 (87 %) | 21 (4 %) | 46 (9 %) | 2 | 197/197 | 21/21 | $0.1356 |
+| test after 90 | 30 | 533 | 471 (88 %) | 14 (3 %) | 46 (9 %) | 2 | 200/200 | 14/14 | $0.1385 |
+| test after 120 | 30 | 533 | 488 (92 %) | 11 (2 %) | 34 (6 %) | 0 | 210/210 | 11/11 | $0.1262 |
+
+## Calibrations
+
+- **calibration after 30 invoices** (396 seen + 132 unseen lines): 306/396 right with no AI (77 %), 1 wrong → 317/396 right with no AI (80 %), 1 wrong; accepted 5, rejected 28; search: BM25 (brand ×2) + 0.5·trigrams: right product in the top 8 for 96.2 % of lines (MRR 0.94) → BM25 (brand ×1.5) + trigrams: 95.5 % in the top 8 (MRR 0.94); engineer rules []; $0.2230. Spark: catalogue abbreviates function and suppliers glue counts and space units differently plus B20/B30 bare packs miss x tokens
+- **calibration after 60 invoices** (777 seen + 260 unseen lines): 617/777 right with no AI (79 %), 1 wrong → 629/777 right with no AI (81 %), 1 wrong; accepted 3, rejected 9; search: BM25 (brand ×1.5) + trigrams: right product in the top 8 for 96.7 % of lines (MRR 0.95) → BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity: 97.2 % in the top 8 (MRR 0.96); engineer rules []; $0.1610. Spark: pharmacy abbreviations crem/shp/br/brosse/gttes/sach and bare B20/B30/B50 packs plus AD->ADULTE block auto-match, rest left to shortlist for precision
+- **calibration after 90 invoices** (1189 seen + 397 unseen lines): 970/1189 right with no AI (82 %), 5 wrong → 984/1189 right with no AI (83 %), 5 wrong; accepted 3, rejected 7; search: BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity: right product in the top 8 for 97.2 % of lines (MRR 0.95) → BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity: 97.2 % in the top 8 (MRR 0.95); engineer rules []; $0.1879. Spark: abbreviations SHP/BR/B without slash, French spellings, and extra generic words spray/creme/anti/fl/lp block exact match; split_glued and shade normalize glued packs and N-numbers.
+- **calibration after 120 invoices** (1601 seen + 534 unseen lines): 1335/1601 right with no AI (83 %), 5 wrong → 1341/1601 right with no AI (84 %), 5 wrong; accepted 1, rejected 9; search: BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity: right product in the top 8 for 97.0 % of lines (MRR 0.95) → BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity: 97.0 % in the top 8 (MRR 0.95); engineer rules []; $0.2107. Spark: slash-less B packs, SHAMP/CREME/COMPRIME abbreviations, singular-plural and FR spelling variants block exact match and search rank
+
+## Experiment log
+
+- [bootstrap] block · accepted: dimensions (reads 1 catalogue names differently; products that read alike 13 → 13, by muse-spark) — Bandages, sparadrap, compresses write 4M X 10CM vs 10CM X 4M with varied spaces; need one token for length x width.
+- [bootstrap] block · accepted: pack_count (reads 146 catalogue names differently; products that read alike 13 → 13, by muse-spark) — Pack count is discriminating: B/10, B/20, B/12, B/30, B/100, P/30, P/72, C/120, C/240, S/30 must become x10, x30 etc.
+- [bootstrap] lexicon · accepted: "brosse" → "bad" (proposed before any invoice (reads 1 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — suppliers write brosse / brosse-a-dents, catalogue writes BAD
+- [bootstrap] lexicon · accepted: "biberon" → "bib" (proposed before any invoice (reads 3 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — suppliers write biberon, catalogue writes BIB
+- [bootstrap] lexicon · accepted: "shampooing" → "shamp" (proposed before any invoice (reads 2 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — suppliers write shampooing, catalogue writes SHAMP
+- [bootstrap] lexicon · accepted: "shampoing" → "shamp" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — common spelling variant for catalogue SHAMP
+- [bootstrap] lexicon · accepted: "comprime" → "cp" (proposed before any invoice (reads 1 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — suppliers write comprime, catalogue writes CP
+- [bootstrap] lexicon · accepted: "comprimes" → "cp" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — plural variant for catalogue CP
+- [bootstrap] lexicon · accepted: "gelule" → "gelules" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — suppliers write gelule, catalogue writes GELULES
+- [bootstrap] lexicon · accepted: "gellules" → "gelules" (proposed before any invoice (reads 7 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — catalogue misspelling GELLULES must unify to GELULES
+- [bootstrap] lexicon · accepted: "dentifrice" → "dent" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — suppliers write dentifrice, catalogue writes DENT
+- [bootstrap] lexicon · accepted: "mouchoir" → "mouchoire" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 13 → 13): waits in shadow until known lines prove it, by muse-spark) — suppliers write mouchoir, catalogue writes MOUCHOIRE
+- [bootstrap] search · accepted: BM25 (brand ×2) + 0.5·trigrams (not measured yet: no line has a known answer, by muse-spark) — 269 brands head the names so brand_boost 2 restricts to brand; bm25 1 favours rare dosage/code words; trigram 0.5 tolerates pharma typos like GELLULES/SHAMP; wordsim 0 for precision to avoid confusing similar drug names and exact digit codes.
+- [bootstrap] attribute · accepted: "bleu", "rouge", "noir", "vert", "rose", "gris", "jaune", "blanc" each name a colour, in orders, invoices and catalogue names alike; two texts whose colour differs are never the same product. (reads 34 catalogue names, 0 pairs made alike → shadow, by muse-spark) — Toothbrushes, masks, semelles, inks differ only by colour, e.g. BLEU vs VERT vs ROUGE, written in name.
+- [bootstrap] attribute · accepted: "fraise", "menthe", "mint", "vanille", "strawberry", "citron", "fresh" each name a flavour_scent, in orders, invoices and catalogue names alike; two texts whose flavour_scent differs are never the same product. (reads 15 catalogue names, 0 pairs made alike → shadow, by muse-spark) — Mouthwash, pastilles, preservatifs, gels differ by taste/scent: FRAISE vs MENTHE vs VANILLE vs STRAWBERRY.
+- [bootstrap] attribute · rejected: size (a size value is {size} or a size such as 1500ml, by muse-spark) — Medical devices, gloves, supports, inhalation masks differ by SMALL / LARGE / XL / GM / PM.
+- [bootstrap] attribute · accepted: "bebe", "enfant", "adulte", "kids", "homme" each name a population, in orders, invoices and catalogue names alike; two texts whose population differs are never the same product. (reads 56 catalogue names, 0 pairs made alike → shadow, by muse-spark) — Echarpe, compresse oculaire, couches, fertility lines differ by BEBE / ENFANT / ADULTE / HOMME.
+- [calibration after 30 invoices] block · rejected: split_glued (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — glued counts like 7SACHETS need splitting to sachets + pack token
+- [calibration after 30 invoices] block · rejected: dimensions (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — bandages write 4M X 10CM pairs must stay one token
+- [calibration after 30 invoices] block · accepted: units_glue (seen lines: +3 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « ELASTOPLAST 10CM » → ELASTOPLAST OPTIPLAST 10 CM X 2.5 M; « ELASTOPLAST 10CM » → ELASTOPLAST OPTIPLAST 10 CM X 2.5 M; « PICSUPEN 3,5 MM » → PICSUPEN 3.5 MM, by muse-spark) — unify spaced vs glued sizes 10 CM vs 10CM and 500 ML vs 500ML
+- [calibration after 30 invoices] lexicon · accepted: "vitamine" → "vit" (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « BIONUTREX VITAMINE B12 » → BIONUTREX VIT B12 B/30 CP; « BIOMAX VITAMINE D3 50000 » → BIOMAX VIT D3 50000 B/08; « SOLYNE VITAMINE D3 1000 » → SOLYNE VIT D3 1000 UI B/24, by muse-spark) — catalogue abbreviates VITAMINE to VIT VIT D3 VIT B
+- [calibration after 30 invoices] lexicon · rejected: "crem" → "creme" (seen lines: +4 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML; « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML; « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML, by muse-spark) — supplier CREM for catalogue CREME VG CREM HYDRATANTE
+- [calibration after 30 invoices] lexicon · accepted: "cr" → "creme" (seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « FIXYPLUS CR ADHESIVE SENSITIVE » → FIXYPLUS CREME ADHESIVE SENSITIVE; « FIXYPLUS CR ADHESIVE SENSITIVE » → FIXYPLUS CREME ADHESIVE SENSITIVE, by muse-spark) — FIXYPLUS CR ADHESIVE for CREME ADHESIVE
+- [calibration after 30 invoices] lexicon · rejected: "complexe" → "complex" (seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « VITAMINE B COMPLEXE NUTRAXIN B/60 » → NUTRAXIN COMPLEX VIT B B/60 CP; « VITAMINE B COMPLEXE NUTRAXIN B/60 » → NUTRAXIN COMPLEX VIT B B/60 CP, by muse-spark) — VITAMINE B COMPLEXE for COMPLEX VIT B
+- [calibration after 30 invoices] lexicon · rejected: "collagene" → "collagen" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « ULTRA COLLAGENE » → ULTRA COLLAGEN C B/60 CP, by muse-spark) — ULTRA COLLAGENE for ULTRA COLLAGEN
+- [calibration after 30 invoices] lexicon · accepted: "physio" → "physiologique" (seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « SEROMED SERUM PHYSIO 500ML » → SEROMED SERUM PHYSIOLOGIQUE 500 ML AVEC SERINGUE C/20; « SEROMED SERUM PHYSIO 500ML » → SEROMED SERUM PHYSIOLOGIQUE 500 ML AVEC SERINGUE C/20, by muse-spark) — SERUM PHYSIO for SERUM PHYSIOLOGIQUE
+- [calibration after 30 invoices] lexicon · rejected: "shp" → "shamp" (seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « CHICCO SHP BEBE 200 ML » → CHICCO SHAMP BEBE 200 ML; « CHICCO SHP BEBE 200 ML » → CHICCO SHAMP BEBE 200 ML, by muse-spark) — CHICCO SHP BEBE for SHAMP BEBE
+- [calibration after 30 invoices] lexicon · accepted: "bb" → "bebe" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « HIPOSOL SHAMP BB 250 ML » → HIPOSOL SHAMP BEBE 250ML, by muse-spark) — HIPOSOL SHAMP BB for SHAMP BEBE
+- [calibration after 30 invoices] lexicon · rejected: "ad" → "adulte" (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 4 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. lost « COUCHE ADULTE UNI-FORM MEDIUM B/10 »; lost « COUCHE ADULTE UNI FORM MEDIUM BT/10 »; « PANARTHRO ECHARPE AD » → PANARTHRO ECHARPE ADULTE, by muse-spark) — PANARTHRO ECHARPE AD for ECHARPE ADULTE
+- [calibration after 30 invoices] lexicon · rejected: "anti" → "a" (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « KIDS HEAVEN MASSE GENCIVE ANTI EAU » → KIDS HEAVEN MASSE GENCIVE A EAU; « ABN BANDE ANTI GAZ 4M X 10 CM » → ABN BANDE A GAZ 4M X 10 CM; « KIDS HEAVEN MASSE GENCIVE ANTI EAU » → KIDS HEAVEN MASSE GENCIVE A EAU, by muse-spark) — BANDE ANTI GAZ for BANDE A GAZ
+- [calibration after 30 invoices] lexicon · rejected: "sparadra" → "sparadrat" (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « ALBUPLAST SPARADRA PERFORE » → ALBUPLAST SPARADRAT 4M X 18CM PERFORE; « ALBUPLAST SPARADRA PERFORE » → ALBUPLAST SPARADRAT 4M X 18CM PERFORE, by muse-spark) — ALBUPLAST SPARADRA for SPARADRAT
+- [calibration after 30 invoices] lexicon · rejected: "br" → "bad" (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « BR KIT 4 PCS » → BAD KIT 4 PCS; « SANSIRO BR FORCHATI KIDS FK 10 » → SANSIRO BAD FORCHATI KIDS FK 10; « BR KIT 4 PCS » → BAD KIT 4 PCS, by muse-spark) — BR KIT for BAD KIT
+- [calibration after 30 invoices] lexicon · rejected: "sach" → "sachets" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « ULTRABIOTIQUE INFANTILE SACH B/7 » → ULTRABIOTIQUE INFANTIL SACHETS B/7, by muse-spark) — ULTRABIOTIQUE SACH for SACHETS
+- [calibration after 30 invoices] lexicon · rejected: "infantile" → "infantil" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — ULTRABIOTIQUE INFANTILE for INFANTIL
+- [calibration after 30 invoices] lexicon · rejected: "gttes" → "fl" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « COLIPREV GTTES » → COLIPREV FL 15 ML, by muse-spark) — COLIPREV GTTES gouttes for FL flacon
+- [calibration after 30 invoices] lexicon · rejected: "lp" → "" (seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « BIO MAG LP » → BIO MAG 400 MG MAGNESIUM ET COMPLEX VIT B/15; « BIO MAG LP » → BIO MAG 400 MG MAGNESIUM ET COMPLEX VIT B/15, by muse-spark) — BIO MAG LP LP never names product drop it
+- [calibration after 30 invoices] lexicon · rejected: "brosse" → "bad" (from shadow) (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « BROSSE KIT 6 PCS » → BAD KIT 6 PCS, by muse-spark) — suppliers write brosse / brosse-a-dents, catalogue writes BAD
+- [calibration after 30 invoices] lexicon · rejected: "biberon" → "bib" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write biberon, catalogue writes BIB
+- [calibration after 30 invoices] lexicon · rejected: "shampooing" → "shamp" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write shampooing, catalogue writes SHAMP
+- [calibration after 30 invoices] lexicon · rejected: "shampoing" → "shamp" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — common spelling variant for catalogue SHAMP
+- [calibration after 30 invoices] lexicon · rejected: "comprime" → "cp" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write comprime, catalogue writes CP
+- [calibration after 30 invoices] lexicon · rejected: "comprimes" → "cp" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — plural variant for catalogue CP
+- [calibration after 30 invoices] lexicon · rejected: "gelule" → "gelules" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write gelule, catalogue writes GELULES
+- [calibration after 30 invoices] lexicon · rejected: "gellules" → "gelules" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — catalogue misspelling GELLULES must unify to GELULES
+- [calibration after 30 invoices] lexicon · rejected: "dentifrice" → "dent" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write dentifrice, catalogue writes DENT
+- [calibration after 30 invoices] lexicon · rejected: "mouchoir" → "mouchoire" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write mouchoir, catalogue writes MOUCHOIRE
+- [calibration after 30 invoices] lexicon · rejected: "crem" → "creme" (from shadow) (seen lines: +4 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML; « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML; « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML, by muse-spark) — supplier CREM for catalogue CREME VG CREM HYDRATANTE
+- [calibration after 30 invoices] lexicon · rejected: "anti" → "a" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « KIDS HEAVEN MASSE GENCIVE ANTI EAU » → KIDS HEAVEN MASSE GENCIVE A EAU; « ABN BANDE ANTI GAZ 4M X 10 CM » → ABN BANDE A GAZ 4M X 10 CM; « KIDS HEAVEN MASSE GENCIVE ANTI EAU » → KIDS HEAVEN MASSE GENCIVE A EAU, by muse-spark) — BANDE ANTI GAZ for BANDE A GAZ
+- [calibration after 30 invoices] lexicon · rejected: "sparadra" → "sparadrat" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « ALBUPLAST SPARADRA PERFORE » → ALBUPLAST SPARADRAT 4M X 18CM PERFORE; « ALBUPLAST SPARADRA PERFORE » → ALBUPLAST SPARADRAT 4M X 18CM PERFORE, by muse-spark) — ALBUPLAST SPARADRA for SPARADRAT
+- [calibration after 30 invoices] lexicon · rejected: "br" → "bad" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « BR KIT 4 PCS » → BAD KIT 4 PCS; « SANSIRO BR FORCHATI KIDS FK 10 » → SANSIRO BAD FORCHATI KIDS FK 10; « BR KIT 4 PCS » → BAD KIT 4 PCS, by muse-spark) — BR KIT for BAD KIT
+- [calibration after 30 invoices] search · accepted: BM25 + trigrams [BM25 (brand ×1.5) + trigrams] (classic word similarity [word similarity]: 94.9 % in top 8, MRR 0.92; BM25 [BM25]: 95.5 % in top 8, MRR 0.93; BM25, brand ×2 [BM25 (brand ×2)]: 95.5 % in top 8, MRR 0.93; trigrams [trigrams]: 95.2 % in top 8, MRR 0.93; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 95.5 % in top 8, MRR 0.94; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 95.5 % in top 8, MRR 0.94; Spark: bm25-brand-trigram-wordsim [BM25 (brand ×2) + 0.5·trigrams + word similarity]: 95.5 % in top 8, MRR 0.94; Spark: bm25-brand-trigram-strong [BM25 (brand ×2) + trigrams + 0.5·word similarity]: 95.5 % in top 8, MRR 0.94; Spark: bm25-brand-only [BM25 (brand ×3) + 0.3·trigrams + 0.3·word similarity]: 95.5 % in top 8, MRR 0.94; current: Spark's first guess [BM25 (brand ×2) + 0.5·trigrams]: 95.5 % in top 8, MRR 0.94. Chosen: 95.5 % in top 8 on seen lines; on unseen lines 97.7 % vs 97.7 % for the current method, by library) — 
+- [calibration after 30 invoices] rekey · accepted: re-read every known wording (24 alias(es) moved to the new reading, no collision, by code) — 
+- [after 32 invoices] autonomy · accepted: the desk's steps earned autonomy: Spark stops checking every answer (446 code answers confirmed, 445 right (95 % lower bound 99.00 % ≥ bar 99 %). While supervised: 559 lines, Spark agreed with the code on 438 (438 right), disagreed on 0; alone on 46, right on 46, by code) — 
+- [calibration after 60 invoices] block · rejected: dimensions (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — bandages write 4M X 10CM, keep pair token
+- [calibration after 60 invoices] block · rejected: split_glued (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — split word+number glues safely, 4+ letters so B20 codes stay whole
+- [calibration after 60 invoices] lexicon · rejected: "7sachets" → "sachets" (refused by the digit guard: it would change the digits of a word, by muse-spark) — 7SACHETS number+word glue, keep word so count via B/7 still shortlists
+- [calibration after 60 invoices] lexicon · rejected: "b20" → "x20" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « GENESIA B20 » → GENESIA B/20, by muse-spark) — GENESIA B20 for B/20 pack token x20
+- [calibration after 60 invoices] lexicon · rejected: "b30" → "x30" (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; would make 1 more products read alike; e.g. « WIN TANAKOR PLUS B30 CP » → WIN TANAKOR PLUS B/30 CP; « BIOMAX TESTO MAX B30 CP » → BIOMAX TESTO MAX B/30 CP; « BIONUTREX VITABOOST MULTIVITAMINE B30 CP » → BIONUTREX VITABOOST MULTIVITAMINE B/30 CP, by muse-spark) — WIN TANAKOR B30 BIOMAX B30 BIONUTREX B30 for B/30
+- [calibration after 60 invoices] lexicon · accepted: "b50" → "x50" (seen lines: +4 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « TEST GROSSESSE TEST+ DMI CASSETTE B50 » → TEST GROSSESSE TEST+ DMI CASSETTE B/50; « TEST GROSSESSE TEST+ DMI CASSETTE B50 » → TEST GROSSESSE TEST+ DMI CASSETTE B/50; « TEST GROSSESSE TEST+ DMI CASSETTE B50 » → TEST GROSSESSE TEST+ DMI CASSETTE B/50, by muse-spark) — TEST GROSSESSE B50 for B/50
+- [calibration after 60 invoices] lexicon · rejected: "b90" → "x90" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — BPN MAGNESIUM B90 for B/90
+- [calibration after 60 invoices] lexicon · rejected: "b3" → "x3" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « PRESERVATIF CONTROL B3 » → PRESERVATIF CONTROL NATURE B/3 54, by muse-spark) — PRESERVATIF CONTROL B3 for B/3
+- [calibration after 60 invoices] lexicon · accepted: "crem" → "creme" (from shadow) (seen lines: +6 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML; « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML; « VG CREM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML, by muse-spark) — supplier CREM for catalogue CREME VG CREM HYDRATANTE
+- [calibration after 60 invoices] lexicon · rejected: "anti" → "a" (from shadow) (seen lines: +4 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « KIDS HEAVEN MASSE GENCIVE ANTI EAU » → KIDS HEAVEN MASSE GENCIVE A EAU; « ABN BANDE ANTI GAZ 4M X 10 CM » → ABN BANDE A GAZ 4M X 10 CM; « KIDS HEAVEN MASSE GENCIVE ANTI EAU » → KIDS HEAVEN MASSE GENCIVE A EAU, by muse-spark) — BANDE ANTI GAZ for BANDE A GAZ
+- [calibration after 60 invoices] lexicon · accepted: "sparadra" → "sparadrat" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « ALBUPLAST SPARADRA PERFORE » → ALBUPLAST SPARADRAT 4M X 18CM PERFORE; « ALBUPLAST SPARADRA PERFORE » → ALBUPLAST SPARADRAT 4M X 18CM PERFORE, by muse-spark) — ALBUPLAST SPARADRA for SPARADRAT
+- [calibration after 60 invoices] lexicon · rejected: "br" → "bad" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « BR KIT 4 PCS » → BAD KIT 4 PCS; « SANSIRO BR FORCHATI KIDS FK 10 » → SANSIRO BAD FORCHATI KIDS FK 10; « BR KIT 4 PCS » → BAD KIT 4 PCS, by muse-spark) — BR KIT for BAD KIT
+- [calibration after 60 invoices] search · accepted: BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity] (classic word similarity [word similarity]: 96.7 % in top 8, MRR 0.93; BM25 [BM25]: 97.2 % in top 8, MRR 0.95; BM25, brand ×2 [BM25 (brand ×2)]: 97.2 % in top 8, MRR 0.95; trigrams [trigrams]: 96.8 % in top 8, MRR 0.94; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 97.2 % in top 8, MRR 0.96; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 97.2 % in top 8, MRR 0.96; Spark: bm25-brand-trigram-high [BM25 (brand ×2) + trigrams]: 97.2 % in top 8, MRR 0.96; Spark: wordsim-fallback [BM25 (brand ×1.5) + 0.5·trigrams + word similarity]: 97.2 % in top 8, MRR 0.96; Spark: balanced-recall [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 97.2 % in top 8, MRR 0.96; current: BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 97.2 % in top 8, MRR 0.96. Chosen: 97.2 % in top 8 on seen lines; on unseen lines 98.1 % vs 97.7 % for the current method, by library) — 
+- [calibration after 60 invoices] rekey · accepted: re-read every known wording (10 alias(es) moved to the new reading, no collision, by code) — 
+- [calibration after 90 invoices] block · rejected: split_glued (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — glued counts like 7SACHETS in ULTRABIOTIQUE INFANTILE 7SACHETS never match SACHETS B/7 without splitting
+- [calibration after 90 invoices] block · rejected: shade (seen lines: +0 newly resolved (0 distinct wordings), 1 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 1 wrong, 0 lost; e.g. « VENUS ECRAN TOTAL 40 » → VENUS ECRAN TOTAL TEINTE 60 instead of VENUS ECRA TOTAL 40, by muse-spark) — N17 vs N 17 in HERBEZAL TISANE AEROPHAGIE is a shade/reference number that must become one token n17
+- [calibration after 90 invoices] lexicon · rejected: "sachet" → "sachets" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — singular/plural sachet vs sachets packs
+- [calibration after 90 invoices] lexicon · accepted: "magnesium" → "mag" (seen lines: +7 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « JUVAMINE DUO MAGNESIUM B/30 » → JUVAMINE DUO MAG B/30; « BIOMAX MAG MAX MAGNESIUM B1B2B6 B/30 » → BIOMAX MAG MAX B1 B2 B6 B/30 CAPS; « JUVAMINE DUO MAGNESIUM B/30 » → JUVAMINE DUO MAG B/30, by muse-spark) — JUVAMINE DUO MAGNESIUM means DUO MAG
+- [calibration after 90 invoices] lexicon · rejected: "spray" → "" (refused: catalogue names use this word; dropping it would erase a difference between products, by muse-spark) — NOYE EAU DE ROSE SPRAY extra vs NATUREL product, spray never names product
+- [calibration after 90 invoices] lexicon · rejected: "creme" → "" (refused: catalogue names use this word; dropping it would erase a difference between products, by muse-spark) — DERMA LIGHTENING CREME and CREME VENUS extra vs catalogues without CREME
+- [calibration after 90 invoices] lexicon · rejected: "fl" → "" (refused: catalogue names use this word; dropping it would erase a difference between products, by muse-spark) — SEPTIDINE FL/125 ML extra vs 125 ML product
+- [calibration after 90 invoices] lexicon · rejected: "b100" → "x100" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « SERINGUE NIPRO 2.5 CC B100 G22 INTRA MUSCULAIRE » → SERINGUE NIPRO 2.5 CC B/100 G22 INTRA MUSCULAIRE, by muse-spark) — SERINGUE B100 means B/100
+- [calibration after 90 invoices] lexicon · accepted: "anti" → "a" (from shadow) (seen lines: +4 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « KIDS HEAVEN MASSE GENCIVE ANTI EAU » → KIDS HEAVEN MASSE GENCIVE A EAU; « ABN BANDE ANTI GAZ 4M X 10 CM » → ABN BANDE A GAZ 4M X 10 CM; « KIDS HEAVEN MASSE GENCIVE ANTI EAU » → KIDS HEAVEN MASSE GENCIVE A EAU, by muse-spark) — BANDE ANTI GAZ for BANDE A GAZ
+- [calibration after 90 invoices] lexicon · accepted: "br" → "bad" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; e.g. « BR KIT 4 PCS » → BAD KIT 4 PCS; « SANSIRO BR FORCHATI KIDS FK 10 » → SANSIRO BAD FORCHATI KIDS FK 10; « BR KIT 4 PCS » → BAD KIT 4 PCS, by muse-spark) — BR KIT for BAD KIT
+- [calibration after 90 invoices] search · accepted: BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity] (classic word similarity [word similarity]: 96.8 % in top 8, MRR 0.93; BM25 [BM25]: 97.1 % in top 8, MRR 0.95; BM25, brand ×2 [BM25 (brand ×2)]: 97.1 % in top 8, MRR 0.95; trigrams [trigrams]: 96.7 % in top 8, MRR 0.93; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 97.1 % in top 8, MRR 0.95; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 97.2 % in top 8, MRR 0.95; Spark: trigram-heavy [BM25 (brand ×1.5) + trigrams + 0.5·word similarity]: 97.2 % in top 8, MRR 0.95; Spark: wordsim-heavy [BM25 (brand ×1.5) + 0.7·trigrams + word similarity]: 97.2 % in top 8, MRR 0.95; Spark: balanced-plus [BM25 (brand ×2) + trigrams + word similarity]: 97.2 % in top 8, MRR 0.95; current: BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 97.2 % in top 8, MRR 0.95. Chosen: 97.2 % in top 8 on seen lines; on unseen lines 96.5 % vs 96.5 % for the current method, by library) — 
+- [calibration after 90 invoices] rekey · accepted: re-read every known wording (41 alias(es) moved to the new reading, no collision, by code) — 
+- [calibration after 120 invoices] block · rejected: dimensions (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — bandages write length x width 4M X 10CM
+- [calibration after 120 invoices] block · rejected: shade (seen lines: +0 newly resolved (0 distinct wordings), 2 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 1 lost; e.g. « VENUS ECRAN TOTAL 40 » → VENUS ECRAN TOTAL TEINTE 60 instead of VENUS ECRA TOTAL 40; « VENUS ECRAN TOTAL 40 » → VENUS ECRAN TOTAL TEINTE 60 instead of VENUS ECRA TOTAL 40, by muse-spark) — reference numbers N17 vs N 17, S 2032 SP 752 YC 7889
+- [calibration after 120 invoices] block · rejected: split_glued (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — glued number-word forms without splitting short codes
+- [calibration after 120 invoices] lexicon · accepted: "crm" → "creme" (seen lines: +6 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « VG CRM HYDRATANTE JOUR PH 7 50 ML » → VG CREME HYDRATANTE JOUR PH 7 50 ML; « FIXYPLUS CRM ADHESIVE FRESH MINT » → FIXYPLUS CREME ADHESIVE FRESH MINT; « FIXYPLUS CRM ADHESIVE FRESH MINT » → FIXYPLUS CREME ADHESIVE FRESH MINT, by muse-spark) — BARRAD CRM 120 ML vs CREME
+- [calibration after 120 invoices] lexicon · rejected: "comp" → "comprime" (seen lines: +2 newly resolved (1 distinct wordings), 0 wrong, 4 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « ALVITYL COMP B/40 » → ALVITYL COMPRIME B/40; lost « COMPRESS OCULAIRE CIC »; « ALVITYL COMP B/40 » → ALVITYL COMPRIME B/40, by muse-spark) — ALVITYL COMP vs COMPRIME, unify with CP
+- [calibration after 120 invoices] lexicon · rejected: "cp" → "comprime" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — B30 CP vs B/30 CP vs COMPRIME unify pack descriptor
+- [calibration after 120 invoices] lexicon · rejected: "b60" → "x60" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — VITAMINE B COMPLEXE B/60 and B60 slash-less variant
+- [calibration after 120 invoices] lexicon · rejected: "b40" → "x40" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — BPN MAGNESIUM and ALVITYL B/40 slash-less
+- [calibration after 120 invoices] lexicon · rejected: "30gr" → "30g" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — DERMA CREME 30GR vs 30G mass spelling
+- [calibration after 120 invoices] lexicon · rejected: "50gr" → "50g" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — URGO FIX CREME AD 50GR vs 50 GR mass spelling
+- [calibration after 120 invoices] search · accepted: BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity] (classic word similarity [word similarity]: 96.7 % in top 8, MRR 0.93; BM25 [BM25]: 96.9 % in top 8, MRR 0.94; BM25, brand ×2 [BM25 (brand ×2)]: 96.9 % in top 8, MRR 0.94; trigrams [trigrams]: 96.4 % in top 8, MRR 0.93; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 96.9 % in top 8, MRR 0.95; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 97.0 % in top 8, MRR 0.95; Spark: bm25-brand-trigram [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 97.0 % in top 8, MRR 0.95; Spark: higher-trigram-typo [BM25 (brand ×1.5) + trigrams + 0.5·word similarity]: 97.0 % in top 8, MRR 0.95; Spark: brand-heavy [BM25 (brand ×2) + 0.7·trigrams + 0.3·word similarity]: 97.0 % in top 8, MRR 0.95; current: BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 97.0 % in top 8, MRR 0.95. Chosen: 97.0 % in top 8 on seen lines; on unseen lines 95.3 % vs 95.3 % for the current method, by library) — 
+- [calibration after 120 invoices] rekey · accepted: re-read every known wording (6 alias(es) moved to the new reading, no collision, by code) — 
+
+Meta model spend for the whole run: $2.2545
+
+## Who made the free answers possible (test invoices)
+
+2281 free answers: Muse Spark found 235 (10 %), the matching Muse Spark designed gave 1961 (86 %), a person taught 85 (4 %).
+
+- catalogue match through the matching Muse Spark designed: 1395
+- alias first matched through the matching Muse Spark designed: 563
+- rule Muse Spark wrote: 165
+- alias first answered by a person: 81
+- alias first found by Muse Spark: 66
+- code first found by Muse Spark: 4
+- code first answered by a person: 4
+- code first matched through the matching Muse Spark designed: 3
+

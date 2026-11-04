@@ -1,0 +1,452 @@
+2026/11/04 00:00:21 [bootstrap] pharmacy / medicines: blocks [strength units_glue pack_count], lexicon 15, search 1.5·BM25 (brand ×3) + 0.6·trigrams ($0.0290)
+2026/11/04 00:00:27 [test after 0] MED-05: 18 lines, alias 0, rules 5, ai 7, asked 6, wrong 0, $0.0052
+2026/11/04 00:00:33 [test after 0] MED-07: 19 lines, alias 0, rules 9, ai 9, asked 1, wrong 0, $0.0060
+2026/11/04 00:00:47 [test after 0] MED-14: 21 lines, alias 0, rules 10, ai 7, asked 3, wrong 1, $0.0110
+2026/11/04 00:00:55 [test after 0] MED-15: 22 lines, alias 0, rules 12, ai 8, asked 2, wrong 0, $0.0070
+2026/11/04 00:01:11 [test after 0] MED-20: 20 lines, alias 0, rules 6, ai 11, asked 3, wrong 0, $0.0098
+2026/11/04 00:01:26 [test after 0] MED-24: 17 lines, alias 0, rules 8, ai 5, asked 4, wrong 0, $0.0100
+2026/11/04 00:01:34 [test after 0] MED-31: 26 lines, alias 0, rules 8, ai 13, asked 5, wrong 0, $0.0071
+2026/11/04 00:01:41 [test after 0] MED-32: 22 lines, alias 0, rules 9, ai 9, asked 4, wrong 0, $0.0063
+2026/11/04 00:01:46 [test after 0] MED-37: 16 lines, alias 0, rules 12, ai 3, asked 1, wrong 0, $0.0046
+2026/11/04 00:01:54 [test after 0] MED-38: 20 lines, alias 0, rules 9, ai 7, asked 4, wrong 0, $0.0066
+2026/11/04 00:02:06 [desk] learned from 22 line(s)
+2026/11/04 00:02:06 [spark-checks-all 1] MED-34: 22 lines, alias 0, rules 7, ai 10, asked 5, wrong 0 | agree 7/7, disagree 0, spark alone 10/10, $0.0099
+2026/11/04 00:02:14 [desk] learned from 22 line(s)
+2026/11/04 00:02:14 [spark-checks-all 2] MED-30: 22 lines, alias 0, rules 10, ai 10, asked 2, wrong 0 | agree 10/10, disagree 0, spark alone 10/10, $0.0063
+2026/11/04 00:02:23 [desk] learned from 17 line(s)
+2026/11/04 00:02:23 [spark-checks-all 3] MED-10: 17 lines, alias 0, rules 5, ai 9, asked 3, wrong 0 | agree 5/5, disagree 0, spark alone 9/9, $0.0059
+2026/11/04 00:02:31 [desk] learned from 18 line(s)
+2026/11/04 00:02:31 [spark-checks-all 4] MED-33: 18 lines, alias 0, rules 9, ai 6, asked 3, wrong 0 | agree 9/9, disagree 1, spark alone 6/6, $0.0059
+2026/11/04 00:02:38 [desk] learned from 15 line(s)
+2026/11/04 00:02:38 [spark-checks-all 5] MED-39: 15 lines, alias 0, rules 5, ai 9, asked 1, wrong 0 | agree 5/5, disagree 0, spark alone 9/9, $0.0061
+2026/11/04 00:02:45 [desk] learned from 15 line(s)
+2026/11/04 00:02:45 [spark-checks-all 6] MED-18: 15 lines, alias 0, rules 10, ai 3, asked 2, wrong 0 | agree 10/10, disagree 0, spark alone 3/3, $0.0054
+2026/11/04 00:02:52 [desk] learned from 17 line(s)
+2026/11/04 00:02:52 [spark-checks-all 7] MED-06: 17 lines, alias 0, rules 6, ai 6, asked 5, wrong 0 | agree 6/6, disagree 0, spark alone 6/6, $0.0055
+2026/11/04 00:02:59 [desk] learned from 19 line(s)
+2026/11/04 00:02:59 [spark-checks-all 8] MED-35: 19 lines, alias 0, rules 8, ai 10, asked 1, wrong 0 | agree 8/8, disagree 0, spark alone 10/10, $0.0054
+2026/11/04 00:03:07 [desk] learned from 17 line(s)
+2026/11/04 00:03:07 [spark-checks-all 9] MED-08: 17 lines, alias 0, rules 10, ai 6, asked 1, wrong 0 | agree 10/10, disagree 0, spark alone 6/6, $0.0063
+2026/11/04 00:03:15 [desk] learned from 17 line(s)
+2026/11/04 00:03:15 [spark-checks-all 10] MED-02: 17 lines, alias 0, rules 7, ai 8, asked 2, wrong 0 | agree 7/7, disagree 0, spark alone 8/8, $0.0062
+2026/11/04 00:04:46 [engineer] list_residue {"limit":62}
+2026/11/04 00:04:46 [engineer] list_rules {}
+2026/11/04 00:04:46 [engineer] read_catalogue {"limit":50}
+2026/11/04 00:04:50 [engineer] list_residue {"limit":100}
+2026/11/04 00:04:59 [engineer] search_catalogue {"query":"sol"}
+2026/11/04 00:04:59 [engineer] search_catalogue {"query":"comp"}
+2026/11/04 00:04:59 [engineer] search_catalogue {"query":"gttes gouttes"}
+2026/11/04 00:04:59 [engineer] search_catalogue {"query":"pde pommade pom"}
+2026/11/04 00:04:59 [engineer] search_catalogue {"query":"supp suppositoire"}
+2026/11/04 00:05:17 [engineer] search_catalogue {"query":"vitamine"}
+2026/11/04 00:05:17 [engineer] search_catalogue {"query":"nourrissant"}
+2026/11/04 00:05:17 [engineer] search_catalogue {"query":"pommade creme enrob orod pellicule"}
+2026/11/04 00:05:17 [engineer] search_catalogue {"query":"sirop buv sachet comp"}
+2026/11/04 00:05:42 [engineer] run_benchmark {"items":[{"action":{"replace":"cp"},"pattern":"comp","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"gttes"},"pattern":"gouttes","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"supp"},"pattern":"suppositoire","scope":{"kind":"global"},"type":"synonym"},{"action":…
+2026/11/04 00:05:42 [engineer] run_benchmark {"action":{"replace":"cp"},"pattern":"comp","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:05:42 [engineer] run_benchmark {"action":{"replace":"gttes"},"pattern":"gouttes","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:05:42 [engineer] run_benchmark {"action":{"replace":"supp"},"pattern":"suppositoire","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:05:42 [engineer] run_benchmark {"action":{"replace":"vitamine"},"pattern":"vit","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:05:42 [engineer] run_benchmark {"action":{"replace":"pde"},"pattern":"pom","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:05:42 [engineer] run_benchmark {"action":{"replace":"pelli"},"pattern":"pellicule","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:05:42 [engineer] run_benchmark {"action":{"replace":"enrob"},"pattern":"enro","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:05:42 [engineer] run_benchmark {"action":{"replace":"creme"},"pattern":"cre","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:05:46 [engineer] run_benchmark {"rule":{"action":{"replace":"cp"},"pattern":"comp","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:05:58 [engineer] run_benchmark {"rule":{"action":{"replace":"cp"},"pattern":"comp.","scope":{"kind":"global"},"type":"rewrite"}}
+2026/11/04 00:06:07 [engineer] run_benchmark {"rule":{"action":{"replace":"cp"},"pattern":"comp","scope":{"kind":"global"},"type":"rewrite"}}
+2026/11/04 00:06:07 [engineer] calibration after 10 invoices: muse-spark-1.3, residue 62, accepted [], rejected [], $0.1929
+2026/11/04 00:06:07 [calibration after 10 invoices] accepted 3, rejected 26; 57/134 right with no AI (43 %), 1 wrong → 83/134 right with no AI (62 %), 1 wrong; search BM25: 85.8 % in the top 8 (MRR 0.85); engineer [] ($0.2165)
+2026/11/04 00:06:16 [test after 10] MED-05: 18 lines, alias 0, rules 11, ai 0, asked 7, wrong 0, $0.0064
+2026/11/04 00:06:22 [test after 10] MED-07: 19 lines, alias 0, rules 13, ai 5, asked 1, wrong 0, $0.0055
+2026/11/04 00:06:32 [test after 10] MED-14: 21 lines, alias 0, rules 16, ai 2, asked 2, wrong 1, $0.0074
+2026/11/04 00:06:40 [test after 10] MED-15: 22 lines, alias 0, rules 13, ai 6, asked 3, wrong 0, $0.0072
+2026/11/04 00:06:50 [test after 10] MED-20: 20 lines, alias 0, rules 11, ai 4, asked 5, wrong 0, $0.0077
+2026/11/04 00:07:02 [test after 10] MED-24: 17 lines, alias 0, rules 10, ai 2, asked 5, wrong 0, $0.0083
+2026/11/04 00:07:11 [test after 10] MED-31: 26 lines, alias 0, rules 14, ai 6, asked 6, wrong 0, $0.0074
+2026/11/04 00:07:17 [test after 10] MED-32: 22 lines, alias 0, rules 11, ai 6, asked 5, wrong 0, $0.0061
+2026/11/04 00:07:24 [test after 10] MED-37: 16 lines, alias 0, rules 13, ai 3, asked 0, wrong 0, $0.0062
+2026/11/04 00:07:32 [test after 10] MED-38: 20 lines, alias 0, rules 13, ai 3, asked 4, wrong 0, $0.0070
+2026/11/04 00:07:40 [desk] learned from 21 line(s)
+2026/11/04 00:07:40 [spark-checks-all 11] MED-27: 21 lines, alias 0, rules 11, ai 4, asked 6, wrong 0 | agree 11/11, disagree 0, spark alone 4/4, $0.0062
+2026/11/04 00:07:50 [desk] learned from 20 line(s)
+2026/11/04 00:07:50 [spark-checks-all 12] MED-23: 20 lines, alias 0, rules 12, ai 6, asked 2, wrong 0 | agree 12/12, disagree 0, spark alone 6/6, $0.0076
+2026/11/04 00:07:56 [desk] learned from 21 line(s)
+2026/11/04 00:07:56 [spark-checks-all 13] MED-29: 21 lines, alias 0, rules 13, ai 4, asked 4, wrong 0 | agree 13/13, disagree 0, spark alone 4/4, $0.0044
+2026/11/04 00:08:03 [desk] learned from 24 line(s)
+2026/11/04 00:08:03 [spark-checks-all 14] MED-40: 24 lines, alias 0, rules 12, ai 4, asked 8, wrong 0 | agree 12/12, disagree 0, spark alone 4/4, $0.0057
+2026/11/04 00:08:11 [desk] learned from 24 line(s)
+2026/11/04 00:08:11 [spark-checks-all 15] MED-25: 24 lines, alias 0, rules 14, ai 6, asked 4, wrong 0 | agree 14/14, disagree 0, spark alone 6/6, $0.0066
+2026/11/04 00:08:17 [desk] learned from 15 line(s)
+2026/11/04 00:08:17 [spark-checks-all 16] MED-22: 15 lines, alias 0, rules 11, ai 0, asked 4, wrong 0 | agree 11/11, disagree 0, spark alone 0/0, $0.0042
+2026/11/04 00:08:28 [desk] learned from 24 line(s)
+2026/11/04 00:08:28 [spark-checks-all 17] MED-16: 24 lines, alias 0, rules 17, ai 3, asked 4, wrong 0 | agree 17/17, disagree 0, spark alone 3/3, $0.0065
+2026/11/04 00:08:35 [desk] learned from 22 line(s)
+2026/11/04 00:08:35 [spark-checks-all 18] MED-11: 22 lines, alias 0, rules 14, ai 5, asked 3, wrong 0 | agree 14/14, disagree 0, spark alone 5/5, $0.0064
+2026/11/04 00:08:44 [desk] learned from 21 line(s)
+2026/11/04 00:08:44 [spark-checks-all 19] MED-17: 21 lines, alias 0, rules 14, ai 6, asked 1, wrong 0 | agree 14/14, disagree 0, spark alone 6/6, $0.0064
+2026/11/04 00:08:52 [desk] learned from 20 line(s)
+2026/11/04 00:08:52 [spark-checks-all 20] MED-09: 20 lines, alias 0, rules 13, ai 3, asked 3, wrong 1 | agree 13/13, disagree 0, spark alone 3/4, $0.0065
+2026/11/04 00:11:18 [engineer] list_residue {"limit":130}
+2026/11/04 00:11:18 [engineer] list_rules {}
+2026/11/04 00:11:18 [engineer] read_catalogue {"limit":50}
+2026/11/04 00:11:43 [engineer] run_benchmark {"items":[{"action":{"replace":"fl"},"pattern":"flc|flacon","scope":{"kind":"global"},"type":"synonym"},{"action":{"attr":"form","value":"sp"},"pattern":"sol buv|sirop|sir|srp","scope":{"kind":"global"},"type":"attribute"},{"action":{"replace":"cp"},"pattern":"comp|comprimes|comprime|compr","scope":…
+2026/11/04 00:11:43 [engineer] run_benchmark {"action":{"replace":"fl"},"pattern":"flc|flacon","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:11:43 [engineer] run_benchmark {"action":{"attr":"form","value":"sp"},"pattern":"sol buv|sirop|sir|srp","scope":{"kind":"global"},"type":"attribute"}
+2026/11/04 00:11:43 [engineer] run_benchmark {"action":{"replace":"cp"},"pattern":"comp|comprimes|comprime|compr","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:11:43 [engineer] run_benchmark {"action":{"role":"descriptor"},"pattern":"pell|pelli|enrob|enrobe","scope":{"kind":"global"},"type":"word"}
+2026/11/04 00:11:43 [engineer] run_benchmark {"action":{"attr":"population","value":"ad"},"pattern":"adulte|adult","scope":{"kind":"global"},"type":"attribute"}
+2026/11/04 00:11:43 [engineer] run_benchmark {"action":{"replace":"pde"},"pattern":"pom|pommade","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:11:43 [engineer] run_benchmark {"action":{"replace":"gles"},"pattern":"gelule|gelules","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:11:43 [engineer] run_benchmark {"action":{"replace":"spray"},"pattern":"spr","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:11:46 [engineer] run_benchmark {"rule":{"action":{"replace":"fl"},"pattern":"flc","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:11:52 [engineer] run_benchmark {"items":[{"rule":{"action":{"replace":"fl"},"pattern":"flc|flacon","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"attr":"form","value":"sp"},"pattern":"sol buv|sirop|sir|srp","scope":{"kind":"global"},"type":"attribute"}},{"rule":{"action":{"replace":"cp"},"pattern":"comp","scope"…
+2026/11/04 00:11:52 [engineer] run_benchmark {"rule":{"action":{"replace":"fl"},"pattern":"flc|flacon","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:11:55 [engineer] run_benchmark {"rule":{"action":{"attr":"form","value":"sp"},"pattern":"sol buv|sirop|sir|srp","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:11:57 [engineer] run_benchmark {"rule":{"action":{"replace":"cp"},"pattern":"comp","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:12:00 [engineer] run_benchmark {"rule":{"action":{"role":"descriptor"},"pattern":"pell|pelli|enrob","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:12:02 [engineer] run_benchmark {"rule":{"action":{"attr":"population","value":"ad"},"pattern":"adulte","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:12:05 [engineer] run_benchmark {"rule":{"action":{"replace":"pde"},"pattern":"pom","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:12:07 [engineer] run_benchmark {"rule":{"action":{"replace":"gles"},"pattern":"gelule","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:12:09 [engineer] run_benchmark {"rule":{"action":{"replace":"spray"},"pattern":"spr","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:12:23 [engineer] run_benchmark {"items":[{"rule":{"action":{"attr":"form","value":"sp"},"pattern":"sir|srp|sirop","scope":{"kind":"global"},"type":"attribute"}},{"rule":{"action":{"role":"descriptor"},"pattern":"pell|pelli|pellicule|pelliculaire|enrob|enrobe","scope":{"kind":"global"},"type":"word"}},{"rule":{"action":{"replace":…
+2026/11/04 00:12:23 [engineer] run_benchmark {"rule":{"action":{"attr":"form","value":"sp"},"pattern":"sir|srp|sirop","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:12:26 [engineer] run_benchmark {"rule":{"action":{"role":"descriptor"},"pattern":"pell|pelli|pellicule|pelliculaire|enrob|enrobe","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:12:29 [engineer] run_benchmark {"rule":{"action":{"replace":"susp"},"pattern":"susp?","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:12:31 [engineer] run_benchmark {"rule":{"action":{"replace":"cp"},"pattern":"comp|comprimes|comprime|compr","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:12:52 [engineer] run_benchmark {"items":[{"rule":{"action":{"role":"descriptor"},"pattern":"pel|enro|pell|pelli|pellicule|pelliculaire|enrobe|enrob","scope":{"kind":"global"},"type":"word"}},{"rule":{"action":{"replace":"pde"},"pattern":"pom","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"role":"descriptor"},"pa…
+2026/11/04 00:12:52 [engineer] run_benchmark {"rule":{"action":{"role":"descriptor"},"pattern":"pel|enro|pell|pelli|pellicule|pelliculaire|enrobe|enrob","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:12:54 [engineer] run_benchmark {"rule":{"action":{"replace":"pde"},"pattern":"pom","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:12:57 [engineer] run_benchmark {"rule":{"action":{"role":"descriptor"},"pattern":"sol","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:13:00 [engineer] run_benchmark {"rule":{"action":{"role":"descriptor"},"pattern":"buv","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:13:15 [engineer] run_benchmark {"items":[{"rule":{"action":{"replace":"susp buv"},"pattern":"sol buv","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"replace":"inj"},"pattern":"sol inj","scope":{"kind":"global"},"type":"synonym"}},{"rule":{"action":{"role":"descriptor"},"pattern":"buv|buvable","scope":{"kind":"gl…
+2026/11/04 00:13:15 [engineer] run_benchmark {"rule":{"action":{"replace":"susp buv"},"pattern":"sol buv","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:13:17 [engineer] run_benchmark {"rule":{"action":{"replace":"inj"},"pattern":"sol inj","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:13:20 [engineer] run_benchmark {"rule":{"action":{"role":"descriptor"},"pattern":"buv|buvable","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:13:22 [engineer] run_benchmark {"rule":{"action":{"role":"descriptor"},"pattern":"gttes","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:13:36 [engineer] submit_rule {"items":[{"rationale":"supplier writes FLC / FLACON for catalogue FL","rule":{"action":{"replace":"fl"},"pattern":"flc|flacon","scope":{"kind":"global"},"type":"synonym"}},{"rationale":"suppliers write SIR/SRP/SIROP for catalogue SP syrups","rule":{"action":{"attr":"form","value":"sp"},"pattern":"s…
+2026/11/04 00:13:36 [engineer] submit_rule {"rationale":"supplier writes FLC / FLACON for catalogue FL","rule":{"action":{"replace":"fl"},"pattern":"flc|flacon","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:14:05 [engineer] submit_rule {"rationale":"suppliers write SIR/SRP/SIROP for catalogue SP syrups","rule":{"action":{"attr":"form","value":"sp"},"pattern":"sir|srp|sirop","scope":{"kind":"global"},"type":"attribute"}}
+2026/11/04 00:14:56 [engineer] submit_rule {"rationale":"pellicule/enrobe spellings are never distinguishing words","rule":{"action":{"role":"descriptor"},"pattern":"pel|enro|pell|pelli|pellicule|pelliculaire|enrob|enrobe","scope":{"kind":"global"},"type":"word"}}
+2026/11/04 00:17:10 [engineer] breaker: Post "https://api.meta.ai/v1/chat/completions": context deadline exceeded
+2026/11/04 00:17:10 [engineer] submit_rule {"rationale":"COMP / COMPRIMES abbreviations of catalogue CP","rule":{"action":{"replace":"cp"},"pattern":"comp|comprimes|comprime|compr","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:17:43 [engineer] submit_rule {"rationale":"SOL INJ printed for catalogue INJ","rule":{"action":{"replace":"inj"},"pattern":"sol inj","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:18:10 [engineer] submit_rule {"rationale":"SOL BUV printed for catalogue SUSP BUV","rule":{"action":{"replace":"susp buv"},"pattern":"sol buv","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:18:11 [engineer] calibration after 20 invoices: muse-spark-1.3, residue 130, accepted [R-0005 R-0006 R-0007 R-0008], rejected [R-0004 R-0009], $0.2582
+2026/11/04 00:18:11 [calibration after 20 invoices] accepted 1, rejected 10; 183/293 right with no AI (62 %), 1 wrong → 187/293 right with no AI (64 %), 1 wrong; search BM25: 85.0 % in the top 8 (MRR 0.84); engineer [R-0005 R-0006 R-0007 R-0008] ($0.2788)
+2026/11/04 00:18:18 [test after 20] MED-05: 18 lines, alias 0, rules 11, ai 0, asked 7, wrong 0, $0.0052
+2026/11/04 00:18:27 [test after 20] MED-07: 19 lines, alias 0, rules 13, ai 5, asked 1, wrong 0, $0.0072
+2026/11/04 00:18:41 [test after 20] MED-14: 21 lines, alias 0, rules 16, ai 2, asked 2, wrong 1, $0.0096
+2026/11/04 00:18:50 [test after 20] MED-15: 22 lines, alias 0, rules 13, ai 5, asked 4, wrong 0, $0.0076
+2026/11/04 00:19:06 [test after 20] MED-20: 20 lines, alias 0, rules 12, ai 3, asked 5, wrong 0, $0.0069
+2026/11/04 00:19:25 [test after 20] MED-24: 17 lines, alias 0, rules 10, ai 1, asked 6, wrong 0, $0.0104
+2026/11/04 00:19:34 [test after 20] MED-31: 26 lines, alias 0, rules 14, ai 6, asked 6, wrong 0, $0.0077
+2026/11/04 00:19:43 [test after 20] MED-32: 22 lines, alias 0, rules 11, ai 6, asked 5, wrong 0, $0.0068
+2026/11/04 00:19:51 [test after 20] MED-37: 16 lines, alias 0, rules 13, ai 2, asked 1, wrong 0, $0.0062
+2026/11/04 00:19:59 [test after 20] MED-38: 20 lines, alias 0, rules 13, ai 4, asked 3, wrong 0, $0.0064
+2026/11/04 00:20:09 [desk] learned from 22 line(s)
+2026/11/04 00:20:09 [spark-checks-all 21] MED-13: 22 lines, alias 0, rules 18, ai 1, asked 3, wrong 0 | agree 18/18, disagree 0, spark alone 1/1, $0.0073
+2026/11/04 00:20:21 [desk] learned from 23 line(s)
+2026/11/04 00:20:21 [spark-checks-all 22] MED-21: 23 lines, alias 0, rules 18, ai 4, asked 1, wrong 0 | agree 18/18, disagree 0, spark alone 4/4, $0.0094
+2026/11/04 00:20:29 [desk] learned from 15 line(s)
+2026/11/04 00:20:29 [spark-checks-all 23] MED-28: 15 lines, alias 0, rules 9, ai 1, asked 5, wrong 0 | agree 9/9, disagree 1, spark alone 1/1, $0.0053
+2026/11/04 00:20:41 [desk] learned from 22 line(s)
+2026/11/04 00:20:41 [spark-checks-all 24] MED-01: 22 lines, alias 0, rules 18, ai 2, asked 2, wrong 0 | agree 18/18, disagree 0, spark alone 2/2, $0.0090
+2026/11/04 00:20:53 [desk] learned from 19 line(s)
+2026/11/04 00:20:53 [spark-checks-all 25] MED-19: 19 lines, alias 0, rules 13, ai 0, asked 6, wrong 0 | agree 13/13, disagree 0, spark alone 0/0, $0.0076
+2026/11/04 00:21:01 [desk] learned from 17 line(s)
+2026/11/04 00:21:01 [spark-checks-all 26] MED-36: 17 lines, alias 0, rules 12, ai 1, asked 4, wrong 0 | agree 12/12, disagree 0, spark alone 1/1, $0.0049
+2026/11/04 00:21:09 [desk] learned from 19 line(s)
+2026/11/04 00:21:09 [spark-checks-all 27] MED-12: 19 lines, alias 0, rules 13, ai 3, asked 3, wrong 0 | agree 13/13, disagree 0, spark alone 3/3, $0.0070
+2026/11/04 00:21:20 [desk] learned from 17 line(s)
+2026/11/04 00:21:20 [spark-checks-all 28] MED-04: 17 lines, alias 0, rules 12, ai 2, asked 3, wrong 0 | agree 12/12, disagree 0, spark alone 2/2, $0.0070
+2026/11/04 00:21:29 [desk] learned from 22 line(s)
+2026/11/04 00:21:29 [spark-checks-all 29] MED-03: 22 lines, alias 0, rules 15, ai 3, asked 4, wrong 0 | agree 15/15, disagree 0, spark alone 3/3, $0.0071
+2026/11/04 00:21:35 [desk] learned from 15 line(s)
+2026/11/04 00:21:35 [spark-checks-all 30] MED-26: 15 lines, alias 0, rules 12, ai 0, asked 3, wrong 0 | agree 12/12, disagree 0, spark alone 0/0, $0.0044
+2026/11/04 00:24:04 [engineer] list_residue {"limit":50}
+2026/11/04 00:24:04 [engineer] list_rules {}
+2026/11/04 00:24:12 [engineer] list_residue {"limit":120}
+2026/11/04 00:24:27 [engineer] read_catalogue {"limit":30,"query":"PHYSIOMAR SPRAY"}
+2026/11/04 00:24:27 [engineer] search_catalogue {"query":"LIPANTHYL"}
+2026/11/04 00:24:27 [engineer] search_catalogue {"query":"LEVOSPASME"}
+2026/11/04 00:24:27 [engineer] search_catalogue {"query":"SAPRAMOL"}
+2026/11/04 00:25:04 [engineer] run_benchmark {"items":[{"action":{"role":"descriptor"},"pattern":"flc|flacon","scope":{"kind":"global"},"type":"word"},{"action":{"replace":"creme"},"pattern":"cr","scope":{"kind":"global"},"type":"synonym"},{"action":{"replace":"nasal"},"pattern":"nas","scope":{"kind":"global"},"type":"synonym"},{"action":{"rep…
+2026/11/04 00:25:04 [engineer] run_benchmark {"action":{"role":"descriptor"},"pattern":"flc|flacon","scope":{"kind":"global"},"type":"word"}
+2026/11/04 00:25:04 [engineer] run_benchmark {"action":{"replace":"creme"},"pattern":"cr","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:25:04 [engineer] run_benchmark {"action":{"replace":"nasal"},"pattern":"nas","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:25:04 [engineer] run_benchmark {"action":{"replace":"orod"},"pattern":"oro disp","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:25:04 [engineer] run_benchmark {"action":{"replace":"gles"},"pattern":"gelule|gelules","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:25:04 [engineer] run_benchmark {"action":{"replace":"enf"},"pattern":"enfant|enfants","scope":{"kind":"global"},"type":"synonym"}
+2026/11/04 00:25:08 [engineer] list_residue {"limit":171}
+2026/11/04 00:25:19 [engineer] search_catalogue {"query":"DERMOXERYL"}
+2026/11/04 00:25:27 [engineer] read_catalogue {"limit":10,"query":"DERMOXERYL"}
+2026/11/04 00:25:44 [engineer] run_benchmark {"rule":{"action":{"replace":"creme"},"pattern":"cr","scope":{"kind":"global"},"type":"synonym"}}
+2026/11/04 00:25:50 [engineer] list_residue {"limit":171}
+2026/11/04 00:25:50 [engineer] list_rules {}
+2026/11/04 00:25:58 [engineer] read_catalogue {"limit":100}
+2026/11/04 00:26:09 [engineer] list_residue {"limit":100}
+2026/11/04 00:26:27 [engineer] search_catalogue {"query":"creme"}
+2026/11/04 00:26:27 [engineer] read_catalogue {"limit":100,"query":"enfant"}
+2026/11/04 00:26:27 [engineer] read_catalogue {"limit":100,"query":"fl"}
+2026/11/04 00:26:44 [engineer] run_benchmark {"items":[{"rule":{"type":"synonym","pattern":"cr","scope":{"kind":"global"},"action":{"replace":"creme"}}},{"rule":{"type":"synonym","pattern":"flc","scope":{"kind":"global"},"action":{"replace":"fl"}}},{"rule":{"type":"synonym","pattern":"enfant","scope":{"kind":"global"},"action":{"replace":"enf"…
+2026/11/04 00:26:44 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"cr","scope":{"kind":"global"},"action":{"replace":"creme"}}}
+2026/11/04 00:26:48 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"flc","scope":{"kind":"global"},"action":{"replace":"fl"}}}
+2026/11/04 00:26:52 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"enfant","scope":{"kind":"global"},"action":{"replace":"enf"}}}
+2026/11/04 00:26:57 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"nas","scope":{"kind":"global"},"action":{"replace":"nasal"}}}
+2026/11/04 00:27:02 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"gelules","scope":{"kind":"global"},"action":{"replace":"gles"}}}
+2026/11/04 00:27:07 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"croq","scope":{"kind":"global"},"action":{"replace":"croquer"}}}
+2026/11/04 00:27:12 [engineer] run_benchmark {"rule":{"type":"word","pattern":"tube","scope":{"kind":"global"},"action":{"role":"descriptor"}}}
+2026/11/04 00:27:17 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"bte","scope":{"kind":"global"},"action":{"replace":"b"}}}
+2026/11/04 00:27:22 [engineer] run_benchmark {"rule":{"type":"rewrite","pattern":"oro disp","scope":{"kind":"global"},"action":{"replace":"orod"}}}
+2026/11/04 00:27:27 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"ss|s s","scope":{"kind":"global"},"action":{"attr":"variant","value":"ss","policy":"marker"}}}
+2026/11/04 00:27:36 [engineer] submit_rule {"items":[{"rule":{"type":"synonym","pattern":"cr","scope":{"kind":"global"},"action":{"replace":"creme"}},"rationale":"cr is abbreviation for creme in supplier lines and resolves Dermoxeryl/Onycal","inspired_by":["ln_19271a16b373"]},{"rule":{"type":"synonym","pattern":"flc","scope":{"kind":"global"…
+2026/11/04 00:27:36 [engineer] submit_rule {"rule":{"type":"synonym","pattern":"cr","scope":{"kind":"global"},"action":{"replace":"creme"}},"rationale":"cr is abbreviation for creme in supplier lines and resolves Dermoxeryl/Onycal","inspired_by":["ln_19271a16b373"]}
+2026/11/04 00:28:07 [engineer] submit_rule {"rule":{"type":"synonym","pattern":"flc","scope":{"kind":"global"},"action":{"replace":"fl"}},"rationale":"flc = flacon abbreviated to fl, resolves 4 lines","inspired_by":["ln_55d6ce0a47b0","ln_89021020c6be"]}
+2026/11/04 00:30:24 [engineer] breaker: Post "https://api.meta.ai/v1/chat/completions": context deadline exceeded
+2026/11/04 00:30:24 [engineer] submit_rule {"rule":{"type":"synonym","pattern":"enfant","scope":{"kind":"global"},"action":{"replace":"enf"}},"rationale":"enfant written out vs catalogue enf, but note population rule already has enf; enfant->enf maps","inspired_by":["ln_209e0a5bce1f"]}
+2026/11/04 00:30:29 [engineer] submit_rule {"rule":{"type":"rewrite","pattern":"oro disp","scope":{"kind":"global"},"action":{"replace":"orod"}},"rationale":"oro disp split form of orod in catalogue","inspired_by":["ln_db9e4b1f76cb"]}
+2026/11/04 00:31:01 [engineer] submit_rule {"rule":{"type":"attribute","pattern":"ss|s s","scope":{"kind":"global"},"action":{"attr":"variant","value":"ss","policy":"marker"}},"rationale":"S.S distinguishes ZECUF S.S from plain ZECUF twin","inspired_by":["ln_663b1a33f002"]}
+2026/11/04 00:32:16 [engineer] run_benchmark {"items":[{"rule":{"type":"rewrite","pattern":"b{n}","scope":{"kind":"global"},"action":{"replace":"x{n}"}}},{"rule":{"type":"synonym","pattern":"enfants","scope":{"kind":"global"},"action":{"replace":"enf"}}},{"rule":{"type":"synonym","pattern":"adulte|adultes","scope":{"kind":"global"},"action":{"…
+2026/11/04 00:32:16 [engineer] run_benchmark {"rule":{"type":"rewrite","pattern":"b{n}","scope":{"kind":"global"},"action":{"replace":"x{n}"}}}
+2026/11/04 00:32:20 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"enfants","scope":{"kind":"global"},"action":{"replace":"enf"}}}
+2026/11/04 00:32:24 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"adulte|adultes","scope":{"kind":"global"},"action":{"replace":"ad"}}}
+2026/11/04 00:32:28 [engineer] run_benchmark {"rule":{"type":"word","pattern":"sol","scope":{"kind":"global"},"action":{"role":"descriptor"}}}
+2026/11/04 00:32:32 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"inj","scope":{"kind":"global"},"action":{"replace":"inj"}}}
+2026/11/04 00:32:36 [engineer] run_benchmark {"rule":{"type":"word","pattern":"buv","scope":{"kind":"global"},"action":{"role":"descriptor"}}}
+2026/11/04 00:32:41 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"comprimés|comprimes","scope":{"kind":"global"},"action":{"replace":"cp"}}}
+2026/11/04 00:32:45 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"tube","scope":{"kind":"global"},"action":{"replace":"t"}}}
+2026/11/04 00:32:48 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"sans sucre","scope":{"kind":"global"},"action":{"attr":"variant","value":"ss","policy":"marker"}}}
+2026/11/04 00:32:52 [engineer] run_benchmark {"rule":{"type":"rewrite","pattern":"s s","scope":{"kind":"global"},"action":{"replace":"ss"}}}
+2026/11/04 00:33:05 [engineer] run_benchmark {"items":[{"rule":{"type":"attribute","pattern":"enfant|enfants","scope":{"kind":"global"},"action":{"attr":"population","value":"enf"}}},{"rule":{"type":"synonym","pattern":"solution","scope":{"kind":"global"},"action":{"replace":"sol"}}},{"rule":{"type":"synonym","pattern":"sachet|sachets","scope"…
+2026/11/04 00:33:05 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"enfant|enfants","scope":{"kind":"global"},"action":{"attr":"population","value":"enf"}}}
+2026/11/04 00:33:09 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"solution","scope":{"kind":"global"},"action":{"replace":"sol"}}}
+2026/11/04 00:33:12 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"sachet|sachets","scope":{"kind":"global"},"action":{"replace":"sacht"}}}
+2026/11/04 00:33:16 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"buvable","scope":{"kind":"global"},"action":{"replace":"buv"}}}
+2026/11/04 00:33:20 [engineer] run_benchmark {"rule":{"type":"word","pattern":"bte|boite","scope":{"kind":"global"},"action":{"role":"descriptor"}}}
+2026/11/04 00:33:24 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"gr","scope":{"kind":"global"},"action":{"replace":"g"}}}
+2026/11/04 00:33:27 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"comprime","scope":{"kind":"global"},"action":{"replace":"cp"}}}
+2026/11/04 00:33:31 [engineer] run_benchmark {"rule":{"type":"attribute","pattern":"adulte","scope":{"kind":"global"},"action":{"attr":"population","value":"ad"}}}
+2026/11/04 00:33:35 [engineer] run_benchmark {"rule":{"type":"synonym","pattern":"spray","scope":{"kind":"global"},"action":{"replace":"spray"}}}
+2026/11/04 00:33:39 [engineer] run_benchmark {"rule":{"type":"word","pattern":"fl|flacon","scope":{"kind":"global"},"action":{"role":"descriptor"}}}
+2026/11/04 00:33:44 [engineer] calibration after 30 invoices: muse-spark-1.3 → muse-wonder-1.0, residue 171, accepted [R-0010 R-0011 R-0013 R-0014], rejected [R-0012], $0.8734
+2026/11/04 00:33:44 [calibration after 30 invoices] accepted 0, rejected 7; 300/436 right with no AI (69 %), 1 wrong → 300/436 right with no AI (69 %), 1 wrong; search BM25: 87.8 % in the top 8 (MRR 0.87); engineer [R-0010 R-0011 R-0013 R-0014] ($0.8952)
+2026/11/04 00:33:55 [test after 30] MED-05: 18 lines, alias 0, rules 12, ai 0, asked 6, wrong 0, $0.0077
+2026/11/04 00:34:03 [test after 30] MED-07: 19 lines, alias 0, rules 15, ai 3, asked 1, wrong 0, $0.0068
+2026/11/04 00:34:21 [test after 30] MED-14: 21 lines, alias 0, rules 16, ai 2, asked 2, wrong 1, $0.0098
+2026/11/04 00:34:31 [test after 30] MED-15: 22 lines, alias 0, rules 13, ai 3, asked 6, wrong 0, $0.0077
+2026/11/04 00:34:39 [test after 30] MED-20: 20 lines, alias 0, rules 12, ai 4, asked 4, wrong 0, $0.0056
+2026/11/04 00:35:00 [test after 30] MED-24: 17 lines, alias 0, rules 10, ai 1, asked 6, wrong 0, $0.0116
+2026/11/04 00:35:13 [test after 30] MED-31: 26 lines, alias 0, rules 16, ai 4, asked 6, wrong 0, $0.0075
+2026/11/04 00:35:21 [test after 30] MED-32: 22 lines, alias 0, rules 13, ai 5, asked 4, wrong 0, $0.0062
+2026/11/04 00:35:30 [test after 30] MED-37: 16 lines, alias 0, rules 13, ai 3, asked 0, wrong 0, $0.0064
+2026/11/04 00:35:42 [test after 30] MED-38: 20 lines, alias 0, rules 13, ai 3, asked 4, wrong 0, $0.0081
+# What Muse Spark identified: pharmacy / medicines
+
+Catalogue writes BRAND + strength + galenic form + pack: e.g. 10MG CP PELLI SEC B/30, 250MG/5ML SP FL 60ML, 0.1% COLLYRE FL 5ML. Strengths use MG/G/MCG/MUI/UI/% with comma decimals, single (10MG) or double/triple (500MG/65MG, 500/62.5MG, 1G/125MG, 0.2G/0.5G/100ML). Forms are abbreviated: CP, GLES/GELS, SP, SUSP BUV, SOL, GTTES, PDRE SACHT, AMP, INJ, SUPP, OVUL, CREME/GEL/PDE/T. Packs are B/XX, BT, S/30, T/15G for tubes and FL XXML volumes. Two products of one brand differ by dosage, form/pack and AD/ENF or LP.
+
+## First-pass blocks
+
+- **strength** ON — many products are defined by two-value dosage 500mg/65mg, 1g/125mg, 80mg/12.5mg, 250mg/5ml that must become one dose token
+  - evidence: reads 87 catalogue names differently; products that read alike 13 → 10
+- **units_glue** ON — catalogue mixes 10MG and 10 MG, 60ML and 60 ML, 15G and 15 G; number+mg/ml/g/ui must be glued to match
+  - evidence: reads 0 catalogue names differently; products that read alike 10 → 10
+- **pack_count** ON — pack is B/30, BT100, BTE, S/30, B/14, B/28 that must become one x30 token to distinguish same dosage different box size
+  - evidence: reads 303 catalogue names differently; products that read alike 10 → 5
+
+## The desk's own vocabulary (lexicon)
+
+- `comprime` → `cp` [live] — suppliers write comprime for catalogue cp
+  - evidence: seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « Rozitta 20 Mg Comprime 20Mg » → ROZITTA 20 MG CP 20MG; « TRIMEBUTINE 100 MG B/20 COMPRIME » → TRIMEBUTINE B 100MG CP B/20
+- `comprimes` → `cp` [rejected] — plural variant for catalogue cp
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « MAG SEVE + 145 MG COMPRIMES B/60 » → MAG SEVE + 145 MG CP B/60
+- `gelule` → `gles` [rejected] — suppliers write gelule for catalogue gles/gels
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 2 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. lost « WOMEN GELULE INT MOUSSANT FL/150ML »; lost « WOMEN GELULE INT MOUSSANT FL/150ML »
+- `gelules` → `gles` [rejected] — plural variant for catalogue gles
+  - evidence: seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 1 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « VITAMINE C + ZINC GELULES » → VITAMINE C + ZINC (BIOREM) GLES B/30; « ANTAG 20MG/BTE28 GELULES » → ANTAG 20MG GLES B/28; lost « ANTAG 20MG/BTE14 GELULES »
+- `sirop` → `sp` [live] — suppliers write sirop for catalogue sp
+  - evidence: seen lines: +4 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « PROXAN KIDS 0.35G SIROP FL/100ML » → PROXAN KIDS SP 0.35G/FL 100ML; « HEPTAL 2MG/5ML FL/125ML SIROP » → HEPTAL 2MG/5ML SP FL 125ML; « RHINATHIOL 2% SIROP 2% SIROP FL/125 ML » → RHINATHIOL ENF 2% SP FL 125ML
+- `sachet` → `sacht` [rejected] — suppliers write sachet for catalogue sacht misspelling
+  - evidence: seen lines: +3 newly resolved (3 distinct wordings), 1 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « LEXIN SACHET 500MG MG B/20 » → LEXIN 500MG SACHET B/20; « AMOCLAN 500/62.5 MG SACHT B/14 » → AMOCLAN 8.1 ENF 500/62.5MG SACHET B/14; « LEXIN 500 MG B/ 20 SACHETS » → LEXIN 500MG GLES B/20 instead of LEXIN 500MG SACHET B/20
+- `sachets` → `sacht` [rejected] — plural variant for catalogue sacht
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `poudre` → `pdre` [rejected] — suppliers write poudre for catalogue pdre
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `flacon` → `fl` [rejected] — suppliers write flacon for catalogue fl
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `gouttes` → `gttes` [rejected] — suppliers write gouttes for catalogue gttes
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost
+- `ampoule` → `amp` [rejected] — suppliers write ampoule for catalogue amp
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `suppositoire` → `supp` [rejected] — suppliers write suppositoire for catalogue supp
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `boite` → `b` [rejected] — suppliers write boite for catalogue b in b/30
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `bte` → `b` [rejected] — suppliers write bte for catalogue b
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `tube` → `t` [rejected] — suppliers write tube for catalogue t in t/15g
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `cpr` → `cp` [rejected] — CRESTOR CPR -> CP PELLI
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `comp` → `cp` [live] — COMP COMP. BTE2 B/28 -> CP, most frequent miss
+  - evidence: seen lines: +23 newly resolved (23 distinct wordings), 0 wrong, 0 lost; unseen lines: +8 newly resolved (8 distinct wordings), 0 wrong, 0 lost; e.g. « BIPROTENS 10MG COMP B/30 » → BIPROTENS 10MG CP ENROB B/30; « DICYNONE 250MG B/20 COMP B/20 » → DICYNONE 250MG CP B/20; « SPIRONOLONE 75MG B/30 COMP.PELLI.SEC » → SPIRONOLONE BIOGALENIC 75MG CP PELLI SEC B/30
+- `sir` → `` [shadow] — HEPTAL SIR -> SP, drop to avoid contradiction
+  - evidence: seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « HEPTAL 2MG/5ML SIR FL/125ML » → HEPTAL 2MG/5ML SP FL 125ML; « PROLIB KIDS 125 ML SIR FL 125ML » → PROLIB KIDS 125 ML SP FL 125ML; « Eupnex 10Mg/5Ml Fl/180 Ml.Sir. » → EUPNEX 10MG/5ML SP FL 180ML
+- `srp` → `` [live] — ZECUF SRP -> SP typo, drop
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « MAG PRO MAGNESIUM MARIN SRP 100ML » → MAG PRO (MAGNESIUM MARIN) SP 100ML
+- `crm` → `creme` [rejected] — CRM -> CREME
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « ONYCAL 1% CRM B/1 TERBINAFINE LDM » → ONYCAL 1% CREME B/1 (TERBINAFINE LDM)
+- `flc` → `flacon` [rejected] — FLC -> FLACON
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « Esthezen Gel Nettoyant Et Eclaircissant Zone Intime Gel Flc 200Ml » → ESTHEZEN GEL NETTOYANT ET ECLAIRCISSANT ZONE INTIME GEL FLACON 200ML
+- `physiopharm` → `physio` [rejected] — PHYSIOPHARM -> PHYSIO brand short
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « NIFUROXAZIDE PHYSIOPHARM 200MG GLES B/30 » → NIFUROXAZIDE PHYSIO 200MG GLES B/30
+- `vit` → `vitamine` [rejected] — VIT B12 -> VITAMINE B12
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `caps` → `gles` [rejected] — CAPS INH -> GLES INHAL
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `inh` → `inhal` [rejected] — INH -> INHAL
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `sach` → `sacht` [rejected] — SACH -> SACHT PDRE SACHT
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `pellic` → `pelli` [rejected] — Line PELLIC vs catalogue PELLI.
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `pellicule` → `pelli` [rejected] — Line COMP PELLICULE vs catalogue CP PELLI.
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `sacht` → `sachet` [rejected] — Unify catalogue PDRE SACHT and SACHET to one pack-form word.
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 1 wrong, 1 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « AMOCLAN 500/62.5 MG SACHT B/14 » → AMOCLAN 8.1 ENF 500/62.5MG SACHET B/14; lost « URICARE 3G/SACH B/1 »; « CALCIDOSE 500 SACHETS B/30 » → CALCIDOSE VITAMINE D 400UI/500MG PDRE SACHT B/30 instead of CALCIDOSE 500MG PDRE SACHT B/30
+- `ad` → `adultes` [rejected] — Line AD 12 vs catalogue ADULTES.
+  - evidence: seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « BIOCLAV 1G/125MG AD 12 SACH » → BIOCLAV ADULTES 1G/125MG PDRE SACHT B/12
+- `enfants` → `enf` [rejected] — Line ENFANTS vs catalogue ENF.
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `gels` → `gles` [rejected] — unify GELS/GLES catalogue variants
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 1 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. lost « ANTAG 20MG/BTE14 GELULES »
+- `sachetes` → `sachet` [rejected] — typo SACHETES LEXIN
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+- `nrs` → `nourrissant` [rejected] — NRS for NOURRISSANT DOCATRIL
+  - evidence: seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost
+
+## Search method
+
+**BM25** (BM25)
+
+## Rules (rule engineer and attributes)
+
+- R-0014 [shadow] "ss" or "s s" is the variant "ss", in orders, invoices and catalogue names alike; a variant stated on one side only, or a different one, is never the same product. — by rule-engineer
+- R-0013 [shadow] "oro disp" is written as "orod". — by rule-engineer
+- R-0012 [rejected] "enfant" means "enf". — by rule-engineer (resolves only 1 new line(s) and brings 0 closer; the gate needs 2 resolved or 6 closer)
+- R-0011 [shadow] "flc" means "fl". — by rule-engineer
+- R-0010 [shadow] "cr" means "creme". — by rule-engineer
+- R-0009 [rejected] "sol buv" means "susp buv". — by rule-engineer (resolves only 1 new line(s) and brings 0 closer; the gate needs 2 resolved or 6 closer)
+- R-0008 [shadow] "sol inj" means "inj". — by rule-engineer
+- R-0007 [shadow] "comp" or "comprimes" or "comprime" or "compr" means "cp". — by rule-engineer
+- R-0006 [live] "pel" or "enro" or "pell" or "pelli" or "pellicule" or "pelliculaire" or "enrob" or "enrobe" describes a product but never tells two products apart. — by rule-engineer
+- R-0005 [shadow] "sir" or "srp" or "sirop" is the form "sp", in orders, invoices and catalogue names alike. — by rule-engineer
+- R-0004 [rejected] "flc" or "flacon" means "fl". — by rule-engineer (the breaker wrote "PHYSIOMAR SPRAY NASAL FLACON" (meaning PHYSIOMAR SPRAY NASAL) and the rule booked it as PHYSIOMAR BÉBÉ SPRAY NASAL 0-3 ANS FL 30ML)
+- R-0003 [live] "cp", "gles", "gels", "sp", "supp", "ovul", "amp", "inj", "collyre", "gel", "creme", "pommade" each name a form, in orders, invoices and catalogue names alike; two texts whose form differs are never the same product. — by muse-spark-profile
+- R-0002 [rejected] "lp", "orod", "disp", "efferv", "retard" each name a release, in orders, invoices and catalogue names alike; a release stated on one side only, or a different one, is never the same product. — by muse-spark-profile (a marker needs a plain product beside the variant: 22 of 22 products it marks have none (e.g. ADEX LP 1,5MG CP PELLI B/30))
+- R-0001 [live] "ad", "adultes", "enf", "nourrisson", "bebe" each name a population, in orders, invoices and catalogue names alike; two texts whose population differs are never the same product. — by muse-spark-profile
+
+## Phases
+
+| phase | invoices | lines | free (alias + rules) | AI | asked | wrong auto | Spark agreed with code | Spark alone right | AI cost |
+|---|---|---|---|---|---|---|---|---|---|
+| spark-checks-all | 30 | 582 | 348 (60 %) | 135 (23 %) | 98 (17 %) | 1 | 348/348 | 135/136 | $0.1924 |
+| learning | 0 | 0 | 0 (—) | 0 (—) | 0 (—) | 0 | 0/0 | 0/0 | $0.0000 |
+| test after 0 | 10 | 201 | 88 (44 %) | 79 (39 %) | 33 (16 %) | 1 | 88/88 | 79/80 | $0.0737 |
+| test after 10 | 10 | 201 | 125 (62 %) | 37 (18 %) | 38 (19 %) | 1 | 125/125 | 37/38 | $0.0692 |
+| test after 20 | 10 | 201 | 126 (63 %) | 34 (17 %) | 40 (20 %) | 1 | 126/126 | 34/35 | $0.0739 |
+| test after 30 | 10 | 201 | 133 (66 %) | 28 (14 %) | 39 (19 %) | 1 | 133/133 | 28/29 | $0.0774 |
+
+## Calibrations
+
+- **calibration after 10 invoices** (134 seen + 45 unseen lines): 57/134 right with no AI (43 %), 1 wrong → 83/134 right with no AI (62 %), 1 wrong; accepted 3, rejected 26; search: 1.5·BM25 (brand ×3) + 0.6·trigrams: right product in the top 8 for 91.8 % of lines (MRR 0.91) → BM25: 85.8 % in the top 8 (MRR 0.85); engineer rules []; $0.2165. Spark: Lines use COMP/CPR/COMPRIMES for CP, GELULES for GLES, SIROP/SIR/SRP for SP or generic, plus glued doses and bare 50/100 dosages.
+- **calibration after 20 invoices** (293 seen + 98 unseen lines): 183/293 right with no AI (62 %), 1 wrong → 187/293 right with no AI (64 %), 1 wrong; accepted 1, rejected 10; search: BM25: right product in the top 8 for 85.7 % of lines (MRR 0.85) → BM25: 85.0 % in the top 8 (MRR 0.84); engineer rules [R-0005 R-0006 R-0007 R-0008]; $0.2788. Spark: Lines use CPR/COMP/COMPRIMES SIR/SIROP CRM GELULES FLC SACH VIT/AD/ENFANTS variants of catalogue CP SP CREME GLES FLACON SACHET VITAMINE ADULTES ENF plus glued BREQUAL50 and 60CP and bare 50/250 doses.
+- **calibration after 30 invoices** (436 seen + 146 unseen lines): 300/436 right with no AI (69 %), 1 wrong → 300/436 right with no AI (69 %), 1 wrong; accepted 0, rejected 7; search: BM25: right product in the top 8 for 87.8 % of lines (MRR 0.87) → BM25: 87.8 % in the top 8 (MRR 0.87); engineer rules [R-0010 R-0011 R-0013 R-0014]; $0.8952. Spark: catalogue uses short forms CP PELLI GLES SP SACHET/SACHT FL that lines write as CPR PELLIC SIR CRM COMPRIMES GELULES SACH FLc, plus bare doses 500/62.5MG and glued BREQUAL50/250
+
+## Experiment log
+
+- [bootstrap] block · accepted: strength (reads 87 catalogue names differently; products that read alike 13 → 10, by muse-spark) — many products are defined by two-value dosage 500mg/65mg, 1g/125mg, 80mg/12.5mg, 250mg/5ml that must become one dose token
+- [bootstrap] block · accepted: units_glue (reads 0 catalogue names differently; products that read alike 10 → 10, by muse-spark) — catalogue mixes 10MG and 10 MG, 60ML and 60 ML, 15G and 15 G; number+mg/ml/g/ui must be glued to match
+- [bootstrap] block · accepted: pack_count (reads 303 catalogue names differently; products that read alike 10 → 5, by muse-spark) — pack is B/30, BT100, BTE, S/30, B/14, B/28 that must become one x30 token to distinguish same dosage different box size
+- [bootstrap] lexicon · accepted: "comprime" → "cp" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write comprime for catalogue cp
+- [bootstrap] lexicon · accepted: "comprimes" → "cp" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — plural variant for catalogue cp
+- [bootstrap] lexicon · accepted: "gelule" → "gles" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write gelule for catalogue gles/gels
+- [bootstrap] lexicon · accepted: "gelules" → "gles" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — plural variant for catalogue gles
+- [bootstrap] lexicon · accepted: "sirop" → "sp" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write sirop for catalogue sp
+- [bootstrap] lexicon · accepted: "sachet" → "sacht" (proposed before any invoice (reads 9 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write sachet for catalogue sacht misspelling
+- [bootstrap] lexicon · accepted: "sachets" → "sacht" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — plural variant for catalogue sacht
+- [bootstrap] lexicon · accepted: "poudre" → "pdre" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write poudre for catalogue pdre
+- [bootstrap] lexicon · accepted: "flacon" → "fl" (proposed before any invoice (reads 3 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write flacon for catalogue fl
+- [bootstrap] lexicon · accepted: "gouttes" → "gttes" (proposed before any invoice (reads 1 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write gouttes for catalogue gttes
+- [bootstrap] lexicon · accepted: "ampoule" → "amp" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write ampoule for catalogue amp
+- [bootstrap] lexicon · accepted: "suppositoire" → "supp" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write suppositoire for catalogue supp
+- [bootstrap] lexicon · accepted: "boite" → "b" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write boite for catalogue b in b/30
+- [bootstrap] lexicon · accepted: "bte" → "b" (proposed before any invoice (reads 0 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write bte for catalogue b
+- [bootstrap] lexicon · accepted: "tube" → "t" (proposed before any invoice (reads 1 catalogue names differently; products that read alike 5 → 5): waits in shadow until known lines prove it, by muse-spark) — suppliers write tube for catalogue t in t/15g
+- [bootstrap] search · accepted: 1.5·BM25 (brand ×3) + 0.6·trigrams (not measured yet: no line has a known answer, by muse-spark) — 384 brands with lookalike names amodex/amoclan/amoxtpen need high brand_boost and bm25 on rare dosage/form tokens; moderate trigram for sacht/sachet gles/gels fl100ml typos, wordsim 0 to avoid confusing similar brand prefixes
+- [bootstrap] attribute · accepted: "ad", "adultes", "enf", "nourrisson", "bebe" each name a population, in orders, invoices and catalogue names alike; two texts whose population differs are never the same product. (reads 20 catalogue names, 0 pairs made alike → shadow, by muse-spark) — ad/adultes vs enf distinguishes same brand e.g. augmentin adultes vs amoclan enf
+- [bootstrap] attribute · rejected: "lp", "orod", "disp", "efferv", "retard" each name a release, in orders, invoices and catalogue names alike; a release stated on one side only, or a different one, is never the same product. (reads 22 catalogue names, 0 pairs made alike → rejected, by muse-spark) — lp/orod/disp/efferv only stated on modified-release variant
+- [bootstrap] attribute · accepted: "cp", "gles", "gels", "sp", "supp", "ovul", "amp", "inj", "collyre", "gel", "creme", "pommade" each name a form, in orders, invoices and catalogue names alike; two texts whose form differs are never the same product. (reads 419 catalogue names, 0 pairs made alike → shadow, by muse-spark) — same dosage exists as cp vs sp vs supp vs injectable and must not cross-match
+- [calibration after 10 invoices] block · rejected: strength (bare) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Catalogue writes 50UG/100UG but lines write BREQUAL 50/100, 500/62.5MG, PHLOROGLUCINOL 160 bare; bare reads them as dose tokens.
+- [calibration after 10 invoices] block · rejected: split_glued (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Lines glue brand to dose BREQUAL50/250MG and counts B/60CP; split 4+ letter stems so brequal50 -> brequal 50.
+- [calibration after 10 invoices] lexicon · rejected: "cpr" → "cp" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — CRESTOR CPR -> CP PELLI
+- [calibration after 10 invoices] lexicon · accepted: "comp" → "cp" (seen lines: +23 newly resolved (23 distinct wordings), 0 wrong, 0 lost; unseen lines: +8 newly resolved (8 distinct wordings), 0 wrong, 0 lost; e.g. « BIPROTENS 10MG COMP B/30 » → BIPROTENS 10MG CP ENROB B/30; « DICYNONE 250MG B/20 COMP B/20 » → DICYNONE 250MG CP B/20; « SPIRONOLONE 75MG B/30 COMP.PELLI.SEC » → SPIRONOLONE BIOGALENIC 75MG CP PELLI SEC B/30, by muse-spark) — COMP COMP. BTE2 B/28 -> CP, most frequent miss
+- [calibration after 10 invoices] lexicon · rejected: "sir" → "" (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « HEPTAL 2MG/5ML SIR FL/125ML » → HEPTAL 2MG/5ML SP FL 125ML; « PROLIB KIDS 125 ML SIR FL 125ML » → PROLIB KIDS 125 ML SP FL 125ML, by muse-spark) — HEPTAL SIR -> SP, drop to avoid contradiction
+- [calibration after 10 invoices] lexicon · accepted: "srp" → "" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; e.g. « MAG PRO MAGNESIUM MARIN SRP 100ML » → MAG PRO (MAGNESIUM MARIN) SP 100ML, by muse-spark) — ZECUF SRP -> SP typo, drop
+- [calibration after 10 invoices] lexicon · rejected: "crm" → "creme" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « ONYCAL 1% CRM B/1 TERBINAFINE LDM » → ONYCAL 1% CREME B/1 (TERBINAFINE LDM), by muse-spark) — CRM -> CREME
+- [calibration after 10 invoices] lexicon · rejected: "flc" → "flacon" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « Esthezen Gel Nettoyant Et Eclaircissant Zone Intime Gel Flc 200Ml » → ESTHEZEN GEL NETTOYANT ET ECLAIRCISSANT ZONE INTIME GEL FLACON 200ML, by muse-spark) — FLC -> FLACON
+- [calibration after 10 invoices] lexicon · rejected: "physiopharm" → "physio" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « NIFUROXAZIDE PHYSIOPHARM 200MG GLES B/30 » → NIFUROXAZIDE PHYSIO 200MG GLES B/30, by muse-spark) — PHYSIOPHARM -> PHYSIO brand short
+- [calibration after 10 invoices] lexicon · rejected: "vit" → "vitamine" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — VIT B12 -> VITAMINE B12
+- [calibration after 10 invoices] lexicon · rejected: "caps" → "gles" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — CAPS INH -> GLES INHAL
+- [calibration after 10 invoices] lexicon · rejected: "inh" → "inhal" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — INH -> INHAL
+- [calibration after 10 invoices] lexicon · rejected: "sach" → "sacht" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — SACH -> SACHT PDRE SACHT
+- [calibration after 10 invoices] lexicon · accepted: "comprime" → "cp" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « Rozitta 20 Mg Comprime 20Mg » → ROZITTA 20 MG CP 20MG; « TRIMEBUTINE 100 MG B/20 COMPRIME » → TRIMEBUTINE B 100MG CP B/20, by muse-spark) — suppliers write comprime for catalogue cp
+- [calibration after 10 invoices] lexicon · rejected: "comprimes" → "cp" (from shadow) (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « MAG SEVE + 145 MG COMPRIMES B/60 » → MAG SEVE + 145 MG CP B/60, by muse-spark) — plural variant for catalogue cp
+- [calibration after 10 invoices] lexicon · rejected: "gelule" → "gles" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 2 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. lost « WOMEN GELULE INT MOUSSANT FL/150ML »; lost « WOMEN GELULE INT MOUSSANT FL/150ML », by muse-spark) — suppliers write gelule for catalogue gles/gels
+- [calibration after 10 invoices] lexicon · rejected: "gelules" → "gles" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « VITAMINE C + ZINC GELULES » → VITAMINE C + ZINC (BIOREM) GLES B/30; « ANTAG 20MG/BTE28 GELULES » → ANTAG 20MG GLES B/28, by muse-spark) — plural variant for catalogue gles
+- [calibration after 10 invoices] lexicon · rejected: "sirop" → "sp" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « PROXAN KIDS 0.35G SIROP FL/100ML » → PROXAN KIDS SP 0.35G/FL 100ML; « HEPTAL 2MG/5ML FL/125ML SIROP » → HEPTAL 2MG/5ML SP FL 125ML, by muse-spark) — suppliers write sirop for catalogue sp
+- [calibration after 10 invoices] lexicon · rejected: "sachet" → "sacht" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « LEXIN SACHET 500MG MG B/20 » → LEXIN 500MG SACHET B/20; « AMOCLAN 500/62.5 MG SACHT B/14 » → AMOCLAN 8.1 ENF 500/62.5MG SACHET B/14, by muse-spark) — suppliers write sachet for catalogue sacht misspelling
+- [calibration after 10 invoices] lexicon · rejected: "sachets" → "sacht" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — plural variant for catalogue sacht
+- [calibration after 10 invoices] lexicon · rejected: "poudre" → "pdre" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write poudre for catalogue pdre
+- [calibration after 10 invoices] lexicon · rejected: "flacon" → "fl" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write flacon for catalogue fl
+- [calibration after 10 invoices] lexicon · rejected: "gouttes" → "gttes" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write gouttes for catalogue gttes
+- [calibration after 10 invoices] lexicon · rejected: "ampoule" → "amp" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write ampoule for catalogue amp
+- [calibration after 10 invoices] lexicon · rejected: "suppositoire" → "supp" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write suppositoire for catalogue supp
+- [calibration after 10 invoices] lexicon · rejected: "boite" → "b" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write boite for catalogue b in b/30
+- [calibration after 10 invoices] lexicon · rejected: "bte" → "b" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write bte for catalogue b
+- [calibration after 10 invoices] lexicon · rejected: "tube" → "t" (from shadow) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — suppliers write tube for catalogue t in t/15g
+- [calibration after 10 invoices] lexicon · rejected: "sir" → "" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « HEPTAL 2MG/5ML SIR FL/125ML » → HEPTAL 2MG/5ML SP FL 125ML; « PROLIB KIDS 125 ML SIR FL 125ML » → PROLIB KIDS 125 ML SP FL 125ML, by muse-spark) — HEPTAL SIR -> SP, drop to avoid contradiction
+- [calibration after 10 invoices] search · accepted: BM25 [BM25] (classic word similarity [word similarity]: 85.8 % in top 8, MRR 0.83; BM25 [BM25]: 85.8 % in top 8, MRR 0.85; BM25, brand ×2 [BM25 (brand ×2)]: 85.8 % in top 8, MRR 0.85; trigrams [trigrams]: 85.8 % in top 8, MRR 0.83; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 85.8 % in top 8, MRR 0.85; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 85.8 % in top 8, MRR 0.85; Spark: brand-trigram-recall [BM25 (brand ×3) + trigrams + 0.3·word similarity]: 85.8 % in top 8, MRR 0.85; Spark: balanced-pharma [1.5·BM25 (brand ×4) + 0.8·trigrams + 0.5·word similarity]: 85.8 % in top 8, MRR 0.85; Spark: max-fuzzy [BM25 (brand ×2) + 1.2·trigrams + 0.7·word similarity]: 85.8 % in top 8, MRR 0.85; current: Spark's first guess [1.5·BM25 (brand ×3) + 0.6·trigrams]: 85.8 % in top 8, MRR 0.85. Chosen: 85.8 % in top 8 on seen lines; on unseen lines 88.9 % vs 88.9 % for the current method, by library) — 
+- [calibration after 10 invoices] rekey · accepted: re-read every known wording (55 alias(es) moved to the new reading, no collision, by code) — 
+- [calibration after 20 invoices] block · rejected: split_glued (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « BLOPRESS16 PLUS 16 MG/12,5 MG » → BLOPRESS PLUS 16MG/12,5MG BTS, by muse-spark) — Lines glue brand+dose BREQUAL50/250 and pack+form 60CP/10CP; catalogue writes them split, so exact digit-words never match.
+- [calibration after 20 invoices] block · rejected: strength (bare) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Catalogue 50MG/250MG 50UG/100UG 500/62.5MG written bare 50/250 50/100 in lines; bare reads trailing-unit doubles as one dose token.
+- [calibration after 20 invoices] lexicon · rejected: "pellic" → "pelli" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Line PELLIC vs catalogue PELLI.
+- [calibration after 20 invoices] lexicon · rejected: "pellicule" → "pelli" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Line COMP PELLICULE vs catalogue CP PELLI.
+- [calibration after 20 invoices] lexicon · rejected: "sacht" → "sachet" (seen lines: +1 newly resolved (1 distinct wordings), 1 wrong, 1 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « AMOCLAN 500/62.5 MG SACHT B/14 » → AMOCLAN 8.1 ENF 500/62.5MG SACHET B/14; lost « URICARE 3G/SACH B/1 »; « CALCIDOSE 500 SACHETS B/30 » → CALCIDOSE VITAMINE D 400UI/500MG PDRE SACHT B/30 instead of CALCIDOSE 500MG PDRE SACHT B/30, by muse-spark) — Unify catalogue PDRE SACHT and SACHET to one pack-form word.
+- [calibration after 20 invoices] lexicon · rejected: "ad" → "adultes" (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « BIOCLAV 1G/125MG AD 12 SACH » → BIOCLAV ADULTES 1G/125MG PDRE SACHT B/12, by muse-spark) — Line AD 12 vs catalogue ADULTES.
+- [calibration after 20 invoices] lexicon · rejected: "enfants" → "enf" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — Line ENFANTS vs catalogue ENF.
+- [calibration after 20 invoices] lexicon · rejected: "gelules" → "gles" (from shadow) (seen lines: +2 newly resolved (2 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « VITAMINE C + ZINC GELULES » → VITAMINE C + ZINC (BIOREM) GLES B/30; « ANTAG 20MG/BTE28 GELULES » → ANTAG 20MG GLES B/28, by muse-spark) — plural variant for catalogue gles
+- [calibration after 20 invoices] lexicon · accepted: "sirop" → "sp" (from shadow) (seen lines: +4 newly resolved (4 distinct wordings), 0 wrong, 0 lost; unseen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; e.g. « PROXAN KIDS 0.35G SIROP FL/100ML » → PROXAN KIDS SP 0.35G/FL 100ML; « HEPTAL 2MG/5ML FL/125ML SIROP » → HEPTAL 2MG/5ML SP FL 125ML; « RHINATHIOL 2% SIROP 2% SIROP FL/125 ML » → RHINATHIOL ENF 2% SP FL 125ML, by muse-spark) — suppliers write sirop for catalogue sp
+- [calibration after 20 invoices] lexicon · rejected: "sachet" → "sacht" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 1 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « LEXIN SACHET 500MG MG B/20 » → LEXIN 500MG SACHET B/20; « AMOCLAN 500/62.5 MG SACHT B/14 » → AMOCLAN 8.1 ENF 500/62.5MG SACHET B/14; « LEXIN 500 MG B/ 20 SACHETS » → LEXIN 500MG GLES B/20 instead of LEXIN 500MG SACHET B/20, by muse-spark) — suppliers write sachet for catalogue sacht misspelling
+- [calibration after 20 invoices] lexicon · rejected: "sir" → "" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « HEPTAL 2MG/5ML SIR FL/125ML » → HEPTAL 2MG/5ML SP FL 125ML; « PROLIB KIDS 125 ML SIR FL 125ML » → PROLIB KIDS 125 ML SP FL 125ML; « Eupnex 10Mg/5Ml Fl/180 Ml.Sir. » → EUPNEX 10MG/5ML SP FL 180ML, by muse-spark) — HEPTAL SIR -> SP, drop to avoid contradiction
+- [calibration after 20 invoices] search · accepted: BM25 [BM25] (classic word similarity [word similarity]: 84.6 % in top 8, MRR 0.83; BM25 [BM25]: 85.0 % in top 8, MRR 0.84; BM25, brand ×2 [BM25 (brand ×2)]: 85.0 % in top 8, MRR 0.84; trigrams [trigrams]: 85.0 % in top 8, MRR 0.83; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 85.0 % in top 8, MRR 0.84; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 85.0 % in top 8, MRR 0.84; Spark: brand-dose-pack [BM25 (brand ×3) + 0.3·trigrams + 0.3·word similarity]: 85.0 % in top 8, MRR 0.84; Spark: fuzzy-form [BM25 (brand ×2) + 0.6·trigrams + 0.6·word similarity]: 85.0 % in top 8, MRR 0.84; Spark: precise-dose [1.5·BM25 (brand ×2) + 0.2·trigrams]: 85.0 % in top 8, MRR 0.84; current: BM25 [BM25]: 85.0 % in top 8, MRR 0.84. Chosen: 85.0 % in top 8 on seen lines; on unseen lines 92.9 % vs 92.9 % for the current method, by library) — 
+- [calibration after 20 invoices] rekey · accepted: re-read every known wording (11 alias(es) moved to the new reading, no collision, by code) — 
+- [calibration after 30 invoices] block · rejected: strength (bare) (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — catalogue writes bare first value 500/62.5MG 50/100 50/250 1G/125MG, need bare dosage reading
+- [calibration after 30 invoices] block · rejected: split_glued (seen lines: +1 newly resolved (1 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « BLOPRESS16 PLUS 16 MG/12,5 MG » → BLOPRESS PLUS 16MG/12,5MG BTS, by muse-spark) — brand glued to dose BREQUAL50/250 splits to brand + dose
+- [calibration after 30 invoices] lexicon · rejected: "gels" → "gles" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 1 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. lost « ANTAG 20MG/BTE14 GELULES », by muse-spark) — unify GELS/GLES catalogue variants
+- [calibration after 30 invoices] lexicon · rejected: "sachetes" → "sachet" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — typo SACHETES LEXIN
+- [calibration after 30 invoices] lexicon · rejected: "nrs" → "nourrissant" (seen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost, by muse-spark) — NRS for NOURRISSANT DOCATRIL
+- [calibration after 30 invoices] lexicon · rejected: "gelules" → "gles" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 1 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; e.g. « VITAMINE C + ZINC GELULES » → VITAMINE C + ZINC (BIOREM) GLES B/30; « ANTAG 20MG/BTE28 GELULES » → ANTAG 20MG GLES B/28; lost « ANTAG 20MG/BTE14 GELULES », by muse-spark) — plural variant for catalogue gles
+- [calibration after 30 invoices] lexicon · rejected: "sir" → "" (from shadow) (seen lines: +3 newly resolved (3 distinct wordings), 0 wrong, 0 lost; unseen lines: +0 newly resolved (0 distinct wordings), 0 wrong, 0 lost; no gain yet on unseen lines: waits in shadow; e.g. « HEPTAL 2MG/5ML SIR FL/125ML » → HEPTAL 2MG/5ML SP FL 125ML; « PROLIB KIDS 125 ML SIR FL 125ML » → PROLIB KIDS 125 ML SP FL 125ML; « Eupnex 10Mg/5Ml Fl/180 Ml.Sir. » → EUPNEX 10MG/5ML SP FL 180ML, by muse-spark) — HEPTAL SIR -> SP, drop to avoid contradiction
+- [calibration after 30 invoices] search · accepted: BM25 [BM25] (classic word similarity [word similarity]: 87.4 % in top 8, MRR 0.85; BM25 [BM25]: 87.8 % in top 8, MRR 0.87; BM25, brand ×2 [BM25 (brand ×2)]: 87.8 % in top 8, MRR 0.87; trigrams [trigrams]: 87.8 % in top 8, MRR 0.86; BM25 + trigrams [BM25 (brand ×1.5) + trigrams]: 87.8 % in top 8, MRR 0.87; BM25 + trigrams + word similarity [BM25 (brand ×1.5) + 0.7·trigrams + 0.5·word similarity]: 87.8 % in top 8, MRR 0.87; Spark: brand_dose [BM25 (brand ×3) + 0.6·trigrams + 0.2·word similarity]: 87.8 % in top 8, MRR 0.87; Spark: typo_dose [BM25 (brand ×2) + trigrams + 0.3·word similarity]: 87.8 % in top 8, MRR 0.87; Spark: recall_pack [BM25 (brand ×1.5) + 0.4·trigrams + 0.5·word similarity]: 87.8 % in top 8, MRR 0.87; current: BM25 [BM25]: 87.8 % in top 8, MRR 0.87. Chosen: 87.8 % in top 8 on seen lines; on unseen lines 89.0 % vs 89.0 % for the current method, by library) — 
+- [end of training] autonomy · rejected: the desk stays supervised: Spark keeps checking every code answer (354 code answers confirmed, 3 wrong (95 % lower bound 97.90 % < bar 99 %), by code) — 
+
+Meta model spend for the whole run: $1.9061
+
+## Who made the free answers possible (test invoices)
+
+472 free answers: Muse Spark found 229 (49 %), the matching Muse Spark designed gave 243 (51 %), a person taught 0 (0 %).
+
+- catalogue match through the matching Muse Spark designed: 241
+- rule Muse Spark wrote: 229
+- code first matched through the matching Muse Spark designed: 2
+

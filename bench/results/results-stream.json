@@ -1,0 +1,1462 @@
+{
+ "supermarket": {
+  "curve": [
+   {
+    "after": 0,
+    "lines": 554,
+    "free": 402,
+    "spark": 42,
+    "asked": 110,
+    "wrong": 0,
+    "auto": 444,
+    "checked": 402,
+    "cost": 0.2392
+   },
+   {
+    "after": 30,
+    "lines": 554,
+    "free": 420,
+    "spark": 50,
+    "asked": 82,
+    "wrong": 2,
+    "auto": 470,
+    "checked": 63,
+    "cost": 0.1364
+   },
+   {
+    "after": 60,
+    "lines": 554,
+    "free": 452,
+    "spark": 28,
+    "asked": 72,
+    "wrong": 2,
+    "auto": 480,
+    "checked": 115,
+    "cost": 0.1566
+   },
+   {
+    "after": 90,
+    "lines": 554,
+    "free": 475,
+    "spark": 27,
+    "asked": 50,
+    "wrong": 2,
+    "auto": 502,
+    "checked": 137,
+    "cost": 0.1561
+   },
+   {
+    "after": 120,
+    "lines": 554,
+    "free": 482,
+    "spark": 25,
+    "asked": 44,
+    "wrong": 3,
+    "auto": 507,
+    "checked": 120,
+    "cost": 0.1355
+   }
+  ],
+  "train_lines": 2193,
+  "train_wrong": 2,
+  "spent": 2.9343,
+  "errors": [
+   {
+    "invoice": "SUP-S141",
+    "after": "test after 30",
+    "said": "حليب ACTIVIA",
+    "got": "ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L",
+    "want": "ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE",
+    "level": "ai"
+   },
+   {
+    "invoice": "SUP-S146",
+    "after": "test after 30",
+    "said": "حليب ACTIVIA",
+    "got": "ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L",
+    "want": "ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE",
+    "level": "ai"
+   },
+   {
+    "invoice": "SUP-S141",
+    "after": "test after 60",
+    "said": "حليب ACTIVIA",
+    "got": "ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L",
+    "want": "ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE",
+    "level": "rules"
+   },
+   {
+    "invoice": "SUP-S146",
+    "after": "test after 60",
+    "said": "حليب ACTIVIA",
+    "got": "ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L",
+    "want": "ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE",
+    "level": "rules"
+   },
+   {
+    "invoice": "SUP-S141",
+    "after": "test after 90",
+    "said": "حليب ACTIVIA",
+    "got": "ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L",
+    "want": "ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE",
+    "level": "rules"
+   },
+   {
+    "invoice": "SUP-S146",
+    "after": "test after 90",
+    "said": "حليب ACTIVIA",
+    "got": "ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L",
+    "want": "ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE",
+    "level": "rules"
+   },
+   {
+    "invoice": "SUP-S139",
+    "after": "test after 120",
+    "said": "رقائق NESQUIK",
+    "got": "NESQUIK CEREALES",
+    "want": "NESQUIK CEREALE",
+    "level": "ai"
+   },
+   {
+    "invoice": "SUP-S141",
+    "after": "test after 120",
+    "said": "حليب ACTIVIA",
+    "got": "ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L",
+    "want": "ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE",
+    "level": "rules"
+   },
+   {
+    "invoice": "SUP-S146",
+    "after": "test after 120",
+    "said": "حليب ACTIVIA",
+    "got": "ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L",
+    "want": "ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE",
+    "level": "rules"
+   }
+  ],
+  "rules": [
+   {
+    "id": "R-0012",
+    "status": "rejected",
+    "sentence": "\"beurre\" is the variant \"beurre\", in orders, invoices and catalogue names alike; a variant stated on one side only, or a different one, is never the same product.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0011",
+    "status": "shadow",
+    "sentence": "\"جبن\" or \"فرينه\" or \"خل\" or \"منظف\" or \"خردل\" or \"كراس\" or \"بيري\" describes a product but never tells two products apart.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0010",
+    "status": "rejected",
+    "sentence": "\"white\" is the variant \"white\", in orders, invoices and catalogue names alike; a variant stated on one side only, or a different one, is never the same product.",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0009",
+    "status": "rejected",
+    "sentence": "\"frs\" means \"fraise\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0008",
+    "status": "live",
+    "sentence": "\"vngr\" means \"vinaigre\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0007",
+    "status": "rejected",
+    "sentence": "\"جبن\" means \"fromage\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0006",
+    "status": "shadow",
+    "sentence": "\"حليب\" means \"lait\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0005",
+    "status": "rejected",
+    "sentence": "\"بسكويت\" means \"biscuit\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0004",
+    "status": "rejected",
+    "sentence": "\"ياغورت\" means \"yaourt\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0003",
+    "status": "rejected",
+    "sentence": "\"choc\" means \"chocolat\".",
+    "author": "rule-engineer"
+   },
+   {
+    "id": "R-0002",
+    "status": "rejected",
+    "sentence": "\"sans\", \"light\", \"zero\", \"diet\" each name a sans_light, in orders, invoices and catalogue names alike; a sans_light stated on one side only, or a different one, is never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0001",
+    "status": "live",
+    "sentence": "\"chocolat\", \"vanille\", \"fraise\", \"abricot\", \"pistache\", \"caramel\", \"thon\", \"ananas\", \"menthe\", \"citron\" each name a saveur_parfum, in orders, invoices and catalogue names alike; two texts whose saveur_parfum differs are never the same product.",
+    "author": "muse-spark-profile"
+   }
+  ],
+  "lexicon": [
+   {
+    "from": "choco",
+    "to": "chocolat",
+    "status": "live"
+   },
+   {
+    "from": "conf",
+    "to": "confiture",
+    "status": "rejected"
+   },
+   {
+    "from": "veg",
+    "to": "vegetal",
+    "status": "rejected"
+   },
+   {
+    "from": "prep",
+    "to": "preparation",
+    "status": "rejected"
+   },
+   {
+    "from": "bte",
+    "to": "boite",
+    "status": "rejected"
+   },
+   {
+    "from": "كراس",
+    "to": "cahier",
+    "status": "rejected"
+   },
+   {
+    "from": "عجائن",
+    "to": "pates",
+    "status": "rejected"
+   },
+   {
+    "from": "عجاين",
+    "to": "pates",
+    "status": "live"
+   },
+   {
+    "from": "شامبو",
+    "to": "shampooing",
+    "status": "rejected"
+   },
+   {
+    "from": "حليب",
+    "to": "lait",
+    "status": "live"
+   },
+   {
+    "from": "بسكويت",
+    "to": "biscuit",
+    "status": "rejected"
+   },
+   {
+    "from": "هريسة",
+    "to": "harissa",
+    "status": "rejected"
+   },
+   {
+    "from": "هريسه",
+    "to": "harissa",
+    "status": "live"
+   },
+   {
+    "from": "قفازات",
+    "to": "gant",
+    "status": "rejected"
+   },
+   {
+    "from": "جبن",
+    "to": "cheese",
+    "status": "rejected"
+   },
+   {
+    "from": "مثلجات",
+    "to": "glacee",
+    "status": "rejected"
+   },
+   {
+    "from": "صلصة",
+    "to": "sauce",
+    "status": "rejected"
+   },
+   {
+    "from": "عصير",
+    "to": "jus",
+    "status": "rejected"
+   },
+   {
+    "from": "ياغورت",
+    "to": "yaourt",
+    "status": "rejected"
+   },
+   {
+    "from": "سكر",
+    "to": "sucre",
+    "status": "live"
+   },
+   {
+    "from": "ماء",
+    "to": "eau",
+    "status": "rejected"
+   },
+   {
+    "from": "ليمونادة",
+    "to": "limonade",
+    "status": "rejected"
+   },
+   {
+    "from": "منتوج",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "مسكر",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "جزئيا",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "cr",
+    "to": "creme",
+    "status": "live"
+   },
+   {
+    "from": "liq",
+    "to": "liquide",
+    "status": "rejected"
+   },
+   {
+    "from": "frmg",
+    "to": "fromage",
+    "status": "live"
+   },
+   {
+    "from": "yaou",
+    "to": "yaourt",
+    "status": "rejected"
+   },
+   {
+    "from": "frs",
+    "to": "fraise",
+    "status": "rejected"
+   },
+   {
+    "from": "pate",
+    "to": "pates",
+    "status": "live"
+   },
+   {
+    "from": "صلصه",
+    "to": "sauce",
+    "status": "rejected"
+   },
+   {
+    "from": "خردل",
+    "to": "moutarde",
+    "status": "rejected"
+   },
+   {
+    "from": "ليموناده",
+    "to": "limonade",
+    "status": "rejected"
+   },
+   {
+    "from": "محلى",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "قهوة",
+    "to": "cafe",
+    "status": "rejected"
+   },
+   {
+    "from": "monlait",
+    "to": "lait",
+    "status": "rejected"
+   },
+   {
+    "from": "ومحلى",
+    "to": "",
+    "status": "rejected"
+   }
+  ],
+  "industry": "supermarket / FMCG",
+  "alone": {
+   "Lines": 554,
+   "Right": 517,
+   "Wrong": 9,
+   "Unsure": 28,
+   "RightAt": 469,
+   "WrongAt": 2,
+   "AskedAt": 83,
+   "cost": 0.6120842500000001
+  },
+  "alone_errors": [
+   {
+    "said": "FOURRAGE PISTACHE 20% GUSTO PRODUCT 300GR",
+    "got": "GUSTO PRODUCT FOURRAGE PISTACHE 20% 300G",
+    "want": "GUSTO PRODUCT FOURRAGE PISTACHE 20% CRUNCHY 300G",
+    "conf": 0.97
+   },
+   {
+    "said": "SANI TOP DESODORISANT SURFACE",
+    "got": "SANI TOP DESODORISANT POUR SURFACE",
+    "want": "SANI TOP DESODORISANT POUR SURFACE AIGLE",
+    "conf": 0.95
+   },
+   {
+    "said": "AMANI LAITIERE FRUITS",
+    "got": "AMANI PREPARATION LAITIERE AUX FRUITS YAOURT",
+    "want": "AMANI PREPARATION LAITIERE AUX FRUITS YAOURT AMINE",
+    "conf": 0.6
+   },
+   {
+    "said": "رقائق NESQUIK",
+    "got": "NESQUIK CEREALES",
+    "want": "NESQUIK CEREALE",
+    "conf": 0.85
+   },
+   {
+    "said": "حليب ACTIVIA",
+    "got": "ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L",
+    "want": "ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE",
+    "conf": 0.75
+   },
+   {
+    "said": "BISCUIT CASA GLACES CRUNCHY FOURREE",
+    "got": "CASA GLACES BISCUIT CRUNCHY FOURREE A LA GLACE SANDWICH",
+    "want": "CASA GLACES BISCUIT CRUNCHY FOURREE A LA GLACE TRIO",
+    "conf": 0.85
+   },
+   {
+    "said": "FROM TIP TOP FONDU TARTINER 16P*8",
+    "got": "TIP TOP FROMAGE FONDU A TARTINER PORTION 16P",
+    "want": "TIP TOP FROMAGE FONDU A TARTINER PORTION EDAM 16P",
+    "conf": 0.8
+   },
+   {
+    "said": "حليب ACTIVIA",
+    "got": "ACTIVIA LAIT PARTIELLEMENT ECREME FERMENTE, AU MELANGE DE LAITS, A 1,50% MG, PASTEURISE 1L",
+    "want": "ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE",
+    "conf": 0.7
+   },
+   {
+    "said": "AMANI LAITIERE FRUITS",
+    "got": "AMANI PREPARATION LAITIERE AUX FRUITS YAOURT",
+    "want": "AMANI PREPARATION LAITIERE AUX FRUITS YAOURT AMINE",
+    "conf": 0.65
+   }
+  ]
+ },
+ "pharmacy": {
+  "curve": [
+   {
+    "after": 0,
+    "lines": 547,
+    "free": 285,
+    "spark": 205,
+    "asked": 57,
+    "wrong": 0,
+    "auto": 490,
+    "checked": 285,
+    "cost": 0.1947
+   },
+   {
+    "after": 30,
+    "lines": 547,
+    "free": 355,
+    "spark": 125,
+    "asked": 67,
+    "wrong": 0,
+    "auto": 480,
+    "checked": 160,
+    "cost": 0.1382
+   },
+   {
+    "after": 60,
+    "lines": 547,
+    "free": 390,
+    "spark": 99,
+    "asked": 58,
+    "wrong": 0,
+    "auto": 489,
+    "checked": 189,
+    "cost": 0.1368
+   },
+   {
+    "after": 90,
+    "lines": 547,
+    "free": 421,
+    "spark": 77,
+    "asked": 49,
+    "wrong": 0,
+    "auto": 498,
+    "checked": 178,
+    "cost": 0.1284
+   },
+   {
+    "after": 120,
+    "lines": 547,
+    "free": 439,
+    "spark": 65,
+    "asked": 43,
+    "wrong": 0,
+    "auto": 504,
+    "checked": 192,
+    "cost": 0.1301
+   }
+  ],
+  "train_lines": 2158,
+  "train_wrong": 3,
+  "spent": 2.7082,
+  "errors": [],
+  "rules": [
+   {
+    "id": "R-0003",
+    "status": "live",
+    "sentence": "\"ad\", \"adultes\", \"enf\", \"bebe\", \"nourrissant\" each name a population, in orders, invoices and catalogue names alike; two texts whose population differs are never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0002",
+    "status": "live",
+    "sentence": "\"pelli\", \"sec\", \"efferv\", \"disp\", \"enrob\", \"orod\", \"lp\" each name a coating_release, in orders, invoices and catalogue names alike; two texts whose coating_release differs are never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0001",
+    "status": "live",
+    "sentence": "\"cp\", \"gles\", \"gels\", \"sp\", \"susp\", \"sol\", \"gttes\", \"collyre\", \"inj\", \"amp\", \"supp\", \"pde\", \"creme\", \"gel\", \"ovul\", \"granul\", \"gran\" each name a form, in orders, invoices and catalogue names alike; two texts whose form differs are never the same product.",
+    "author": "muse-spark-profile"
+   }
+  ],
+  "lexicon": [
+   {
+    "from": "comprime",
+    "to": "cp",
+    "status": "rejected"
+   },
+   {
+    "from": "comprimes",
+    "to": "cp",
+    "status": "live"
+   },
+   {
+    "from": "gelule",
+    "to": "gles",
+    "status": "rejected"
+   },
+   {
+    "from": "gelules",
+    "to": "gles",
+    "status": "live"
+   },
+   {
+    "from": "sirop",
+    "to": "sp",
+    "status": "live"
+   },
+   {
+    "from": "flacon",
+    "to": "fl",
+    "status": "rejected"
+   },
+   {
+    "from": "boite",
+    "to": "b",
+    "status": "rejected"
+   },
+   {
+    "from": "sachet",
+    "to": "sacht",
+    "status": "rejected"
+   },
+   {
+    "from": "poudre",
+    "to": "pdre",
+    "status": "rejected"
+   },
+   {
+    "from": "solution",
+    "to": "sol",
+    "status": "rejected"
+   },
+   {
+    "from": "gouttes",
+    "to": "gttes",
+    "status": "rejected"
+   },
+   {
+    "from": "pommade",
+    "to": "pde",
+    "status": "rejected"
+   },
+   {
+    "from": "injectable",
+    "to": "inj",
+    "status": "rejected"
+   },
+   {
+    "from": "suppositoire",
+    "to": "supp",
+    "status": "rejected"
+   },
+   {
+    "from": "sir",
+    "to": "sp",
+    "status": "live"
+   },
+   {
+    "from": "susp",
+    "to": "sp",
+    "status": "rejected"
+   },
+   {
+    "from": "comp",
+    "to": "cp",
+    "status": "rejected"
+   },
+   {
+    "from": "suppo",
+    "to": "supp",
+    "status": "rejected"
+   },
+   {
+    "from": "sach",
+    "to": "sacht",
+    "status": "rejected"
+   },
+   {
+    "from": "goutte",
+    "to": "gttes",
+    "status": "rejected"
+   },
+   {
+    "from": "pelliculaire",
+    "to": "pelli",
+    "status": "rejected"
+   },
+   {
+    "from": "pellicule",
+    "to": "pelli",
+    "status": "rejected"
+   },
+   {
+    "from": "secable",
+    "to": "sec",
+    "status": "rejected"
+   },
+   {
+    "from": "enro",
+    "to": "enrob",
+    "status": "rejected"
+   },
+   {
+    "from": "enfants",
+    "to": "enf",
+    "status": "live"
+   },
+   {
+    "from": "enfant",
+    "to": "enf",
+    "status": "rejected"
+   },
+   {
+    "from": "adulte",
+    "to": "adultes",
+    "status": "rejected"
+   },
+   {
+    "from": "flc",
+    "to": "fl",
+    "status": "live"
+   },
+   {
+    "from": "spr",
+    "to": "spray",
+    "status": "rejected"
+   },
+   {
+    "from": "creme",
+    "to": "pde",
+    "status": "rejected"
+   },
+   {
+    "from": "caps",
+    "to": "gles",
+    "status": "rejected"
+   },
+   {
+    "from": "ad",
+    "to": "adultes",
+    "status": "rejected"
+   },
+   {
+    "from": "sol",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "buv",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "bte",
+    "to": "b",
+    "status": "rejected"
+   },
+   {
+    "from": "physiopharm",
+    "to": "physio",
+    "status": "live"
+   },
+   {
+    "from": "02",
+    "to": "2",
+    "status": "rejected"
+   },
+   {
+    "from": "08",
+    "to": "8",
+    "status": "rejected"
+   },
+   {
+    "from": "sac",
+    "to": "sacht",
+    "status": "rejected"
+   },
+   {
+    "from": "adultes",
+    "to": "ad",
+    "status": "rejected"
+   },
+   {
+    "from": "fl",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "06",
+    "to": "6",
+    "status": "rejected"
+   }
+  ],
+  "industry": "pharmacy / pharmaceuticals",
+  "alone": {
+   "Lines": 547,
+   "Right": 544,
+   "Wrong": 0,
+   "Unsure": 3,
+   "RightAt": 534,
+   "WrongAt": 0,
+   "AskedAt": 13,
+   "cost": 0.5962925
+  },
+  "alone_errors": []
+ },
+ "electronics": {
+  "curve": [
+   {
+    "after": 0,
+    "lines": 535,
+    "free": 322,
+    "spark": 153,
+    "asked": 60,
+    "wrong": 0,
+    "auto": 475,
+    "checked": 322,
+    "cost": 0.1887
+   },
+   {
+    "after": 30,
+    "lines": 535,
+    "free": 445,
+    "spark": 50,
+    "asked": 40,
+    "wrong": 0,
+    "auto": 495,
+    "checked": 445,
+    "cost": 0.1924
+   },
+   {
+    "after": 60,
+    "lines": 535,
+    "free": 468,
+    "spark": 36,
+    "asked": 31,
+    "wrong": 0,
+    "auto": 504,
+    "checked": 121,
+    "cost": 0.1029
+   },
+   {
+    "after": 90,
+    "lines": 535,
+    "free": 488,
+    "spark": 19,
+    "asked": 28,
+    "wrong": 0,
+    "auto": 507,
+    "checked": 112,
+    "cost": 0.0956
+   },
+   {
+    "after": 120,
+    "lines": 535,
+    "free": 493,
+    "spark": 18,
+    "asked": 24,
+    "wrong": 0,
+    "auto": 511,
+    "checked": 131,
+    "cost": 0.0919
+   }
+  ],
+  "train_lines": 2195,
+  "train_wrong": 1,
+  "spent": 2.0485,
+  "errors": [],
+  "rules": [
+   {
+    "id": "R-0003",
+    "status": "live",
+    "sentence": "\"lighting\", \"micro\", \"jack\" each name a connector, in orders, invoices and catalogue names alike; two texts whose connector differs are never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0002",
+    "status": "live",
+    "sentence": "\"box\", \"boite\", \"sans\" each name a packaging, in orders, invoices and catalogue names alike; two texts whose packaging differs are never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0001",
+    "status": "live",
+    "sentence": "\"original\", \"copy\" each name a authenticity, in orders, invoices and catalogue names alike; two texts whose authenticity differs are never the same product.",
+    "author": "muse-spark-profile"
+   }
+  ],
+  "lexicon": [
+   {
+    "from": "org",
+    "to": "original",
+    "status": "rejected"
+   },
+   {
+    "from": "orig",
+    "to": "original",
+    "status": "rejected"
+   },
+   {
+    "from": "bluetooth",
+    "to": "bl-tooth",
+    "status": "live"
+   },
+   {
+    "from": "tc",
+    "to": "type-c",
+    "status": "rejected"
+   },
+   {
+    "from": "t-c",
+    "to": "type-c",
+    "status": "rejected"
+   },
+   {
+    "from": "sf",
+    "to": "s-f",
+    "status": "rejected"
+   },
+   {
+    "from": "lightning",
+    "to": "lighting",
+    "status": "rejected"
+   },
+   {
+    "from": "metres",
+    "to": "m",
+    "status": "rejected"
+   },
+   {
+    "from": "smartphone",
+    "to": "mobile",
+    "status": "live"
+   },
+   {
+    "from": "tel",
+    "to": "mobile",
+    "status": "live"
+   },
+   {
+    "from": "etui",
+    "to": "pochette",
+    "status": "live"
+   },
+   {
+    "from": "holder",
+    "to": "support",
+    "status": "live"
+   },
+   {
+    "from": "charger",
+    "to": "chargeur",
+    "status": "live"
+   },
+   {
+    "from": "mouse",
+    "to": "souris",
+    "status": "live"
+   },
+   {
+    "from": "watch",
+    "to": "montre",
+    "status": "live"
+   },
+   {
+    "from": "speaker",
+    "to": "baffle",
+    "status": "live"
+   },
+   {
+    "from": "haut",
+    "to": "baffle",
+    "status": "rejected"
+   },
+   {
+    "from": "parleur",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "headset",
+    "to": "casque",
+    "status": "live"
+   },
+   {
+    "from": "cbl",
+    "to": "cable",
+    "status": "live"
+   },
+   {
+    "from": "cle",
+    "to": "flash",
+    "status": "rejected"
+   },
+   {
+    "from": "disque",
+    "to": "disk",
+    "status": "rejected"
+   },
+   {
+    "from": "verre",
+    "to": "glass",
+    "status": "rejected"
+   },
+   {
+    "from": "trempe",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "protection",
+    "to": "glass",
+    "status": "rejected"
+   },
+   {
+    "from": "ecran",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "notebook",
+    "to": "laptop",
+    "status": "live"
+   },
+   {
+    "from": "portable",
+    "to": "laptop",
+    "status": "rejected"
+   },
+   {
+    "from": "pc",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "core",
+    "to": "",
+    "status": "live"
+   },
+   {
+    "from": "galaxy",
+    "to": "",
+    "status": "live"
+   },
+   {
+    "from": "wireless",
+    "to": "sans-fil",
+    "status": "rejected"
+   },
+   {
+    "from": "type",
+    "to": "t",
+    "status": "live"
+   },
+   {
+    "from": "type-c",
+    "to": "t-c",
+    "status": "rejected"
+   },
+   {
+    "from": "usb-c",
+    "to": "t-c",
+    "status": "rejected"
+   },
+   {
+    "from": "10eme",
+    "to": "10th",
+    "status": "rejected"
+   },
+   {
+    "from": "8eme",
+    "to": "8th",
+    "status": "live"
+   },
+   {
+    "from": "12eme",
+    "to": "12th",
+    "status": "rejected"
+   },
+   {
+    "from": "coque",
+    "to": "pochette",
+    "status": "live"
+   },
+   {
+    "from": "charg",
+    "to": "chargeur",
+    "status": "rejected"
+   },
+   {
+    "from": "8g",
+    "to": "8th",
+    "status": "rejected"
+   },
+   {
+    "from": "10g",
+    "to": "10th",
+    "status": "rejected"
+   },
+   {
+    "from": "tab",
+    "to": "tablette",
+    "status": "live"
+   },
+   {
+    "from": "11eme",
+    "to": "11th",
+    "status": "rejected"
+   },
+   {
+    "from": "mletubl",
+    "to": "metubl",
+    "status": "rejected"
+   }
+  ],
+  "industry": "mobile phones and accessories / consumer electronics",
+  "alone": {
+   "Lines": 535,
+   "Right": 532,
+   "Wrong": 1,
+   "Unsure": 2,
+   "RightAt": 510,
+   "WrongAt": 1,
+   "AskedAt": 24,
+   "cost": 0.7298197500000002
+  },
+  "alone_errors": [
+   {
+    "said": "PACK BOUTEILLE ENCRE UNIVERSEL HP/CANON/EPSON/BROTHER",
+    "got": "PACK BOUTEILLE ENCRE UNIVERSEL 500ML",
+    "want": "PACK BOUTEILLE ENCRE UNIVERSEL HP/CANON/EPSON/BROTHER",
+    "conf": 1
+   }
+  ]
+ },
+ "cosmetics": {
+  "curve": [
+   {
+    "after": 0,
+    "lines": 533,
+    "free": 409,
+    "spark": 46,
+    "asked": 78,
+    "wrong": 0,
+    "auto": 455,
+    "checked": 409,
+    "cost": 0.2123
+   },
+   {
+    "after": 30,
+    "lines": 533,
+    "free": 445,
+    "spark": 27,
+    "asked": 61,
+    "wrong": 0,
+    "auto": 472,
+    "checked": 445,
+    "cost": 0.2087
+   },
+   {
+    "after": 60,
+    "lines": 533,
+    "free": 464,
+    "spark": 21,
+    "asked": 46,
+    "wrong": 2,
+    "auto": 485,
+    "checked": 197,
+    "cost": 0.1356
+   },
+   {
+    "after": 90,
+    "lines": 533,
+    "free": 471,
+    "spark": 14,
+    "asked": 46,
+    "wrong": 2,
+    "auto": 485,
+    "checked": 200,
+    "cost": 0.1385
+   },
+   {
+    "after": 120,
+    "lines": 533,
+    "free": 488,
+    "spark": 11,
+    "asked": 34,
+    "wrong": 0,
+    "auto": 499,
+    "checked": 210,
+    "cost": 0.1262
+   }
+  ],
+  "train_lines": 2135,
+  "train_wrong": 4,
+  "spent": 2.2545,
+  "errors": [
+   {
+    "invoice": "COS-S126",
+    "after": "test after 60",
+    "said": "TETINE SILICONE SANSIRO",
+    "got": "SANSIRO TETINE SILICONE MARRON N 002 B/50",
+    "want": "SANSIRO TETINE EN SILICON B/50 N003",
+    "level": "rules"
+   },
+   {
+    "invoice": "COS-S138",
+    "after": "test after 60",
+    "said": "TETINE SILICONE SANSIRO",
+    "got": "SANSIRO TETINE SILICONE MARRON N 002 B/50",
+    "want": "SANSIRO TETINE EN SILICON B/50 N003",
+    "level": "rules"
+   },
+   {
+    "invoice": "COS-S126",
+    "after": "test after 90",
+    "said": "TETINE SILICONE SANSIRO",
+    "got": "SANSIRO TETINE SILICONE MARRON N 002 B/50",
+    "want": "SANSIRO TETINE EN SILICON B/50 N003",
+    "level": "rules"
+   },
+   {
+    "invoice": "COS-S138",
+    "after": "test after 90",
+    "said": "TETINE SILICONE SANSIRO",
+    "got": "SANSIRO TETINE SILICONE MARRON N 002 B/50",
+    "want": "SANSIRO TETINE EN SILICON B/50 N003",
+    "level": "rules"
+   }
+  ],
+  "rules": [
+   {
+    "id": "R-0003",
+    "status": "live",
+    "sentence": "\"bebe\", \"enfant\", \"adulte\", \"kids\", \"homme\" each name a population, in orders, invoices and catalogue names alike; two texts whose population differs are never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0002",
+    "status": "live",
+    "sentence": "\"fraise\", \"menthe\", \"mint\", \"vanille\", \"strawberry\", \"citron\", \"fresh\" each name a flavour_scent, in orders, invoices and catalogue names alike; two texts whose flavour_scent differs are never the same product.",
+    "author": "muse-spark-profile"
+   },
+   {
+    "id": "R-0001",
+    "status": "live",
+    "sentence": "\"bleu\", \"rouge\", \"noir\", \"vert\", \"rose\", \"gris\", \"jaune\", \"blanc\" each name a colour, in orders, invoices and catalogue names alike; two texts whose colour differs are never the same product.",
+    "author": "muse-spark-profile"
+   }
+  ],
+  "lexicon": [
+   {
+    "from": "brosse",
+    "to": "bad",
+    "status": "rejected"
+   },
+   {
+    "from": "biberon",
+    "to": "bib",
+    "status": "rejected"
+   },
+   {
+    "from": "shampooing",
+    "to": "shamp",
+    "status": "rejected"
+   },
+   {
+    "from": "shampoing",
+    "to": "shamp",
+    "status": "rejected"
+   },
+   {
+    "from": "comprime",
+    "to": "cp",
+    "status": "rejected"
+   },
+   {
+    "from": "comprimes",
+    "to": "cp",
+    "status": "rejected"
+   },
+   {
+    "from": "gelule",
+    "to": "gelules",
+    "status": "rejected"
+   },
+   {
+    "from": "gellules",
+    "to": "gelules",
+    "status": "rejected"
+   },
+   {
+    "from": "dentifrice",
+    "to": "dent",
+    "status": "rejected"
+   },
+   {
+    "from": "mouchoir",
+    "to": "mouchoire",
+    "status": "rejected"
+   },
+   {
+    "from": "vitamine",
+    "to": "vit",
+    "status": "live"
+   },
+   {
+    "from": "crem",
+    "to": "creme",
+    "status": "live"
+   },
+   {
+    "from": "cr",
+    "to": "creme",
+    "status": "live"
+   },
+   {
+    "from": "complexe",
+    "to": "complex",
+    "status": "rejected"
+   },
+   {
+    "from": "collagene",
+    "to": "collagen",
+    "status": "rejected"
+   },
+   {
+    "from": "physio",
+    "to": "physiologique",
+    "status": "live"
+   },
+   {
+    "from": "shp",
+    "to": "shamp",
+    "status": "rejected"
+   },
+   {
+    "from": "bb",
+    "to": "bebe",
+    "status": "live"
+   },
+   {
+    "from": "ad",
+    "to": "adulte",
+    "status": "rejected"
+   },
+   {
+    "from": "anti",
+    "to": "a",
+    "status": "live"
+   },
+   {
+    "from": "sparadra",
+    "to": "sparadrat",
+    "status": "live"
+   },
+   {
+    "from": "br",
+    "to": "bad",
+    "status": "live"
+   },
+   {
+    "from": "sach",
+    "to": "sachets",
+    "status": "rejected"
+   },
+   {
+    "from": "infantile",
+    "to": "infantil",
+    "status": "rejected"
+   },
+   {
+    "from": "gttes",
+    "to": "fl",
+    "status": "rejected"
+   },
+   {
+    "from": "lp",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "7sachets",
+    "to": "sachets",
+    "status": "rejected"
+   },
+   {
+    "from": "b20",
+    "to": "x20",
+    "status": "rejected"
+   },
+   {
+    "from": "b30",
+    "to": "x30",
+    "status": "rejected"
+   },
+   {
+    "from": "b50",
+    "to": "x50",
+    "status": "live"
+   },
+   {
+    "from": "b90",
+    "to": "x90",
+    "status": "rejected"
+   },
+   {
+    "from": "b3",
+    "to": "x3",
+    "status": "rejected"
+   },
+   {
+    "from": "sachet",
+    "to": "sachets",
+    "status": "rejected"
+   },
+   {
+    "from": "magnesium",
+    "to": "mag",
+    "status": "live"
+   },
+   {
+    "from": "spray",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "creme",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "fl",
+    "to": "",
+    "status": "rejected"
+   },
+   {
+    "from": "b100",
+    "to": "x100",
+    "status": "rejected"
+   },
+   {
+    "from": "crm",
+    "to": "creme",
+    "status": "live"
+   },
+   {
+    "from": "comp",
+    "to": "comprime",
+    "status": "rejected"
+   },
+   {
+    "from": "cp",
+    "to": "comprime",
+    "status": "rejected"
+   },
+   {
+    "from": "b60",
+    "to": "x60",
+    "status": "rejected"
+   },
+   {
+    "from": "b40",
+    "to": "x40",
+    "status": "rejected"
+   },
+   {
+    "from": "30gr",
+    "to": "30g",
+    "status": "rejected"
+   },
+   {
+    "from": "50gr",
+    "to": "50g",
+    "status": "rejected"
+   }
+  ],
+  "industry": "pharmacy and parapharmacy",
+  "alone": {
+   "Lines": 533,
+   "Right": 510,
+   "Wrong": 0,
+   "Unsure": 23,
+   "RightAt": 469,
+   "WrongAt": 0,
+   "AskedAt": 64,
+   "cost": 0.6289587499999998
+  },
+  "alone_errors": []
+ }
+}

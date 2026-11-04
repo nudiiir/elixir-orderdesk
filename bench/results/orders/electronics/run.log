@@ -1,0 +1,64 @@
+2026/11/04 01:06:08 desk: 796 products, autonomy unlocked: true, 50 orders to read
+2026/11/04 01:06:21 [mixed] ELE-O01: right 9/9 (qty 9), asked 0, wrong 0, missed 0, extra 0, $0.0086 
+2026/11/04 01:06:29 [french] ELE-O02: right 4/5 (qty 4), asked 1, wrong 0, missed 0, extra 0, $0.0062 
+2026/11/04 01:06:53 [voice] ELE-O03: right 2/7 (qty 2), asked 5, wrong 0, missed 0, extra 0, $0.0150 
+2026/11/04 01:07:07 [voice] ELE-O04: right 2/3 (qty 2), asked 1, wrong 0, missed 0, extra 0, $0.0095 
+2026/11/04 01:07:17 [mixed] ELE-O05: right 3/4 (qty 3), asked 1, wrong 0, missed 0, extra 0, $0.0068 
+2026/11/04 01:07:26 [mixed] ELE-O06: right 3/3 (qty 3), asked 0, wrong 0, missed 0, extra 0, $0.0068 
+2026/11/04 01:07:45 [darja_latin] ELE-O07: right 2/3 (qty 2), asked 1, wrong 0, missed 0, extra 0, $0.0125 
+2026/11/04 01:08:13 [voice] ELE-O08: right 6/10 (qty 6), asked 4, wrong 0, missed 0, extra 0, $0.0189 
+2026/11/04 01:08:23 [french] ELE-O09: right 9/10 (qty 9), asked 1, wrong 0, missed 0, extra 0, $0.0085 
+2026/11/04 01:08:31 [screenshot] ELE-O10: right 6/8 (qty 6), asked 2, wrong 0, missed 0, extra 0, $0.0074 
+2026/11/04 01:08:41 [screenshot] ELE-O11: right 2/6 (qty 2), asked 4, wrong 0, missed 0, extra 0, $0.0080 
+2026/11/04 01:08:55 [darja_latin] ELE-O12: right 7/9 (qty 7), asked 2, wrong 0, missed 0, extra 0, $0.0101 
+2026/11/04 01:09:04 [mixed] ELE-O13: right 2/3 (qty 2), asked 1, wrong 0, missed 0, extra 0, $0.0072 
+2026/11/04 01:09:36 [voice] ELE-O14: right 0/6 (qty 0), asked 5, wrong 0, missed 1, extra 1, $0.0215 
+2026/11/04 01:09:53 [voice] ELE-O15: right 1/3 (qty 1), asked 2, wrong 0, missed 0, extra 0, $0.0102 
+2026/11/04 01:10:00 [screenshot] ELE-O16: right 3/4 (qty 3), asked 1, wrong 0, missed 0, extra 0, $0.0066 
+2026/11/04 01:10:10 [darja_latin] ELE-O17: right 4/5 (qty 4), asked 1, wrong 0, missed 0, extra 0, $0.0076 
+2026/11/04 01:10:25 [voice] ELE-O18: right 2/6 (qty 2), asked 3, wrong 0, missed 1, extra 1, $0.0107 
+2026/11/04 01:10:31 [darja_latin] ELE-O19: right 3/3 (qty 3), asked 0, wrong 0, missed 0, extra 0, $0.0047 
+2026/11/04 01:10:42 [mixed] ELE-O20: right 8/9 (qty 8), asked 1, wrong 0, missed 0, extra 0, $0.0083 
+2026/11/04 01:10:49 [screenshot] ELE-O21: right 8/9 (qty 8), asked 1, wrong 0, missed 0, extra 0, $0.0070 
+2026/11/04 01:11:05 [mixed] ELE-O22: right 6/9 (qty 6), asked 3, wrong 0, missed 0, extra 0, $0.0112 
+2026/11/04 01:11:16 [screenshot] ELE-O23: right 4/8 (qty 4), asked 4, wrong 0, missed 0, extra 0, $0.0090 
+2026/11/04 01:11:21 [french] ELE-O24: right 2/3 (qty 2), asked 1, wrong 0, missed 0, extra 0, $0.0038 
+2026/11/04 01:11:31 [darja_latin] ELE-O25: right 3/3 (qty 3), asked 0, wrong 0, missed 0, extra 0, $0.0079 
+2026/11/04 01:11:40 [french] ELE-O26: right 5/5 (qty 5), asked 0, wrong 0, missed 0, extra 0, $0.0064 
+2026/11/04 01:11:44 [screenshot] ELE-O27: right 3/3 (qty 3), asked 0, wrong 0, missed 0, extra 0, $0.0038 
+2026/11/04 01:12:08 [voice] ELE-O28: right 2/5 (qty 2), asked 2, wrong 1, missed 0, extra 0, $0.0163 
+2026/11/04 01:12:17 [mixed] ELE-O29: right 7/8 (qty 7), asked 1, wrong 0, missed 0, extra 0, $0.0068 
+2026/11/04 01:12:58 [voice] ELE-O30: right 3/8 (qty 3), asked 5, wrong 0, missed 0, extra 0, $0.0241 
+2026/11/04 01:13:09 [french] ELE-O31: right 5/5 (qty 5), asked 0, wrong 0, missed 0, extra 0, $0.0081 
+2026/11/04 01:13:21 [mixed] ELE-O32: right 4/5 (qty 4), asked 1, wrong 0, missed 0, extra 0, $0.0086 
+2026/11/04 01:13:28 [screenshot] ELE-O33: right 4/4 (qty 4), asked 0, wrong 0, missed 0, extra 0, $0.0064 
+2026/11/04 01:13:39 [french] ELE-O34: right 7/10 (qty 7), asked 3, wrong 0, missed 0, extra 0, $0.0086 
+2026/11/04 01:13:54 [darja_latin] ELE-O35: right 6/9 (qty 6), asked 3, wrong 0, missed 0, extra 0, $0.0110 
+2026/11/04 01:14:06 [mixed] ELE-O36: right 7/7 (qty 7), asked 0, wrong 0, missed 0, extra 0, $0.0097 
+2026/11/04 01:14:15 [mixed] ELE-O37: right 4/4 (qty 4), asked 0, wrong 0, missed 0, extra 0, $0.0069 
+2026/11/04 01:14:31 [french] ELE-O38: right 6/8 (qty 6), asked 2, wrong 0, missed 0, extra 0, $0.0098 
+2026/11/04 01:14:38 [screenshot] ELE-O39: right 7/9 (qty 7), asked 2, wrong 0, missed 0, extra 0, $0.0072 
+2026/11/04 01:14:47 [french] ELE-O40: right 4/7 (qty 4), asked 3, wrong 0, missed 0, extra 0, $0.0078 
+2026/11/04 01:15:00 [darja_latin] ELE-O41: right 9/10 (qty 9), asked 1, wrong 0, missed 0, extra 0, $0.0096 
+2026/11/04 01:15:19 [darja_latin] ELE-O42: right 3/3 (qty 2), asked 0, wrong 0, missed 0, extra 0, $0.0115 
+2026/11/04 01:15:28 [screenshot] ELE-O43: right 5/5 (qty 5), asked 0, wrong 0, missed 0, extra 0, $0.0080 
+2026/11/04 01:15:57 [voice] ELE-O44: right 2/9 (qty 2), asked 7, wrong 0, missed 0, extra 1, $0.0194 
+2026/11/04 01:16:11 [darja_latin] ELE-O45: right 8/10 (qty 8), asked 2, wrong 0, missed 0, extra 0, $0.0105 
+2026/11/04 01:16:18 [darja_latin] ELE-O46: right 6/7 (qty 6), asked 1, wrong 0, missed 0, extra 0, $0.0061 
+2026/11/04 01:16:29 [french] ELE-O47: right 6/6 (qty 6), asked 0, wrong 0, missed 0, extra 0, $0.0080 
+2026/11/04 01:16:47 [voice] ELE-O48: right 2/6 (qty 2), asked 4, wrong 0, missed 0, extra 0, $0.0125 
+2026/11/04 01:17:01 [screenshot] ELE-O49: right 5/8 (qty 5), asked 3, wrong 0, missed 0, extra 0, $0.0117 
+2026/11/04 01:17:16 [french] ELE-O50: right 5/5 (qty 5), asked 0, wrong 0, missed 0, extra 0, $0.0090 
+| channel | orders | lines | booked right | right qty+unit | asked | **wrong** | missed by reader | extra | Meta cost |
+|---|---|---|---|---|---|---|---|---|---|
+| all | 50 | 314 | 226 (72 %) | 225 (100 %) | 85 (27 %) | **1** | 2 (1 %) | 3 | $0.482 |
+| darja_latin | 10 | 62 | 51 (82 %) | 50 (98 %) | 11 (18 %) | **0** | 0 (0 %) | 0 | $0.092 |
+| french | 10 | 64 | 53 (83 %) | 53 (100 %) | 11 (17 %) | **0** | 0 (0 %) | 0 | $0.076 |
+| mixed | 10 | 61 | 53 (87 %) | 53 (100 %) | 8 (13 %) | **0** | 0 (0 %) | 0 | $0.081 |
+| screenshot | 10 | 64 | 47 (73 %) | 47 (100 %) | 17 (27 %) | **0** | 0 (0 %) | 0 | $0.075 |
+| voice | 10 | 63 | 22 (35 %) | 22 (100 %) | 38 (60 %) | **1** | 2 (3 %) | 3 | $0.158 |
+| voice: generated (Gemini TTS) | 10 | 63 | 22 (35 %) | 22 (100 %) | 38 (60 %) | **1** | 2 (3 %) | 3 | $0.158 |
+
+## Wrong bookings
+
+- ELE-O28 (voice): TABLETTE SAMSUNG TAB A7LITE 3/32GB → TABLETTE SAMSUNG A7 LITE T225N 3/32GB (said: tablette SAMSUNG Tab A7 Lite 332 GB) [ai]
