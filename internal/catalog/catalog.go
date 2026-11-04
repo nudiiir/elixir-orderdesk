@@ -534,7 +534,8 @@ func (c *Catalog) Witness(norm, productID, scopeKind, scopeID, source string, tr
 		VALUES (?, ?, ?, ?, ?, 1, ?, ?, ?)
 		ON CONFLICT(text, scope_kind, scope_id, product_id) DO UPDATE SET witnesses = witnesses + 1, last_seen = excluded.last_seen,
 			state = CASE WHEN aliases.state = 'blocked' THEN 'candidate'
-			             WHEN aliases.witnesses + 1 >= ? THEN 'trusted' ELSE aliases.state END`,
+			             WHEN aliases.witnesses + 1 >= ? THEN 'trusted'
+			             WHEN aliases.state = 'weak' THEN 'candidate' ELSE aliases.state END`,
 		norm, productID, scopeKind, scopeID, source, initialState(trustAfter), now, now, trustAfter)
 	var a Alias
 	if err == nil {
@@ -549,6 +550,18 @@ func (c *Catalog) Witness(norm, productID, scopeKind, scopeID, source string, tr
 	}
 	c.Reload()
 	return a, change
+}
+
+// WitnessWeak keeps evidence nobody checked (a product Muse Spark picked alone on an order the shop confirmed)
+// as a 'weak' wording: no witness, never a hint nor trusted, and it blocks nothing. Only a person's witness
+// (Witness) or the panel makes it count.
+func (c *Catalog) WitnessWeak(norm, productID, scopeKind, scopeID, source string) {
+	now := store.Now()
+	c.db.Exec(`INSERT INTO aliases (text, product_id, scope_kind, scope_id, source, witnesses, state, first_seen, last_seen)
+		VALUES (?, ?, ?, ?, ?, 0, 'weak', ?, ?)
+		ON CONFLICT(text, scope_kind, scope_id, product_id) DO UPDATE SET last_seen = excluded.last_seen`,
+		norm, productID, scopeKind, scopeID, source, now, now)
+	c.Reload()
 }
 
 func initialState(trustAfter int) string {

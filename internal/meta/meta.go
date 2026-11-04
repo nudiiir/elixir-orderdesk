@@ -17,6 +17,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/nudiiir/elixir-orderdesk/internal/store"
@@ -41,6 +42,9 @@ type Client struct {
 	Key     string
 	HTTP    *http.Client
 	DB      *store.DB
+
+	mu       sync.Mutex
+	reserved float64 // the budget held by calls under way (their cost is recorded when they answer)
 }
 
 func New(key string, db *store.DB) *Client {
@@ -57,14 +61,25 @@ func (c *Client) SpentToday() float64 {
 	return v
 }
 
-func (c *Client) check() error {
+// check checks the day's budget and holds a share of it for the call about to start, in one step under the
+// lock, so calls starting together cannot all pass a budget only one of them fits in. The caller defers
+// the release; the call's real cost is recorded (record) before it.
+func (c *Client) check() (release func(), err error) {
 	if !c.Enabled() {
-		return ErrNoKey
+		return func() {}, ErrNoKey
 	}
-	if budget := c.DB.SettingFloat("ai_budget_day", 2); budget > 0 && c.SpentToday() >= budget {
-		return ErrBudget
+	hold := c.DB.SettingFloat("ai_reserve_call", 0.02) // about one Spark call with a long answer
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if budget := c.DB.SettingFloat("ai_budget_day", 2); budget > 0 && c.SpentToday()+c.reserved >= budget {
+		return func() {}, ErrBudget
 	}
-	return nil
+	c.reserved += hold
+	return func() {
+		c.mu.Lock()
+		c.reserved -= hold
+		c.mu.Unlock()
+	}, nil
 }
 
 func (c *Client) record(model, purpose, ref string, in, out int, audioSec float64) float64 {
@@ -113,7 +128,9 @@ type Tool struct {
 // JSON sends one user turn (text plus optional images) and decodes the model's JSON answer.
 // It returns the cost of the call.
 func (c *Client) JSON(ctx context.Context, model, purpose, ref, system, user string, images [][]byte, maxTokens int, out any) (float64, error) {
-	if err := c.check(); err != nil {
+	release, err := c.check()
+	defer release()
+	if err != nil {
 		return 0, err
 	}
 	content := []map[string]any{{"type": "text", "text": user}}
@@ -146,7 +163,9 @@ func (c *Client) JSON(ctx context.Context, model, purpose, ref, system, user str
 
 // JSONFile is JSON with a document (a PDF invoice) attached as a file part.
 func (c *Client) JSONFile(ctx context.Context, model, purpose, ref, system, user string, file []byte, mime string, maxTokens int, out any) (float64, error) {
-	if err := c.check(); err != nil {
+	release, err := c.check()
+	defer release()
+	if err != nil {
 		return 0, err
 	}
 	content := []map[string]any{{"type": "text", "text": user}, {"type": "file", "file": map[string]string{
@@ -189,7 +208,9 @@ func decodeJSON(text string, out any) error {
 
 // Chat runs one turn of a tool-using conversation and returns the assistant message.
 func (c *Client) Chat(ctx context.Context, model, purpose, ref string, msgs []Message, tools []Tool, maxTokens int) (Message, float64, error) {
-	if err := c.check(); err != nil {
+	release, err := c.check()
+	defer release()
+	if err != nil {
 		return Message{}, 0, err
 	}
 	ts := []map[string]any{}
@@ -238,7 +259,9 @@ const MaxKeyword = 30
 // TranscribeWords is Transcribe with keyword biasing: Muse Voice Transcribe is told which words it may
 // hear (the distributor's brands), so "Choufan" is not heard as "chou fin".
 func (c *Client) TranscribeWords(ctx context.Context, wav []byte, ref string, keywords []string) (string, float64, error) {
-	if err := c.check(); err != nil {
+	release, err := c.check()
+	defer release()
+	if err != nil {
 		return "", 0, err
 	}
 	reqJSON := map[string]any{"model": Transcribe, "audioEncoding": "WAV", "mode": "PUSH_TO_TALK"}
@@ -301,7 +324,9 @@ var samBox = regexp.MustCompile(`<\|box;x1=(\d+);y1=(\d+);x2=(\d+);y2=(\d+);w=\d
 
 // Segment asks SAM 3.1 for every instance of one noun phrase ("bottle", "can") in an image.
 func (c *Client) Segment(ctx context.Context, img []byte, noun, ref string) ([]Box, float64, error) {
-	if err := c.check(); err != nil {
+	release, err := c.check()
+	defer release()
+	if err != nil {
 		return nil, 0, err
 	}
 	body := map[string]any{
@@ -351,14 +376,18 @@ func (c *Client) post(ctx context.Context, path string, body, out any) error {
 		res, err := c.HTTP.Do(req)
 		if err != nil {
 			lastErr = err
-			time.Sleep(time.Duration(attempt+1) * 2 * time.Second)
+			if err := wait(ctx, time.Duration(attempt+1)*2*time.Second); err != nil {
+				return err
+			}
 			continue
 		}
 		raw, _ := io.ReadAll(res.Body)
 		res.Body.Close()
 		if res.StatusCode == http.StatusTooManyRequests || res.StatusCode >= 500 {
 			lastErr = fmt.Errorf("meta: HTTP %d", res.StatusCode)
-			time.Sleep(time.Duration(attempt+1) * 3 * time.Second)
+			if err := wait(ctx, time.Duration(attempt+1)*3*time.Second); err != nil {
+				return err
+			}
 			continue
 		}
 		if res.StatusCode != http.StatusOK {
@@ -367,6 +396,18 @@ func (c *Client) post(ctx context.Context, path string, body, out any) error {
 		return json.Unmarshal(raw, out)
 	}
 	return lastErr
+}
+
+// wait sleeps before a retry, or returns at once when the caller gives up (the context is done).
+func wait(ctx context.Context, d time.Duration) error {
+	t := time.NewTimer(d)
+	defer t.Stop()
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case <-t.C:
+		return nil
+	}
 }
 
 func truncate(s string, n int) string {

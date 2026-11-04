@@ -9,8 +9,9 @@ import (
 )
 
 // Autonomy decides when the desk's own steps (codes, aliases, rules, the judge) may answer without Muse
-// Spark checking them. Every confirmed line whose answer the code gave is evidence: right when the
-// person kept the code's product, wrong when they chose another. Spark checks every deterministic
+// Spark checking them. Every confirmed line whose answer the code gave and someone checked is evidence:
+// right when Spark or the person kept the code's product, wrong when they chose another. An answer nobody
+// checked (an alias or a rule booked alone, on a summary the shop confirmed) proves nothing. Spark checks every deterministic
 // answer until the 95 % lower bound of the code's precision clears the bar (99 % by default: about
 // 270 confirmed answers in a row). After that, a correction sends that supplier or shop back under
 // supervision for Recover clean confirmations, and Spark keeps checking risky answers (see
@@ -63,8 +64,10 @@ func (a *Autonomy) Supervised(cx resolve.Context) string {
 	return ""
 }
 
-// Record learns from the lines of one confirmed order or invoice.
-func (a *Autonomy) Record(lines []Line, scope string) {
+// Record learns from the lines of one confirmed order or invoice. reviewed: a person checked every line
+// (a replay's clerk, who knows each answer and corrects every wrong one), so the code's unchecked answers
+// that were kept count as right too.
+func (a *Autonomy) Record(lines []Line, scope string, reviewed bool) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	for _, l := range lines {
@@ -75,7 +78,7 @@ func (a *Autonomy) Record(lines []Line, scope string) {
 		case l.Checks["corrected_from"] != "":
 			right, counted = false, true
 		case l.Level == resolve.LCode || l.Level == resolve.LAlias || l.Level == resolve.LRules:
-			right, counted = true, true
+			right, counted = true, reviewed
 		}
 		if !counted {
 			continue

@@ -72,6 +72,10 @@ func main() {
 	if *keys != "" {
 		loadKeys(*keys)
 	}
+	if strings.TrimSpace(os.Getenv("META_MODEL_API_KEY")) == "" {
+		// without a key every line would come back unsure and the run would "succeed" with 0 right
+		log.Fatal("sparkalone needs the Meta Model API: set META_MODEL_API_KEY or pass -keys keys.env")
+	}
 	var data input
 	b, err := os.ReadFile(*in)
 	if err != nil {
