@@ -18,11 +18,11 @@ import (
 
 // Rule types.
 const (
-	Rewrite = "rewrite" // a way of writing becomes the standard one ("2000ml" → "2l" is built in; "1l5" → "1.5l")
-	Synonym = "synonym" // a word means a brand, a family or another word ("sel" → "selecto", "hns" → "head shoulders")
-	PackT   = "pack"    // a pattern gives the pack ("x{n}$" → carton of n, "fardou" → pack)
-	Default = "default" // fills a missing detail from a habit ("ifri" with no size → Ifri 1.5 L, for one shop)
-	Guard   = "guard"   // forbids a match ("citron" never matches a product without "citron")
+	Rewrite = "rewrite"   // a way of writing becomes the standard one ("2000ml" → "2l" is built in; "1l5" → "1.5l")
+	Synonym = "synonym"   // a word means a brand, a family or another word ("sel" → "selecto", "hns" → "head shoulders")
+	PackT   = "pack"      // a pattern gives the pack ("x{n}$" → carton of n, "fardou" → pack)
+	Default = "default"   // fills a missing detail from a habit ("ifri" with no size → Ifri 1.5 L, for one shop)
+	Guard   = "guard"     // forbids a match ("citron" never matches a product without "citron")
 	Attr    = "attribute" // a word gives an attribute value, on both sides ("zero|light" → variant = zero)
 	Word    = "word"      // what a word is: a brand, or a word that never tells two products apart
 	Policy  = "policy"    // how an attribute decides identity: strict, marker, soft or ignore

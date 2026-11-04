@@ -27,16 +27,16 @@ type Engineer struct {
 
 // Report is what one run did.
 type Report struct {
-	Trigger   string   `json:"trigger"`
-	Residue   int      `json:"residue"`
-	Proposed  []string `json:"proposed"`
-	Accepted  []string `json:"accepted"`
-	Rejected  []string `json:"rejected"`
-	Cost      float64  `json:"cost"`
-	Model     string   `json:"model"`              // the model of the first session
-	Fallback  string   `json:"fallback,omitempty"` // the model of the second session, when the first found nothing
-	Summary   string   `json:"summary"`
-	Error     string   `json:"error,omitempty"`
+	Trigger  string   `json:"trigger"`
+	Residue  int      `json:"residue"`
+	Proposed []string `json:"proposed"`
+	Accepted []string `json:"accepted"`
+	Rejected []string `json:"rejected"`
+	Cost     float64  `json:"cost"`
+	Model    string   `json:"model"`              // the model of the first session
+	Fallback string   `json:"fallback,omitempty"` // the model of the second session, when the first found nothing
+	Summary  string   `json:"summary"`
+	Error    string   `json:"error,omitempty"`
 }
 
 func (e *Engineer) Running() bool {
@@ -142,7 +142,7 @@ func (e *Engineer) tools() []meta.Tool {
 				"items": map[string]any{"type": "array", "items": map[string]any{"type": "object", "properties": map[string]any{"rule": ruleSchema}}}}}},
 		{Name: "submit_rule", Description: "Send rules to the gate. Accepted rules start in shadow mode. Pass one rule, or several in items.",
 			Parameters: map[string]any{"type": "object", "properties": map[string]any{"rule": ruleSchema,
-				"rationale": map[string]any{"type": "string", "description": "one sentence: the pattern you saw"},
+				"rationale":   map[string]any{"type": "string", "description": "one sentence: the pattern you saw"},
 				"inspired_by": map[string]any{"type": "array", "items": map[string]any{"type": "string"}, "description": "line ids from list_residue"},
 				"items": map[string]any{"type": "array", "items": map[string]any{"type": "object", "properties": map[string]any{"rule": ruleSchema,
 					"rationale": map[string]any{"type": "string"}, "inspired_by": map[string]any{"type": "array", "items": map[string]any{"type": "string"}}}}}}}},

@@ -104,7 +104,7 @@ var (
 	packSlash   = regexp.MustCompile(`(^|[^\p{L}\p{N}])(b|s|c)\s*/\s*(\d{1,4})($|[^\p{L}\p{N}.])`)
 	// phone memory, RAM then storage: "8+256", "6-128", "4/64GB", "8GB/256GB", "8 Go + 256 Go"
 	memoryRe = regexp.MustCompile(`\b(1|2|3|4|6|8|12|16)\s*(?:gb|go)?\s*[+/\-]\s*(16|32|64|128|256|512)\s*(?:gb|go)?\b`)
-	shadeRe     = regexp.MustCompile(`(?:n°|nº|n\s?°|no\.|teinte|#)\s*0*(\d{1,3})`)
+	shadeRe  = regexp.MustCompile(`(?:n°|nº|n\s?°|no\.|teinte|#)\s*0*(\d{1,3})`)
 )
 
 var fracName = map[string]string{"1/2": "in12", "3/4": "in34", "1/4": "in14", "3/8": "in38", "1/8": "in18"}
@@ -243,7 +243,9 @@ var Library = []block{
 			return b.String()
 		}},
 	{Name: "memory", Description: "phone memory, RAM then storage, becomes one token however it is written: \"8+256\", \"8-256\", \"8/256GB\", \"8GB/256GB\" → mem8x256 (phones, tablets)",
-		fn: func(s string, _ map[string]bool, _ []*LexEntry) string { return memoryRe.ReplaceAllString(s, " mem${1}x${2} ") }},
+		fn: func(s string, _ map[string]bool, _ []*LexEntry) string {
+			return memoryRe.ReplaceAllString(s, " mem${1}x${2} ")
+		}},
 	{Name: "units_glue", Description: "technical units are glued to their number: \"2,5 mm²\" → 2.5mm2, \"16 A\" → 16a, \"18 V\" → 18v, \"100 m\" → 100m, \"8 mm\" → 8mm (hardware, electrical)",
 		fn: func(s string, _ map[string]bool, _ []*LexEntry) string {
 			return unitGlue.ReplaceAllStringFunc(s, func(m string) string {

@@ -2,7 +2,7 @@
 // plain and once with the catalogue's brands as keywords, and each run is scored on how many of the
 // brands the speaker said come back in the transcript, and on the words of the product names.
 //
-//	voicebench -clips clips.json -catalog data/replay-siir.json -keys keys.env -n 100
+//	voicebench -clips clips.json -catalog bench/replay/stream-supermarket.json -keys keys.env -n 100
 //
 // clips.json: {"clips":[{"wav":"wav/00.wav","text":"…","brands":["CHOUFAN"],"names":["choufan au citron 150g"]}]}
 package main

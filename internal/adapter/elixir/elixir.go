@@ -199,9 +199,13 @@ func (c *Client) Products(ctx context.Context) ([]catalog.Product, error) {
 	}
 }
 
-func (c *Client) Customers(ctx context.Context) ([]catalog.Customer, error) { return c.partners(ctx, "customer") }
+func (c *Client) Customers(ctx context.Context) ([]catalog.Customer, error) {
+	return c.partners(ctx, "customer")
+}
 
-func (c *Client) Suppliers(ctx context.Context) ([]catalog.Customer, error) { return c.partners(ctx, "supplier") }
+func (c *Client) Suppliers(ctx context.Context) ([]catalog.Customer, error) {
+	return c.partners(ctx, "supplier")
+}
 
 func (c *Client) partners(ctx context.Context, kind string) ([]catalog.Customer, error) {
 	var out []catalog.Customer

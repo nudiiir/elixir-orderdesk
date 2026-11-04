@@ -24,10 +24,10 @@ import (
 
 // InvoiceDoc is one reading of a supplier invoice.
 type InvoiceDoc struct {
-	Supplier string  `json:"supplier"`
-	Number   string  `json:"number"`
-	Date     string  `json:"date"`
-	TotalHT  float64 `json:"total_ht"`
+	Supplier string        `json:"supplier"`
+	Number   string        `json:"number"`
+	Date     string        `json:"date"`
+	TotalHT  float64       `json:"total_ht"`
 	Lines    []InvoiceLine `json:"lines"`
 }
 

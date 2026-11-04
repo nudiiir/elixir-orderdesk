@@ -185,7 +185,9 @@ func main() {
 	db.Close()
 }
 
-func supplierID(name string) string { return "S-" + strings.TrimSpace(strings.TrimPrefix(name, "Fournisseur")) }
+func supplierID(name string) string {
+	return "S-" + strings.TrimSpace(strings.TrimPrefix(name, "Fournisseur"))
+}
 
 // backdate moves every row written since mark to the simulated day.
 func backdate(db *store.DB, mark string, day time.Time) {
@@ -228,7 +230,7 @@ func ruleList(db *store.DB) []map[string]any {
 
 type agg struct {
 	Invoices, Lines, Alias, Rules, AI, Asked, Wrong int
-	Cost                                           float64
+	Cost                                            float64
 }
 
 func (a *agg) add(r row) {
