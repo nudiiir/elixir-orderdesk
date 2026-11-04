@@ -278,7 +278,7 @@ func main() {
 			log.Printf("[demo] META_MODEL_API_KEY is set: Muse Spark reads what the parser, learned wordings and rules leave open")
 		} else {
 			log.Printf("[demo] keyless: the parser, the learned wordings and the rules answer; anything else becomes a question for you " +
-				"(send a plain list, one product per line: a chatty message, a voice note or a photo needs the key)")
+				"(typed orders in French or Darja work keyless; a voice note or a photo needs the key)")
 			log.Printf("[demo] set META_MODEL_API_KEY (environment or .env) and Muse Spark joins in: voice, photos, unknown wordings")
 		}
 		log.Printf("[demo] booked orders are written to %s, goods receipts to %s", demoERP.OrdersFile(), demoERP.ReceiptsFile())
