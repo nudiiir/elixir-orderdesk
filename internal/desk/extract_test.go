@@ -96,3 +96,15 @@ func TestParseLenient(t *testing.T) {
 		t.Fatalf("a question goes to a person: %+v, %q", ms, unread)
 	}
 }
+
+func TestSplitOnlyBeforeAQuantity(t *testing.T) {
+	if ms, ok := Parse("4 cartons lia yaourt sucre et aromatise"); !ok || len(ms) != 1 || ms[0].Qty != 4 {
+		t.Errorf("'et' inside a name keeps one item: %+v", ms)
+	}
+	if ms, ok := Parse("2 selecto et 3 ifri"); !ok || len(ms) != 2 || ms[1].Qty != 3 {
+		t.Errorf("'et' before a quantity starts an item: %+v", ms)
+	}
+	if ms, _ := ParseLenient("3 kartonat moutarde w zouj nesquik"); len(ms) != 2 || ms[1].Qty != 2 {
+		t.Errorf("'w' before a number word starts an item: %+v", ms)
+	}
+}

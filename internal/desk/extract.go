@@ -25,7 +25,9 @@ type Extraction struct {
 }
 
 var (
-	splitRe = regexp.MustCompile(`\n|,|;|\s\+\s|\s(?:et|w|wa|و)\s`)
+	splitRe = regexp.MustCompile(`\n|,|;|\s\+\s`)
+	andRe   = regexp.MustCompile(`\s(?:et|w|wa|و)\s`)
+	qtyRe   = regexp.MustCompile(`^\d+(?:[.,/]\d+)?x?$`)
 	numRe   = regexp.MustCompile(`^\d+(?:\.\d+)?$`)
 	// "3x nesquik": a count glued to its x before the name; "nesquik 750g x3": after the size
 	countLead  = regexp.MustCompile(`^(\d+)x$`)
@@ -66,6 +68,30 @@ func fractions(line string) string {
 	})
 }
 
+// splitItems cuts a line into items: at commas and semicolons always, at "et", "w" or "و" only when a quantity
+// follows ("2 selecto et 3 ifri"), never inside a product's name ("yaourt sucre et aromatise").
+func splitItems(s string) []string {
+	var out []string
+	for _, seg := range splitRe.Split(s, -1) {
+		start := 0
+		for _, m := range andRe.FindAllStringIndex(seg, -1) {
+			if next := strings.Fields(seg[m[1]:]); len(next) > 0 && startsQty(next[0]) {
+				out = append(out, seg[start:m[0]])
+				start = m[1]
+			}
+		}
+		out = append(out, seg[start:])
+	}
+	return out
+}
+
+func startsQty(w string) bool {
+	if _, ok := catalog.NumberWords[w]; ok {
+		return true
+	}
+	return qtyRe.MatchString(w)
+}
+
 // Parse is the deterministic reader for text lists ("3 cartons selecto 2l\n2 fardou ifri").
 // It returns ok=false whenever the message looks like a conversation; the AI reads those.
 func Parse(text string) ([]resolve.Mention, bool) {
@@ -80,7 +106,7 @@ func Parse(text string) ([]resolve.Mention, bool) {
 	}
 	var out []resolve.Mention
 	for _, raw := range strings.Split(text, "\n") { // lines first: normalising joins them
-		for _, seg := range splitRe.Split(catalog.Normalize(fractions(raw)), -1) {
+		for _, seg := range splitItems(catalog.Normalize(fractions(raw))) {
 			ms, ok := parseItems(strings.Fields(seg))
 			if !ok {
 				return nil, false // a quantity of 0 or beyond MaxQty, or a quantity naming nothing: the AI reads it
@@ -221,7 +247,7 @@ func ParseLenient(text string) (ms []resolve.Mention, unread []string) {
 			}
 			continue
 		}
-		for _, seg := range splitRe.Split(catalog.Normalize(fractions(raw)), -1) {
+		for _, seg := range splitItems(catalog.Normalize(fractions(raw))) {
 			var ws []string
 			for _, w := range strings.Fields(seg) {
 				if !filler(w) {
