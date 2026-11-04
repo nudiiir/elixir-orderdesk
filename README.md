@@ -34,14 +34,14 @@ of the Elixir Distribution ERP ([before and during the hackathon](#startups-trac
 | | |
 |---|---|
 | **93 %** of supplier-invoice lines booked automatically, **3 wrong in 2,169** | 120 locked invoices in 4 industries the desk never learned from |
-| **76 %** of shop-order lines booked right, **3 wrong in 1,272**, the rest asked | 200 orders: French, Darja, Arabic script, screenshots, voice notes |
+| **76 %** of shop-order lines booked right, **3 wrong products in 1,272** (and 7 right products with a wrong quantity), the rest asked | 200 orders: French, Darja in Latin letters, Darja with Arabic-script quantities and units, screenshots, voice notes |
 | **4–8× cheaper** per invoice than Muse Spark alone, with the same 3 wrong | the same locked lines, Spark given the whole catalogue |
 
 **Why it matters.** At a distributor, a clerk retypes every WhatsApp order and every supplier invoice into
 the ERP, guessing which of 1,000 products "ifri 1.5" means. Per 100 supplier invoices, Order Desk books
 **1,682 of 1,808 lines** with nobody typing; per 100 shop orders, **484 of 636**. At 20 seconds a line (our
 assumption, not a measurement) that is **9.3 and 2.7 clerk hours**. And a line it is not sure of becomes a
-question, not a wrong delivery: 3 wrong lines in 1,272, every other doubt asked.
+question, not a wrong delivery: 3 wrong products in 1,272 lines (plus 7 wrong quantities), every other doubt asked.
 
 <p align="center"><img src="docs/media/odoo-1-question.jpg" alt="The Order Desk inbox: a shop's order resolved line by line, one question left" width="900"></p>
 
