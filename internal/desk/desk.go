@@ -364,10 +364,20 @@ func (d *Desk) Ingest(ctx context.Context, key, customerID, msgID, kind, text, m
 	live, shadow := d.ruleSets()
 	rv := d.resolver(live, shadow)
 	res := rv.Resolve(ctx, ex.Mentions, resolve.Context{CustomerID: customerID, Usual: h.usual}, msgID)
+	said := map[string]bool{}
 	for _, r := range res {
 		l := Line{DraftID: draft, MessageID: msgID, Position: pos, Said: r.Said, Norm: r.Norm, Hint: r.Hint, Qty: r.Qty, Unit: r.Unit,
 			ProductID: r.ProductID, Level: r.Level, Used: r.Used, Confidence: r.Confidence, Options: r.Options, Question: r.Question,
 			Status: r.Status, Checks: map[string]string{}, Shadow: r.Shadow}
+		// The same wording twice in one message is a reading that went wrong (a transcript that kept one
+		// product name and lost the others), not a shop ordering one product twice: the repeat is asked.
+		if k := strings.TrimSpace(r.Norm); k != "" {
+			if said[k] && l.Status == "ok" {
+				l.Options, l.ProductID, l.Status, l.Level = []string{l.ProductID}, "", "unknown", ""
+				l.Question = fmt.Sprintf("« %s » revient plusieurs fois dans le message : de quel produit s'agit-il ?", l.Said)
+			}
+			said[k] = true
+		}
 		if r.Check != "" {
 			l.Checks["spark"] = r.Check
 		}
