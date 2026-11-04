@@ -19,3 +19,6 @@ outbox*.jsonl
 /run-*/
 tools/whatsapp-sim/media/VOICE1
 !/bench/trained-desks/*/orderdesk.db
+__pycache__/
+*.pyc
+/bench-out/

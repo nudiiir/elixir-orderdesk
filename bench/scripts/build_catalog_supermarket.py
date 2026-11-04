@@ -1,19 +1,30 @@
-"""Supermarket catalogue for the benchmark: a real Algerian store's assortment (Siir), cleaned.
+"""Supermarket catalogue for the benchmark: a real Algerian store's assortment, cleaned.
 
 A product is kept only when its name is comprehensible:
-  1. the store's barcode has an official GS1 Algeria (Mantooj) entry whose brand or name agrees with the
+  1. the store's barcode has an official GS1 Algeria entry whose brand or name agrees with the
      store's own name (barcode misuse such as "pates de boeuf" -> a varnish is dropped); the name is
      BRAND + official designation + the flavour/size the store wrote; or
   2. no GS1 entry, but every word of the store's name is a known word (from the 22,769 GS1 names and
      brands) or a size: no typos, no private shorthand.
 Output catalog.csv: id, name, brand, size. No prices, no store data.
+
+    python bench/scripts/build_catalog_supermarket.py <GS1 export.csv> <store products.json>
+
+  GS1 export.csv       a GS1 Algeria product export (barcode, brand, name columns), or $GS1_CSV
+  store products.json  the store's assortment as {"products": [...]}, or $STORE_JSON
+Neither is shipped (the store is not named). Writes catalog.csv to $BENCH_OUT (default ./bench-out).
 """
 import csv, json, re, sys, unicodedata, collections
 from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-HERE = Path(__file__).parent
-M = {r["barcode"]: r for r in csv.DictReader(open(r"D:\other projects\scanner-cloud\tools\mantooj-full\mantooj.csv", encoding="utf-8-sig"))}
-store = json.load(open(r"D:\Documents\ELIXIR SYSTEM\orderdesk-replay\data\replay-siir.json", encoding="utf-8"))["products"]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import os, paths
+args = sys.argv[1:] + [None, None]
+GS1 = paths.need(args[0] or os.environ.get("GS1_CSV"), __doc__, "GS1 export")
+STORE = paths.need(args[1] or os.environ.get("STORE_JSON"), __doc__, "store products")
+HERE = paths.out_dir()
+M = {r["barcode"]: r for r in csv.DictReader(open(GS1, encoding="utf-8-sig"))}
+store = json.load(open(STORE, encoding="utf-8"))["products"]
 
 def fold(s):
     s = unicodedata.normalize("NFKD", s); s = "".join(c for c in s if not unicodedata.combining(c))

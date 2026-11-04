@@ -4,15 +4,19 @@ Split, fixed before any run (seed 2026): for every supplier with 3 invoices, one
 (test); the other 30 are shuffled into the training order, read in rounds of 10. Each line is the text
 printed on the paper, its quantity, unit price and the right catalogue id.
 
-    python -I make_replay.py supermarket
+    python bench/scripts/make_replay.py supermarket|pharmacy|cosmetics|electronics
+
+Reads bench/invoices/truth-<industry>.json and bench/catalogs/<industry>.csv; writes replay-<industry>.json to
+$BENCH_OUT (default ./bench-out). The committed bench/replay/photographed-<industry>.json came from this split.
 """
 import sys, json, csv, random, collections, re
 from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-HERE = Path(__file__).parent; ROOT = HERE.parent
-ind = sys.argv[1]
-truth = json.load(open(ROOT / "invoices" / f"truth-{ind}.json", encoding="utf-8"))
-cat = list(csv.DictReader(open(ROOT / {"electronics": "hardware"}.get(ind, ind) / "catalog.csv", encoding="utf-8-sig")))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import paths
+ind = paths.industry_arg(__doc__)
+truth = json.load(open(paths.need(paths.truth(ind), __doc__, "answer key"), encoding="utf-8"))
+cat = list(csv.DictReader(open(paths.need(paths.catalog(ind), __doc__, "catalogue"), encoding="utf-8-sig")))
 R = random.Random(2026)
 
 by_sup = collections.defaultdict(list)
@@ -51,7 +55,7 @@ out = {"invoices": [{"id": inv["id"], "supplier": inv["supplier"], "month": mont
 ids = {p["id"] for p in cat}
 bad = [l["product"] for inv in out["invoices"] for l in inv["lines"] if l["product"] not in ids]
 assert not bad, f"{len(bad)} answer-key ids not in the catalogue: {bad[:5]}"
-(HERE / f"replay-{ind}.json").write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
+(paths.out_dir() / f"replay-{ind}.json").write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
 n = lambda invs: sum(len(i["lines"]) for i in invs)
 print(f"{ind}: {len(cat)} products; train {len(train)} invoices / {n(train)} lines; locked {len(test)} invoices / {n(test)} lines")
 print("training order:", " ".join(i["id"] for i in train))

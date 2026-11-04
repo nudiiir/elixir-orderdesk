@@ -5,14 +5,20 @@ Lines are written with the product's aliases (real spellings first, pattern-writ
 catalogue name itself. 15 layouts per industry, none shared between the two industries; black on white.
 Outputs: invoices-<kind>.pdf (one invoice per A4 page) and truth-<kind>.json/.xlsx (the answer key).
 
-    python -I gen.py
+    PHARMACY_PRICES_PDF=<price listing.pdf> python bench/scripts/gen.py
+
+Needs pdfplumber and openpyxl, a Chromium-based browser ($PDF_BROWSER, or Edge on Windows) and the pharmacy
+price listing the PPA column was read from, which is not shipped. Reads bench/catalogs/ and bench/wordings/;
+writes to $BENCH_OUT (default ./bench-out).
 """
 import csv, json, random, re, html, subprocess, os, sys, collections
 from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-HERE = Path(__file__).parent
-CATS = HERE.parent
-EDGE = next(p for p in [r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"] if os.path.exists(p))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import paths
+HERE = paths.out_dir() if __name__ == "__main__" else Path(__file__).parent
+# a Chromium-based browser prints the HTML to PDF: $PDF_BROWSER, else Edge where Windows installs it
+EDGE = os.environ.get("PDF_BROWSER") or next((p for p in [r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"] if os.path.exists(p)), None)
 
 # ---------- numbers in French (for "Arrêtée la présente facture à la somme de ...") ----------
 U = "zéro un deux trois quatre cinq six sept huit neuf dix onze douze treize quatorze quinze seize dix-sept dix-huit dix-neuf".split()
@@ -40,16 +46,16 @@ def words_da(x):
 
 # ---------- data ----------
 def load(kind):
-    cat = {r["id"]: r for r in csv.DictReader(open(CATS / ("pharmacy" if kind == "pharmacy" else "cosmetics") / "catalog.csv", encoding="utf-8-sig"))}
+    cat = {r["id"]: r for r in csv.DictReader(open(paths.catalog(kind), encoding="utf-8-sig"))}
     al = collections.defaultdict(list)
-    for r in csv.DictReader(open(CATS / "aliases" / f"aliases-{kind}.csv", encoding="utf-8-sig")):
+    for r in csv.DictReader(open(paths.wordings(kind), encoding="utf-8-sig")):
         al[r["id"]].append((r["alias"], r["source"]))
     return cat, al
 def pharmacy_ppa():
     import pdfplumber
     ROW = re.compile(r"^(.*?)\s+(\d[\d ]*,\d{2})\s+(\d{2}/\d{2}/\d{2})\s+(\d+)\s*(.*)$")
     ppa, items = {}, []
-    with pdfplumber.open(CATS / "pharmacy" / "raw-private.pdf") as pdf:
+    with pdfplumber.open(os.environ["PHARMACY_PRICES_PDF"]) as pdf:
         for page in pdf.pages:
             heads = [w for w in page.extract_words() if w["text"].startswith("Désignation")]
             xs = sorted(w["x0"] for w in heads)
@@ -280,4 +286,6 @@ def build(kind):
     print(kind, len(invs), "invoices,", sum(len(i["lines"]) for i in invs), "lines", dict(hw))
 
 if __name__ == "__main__":
+    paths.need(os.environ.get("PHARMACY_PRICES_PDF"), __doc__, "pharmacy price listing ($PHARMACY_PRICES_PDF)")
+    if not EDGE: paths.usage(__doc__, "no browser to print the PDF: set PDF_BROWSER")
     for kind in ("pharmacy", "cosmetics"): build(kind)

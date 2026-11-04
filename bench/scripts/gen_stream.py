@@ -11,19 +11,22 @@ How real wholesale works, and what this stream copies:
 A designation that is exactly another product's catalogue name is never used (it would name that
 product). Same presentation listed twice in the catalogue: both ids are right.
 
-    python -I gen_stream.py supermarket
+    python bench/scripts/gen_stream.py supermarket|pharmacy|cosmetics|electronics
+
+Reads bench/catalogs/, bench/wordings/ and the supplier names of bench/invoices/truth-<industry>.json; writes
+replay-stream-<industry>.json to $BENCH_OUT (default ./bench-out).
 """
 import sys, json, csv, random, collections, re
 from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-HERE = Path(__file__).parent; ROOT = HERE.parent
-ind = sys.argv[1]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import paths
+ind = paths.industry_arg(__doc__)
 N_INV, N_TRAIN, RANGE = 150, 120, 100
 R = random.Random(2027)
-cat = list(csv.DictReader(open(ROOT / {"electronics": "hardware"}.get(ind, ind) / "catalog.csv", encoding="utf-8-sig")))
-apath = {"pharmacy": ROOT / "aliases" / "aliases-pharmacy.csv", "cosmetics": ROOT / "aliases" / "aliases-cosmetics.csv",
-         "supermarket": ROOT / "invoices" / "aliases-supermarket.csv", "electronics": ROOT / "invoices" / "aliases-electronics.csv"}[ind]
-suppliers = sorted({i["supplier"] for i in json.load(open(ROOT / "invoices" / f"truth-{ind}.json", encoding="utf-8"))})
+cat = list(csv.DictReader(open(paths.need(paths.catalog(ind), __doc__, "catalogue"), encoding="utf-8-sig")))
+apath = paths.need(paths.wordings(ind), __doc__, "wordings")
+suppliers = sorted({i["supplier"] for i in json.load(open(paths.need(paths.truth(ind), __doc__, "answer key"), encoding="utf-8"))})
 
 norm = lambda s: re.sub(r"[^A-Z0-9]+", "", s.upper())
 name_of = {p["id"]: p["name"] for p in cat}
@@ -67,7 +70,7 @@ for n in range(N_INV):
     invoices.append({"id": f"{ind[:3].upper()}-S{n + 1:03}", "supplier": s, "month": month, "split": "train" if n < N_TRAIN else "test", "lines": lines})
 
 out = {"invoices": invoices, "products": [{"id": p["id"], "name": p["name"], "brand": p.get("brand", ""), "code": ""} for p in cat]}
-(HERE / f"replay-stream-{ind}.json").write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
+(paths.out_dir() / f"replay-stream-{ind}.json").write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
 L = lambda sp: sum(len(i["lines"]) for i in invoices if i["split"] == sp)
 seen = set(); rep = 0
 for i in invoices:
