@@ -74,7 +74,7 @@ the Elixir Distribution ERP itself is not in this repository.
 
 **What that took:**
 
-- **The desk:** one Go program, about 18,500 lines with 45 tests: chat parsing, a five-step matching ladder,
+- **The desk:** one Go program, about 20,000 lines with 55 tests (the model paths replayed from recorded Meta API answers): chat parsing, a five-step matching ladder,
   codes and aliases, a rule language with a gate, shadow and live stages, earned autonomy, the panel, a
   metered Meta model client with a daily budget.
 - **Six ERP adapters** (Odoo, ERPNext, Dolibarr, InvenTree, Tryton, Elixir Distribution), each passing the
@@ -673,6 +673,26 @@ The offline tests need nothing. They cover:
 - codes, the autonomy bound, the voice keywords and the two-reader agreement on invoices;
 - the WhatsApp and Twilio channels;
 - the resolver's benchmarks.
+
+**The model paths, from recorded Meta API answers.** `internal/meta/metatest` records real Muse Spark, Muse
+Wonder and Muse Voice Transcribe answers once and replays them, so the code around every model call is tested
+offline with no key (tapes in each package's `testdata/meta/`):
+
+- **five shop orders end to end** through the benchmark's trained supermarket desk: a human Darja voice note,
+  a screenshot, French, Darja in Latin letters, mixed Arabic. 24 of 28 lines booked right, 0 wrong, each
+  scored against the answer key (`cmd/orderbench`);
+- **a rule-engineer session**: Muse Spark with its tools writes three rules, the gate admits `slkt` → *selecto*
+  and refuses two that resolve too little, and the breaker's 8 look-alike lines break nothing
+  (`internal/engineer`);
+- **Muse Spark's pick** from a shortlist: two lines booked at 0.95, harissa with no size asked
+  (`internal/resolve`);
+- **two readers on one invoice**: Muse Spark and Muse Wonder read the specimen invoice the same, line by line,
+  and the lines add up to the printed total (`internal/desk`);
+- **bad answers, written by hand**: an id that is not on the shortlist, prose instead of JSON, a pick under
+  the 0.9 bar, a rule that books a known line wrong. None books a line.
+
+Re-record against the real API with `ORDERDESK_RECORD=1 META_MODEL_API_KEY=... go test ./... -run Recorded`
+(about $0.15).
 
 The live tests run only when their variables are set, and are skipped otherwise:
 

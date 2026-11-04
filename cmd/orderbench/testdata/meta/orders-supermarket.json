@@ -1,0 +1,339 @@
+[
+ {
+  "path": "/asr/transcribe",
+  "model": "muse-voice-transcribe-1.0",
+  "ask": "keywords: ARWA, LINA CLEAN, VERTEX, GANT, SOSEMIE, ACTIVIA, GUSTO PRODUCT, NESQUIK, EL HILLAL, TIP TOP, RAYANE, TARTINELLA, ALL, KABTON, ASTUCE, BIFA, BRILLANT, DALUXE, KOOL, KROSTI, LIA BY TCHIN LAIT, POUPOUNE, SPRITE, BELLAT, CASA GLACES, CHICOREE, CLEAR, DOUBLE SENS, EXTRA, GYZMO, HILLAL, LINA, LUBREX, MOUTARDE, NAPOLI, SEMOULERIE AMOUR, SPEEDO CHEESE, WIPPRO, AMOUR, ANTAR, CADENCE, CHEDDAR, COCO, FLEURIAL, HEY, MOLLE, PLAYTA, SANI, SEENOOR SWEET, STOP, SWEETLE, THIKA, TREFLE, VICTORIA, VOITURE, ALGERIA JEUNES, AMANI, ARWA CHOCOLAT, ASRAR PARAPHAR, AZZOUZ, BISCWIK, BMS ELECTRIC, CACHIR BELLAT, CASBAH, CHEEZY SLICE, CHIUAUA, CRUNCHY, DOUBLE, EL MANAR, ELITE99, FAMICO, FOODY'S, FRIC, FRUIT, FRUIT MAX, HOUSE CHOCOREE, HOUSE COFFEE GOLD, IZDIHAR, LA TELLOISE, LALLA TORKIA, LESIEUR, LOTUS, LUMEX, MACARONA, MAHBOUBA, MONT D'OR, NASSAH, PASTA MAMA, PICON, RAMDY, ROYAL, SAFARI COOK PLAST, SAFINA, SANI TOP, SCHWEPPES, SECHE, SIDNA, SLICE, SOFT, SWEETY",
+  "sha256": "20ad733ddec590c01c184254d6d4a1d808b01e1890a1c0941efee457ed2a1623",
+  "status": 200,
+  "response": {
+   "audioDurationMs": 25360,
+   "sessionId": "voyager/transcribe/C682DA4F0A7E4D5D8A51B88FA6E485E2",
+   "transcript": "uh صباح الخير اعطيني ثلث كراطن الفرح fresh واعطيني فودي صوص تاع سيفيتال هاديك واعطيني ثاني ثاني ثلث كراطن مoutarde دوسون جرام مول مoutarde وجيب لي ثاني ثلث كراطن تارتينيلا بات تارتيني تارتيني تاع سبع مية جرام",
+   "turns": []
+  }
+ },
+ {
+  "path": "/chat/completions",
+  "model": "muse-spark-1.3",
+  "ask": "[system]\nYou read orders that small shops in Algeria send to their distributor: Darja, French or Arabic,\noften a voice note transcribed with mistakes. Cut the message into ordered items. Do NOT choose products.\n\nFor each item return:\n- \"said\": the customer's own words for the product, copied from the message (no quantity, no unit word).\n- \"hint\": the product in plain words if you can tell it, written with the known brand and product names below in\n  Latin script, with the size in digits (\"Rouiba Orange 1 L\" for روييبة برتقال لتر): transcription often mishears\n  these names and a voice note may be in Arabic script; \"\" if unsure.\n- \"qty\": a number (wahed 1, zouj 2, tlata 3, rebaa 4, khamsa 5, setta 6, sebaa 7, tmenya 8, tes3a 9, achra 10, demi 0.5).\n- \"unit\": \"carton\" (carton, caisse, كرطون), \"pack\" (fardeau, fardou, pack, paquet), \"unit\" (bouteille, pièce,\n  unité, boîte, flacon) or \"\" when not said.\nCorrections count: \"two cartons, no wait three\" is qty 3. Ignore greetings and small talk.\n\"Same as last time\" (comme d'habitude, kima l'khatra li fatet, nafs l'commande, نفس الطلبية): set \"repeat_last\": true\nand put in items ONLY what is added or changed.\nIf the message is not an order (a question, a greeting only), intent \"other\" and a one-sentence polite reply in French.\nKnown brands and product names: 4 WINNERS WHITE, 9 WINNERS WHITE, ACAM, ACTIVIA, AFTIS, ALG IMTINANE, ALGERIA JEUNES, ALL, AMANI, AMOUR, AMOUR DE PRINCESSE, ANTAR, AROMEC, ARWA, ARWA CHOCOLAT, ASRAR PARAPHAR, ASTUCE, AURES, AVRIL, AZZOUZ, BARIGO, BELDIA, BELLAT, BELLE MAMAN, BEN AROUS, BENTOUMIA, BETTOUCHE, BIFA, BIO NATURE, BISCWIK, BMS, BMS ELECTRIC, BOMBAX, BONO, BOSS COFFEE GOLD, BRILLANT, C UR FRUITE, C.B, CACHIR BELLAT, CADENCE, CARM, CASA GLACES, CASBAH, CB, CEVITAL, CHAMIATE EL MALIKA, CHEBAA, CHEDDAR, CHEESE OF NAPOLI, CHEEZY +, CHEEZY SLICE, CHERCHELL, CHICOREE, CHIUAUA, CIRTA BROSSE, CITY ONE, CLEANY, CLEAR, CLEAR MEN, COCO, COCO FOOD, COCOATY DELICE, COCOATY SPORT, COCOATY SPORT MINI, CONSERVERIE DE L'EST CONSERVERIE GUELMA, COQUILLAGE, CORNICHONS, CRUNCHY, CRUNCHYBAR, D'ZAIR, DADA MENAGE, DAILY MOUTARDE, DAILY SAUCE, DALUXE, DANONE YAOUMI, DJINANE, DOCTOR GLOVE, DOUBLE, DOUBLE SENS, DOUBLE SENS SPIDER, DRAA EDDISS, DRAA-EDDISS, EL AMIRA, EL DEY, EL HADABA ELAOULYA, EL HAMMADIYINE, EL HILLAL, EL MAICENNE PATES, EL MANAR, EL MORDJENE, EL RAMZ DIMA PROPER, EL SAFINA, ELA, ELAFRAH, ELITE99, ELMECHAAL, ELMOUFID, ELOA, EXTRA, FAIZ, FAMICO, FAMICO EXCLUSIVE, FIT OAT, FLEURIAL, FNBM PLAST, FOODY'S, FOUARA, FRAMS, FRIC, FRUIT, FRUIT MAX, GANT, GERVAIS, GIANT, GIPLAIT, GMC, GRANDS MOULINS KENZA, GUSTO PRODUCT, GVC, GYZMO, HACHFA, HADJI BABA, HAIR, HANJAR, HEY, HILLAL, HINDJES, HM PLAST, HOUSE CHOCOREE, HOUSE COFFEE CLASSIC, HOUSE COFFEE GOLD, IBIZA, ILYIA, IMA HAPPY DUO, ISSA BEN ISSA, ITALIANA, IZDIHAR, K-CHIR BELLAT, KABTON, KACTUS PLUS, KERATINE PRO, KIMS, KOOL, KOOL 9 WINNERS, KOOL BREAK, KOOL BREAK WHITE, KOOL CHOCO COOKIES, KOOL CHOCO MAX, KOOL CLASSIC, KOOL CRACK'S, KOOL CROCK'IN, KOOL FOR WINNERS, KOOL IN'JOY, KOOL MINI SUPREME, KOOL ROUND BREAK, KOOL SUPREME, KOOL X4, KROSTI, LA TELLOISE, LA VACHE QUI RIT ORIGINAL - 8P, LAGRATANIA, LALLA TORKIA, LESIEUR, LIA BY TCHIN LAIT, LINA, LINA CLEAN, LOTUS, LUBREX, LUMEX, MACARONA, MAGIC BROSSE, MAHBOUBA, MANY, MARQUEUR, MASSILIA, MAX BOOST, MAXIN CLEAN, MENAA, MERYAS, MIANOUNA, MILKY, MILKY COW, MIO BEBE, MIOBEBE, MLETA PASTA, MOLLE, MOLPED, MONT D'OR, MOUTARDE, MOZARELLE, MR RUSTICA, NAPOLI, NASSAH, NEDJMA, NESQUIK, NOOR, NOUR ESSABAH, OCHO PLUS, OKID'S, OMIX, ONE, ORYX BLANC, OSLO, PALC, PALMARY, PALMARY SANDWICH, PAREL, PASTA MAMA, PATUYOP, PAUSE, PICON, PLAYTA, POUPOUNE, POUPOUNE DRY+, POUPOUNE PERFECT FIT, PRALIM, PRATIKA, PREMIRO, PRESTIGIOSA, RAMDY, RAMY MILKY KIDS, RAYA FOODS, RAYANE, RAYANE CLEAN, REGLE, RICAMAR, RODESS, ROMAIS, ROYAL, ROYAL PASTA, SAFARI COOK PLAST, SAFINA, SANDWICH, SANDWICH BIMO, SANI, SANI ROSE, SANI TOP, SAUCE TIME, SCHWEPPES, SECHE, SEENOOR SWEET, SEMOULERIE AMOUR, SHEFIA, SHTPLAST, SIDNA, SLICE, SLICE CAKE, SOFT, SOLEO, SOSEMIE, SPEEDO CHEESE, SPRITE, STOP, SUPREME, SWEETLE, SWEETY, SWEETY GOURMAND, TACHFINE, TAGA, TAGUELDA EL AMIR, TARTILISSE SPECIALE PIZZA, TARTINELLA, TASTY TOAST ORIGINAL, TCHEEZOU, THIKA, TIP, TIP TOP, TIP TOP LIGHT, TOPSIL, TREFLE, UNICORN, VAPO, VARIO, VERTEX, VICTARIA CONSOM, VICTORIA, VITADAY, VITALITE, VITE FAIT, VIZYON, VOITURE, WALID, WIPPRO, WIZO CONO, ZAAMTA, ZINOUBA, REGLE, SODA, FOURRAGE, INSECTICIDE, LIMONADE, MENAGE, SALAMI, BOISSONS, CITY, COFFEE, COUDE, CUMIN, FRICK, GENGEMBRE, HOUSSE, KRINCHY, LINGE, LINGETTES, MULTIPRISE, NOIR, SAVON, SBAH, STORY, ACIDIFIANT, ALIMENTAIRE, AMPOULE, AUX, BASSINE, BISCUITS, BLANCS, BLEU, BLOC, BOITE, BREAK, BROSSE, C.B, CEREALE, CEREALES, CHAMIA, CHANNEL, CHAPELET, CHAPLURE, CHBAH, COCKTAIL, COCO, COLA, CONDIMENT, CONFIT, CONSERVE, CORNET, CREAM, CUVETTE, DEGRIPPANT, DEODORANT, DESINFECTANT, DETARTRANT, DOUBLE, DRAA-EDDISS, DRAGE, DRAGEES, DRY+, EPONGE, ESCARGOTS, ESPRIT, EXPRESSO, FILETAGE, FLOCON, FLOCONS, FOURRE, FRUIT, FRUITS, GANTS, GATEAU, GLOVE, GRAIN, GRAINES, GRATANIA, HALWA, HALWAT, HRISSA, ITALIA, K-CHIR, LAIT, LEGO, LEVURE, LIQUDIE, MARSH, MARSHMALLOW, MAX, MELANGE, MENTH, MENTHE, MICRO, MIG, MINI, MIX, MONLAIT, MOYEN, MOZZARELLE, NASSAH, NET, OIL, PACK, PARFUM, PARFUMANT, PETIT, PIMENT, PLANCHE, PLASTIQUE, PLF, PLUS, POMME, POPS, POUDRE, PRESIDENT, REGISTRE, RENOVATEUR, RFIS, RFISSE, RIZ, RONDO, RUBAN, SACS, SANDWICH, SARDINES, SELECTION, SERPENTINI, SERPILLIER, SERVIETTE, SIDNA, SOFT\u0026FIT, SPEEDO, SPORT, SPORTS, SPRAY, STICK, SUCETTE, SUCRE, TEMPO, THE, THYM, TISSUS, TOP, TOUS, TRAVAUX, TRIDA, VERRINE, VERTEX, VERVENE\nReturn JSON only: {\"intent\":\"order\",\"repeat_last\":false,\"reply\":\"\",\"items\":[{\"said\":\"selecto\",\"hint\":\"Selecto 2 L\",\"qty\":3,\"unit\":\"carton\"}]}\n[user]\nuh صباح الخير اعطيني ثلث كراطن الفرح fresh واعطيني فودي صوص تاع سيفيتال هاديك واعطيني ثاني ثاني ثلث كراطن مoutarde دوسون جرام مول مoutarde وجيب لي ثاني ثلث كراطن تارتينيلا بات تارتيني تارتيني تاع سبع مية جرام",
+  "sha256": "f8913ac54eba8fd9577efea6cab092cbfc6ddc5f50559b0914953dba038ed78c",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"intent\":\"order\",\"repeat_last\":false,\"reply\":\"\",\"items\":[{\"said\":\"الفرح fresh\",\"hint\":\"ELAFRAH\",\"qty\":3,\"unit\":\"carton\"},{\"said\":\"فودي صوص تاع سيفيتال هاديك\",\"hint\":\"FOODY'S\",\"qty\":1,\"unit\":\"\"},{\"said\":\"مoutarde دوسون جرام مول مoutarde\",\"hint\":\"MOUTARDE 200 G\",\"qty\":3,\"unit\":\"carton\"},{\"said\":\"تارتينيلا بات تارتيني تارتيني تاع سبع مية جرام\",\"hint\":\"TARTINELLA 700 G\",\"qty\":3,\"unit\":\"carton\"}]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783394,
+   "id": "chatcmpl-01a1a5d2-72db-710a-ad87-1f677ebccc0e",
+   "model": "muse-spark-1.3",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 1321,
+    "completion_tokens_details": {
+     "reasoning_tokens": 1168
+    },
+    "prompt_tokens": 2391,
+    "prompt_tokens_details": {
+     "cached_tokens": 2289
+    },
+    "total_tokens": 3712
+   }
+  }
+ },
+ {
+  "path": "/chat/completions",
+  "model": "muse-spark-1.3",
+  "ask": "[system]\nYou match items from a shop's order to a distributor's catalogue in Algeria. For each ITEM you get the\ncustomer's words and a numbered list of CANDIDATES. Pick the candidate it means, using only the listed ids.\n- If one candidate clearly matches, give its id and a confidence 0.0-1.0.\n- If several fit (size, flavour or variant not said), give \"\" as id, 2 to 4 option ids, and one very short\n  question in French naming what differs (\"Ifri : 0,5 L ou 1,5 L ?\").\n- If none fits, give \"\" and no options.\nReturn JSON only: {\"items\":[{\"item\":1,\"id\":\"C3\",\"confidence\":0.9,\"options\":[],\"question\":\"\"}]}\n[user]\nITEM 1: \"الفرح fresh\" (probably: ELAFRAH)\nCANDIDATES:\nC1 | ELAFRAH RFISSE\n\nITEM 2: \"فودي صوص تاع سيفيتال هاديك\" (probably: FOODY'S)\nCANDIDATES:\nC1 | FOODY'S SAUCE MAYONNAISE\nC2 | FOODY'S SAUCE ALGERIENNE CEVITAL\n\nITEM 3: \"مoutarde دوسون جرام مول مoutarde\" (probably: MOUTARDE 200 G)\nCANDIDATES:\nC1 | EXTRA MOUTARDE 200G\nC2 | MOLLE MOUTARDE 200G\nC3 | MOUTARDE EXTRA 150G\nC4 | MOUTARDE GM\nC5 | MOUTARDE MOYEN\nC6 | DAILY MOUTARDE 350G\nC7 | MOUTARDE SIDNA GM\nC8 | CASBAH MOUTARDE\n\nITEM 4: \"تارتينيلا بات تارتيني تارتيني تاع سبع مية جرام\" (probably: TARTINELLA 700 G)\nCANDIDATES:\nC1 | TARTINELLA PATE A TARTINER 700G\nC2 | TARTINELLA PATE A TARTINER BEURRE 700G\nC3 | TARTINELLA PATE A TARTINER 200G\nC4 | TARTINELLA PATE A TARTINER 350G\nC5 | TARTINELLA PATE D'ARACHIDE SPORT 1KG\nC6 | TARTINELLA PATE A TARTINER BEURRE CACAHUETE 350G\nC7 | TARTINELLA PATE A TARTINER NOIX COCO 350G",
+  "sha256": "8910e7bb64d8b46114bdca7d6bbb1c2d0976ca9c89863159d77a919e3424c3b5",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"items\":[{\"item\":1,\"id\":\"C1\",\"confidence\":0.85,\"options\":[],\"question\":\"\"},{\"item\":2,\"id\":\"C2\",\"confidence\":0.95,\"options\":[],\"question\":\"\"},{\"item\":3,\"id\":\"C2\",\"confidence\":0.85,\"options\":[],\"question\":\"\"},{\"item\":4,\"id\":\"\",\"confidence\":0.0,\"options\":[\"C1\",\"C2\"],\"question\":\"Tartinella 700g : beurre ou normale ?\"}]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783403,
+   "id": "chatcmpl-01a1a5d2-9517-743c-b708-418890c1578a",
+   "model": "muse-spark-1.3",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 1174,
+    "completion_tokens_details": {
+     "reasoning_tokens": 1067
+    },
+    "prompt_tokens": 584,
+    "prompt_tokens_details": {
+     "cached_tokens": 113
+    },
+    "total_tokens": 1758
+   }
+  }
+ },
+ {
+  "path": "/chat/completions",
+  "model": "muse-spark-1.3",
+  "ask": "[system]\nYou read orders that small shops in Algeria send to their distributor: Darja, French or Arabic,\noften a voice note transcribed with mistakes. Cut the message into ordered items. Do NOT choose products.\n\nFor each item return:\n- \"said\": the customer's own words for the product, copied from the message (no quantity, no unit word).\n- \"hint\": the product in plain words if you can tell it, written with the known brand and product names below in\n  Latin script, with the size in digits (\"Rouiba Orange 1 L\" for روييبة برتقال لتر): transcription often mishears\n  these names and a voice note may be in Arabic script; \"\" if unsure.\n- \"qty\": a number (wahed 1, zouj 2, tlata 3, rebaa 4, khamsa 5, setta 6, sebaa 7, tmenya 8, tes3a 9, achra 10, demi 0.5).\n- \"unit\": \"carton\" (carton, caisse, كرطون), \"pack\" (fardeau, fardou, pack, paquet), \"unit\" (bouteille, pièce,\n  unité, boîte, flacon) or \"\" when not said.\nCorrections count: \"two cartons, no wait three\" is qty 3. Ignore greetings and small talk.\n\"Same as last time\" (comme d'habitude, kima l'khatra li fatet, nafs l'commande, نفس الطلبية): set \"repeat_last\": true\nand put in items ONLY what is added or changed.\nIf the message is not an order (a question, a greeting only), intent \"other\" and a one-sentence polite reply in French.\nKnown brands and product names: 4 WINNERS WHITE, 9 WINNERS WHITE, ACAM, ACTIVIA, AFTIS, ALG IMTINANE, ALGERIA JEUNES, ALL, AMANI, AMOUR, AMOUR DE PRINCESSE, ANTAR, AROMEC, ARWA, ARWA CHOCOLAT, ASRAR PARAPHAR, ASTUCE, AURES, AVRIL, AZZOUZ, BARIGO, BELDIA, BELLAT, BELLE MAMAN, BEN AROUS, BENTOUMIA, BETTOUCHE, BIFA, BIO NATURE, BISCWIK, BMS, BMS ELECTRIC, BOMBAX, BONO, BOSS COFFEE GOLD, BRILLANT, C UR FRUITE, C.B, CACHIR BELLAT, CADENCE, CARM, CASA GLACES, CASBAH, CB, CEVITAL, CHAMIATE EL MALIKA, CHEBAA, CHEDDAR, CHEESE OF NAPOLI, CHEEZY +, CHEEZY SLICE, CHERCHELL, CHICOREE, CHIUAUA, CIRTA BROSSE, CITY ONE, CLEANY, CLEAR, CLEAR MEN, COCO, COCO FOOD, COCOATY DELICE, COCOATY SPORT, COCOATY SPORT MINI, CONSERVERIE DE L'EST CONSERVERIE GUELMA, COQUILLAGE, CORNICHONS, CRUNCHY, CRUNCHYBAR, D'ZAIR, DADA MENAGE, DAILY MOUTARDE, DAILY SAUCE, DALUXE, DANONE YAOUMI, DJINANE, DOCTOR GLOVE, DOUBLE, DOUBLE SENS, DOUBLE SENS SPIDER, DRAA EDDISS, DRAA-EDDISS, EL AMIRA, EL DEY, EL HADABA ELAOULYA, EL HAMMADIYINE, EL HILLAL, EL MAICENNE PATES, EL MANAR, EL MORDJENE, EL RAMZ DIMA PROPER, EL SAFINA, ELA, ELAFRAH, ELITE99, ELMECHAAL, ELMOUFID, ELOA, EXTRA, FAIZ, FAMICO, FAMICO EXCLUSIVE, FIT OAT, FLEURIAL, FNBM PLAST, FOODY'S, FOUARA, FRAMS, FRIC, FRUIT, FRUIT MAX, GANT, GERVAIS, GIANT, GIPLAIT, GMC, GRANDS MOULINS KENZA, GUSTO PRODUCT, GVC, GYZMO, HACHFA, HADJI BABA, HAIR, HANJAR, HEY, HILLAL, HINDJES, HM PLAST, HOUSE CHOCOREE, HOUSE COFFEE CLASSIC, HOUSE COFFEE GOLD, IBIZA, ILYIA, IMA HAPPY DUO, ISSA BEN ISSA, ITALIANA, IZDIHAR, K-CHIR BELLAT, KABTON, KACTUS PLUS, KERATINE PRO, KIMS, KOOL, KOOL 9 WINNERS, KOOL BREAK, KOOL BREAK WHITE, KOOL CHOCO COOKIES, KOOL CHOCO MAX, KOOL CLASSIC, KOOL CRACK'S, KOOL CROCK'IN, KOOL FOR WINNERS, KOOL IN'JOY, KOOL MINI SUPREME, KOOL ROUND BREAK, KOOL SUPREME, KOOL X4, KROSTI, LA TELLOISE, LA VACHE QUI RIT ORIGINAL - 8P, LAGRATANIA, LALLA TORKIA, LESIEUR, LIA BY TCHIN LAIT, LINA, LINA CLEAN, LOTUS, LUBREX, LUMEX, MACARONA, MAGIC BROSSE, MAHBOUBA, MANY, MARQUEUR, MASSILIA, MAX BOOST, MAXIN CLEAN, MENAA, MERYAS, MIANOUNA, MILKY, MILKY COW, MIO BEBE, MIOBEBE, MLETA PASTA, MOLLE, MOLPED, MONT D'OR, MOUTARDE, MOZARELLE, MR RUSTICA, NAPOLI, NASSAH, NEDJMA, NESQUIK, NOOR, NOUR ESSABAH, OCHO PLUS, OKID'S, OMIX, ONE, ORYX BLANC, OSLO, PALC, PALMARY, PALMARY SANDWICH, PAREL, PASTA MAMA, PATUYOP, PAUSE, PICON, PLAYTA, POUPOUNE, POUPOUNE DRY+, POUPOUNE PERFECT FIT, PRALIM, PRATIKA, PREMIRO, PRESTIGIOSA, RAMDY, RAMY MILKY KIDS, RAYA FOODS, RAYANE, RAYANE CLEAN, REGLE, RICAMAR, RODESS, ROMAIS, ROYAL, ROYAL PASTA, SAFARI COOK PLAST, SAFINA, SANDWICH, SANDWICH BIMO, SANI, SANI ROSE, SANI TOP, SAUCE TIME, SCHWEPPES, SECHE, SEENOOR SWEET, SEMOULERIE AMOUR, SHEFIA, SHTPLAST, SIDNA, SLICE, SLICE CAKE, SOFT, SOLEO, SOSEMIE, SPEEDO CHEESE, SPRITE, STOP, SUPREME, SWEETLE, SWEETY, SWEETY GOURMAND, TACHFINE, TAGA, TAGUELDA EL AMIR, TARTILISSE SPECIALE PIZZA, TARTINELLA, TASTY TOAST ORIGINAL, TCHEEZOU, THIKA, TIP, TIP TOP, TIP TOP LIGHT, TOPSIL, TREFLE, UNICORN, VAPO, VARIO, VERTEX, VICTARIA CONSOM, VICTORIA, VITADAY, VITALITE, VITE FAIT, VIZYON, VOITURE, WALID, WIPPRO, WIZO CONO, ZAAMTA, ZINOUBA, REGLE, SODA, FOURRAGE, INSECTICIDE, LIMONADE, MENAGE, SALAMI, BOISSONS, CITY, COFFEE, COUDE, CUMIN, FRICK, GENGEMBRE, HOUSSE, KRINCHY, LINGE, LINGETTES, MULTIPRISE, NOIR, SAVON, SBAH, STORY, ACIDIFIANT, ALIMENTAIRE, AMPOULE, AUX, BASSINE, BISCUITS, BLANCS, BLEU, BLOC, BOITE, BREAK, BROSSE, C.B, CEREALE, CEREALES, CHAMIA, CHANNEL, CHAPELET, CHAPLURE, CHBAH, COCKTAIL, COCO, COLA, CONDIMENT, CONFIT, CONSERVE, CORNET, CREAM, CUVETTE, DEGRIPPANT, DEODORANT, DESINFECTANT, DETARTRANT, DOUBLE, DRAA-EDDISS, DRAGE, DRAGEES, DRY+, EPONGE, ESCARGOTS, ESPRIT, EXPRESSO, FILETAGE, FLOCON, FLOCONS, FOURRE, FRUIT, FRUITS, GANTS, GATEAU, GLOVE, GRAIN, GRAINES, GRATANIA, HALWA, HALWAT, HRISSA, ITALIA, K-CHIR, LAIT, LEGO, LEVURE, LIQUDIE, MARSH, MARSHMALLOW, MAX, MELANGE, MENTH, MENTHE, MICRO, MIG, MINI, MIX, MONLAIT, MOYEN, MOZZARELLE, NASSAH, NET, OIL, PACK, PARFUM, PARFUMANT, PETIT, PIMENT, PLANCHE, PLASTIQUE, PLF, PLUS, POMME, POPS, POUDRE, PRESIDENT, REGISTRE, RENOVATEUR, RFIS, RFISSE, RIZ, RONDO, RUBAN, SACS, SANDWICH, SARDINES, SELECTION, SERPENTINI, SERPILLIER, SERVIETTE, SIDNA, SOFT\u0026FIT, SPEEDO, SPORT, SPORTS, SPRAY, STICK, SUCETTE, SUCRE, TEMPO, THE, THYM, TISSUS, TOP, TOUS, TRAVAUX, TRIDA, VERRINE, VERTEX, VERVENE\nReturn JSON only: {\"intent\":\"order\",\"repeat_last\":false,\"reply\":\"\",\"items\":[{\"said\":\"selecto\",\"hint\":\"Selecto 2 L\",\"qty\":3,\"unit\":\"carton\"}]}\n[user]\nBonsoir,\nCommande pour demain svp :\nbisc sandwich bombax 3p : 3 fdx\n6 ctn amour double concentre 30% tomate 400g\n6 ctn TARTINELLA PATE A TARTINER 350G\n1 ctn moutarde molle 200g\nILYIA SUCRE SWEETY : 1 ctn\n4 ctn couscous amour\n5 ctn yaourt bettouche\nMerci d'avance",
+  "sha256": "cda91fa034c0308ff6ca10996a883c36dbbe90188f5e94d5223799165f318498",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"intent\":\"order\",\"repeat_last\":false,\"reply\":\"\",\"items\":[{\"said\":\"bisc sandwich bombax 3p\",\"hint\":\"BOMBAX SANDWICH 3P\",\"qty\":3,\"unit\":\"pack\"},{\"said\":\"amour double concentre 30% tomate 400g\",\"hint\":\"AMOUR DOUBLE CONCENTRE TOMATE 400G\",\"qty\":6,\"unit\":\"carton\"},{\"said\":\"TARTINELLA PATE A TARTINER 350G\",\"hint\":\"TARTINELLA PATE A TARTINER 350G\",\"qty\":6,\"unit\":\"carton\"},{\"said\":\"moutarde molle 200g\",\"hint\":\"MOUTARDE MOLLE 200G\",\"qty\":1,\"unit\":\"carton\"},{\"said\":\"ILYIA SUCRE SWEETY\",\"hint\":\"ILYIA SUCRE SWEETY\",\"qty\":1,\"unit\":\"carton\"},{\"said\":\"couscous amour\",\"hint\":\"AMOUR COUSCOUS\",\"qty\":4,\"unit\":\"carton\"},{\"said\":\"yaourt bettouche\",\"hint\":\"BETTOUCHE YAOURT\",\"qty\":5,\"unit\":\"carton\"}]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783410,
+   "id": "chatcmpl-01a1a5d2-b061-75f0-9afb-a353b6ad6633",
+   "model": "muse-spark-1.3",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 921,
+    "completion_tokens_details": {
+     "reasoning_tokens": 671
+    },
+    "prompt_tokens": 2402,
+    "prompt_tokens_details": {
+     "cached_tokens": 2289
+    },
+    "total_tokens": 3323
+   }
+  }
+ },
+ {
+  "path": "/chat/completions",
+  "model": "muse-spark-1.3",
+  "ask": "[system]\nYou read orders that small shops in Algeria send to their distributor: Darja, French or Arabic,\noften a voice note transcribed with mistakes. Cut the message into ordered items. Do NOT choose products.\n\nFor each item return:\n- \"said\": the customer's own words for the product, copied from the message (no quantity, no unit word).\n- \"hint\": the product in plain words if you can tell it, written with the known brand and product names below in\n  Latin script, with the size in digits (\"Rouiba Orange 1 L\" for روييبة برتقال لتر): transcription often mishears\n  these names and a voice note may be in Arabic script; \"\" if unsure.\n- \"qty\": a number (wahed 1, zouj 2, tlata 3, rebaa 4, khamsa 5, setta 6, sebaa 7, tmenya 8, tes3a 9, achra 10, demi 0.5).\n- \"unit\": \"carton\" (carton, caisse, كرطون), \"pack\" (fardeau, fardou, pack, paquet), \"unit\" (bouteille, pièce,\n  unité, boîte, flacon) or \"\" when not said.\nCorrections count: \"two cartons, no wait three\" is qty 3. Ignore greetings and small talk.\n\"Same as last time\" (comme d'habitude, kima l'khatra li fatet, nafs l'commande, نفس الطلبية): set \"repeat_last\": true\nand put in items ONLY what is added or changed.\nIf the message is not an order (a question, a greeting only), intent \"other\" and a one-sentence polite reply in French.\nKnown brands and product names: 4 WINNERS WHITE, 9 WINNERS WHITE, ACAM, ACTIVIA, AFTIS, ALG IMTINANE, ALGERIA JEUNES, ALL, AMANI, AMOUR, AMOUR DE PRINCESSE, ANTAR, AROMEC, ARWA, ARWA CHOCOLAT, ASRAR PARAPHAR, ASTUCE, AURES, AVRIL, AZZOUZ, BARIGO, BELDIA, BELLAT, BELLE MAMAN, BEN AROUS, BENTOUMIA, BETTOUCHE, BIFA, BIO NATURE, BISCWIK, BMS, BMS ELECTRIC, BOMBAX, BONO, BOSS COFFEE GOLD, BRILLANT, C UR FRUITE, C.B, CACHIR BELLAT, CADENCE, CARM, CASA GLACES, CASBAH, CB, CEVITAL, CHAMIATE EL MALIKA, CHEBAA, CHEDDAR, CHEESE OF NAPOLI, CHEEZY +, CHEEZY SLICE, CHERCHELL, CHICOREE, CHIUAUA, CIRTA BROSSE, CITY ONE, CLEANY, CLEAR, CLEAR MEN, COCO, COCO FOOD, COCOATY DELICE, COCOATY SPORT, COCOATY SPORT MINI, CONSERVERIE DE L'EST CONSERVERIE GUELMA, COQUILLAGE, CORNICHONS, CRUNCHY, CRUNCHYBAR, D'ZAIR, DADA MENAGE, DAILY MOUTARDE, DAILY SAUCE, DALUXE, DANONE YAOUMI, DJINANE, DOCTOR GLOVE, DOUBLE, DOUBLE SENS, DOUBLE SENS SPIDER, DRAA EDDISS, DRAA-EDDISS, EL AMIRA, EL DEY, EL HADABA ELAOULYA, EL HAMMADIYINE, EL HILLAL, EL MAICENNE PATES, EL MANAR, EL MORDJENE, EL RAMZ DIMA PROPER, EL SAFINA, ELA, ELAFRAH, ELITE99, ELMECHAAL, ELMOUFID, ELOA, EXTRA, FAIZ, FAMICO, FAMICO EXCLUSIVE, FIT OAT, FLEURIAL, FNBM PLAST, FOODY'S, FOUARA, FRAMS, FRIC, FRUIT, FRUIT MAX, GANT, GERVAIS, GIANT, GIPLAIT, GMC, GRANDS MOULINS KENZA, GUSTO PRODUCT, GVC, GYZMO, HACHFA, HADJI BABA, HAIR, HANJAR, HEY, HILLAL, HINDJES, HM PLAST, HOUSE CHOCOREE, HOUSE COFFEE CLASSIC, HOUSE COFFEE GOLD, IBIZA, ILYIA, IMA HAPPY DUO, ISSA BEN ISSA, ITALIANA, IZDIHAR, K-CHIR BELLAT, KABTON, KACTUS PLUS, KERATINE PRO, KIMS, KOOL, KOOL 9 WINNERS, KOOL BREAK, KOOL BREAK WHITE, KOOL CHOCO COOKIES, KOOL CHOCO MAX, KOOL CLASSIC, KOOL CRACK'S, KOOL CROCK'IN, KOOL FOR WINNERS, KOOL IN'JOY, KOOL MINI SUPREME, KOOL ROUND BREAK, KOOL SUPREME, KOOL X4, KROSTI, LA TELLOISE, LA VACHE QUI RIT ORIGINAL - 8P, LAGRATANIA, LALLA TORKIA, LESIEUR, LIA BY TCHIN LAIT, LINA, LINA CLEAN, LOTUS, LUBREX, LUMEX, MACARONA, MAGIC BROSSE, MAHBOUBA, MANY, MARQUEUR, MASSILIA, MAX BOOST, MAXIN CLEAN, MENAA, MERYAS, MIANOUNA, MILKY, MILKY COW, MIO BEBE, MIOBEBE, MLETA PASTA, MOLLE, MOLPED, MONT D'OR, MOUTARDE, MOZARELLE, MR RUSTICA, NAPOLI, NASSAH, NEDJMA, NESQUIK, NOOR, NOUR ESSABAH, OCHO PLUS, OKID'S, OMIX, ONE, ORYX BLANC, OSLO, PALC, PALMARY, PALMARY SANDWICH, PAREL, PASTA MAMA, PATUYOP, PAUSE, PICON, PLAYTA, POUPOUNE, POUPOUNE DRY+, POUPOUNE PERFECT FIT, PRALIM, PRATIKA, PREMIRO, PRESTIGIOSA, RAMDY, RAMY MILKY KIDS, RAYA FOODS, RAYANE, RAYANE CLEAN, REGLE, RICAMAR, RODESS, ROMAIS, ROYAL, ROYAL PASTA, SAFARI COOK PLAST, SAFINA, SANDWICH, SANDWICH BIMO, SANI, SANI ROSE, SANI TOP, SAUCE TIME, SCHWEPPES, SECHE, SEENOOR SWEET, SEMOULERIE AMOUR, SHEFIA, SHTPLAST, SIDNA, SLICE, SLICE CAKE, SOFT, SOLEO, SOSEMIE, SPEEDO CHEESE, SPRITE, STOP, SUPREME, SWEETLE, SWEETY, SWEETY GOURMAND, TACHFINE, TAGA, TAGUELDA EL AMIR, TARTILISSE SPECIALE PIZZA, TARTINELLA, TASTY TOAST ORIGINAL, TCHEEZOU, THIKA, TIP, TIP TOP, TIP TOP LIGHT, TOPSIL, TREFLE, UNICORN, VAPO, VARIO, VERTEX, VICTARIA CONSOM, VICTORIA, VITADAY, VITALITE, VITE FAIT, VIZYON, VOITURE, WALID, WIPPRO, WIZO CONO, ZAAMTA, ZINOUBA, REGLE, SODA, FOURRAGE, INSECTICIDE, LIMONADE, MENAGE, SALAMI, BOISSONS, CITY, COFFEE, COUDE, CUMIN, FRICK, GENGEMBRE, HOUSSE, KRINCHY, LINGE, LINGETTES, MULTIPRISE, NOIR, SAVON, SBAH, STORY, ACIDIFIANT, ALIMENTAIRE, AMPOULE, AUX, BASSINE, BISCUITS, BLANCS, BLEU, BLOC, BOITE, BREAK, BROSSE, C.B, CEREALE, CEREALES, CHAMIA, CHANNEL, CHAPELET, CHAPLURE, CHBAH, COCKTAIL, COCO, COLA, CONDIMENT, CONFIT, CONSERVE, CORNET, CREAM, CUVETTE, DEGRIPPANT, DEODORANT, DESINFECTANT, DETARTRANT, DOUBLE, DRAA-EDDISS, DRAGE, DRAGEES, DRY+, EPONGE, ESCARGOTS, ESPRIT, EXPRESSO, FILETAGE, FLOCON, FLOCONS, FOURRE, FRUIT, FRUITS, GANTS, GATEAU, GLOVE, GRAIN, GRAINES, GRATANIA, HALWA, HALWAT, HRISSA, ITALIA, K-CHIR, LAIT, LEGO, LEVURE, LIQUDIE, MARSH, MARSHMALLOW, MAX, MELANGE, MENTH, MENTHE, MICRO, MIG, MINI, MIX, MONLAIT, MOYEN, MOZZARELLE, NASSAH, NET, OIL, PACK, PARFUM, PARFUMANT, PETIT, PIMENT, PLANCHE, PLASTIQUE, PLF, PLUS, POMME, POPS, POUDRE, PRESIDENT, REGISTRE, RENOVATEUR, RFIS, RFISSE, RIZ, RONDO, RUBAN, SACS, SANDWICH, SARDINES, SELECTION, SERPENTINI, SERPILLIER, SERVIETTE, SIDNA, SOFT\u0026FIT, SPEEDO, SPORT, SPORTS, SPRAY, STICK, SUCETTE, SUCRE, TEMPO, THE, THYM, TISSUS, TOP, TOUS, TRAVAUX, TRIDA, VERRINE, VERTEX, VERVENE\nReturn JSON only: {\"intent\":\"order\",\"repeat_last\":false,\"reply\":\"\",\"items\":[{\"said\":\"selecto\",\"hint\":\"Selecto 2 L\",\"qty\":3,\"unit\":\"carton\"}]}\n[user]\nBonjour خويا\ncommande:\n5 cartons asrar paraphar glove noir 100p\ndaluxe serpillere microfibre multi خمسة فاردوات\n4 كراطن molle moutarde 370g\nsweetle yaourt aromatise abricot 6 كراطن\nmerci",
+  "sha256": "de3a440e216523e8974cc27ef3ce5a10fefffa41de5e666db49b8597ad2efe8c",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"intent\":\"order\",\"repeat_last\":false,\"reply\":\"\",\"items\":[{\"said\":\"asrar paraphar glove noir 100p\",\"hint\":\"ASRAR PARAPHAR GLOVE NOIR 100P\",\"qty\":5,\"unit\":\"carton\"},{\"said\":\"daluxe serpillere microfibre multi\",\"hint\":\"DALUXE SERPILLIER MICROFIBRE MULTI\",\"qty\":5,\"unit\":\"pack\"},{\"said\":\"molle moutarde 370g\",\"hint\":\"MOLLE MOUTARDE 370 G\",\"qty\":4,\"unit\":\"carton\"},{\"said\":\"sweetle yaourt aromatise abricot\",\"hint\":\"SWEETLE YAOURT AROMATISE ABRICOT\",\"qty\":6,\"unit\":\"carton\"}]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783419,
+   "id": "chatcmpl-01a1a5d2-d15d-708c-aa4b-3cd794b194bd",
+   "model": "muse-spark-1.3",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 1092,
+    "completion_tokens_details": {
+     "reasoning_tokens": 924
+    },
+    "prompt_tokens": 2368,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "total_tokens": 3460
+   }
+  }
+ },
+ {
+  "path": "/chat/completions",
+  "model": "muse-spark-1.3",
+  "ask": "[system]\nYou match items from a shop's order to a distributor's catalogue in Algeria. For each ITEM you get the\ncustomer's words and a numbered list of CANDIDATES. Pick the candidate it means, using only the listed ids.\n- If one candidate clearly matches, give its id and a confidence 0.0-1.0.\n- If several fit (size, flavour or variant not said), give \"\" as id, 2 to 4 option ids, and one very short\n  question in French naming what differs (\"Ifri : 0,5 L ou 1,5 L ?\").\n- If none fits, give \"\" and no options.\nReturn JSON only: {\"items\":[{\"item\":1,\"id\":\"C3\",\"confidence\":0.9,\"options\":[],\"question\":\"\"}]}\n[user]\nITEM 1: \"daluxe serpillere microfibre multi\" (probably: DALUXE SERPILLIER MICROFIBRE MULTI)\nCANDIDATES:\nC1 | DALUXE SERPILLERE MICROFIBRE MULTI USAGES - 40X30 -DALUXE CHIFFON FIBRE\nC2 | DALUXE HOUSSE MACHINE A LAVER DECORE -A-\nC3 | DALUXE HOUSSE MACHINE A LAVER DECORE -B-\nC4 | DALUXE SECHE LINGE ALUMINIUM EXTENSIBLE\nC5 | DALUXE SECHE LINGE ALUMINIUM EXTENSIBLE NORMAL",
+  "sha256": "1a5c0efedb2e62b81cec67938d36a8caa82f2f4c7ee860afd93a50cbb32c2198",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"items\":[{\"item\":1,\"id\":\"C1\",\"confidence\":0.95,\"options\":[],\"question\":\"\"}]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783422,
+   "id": "chatcmpl-01a1a5d2-dcd9-72d1-852f-13eec01a4f0f",
+   "model": "muse-spark-1.3",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 367,
+    "completion_tokens_details": {
+     "reasoning_tokens": 334
+    },
+    "prompt_tokens": 322,
+    "prompt_tokens_details": {
+     "cached_tokens": 241
+    },
+    "total_tokens": 689
+   }
+  }
+ },
+ {
+  "path": "/chat/completions",
+  "model": "muse-spark-1.3",
+  "ask": "[system]\nYou read orders that small shops in Algeria send to their distributor: Darja, French or Arabic,\noften a voice note transcribed with mistakes. Cut the message into ordered items. Do NOT choose products.\n\nFor each item return:\n- \"said\": the customer's own words for the product, copied from the message (no quantity, no unit word).\n- \"hint\": the product in plain words if you can tell it, written with the known brand and product names below in\n  Latin script, with the size in digits (\"Rouiba Orange 1 L\" for روييبة برتقال لتر): transcription often mishears\n  these names and a voice note may be in Arabic script; \"\" if unsure.\n- \"qty\": a number (wahed 1, zouj 2, tlata 3, rebaa 4, khamsa 5, setta 6, sebaa 7, tmenya 8, tes3a 9, achra 10, demi 0.5).\n- \"unit\": \"carton\" (carton, caisse, كرطون), \"pack\" (fardeau, fardou, pack, paquet), \"unit\" (bouteille, pièce,\n  unité, boîte, flacon) or \"\" when not said.\nCorrections count: \"two cartons, no wait three\" is qty 3. Ignore greetings and small talk.\n\"Same as last time\" (comme d'habitude, kima l'khatra li fatet, nafs l'commande, نفس الطلبية): set \"repeat_last\": true\nand put in items ONLY what is added or changed.\nIf the message is not an order (a question, a greeting only), intent \"other\" and a one-sentence polite reply in French.\nKnown brands and product names: 4 WINNERS WHITE, 9 WINNERS WHITE, ACAM, ACTIVIA, AFTIS, ALG IMTINANE, ALGERIA JEUNES, ALL, AMANI, AMOUR, AMOUR DE PRINCESSE, ANTAR, AROMEC, ARWA, ARWA CHOCOLAT, ASRAR PARAPHAR, ASTUCE, AURES, AVRIL, AZZOUZ, BARIGO, BELDIA, BELLAT, BELLE MAMAN, BEN AROUS, BENTOUMIA, BETTOUCHE, BIFA, BIO NATURE, BISCWIK, BMS, BMS ELECTRIC, BOMBAX, BONO, BOSS COFFEE GOLD, BRILLANT, C UR FRUITE, C.B, CACHIR BELLAT, CADENCE, CARM, CASA GLACES, CASBAH, CB, CEVITAL, CHAMIATE EL MALIKA, CHEBAA, CHEDDAR, CHEESE OF NAPOLI, CHEEZY +, CHEEZY SLICE, CHERCHELL, CHICOREE, CHIUAUA, CIRTA BROSSE, CITY ONE, CLEANY, CLEAR, CLEAR MEN, COCO, COCO FOOD, COCOATY DELICE, COCOATY SPORT, COCOATY SPORT MINI, CONSERVERIE DE L'EST CONSERVERIE GUELMA, COQUILLAGE, CORNICHONS, CRUNCHY, CRUNCHYBAR, D'ZAIR, DADA MENAGE, DAILY MOUTARDE, DAILY SAUCE, DALUXE, DANONE YAOUMI, DJINANE, DOCTOR GLOVE, DOUBLE, DOUBLE SENS, DOUBLE SENS SPIDER, DRAA EDDISS, DRAA-EDDISS, EL AMIRA, EL DEY, EL HADABA ELAOULYA, EL HAMMADIYINE, EL HILLAL, EL MAICENNE PATES, EL MANAR, EL MORDJENE, EL RAMZ DIMA PROPER, EL SAFINA, ELA, ELAFRAH, ELITE99, ELMECHAAL, ELMOUFID, ELOA, EXTRA, FAIZ, FAMICO, FAMICO EXCLUSIVE, FIT OAT, FLEURIAL, FNBM PLAST, FOODY'S, FOUARA, FRAMS, FRIC, FRUIT, FRUIT MAX, GANT, GERVAIS, GIANT, GIPLAIT, GMC, GRANDS MOULINS KENZA, GUSTO PRODUCT, GVC, GYZMO, HACHFA, HADJI BABA, HAIR, HANJAR, HEY, HILLAL, HINDJES, HM PLAST, HOUSE CHOCOREE, HOUSE COFFEE CLASSIC, HOUSE COFFEE GOLD, IBIZA, ILYIA, IMA HAPPY DUO, ISSA BEN ISSA, ITALIANA, IZDIHAR, K-CHIR BELLAT, KABTON, KACTUS PLUS, KERATINE PRO, KIMS, KOOL, KOOL 9 WINNERS, KOOL BREAK, KOOL BREAK WHITE, KOOL CHOCO COOKIES, KOOL CHOCO MAX, KOOL CLASSIC, KOOL CRACK'S, KOOL CROCK'IN, KOOL FOR WINNERS, KOOL IN'JOY, KOOL MINI SUPREME, KOOL ROUND BREAK, KOOL SUPREME, KOOL X4, KROSTI, LA TELLOISE, LA VACHE QUI RIT ORIGINAL - 8P, LAGRATANIA, LALLA TORKIA, LESIEUR, LIA BY TCHIN LAIT, LINA, LINA CLEAN, LOTUS, LUBREX, LUMEX, MACARONA, MAGIC BROSSE, MAHBOUBA, MANY, MARQUEUR, MASSILIA, MAX BOOST, MAXIN CLEAN, MENAA, MERYAS, MIANOUNA, MILKY, MILKY COW, MIO BEBE, MIOBEBE, MLETA PASTA, MOLLE, MOLPED, MONT D'OR, MOUTARDE, MOZARELLE, MR RUSTICA, NAPOLI, NASSAH, NEDJMA, NESQUIK, NOOR, NOUR ESSABAH, OCHO PLUS, OKID'S, OMIX, ONE, ORYX BLANC, OSLO, PALC, PALMARY, PALMARY SANDWICH, PAREL, PASTA MAMA, PATUYOP, PAUSE, PICON, PLAYTA, POUPOUNE, POUPOUNE DRY+, POUPOUNE PERFECT FIT, PRALIM, PRATIKA, PREMIRO, PRESTIGIOSA, RAMDY, RAMY MILKY KIDS, RAYA FOODS, RAYANE, RAYANE CLEAN, REGLE, RICAMAR, RODESS, ROMAIS, ROYAL, ROYAL PASTA, SAFARI COOK PLAST, SAFINA, SANDWICH, SANDWICH BIMO, SANI, SANI ROSE, SANI TOP, SAUCE TIME, SCHWEPPES, SECHE, SEENOOR SWEET, SEMOULERIE AMOUR, SHEFIA, SHTPLAST, SIDNA, SLICE, SLICE CAKE, SOFT, SOLEO, SOSEMIE, SPEEDO CHEESE, SPRITE, STOP, SUPREME, SWEETLE, SWEETY, SWEETY GOURMAND, TACHFINE, TAGA, TAGUELDA EL AMIR, TARTILISSE SPECIALE PIZZA, TARTINELLA, TASTY TOAST ORIGINAL, TCHEEZOU, THIKA, TIP, TIP TOP, TIP TOP LIGHT, TOPSIL, TREFLE, UNICORN, VAPO, VARIO, VERTEX, VICTARIA CONSOM, VICTORIA, VITADAY, VITALITE, VITE FAIT, VIZYON, VOITURE, WALID, WIPPRO, WIZO CONO, ZAAMTA, ZINOUBA, REGLE, SODA, FOURRAGE, INSECTICIDE, LIMONADE, MENAGE, SALAMI, BOISSONS, CITY, COFFEE, COUDE, CUMIN, FRICK, GENGEMBRE, HOUSSE, KRINCHY, LINGE, LINGETTES, MULTIPRISE, NOIR, SAVON, SBAH, STORY, ACIDIFIANT, ALIMENTAIRE, AMPOULE, AUX, BASSINE, BISCUITS, BLANCS, BLEU, BLOC, BOITE, BREAK, BROSSE, C.B, CEREALE, CEREALES, CHAMIA, CHANNEL, CHAPELET, CHAPLURE, CHBAH, COCKTAIL, COCO, COLA, CONDIMENT, CONFIT, CONSERVE, CORNET, CREAM, CUVETTE, DEGRIPPANT, DEODORANT, DESINFECTANT, DETARTRANT, DOUBLE, DRAA-EDDISS, DRAGE, DRAGEES, DRY+, EPONGE, ESCARGOTS, ESPRIT, EXPRESSO, FILETAGE, FLOCON, FLOCONS, FOURRE, FRUIT, FRUITS, GANTS, GATEAU, GLOVE, GRAIN, GRAINES, GRATANIA, HALWA, HALWAT, HRISSA, ITALIA, K-CHIR, LAIT, LEGO, LEVURE, LIQUDIE, MARSH, MARSHMALLOW, MAX, MELANGE, MENTH, MENTHE, MICRO, MIG, MINI, MIX, MONLAIT, MOYEN, MOZZARELLE, NASSAH, NET, OIL, PACK, PARFUM, PARFUMANT, PETIT, PIMENT, PLANCHE, PLASTIQUE, PLF, PLUS, POMME, POPS, POUDRE, PRESIDENT, REGISTRE, RENOVATEUR, RFIS, RFISSE, RIZ, RONDO, RUBAN, SACS, SANDWICH, SARDINES, SELECTION, SERPENTINI, SERPILLIER, SERVIETTE, SIDNA, SOFT\u0026FIT, SPEEDO, SPORT, SPORTS, SPRAY, STICK, SUCETTE, SUCRE, TEMPO, THE, THYM, TISSUS, TOP, TOUS, TRAVAUX, TRIDA, VERRINE, VERTEX, VERVENE\nReturn JSON only: {\"intent\":\"order\",\"repeat_last\":false,\"reply\":\"\",\"items\":[{\"said\":\"selecto\",\"hint\":\"Selecto 2 L\",\"qty\":3,\"unit\":\"carton\"}]}\n[user]\nslm khouya,\nhadarli:\ncereales nesquik 3 kartonat\nkrosti renovateur tableau 500ml 10 fardouyat\n10 kartonat gant menage manche long\n2 habbat ARWA BOISSON GAZIFIE CITRON 2L\n3 kartonat bisc 9 winners white enrobe\nasrar paraphar glove noir 100p 5 kartonat\n10 kartonat pate tartinella d'arachide sport 1\n4 fardouyat cocoaty sport mini selection\nrabi yhafdek",
+  "sha256": "4f6cdf3c814f4a33bed873450a2c388a761e8d1f78290c109f424f8db25d8325",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"intent\": \"order\", \"repeat_last\": false, \"reply\": \"\", \"items\": [{\"said\": \"cereales nesquik\", \"hint\": \"NESQUIK CEREALES\", \"qty\": 3, \"unit\": \"carton\"}, {\"said\": \"krosti renovateur tableau 500ml\", \"hint\": \"KROSTI RENOVATEUR 500 ml\", \"qty\": 10, \"unit\": \"pack\"}, {\"said\": \"gant menage manche long\", \"hint\": \"GANT MENAGE MANCHE LONG\", \"qty\": 10, \"unit\": \"carton\"}, {\"said\": \"ARWA BOISSON GAZIFIE CITRON 2L\", \"hint\": \"ARWA CITRON 2 L\", \"qty\": 2, \"unit\": \"unit\"}, {\"said\": \"bisc 9 winners white enrobe\", \"hint\": \"9 WINNERS WHITE\", \"qty\": 3, \"unit\": \"carton\"}, {\"said\": \"asrar paraphar glove noir 100p\", \"hint\": \"ASRAR PARAPHAR GLOVE NOIR 100P\", \"qty\": 5, \"unit\": \"carton\"}, {\"said\": \"pate tartinella d'arachide sport 1\", \"hint\": \"TARTINELLA SPORT 1\", \"qty\": 10, \"unit\": \"carton\"}, {\"said\": \"cocoaty sport mini selection\", \"hint\": \"COCOATY SPORT MINI SELECTION\", \"qty\": 4, \"unit\": \"pack\"}]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783435,
+   "id": "chatcmpl-01a1a5d3-10ce-7163-a4ee-a801150d62a4",
+   "model": "muse-spark-1.3",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 1752,
+    "completion_tokens_details": {
+     "reasoning_tokens": 1408
+    },
+    "prompt_tokens": 2418,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "total_tokens": 4170
+   }
+  }
+ },
+ {
+  "path": "/chat/completions",
+  "model": "muse-spark-1.3",
+  "ask": "[system]\nYou match items from a shop's order to a distributor's catalogue in Algeria. For each ITEM you get the\ncustomer's words and a numbered list of CANDIDATES. Pick the candidate it means, using only the listed ids.\n- If one candidate clearly matches, give its id and a confidence 0.0-1.0.\n- If several fit (size, flavour or variant not said), give \"\" as id, 2 to 4 option ids, and one very short\n  question in French naming what differs (\"Ifri : 0,5 L ou 1,5 L ?\").\n- If none fits, give \"\" and no options.\nReturn JSON only: {\"items\":[{\"item\":1,\"id\":\"C3\",\"confidence\":0.9,\"options\":[],\"question\":\"\"}]}\n[user]\nITEM 1: \"krosti renovateur tableau 500ml\" (probably: KROSTI RENOVATEUR 500 ml)\nCANDIDATES:\nC1 | KROSTI RENOVATEUR TABLEAU 500ML\nC2 | KROSTI NETTOYANT TABLEAU DE BORD\nC3 | KROSTI NETTOYANT TABLEAU DE BORD VOITURE\nC4 | KROSTI NETTOYANT GAMME AUTOMOBILE TABLEAU BORD\nC5 | KROSTI PARFUM AUTO",
+  "sha256": "aed975f1931267725b1510aa6c179967e8c6a7b6cbc878bf9a1bdd9f6672680c",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"items\":[{\"item\":1,\"id\":\"C1\",\"confidence\":1.0,\"options\":[],\"question\":\"\"}]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783437,
+   "id": "chatcmpl-01a1a5d3-19c8-7635-a722-827214edfa3e",
+   "model": "muse-spark-1.3",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 339,
+    "completion_tokens_details": {
+     "reasoning_tokens": 306
+    },
+    "prompt_tokens": 296,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "total_tokens": 635
+   }
+  }
+ },
+ {
+  "path": "/chat/completions",
+  "model": "muse-spark-1.3",
+  "ask": "[system]\nYou look at a photo a small shop in Algeria sent to its distributor to order. It is either a\nwritten order list (handwritten or printed), or it shows the products themselves (bottles, cans, cartons or packs\non a shelf, a counter, in a crate or in a hand).\nFor a list: copy every ordered item exactly as written, one per line, keeping quantities and units. Ignore headers,\nprices and signatures.\nFor products: name the kinds of packaging you see, using only these words: bottle, can, carton, box, pack, jar,\nbag, tub, sachet. Most common first, at most three.\nReturn JSON only, either {\"kind\":\"list\",\"lines\":[\"5 cartons Hamoud 2L\",\"3 Ifri 1.5\"]}\nor {\"kind\":\"products\",\"packaging\":[\"bottle\",\"can\"]}\n[user]\nRead this photo.",
+  "sha256": "9d27ad1b697df519f34085e1c1a2b76ea079ed9b03b8a1f2819a4f183ffd1344",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"kind\":\"list\",\"lines\":[\"12 pcs molle moutarde 200g\",\"3 ctn NAPOLI PREPARATION FROMAGERE 220G\",\"3 pcs grands moulins kenza cheveux 500g\",\"4 ctn dada menage serpillier en\",\"2 ctn yaou danone yaoumi\"]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783441,
+   "id": "chatcmpl-01a1a5d3-27e6-71d2-acfa-919ba81c75e5",
+   "model": "muse-spark-1.3",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 498,
+    "completion_tokens_details": {
+     "reasoning_tokens": 420
+    },
+    "prompt_tokens": 1904,
+    "prompt_tokens_details": {
+     "cached_tokens": 1777
+    },
+    "total_tokens": 2402
+   }
+  }
+ },
+ {
+  "path": "/chat/completions",
+  "model": "muse-spark-1.3",
+  "ask": "[system]\nYou match items from a shop's order to a distributor's catalogue in Algeria. For each ITEM you get the\ncustomer's words and a numbered list of CANDIDATES. Pick the candidate it means, using only the listed ids.\n- If one candidate clearly matches, give its id and a confidence 0.0-1.0.\n- If several fit (size, flavour or variant not said), give \"\" as id, 2 to 4 option ids, and one very short\n  question in French naming what differs (\"Ifri : 0,5 L ou 1,5 L ?\").\n- If none fits, give \"\" and no options.\nReturn JSON only: {\"items\":[{\"item\":1,\"id\":\"C3\",\"confidence\":0.9,\"options\":[],\"question\":\"\"}]}\n[user]\nITEM 1: \"yaou danone yaoumi\"\nCANDIDATES:\nC1 | DANONE YAOUMI YAOURT AROMATISE\nC2 | GERVAIS FROMAGE FRAIS DANONE\nC3 | ACTIVIA SPECIALITE LAITIERE AROMATISE AU BIFIDUS ACTIRIGULARIS DANONE",
+  "sha256": "cc463a336b0fa5d0db9a04be326659514c4b88c8f2f8b68e45b324207b65e65d",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"items\":[{\"item\":1,\"id\":\"C1\",\"confidence\":0.95,\"options\":[],\"question\":\"\"}]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783443,
+   "id": "chatcmpl-01a1a5d3-30a1-724f-8d2e-5c72a8698887",
+   "model": "muse-spark-1.3",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 323,
+    "completion_tokens_details": {
+     "reasoning_tokens": 290
+    },
+    "prompt_tokens": 250,
+    "prompt_tokens_details": {
+     "cached_tokens": 241
+    },
+    "total_tokens": 573
+   }
+  }
+ }
+]

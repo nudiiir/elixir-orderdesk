@@ -1,0 +1,38 @@
+[
+ {
+  "path": "/chat/completions",
+  "model": "muse-spark-1.3",
+  "ask": "[system]\nYou match items from a shop's order to a distributor's catalogue in Algeria. For each ITEM you get the\ncustomer's words and a numbered list of CANDIDATES. Pick the candidate it means, using only the listed ids.\n- If one candidate clearly matches, give its id and a confidence 0.0-1.0.\n- If several fit (size, flavour or variant not said), give \"\" as id, 2 to 4 option ids, and one very short\n  question in French naming what differs (\"Ifri : 0,5 L ou 1,5 L ?\").\n- If none fits, give \"\" and no options.\nReturn JSON only: {\"items\":[{\"item\":1,\"id\":\"C3\",\"confidence\":0.9,\"options\":[],\"question\":\"\"}]}\n[user]\nITEM 1: \"harissa avril 760g\"\nCANDIDATES:\nC1 | AVRIL HRISSA 760G\n\nITEM 2: \"arwa soda peach 1l\"\nCANDIDATES:\nC1 | ARWA SODA COLA 1L\nC2 | ARWA SODA PECHE 1L\n\nITEM 3: \"avril harissa\"\nCANDIDATES:\nC1 | AVRIL HRISSA 135G\nC2 | AVRIL HRISSA 760G",
+  "sha256": "e98c9280648999a03ab0106fdcd85e7411fd2b415205a2209d48aeb00a793c2d",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"items\":[{\"item\":1,\"id\":\"C1\",\"confidence\":0.95,\"options\":[],\"question\":\"\"},{\"item\":2,\"id\":\"C2\",\"confidence\":0.95,\"options\":[],\"question\":\"\"},{\"item\":3,\"id\":\"\",\"confidence\":0.5,\"options\":[\"C1\",\"C2\"],\"question\":\"Avril harissa : 135G ou 760G ?\"}]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783562,
+   "id": "chatcmpl-01a1a5d5-0045-7638-b4b0-37d3398a20de",
+   "model": "muse-spark-1.3",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 863,
+    "completion_tokens_details": {
+     "reasoning_tokens": 774
+    },
+    "prompt_tokens": 287,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "total_tokens": 1150
+   }
+  }
+ }
+]

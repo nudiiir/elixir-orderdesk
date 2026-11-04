@@ -158,7 +158,7 @@ func main() {
 
 func run(ctx context.Context, d *desk.Desk, cat *catalog.Catalog, mc *meta.Client, db *store.DB, o order, voiceDir, screensDir string) result {
 	r := result{ID: o.ID, Channel: o.Channel, AudioSrc: o.AudioSrc}
-	key, msgID := "bench:"+o.ID, store.NewID("msg")
+	key, msgID := "bench:"+o.ID, newMsgID(o.ID)
 	kind, text := "text", o.Text
 	fail := func(err error) result {
 		r.Error = err.Error()
@@ -322,7 +322,7 @@ func count(r result) map[string]int {
 
 type agg struct {
 	Orders, Lines, Right, QtyOK, Asked, Wrong, Missed, Extra, Errors int
-	Cost                                                         float64
+	Cost                                                             float64
 }
 
 func summary(rs []result) map[string]*agg {
@@ -419,6 +419,9 @@ func contains(xs []string, x string) bool {
 	}
 	return false
 }
+
+// newMsgID names each order's message (a test makes it fixed, so replayed requests are the recorded ones).
+var newMsgID = func(orderID string) string { return store.NewID("msg") }
 
 func shopID(name string) string { return "shop-" + strings.ToLower(strings.ReplaceAll(name, " ", "-")) }
 

@@ -1,0 +1,4 @@
+[
+ {"path": "/chat/completions", "model": "muse-spark-1.3", "ask": "hand-written: a pick under the 0.9 bar", "sha256": "", "status": 200,
+  "response": {"choices": [{"message": {"role": "assistant", "content": "{\"items\":[{\"item\":1,\"id\":\"C1\",\"confidence\":0.6,\"options\":[],\"question\":\"\"}]}"}}], "usage": {"prompt_tokens": 420, "completion_tokens": 30}}}
+]

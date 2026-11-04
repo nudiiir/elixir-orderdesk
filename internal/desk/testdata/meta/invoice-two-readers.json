@@ -1,0 +1,74 @@
+[
+ {
+  "path": "/chat/completions",
+  "model": "muse-spark-1.3",
+  "ask": "[system]\nYou read supplier invoices (factures, bons de livraison) received by a distributor in Algeria.\nCopy what is printed; never guess products. Return JSON only:\n{\"supplier\":\"the SELLER's company name as printed (not the buyer)\",\"number\":\"invoice number\",\"date\":\"YYYY-MM-DD\",\n \"total_ht\":12345.67,\n \"lines\":[{\"text\":\"the designation exactly as printed, with its codes and pack marks (e.g. SEL 2000ML PET X6)\",\n   \"qty\":12,\"unit_price\":1140.00,\"total\":13680.00}]}\nAmounts are in dinars as printed (HT when both HT and TTC are printed). Skip headers, subtotals, taxes and stamps.\n[user]\nRead this invoice.",
+  "sha256": "292b8c6c83340b24a4be17f681b81bb7a06293e8f6a0e794456081c8f38086df",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"supplier\":\"EURL Grossiste Mitidja Alimentation\",\"number\":\"FA-2026-1187\",\"date\":\"2026-10-30\",\"total_ht\":16361.64,\"lines\":[{\"text\":\"SEL 2000ML PET X6\",\"qty\":10,\"unit_price\":572.34,\"total\":5723.4},{\"text\":\"SEL 1L PET X6\",\"qty\":8,\"unit_price\":381.6,\"total\":3052.8},{\"text\":\"HMD GAZ 2L PET X6\",\"qty\":5,\"unit_price\":540.0,\"total\":2700.0},{\"text\":\"SLIM CIT 1L PET X6\",\"qty\":4,\"unit_price\":420.0,\"total\":1680.0},{\"text\":\"SEL CAN 33CL X24\",\"qty\":3,\"unit_price\":1068.48,\"total\":3205.44}]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783714,
+   "id": "chatcmpl-01a1a5d7-51df-7363-8bf9-db200e4f3684",
+   "model": "muse-spark-1.3",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 422,
+    "completion_tokens_details": {
+     "reasoning_tokens": 224
+    },
+    "prompt_tokens": 2895,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "total_tokens": 3317
+   }
+  }
+ },
+ {
+  "path": "/chat/completions",
+  "model": "muse-wonder-1.0",
+  "ask": "[system]\nYou read supplier invoices (factures, bons de livraison) received by a distributor in Algeria.\nCopy what is printed; never guess products. Return JSON only:\n{\"supplier\":\"the SELLER's company name as printed (not the buyer)\",\"number\":\"invoice number\",\"date\":\"YYYY-MM-DD\",\n \"total_ht\":12345.67,\n \"lines\":[{\"text\":\"the designation exactly as printed, with its codes and pack marks (e.g. SEL 2000ML PET X6)\",\n   \"qty\":12,\"unit_price\":1140.00,\"total\":13680.00}]}\nAmounts are in dinars as printed (HT when both HT and TTC are printed). Skip headers, subtotals, taxes and stamps.\n[user]\nRead this invoice.",
+  "sha256": "d2e2b37e5394a913ce2b8ea895833ebf3561bbfcadf6ce0a924c592a825229d0",
+  "status": 200,
+  "response": {
+   "choices": [
+    {
+     "finish_reason": "stop",
+     "index": 0,
+     "logprobs": null,
+     "message": {
+      "content": "{\"supplier\":\"EURL Grossiste Mitidja Alimentation\",\"number\":\"FA-2026-1187\",\"date\":\"2026-10-30\",\"total_ht\":16361.64,\"lines\":[{\"text\":\"SEL 2000ML PET X6\",\"qty\":10,\"unit_price\":572.34,\"total\":5723.40},{\"text\":\"SEL 1L PET X6\",\"qty\":8,\"unit_price\":381.60,\"total\":3052.80},{\"text\":\"HMD GAZ 2L PET X6\",\"qty\":5,\"unit_price\":540.00,\"total\":2700.00},{\"text\":\"SLIM CIT 1L PET X6\",\"qty\":4,\"unit_price\":420.00,\"total\":1680.00},{\"text\":\"SEL CAN 33CL X24\",\"qty\":3,\"unit_price\":1068.48,\"total\":3205.44}]}",
+      "refusal": null,
+      "role": "assistant"
+     }
+    }
+   ],
+   "created": 1793783717,
+   "id": "chatcmpl-01a1a5d7-5dce-7532-8675-d1f176d2d428",
+   "model": "muse-wonder-1.0",
+   "object": "chat.completion",
+   "usage": {
+    "completion_tokens": 369,
+    "completion_tokens_details": {
+     "reasoning_tokens": 171
+    },
+    "prompt_tokens": 2895,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    },
+    "total_tokens": 3264
+   }
+  }
+ }
+]
