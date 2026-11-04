@@ -9,13 +9,13 @@ of the Elixir Distribution ERP ([before and during the hackathon](#startups-trac
 
 **Try it now:**
 
-- **[Telegram bot](https://t.me/elixirOrderDeskbot?start=META26)**: a demo shop on a real supermarket
+- **[Telegram bot](https://t.me/elixirOrderDeskbot)** (access code in the submission form): a demo shop on a real supermarket
   catalogue, booking into Odoo. Send an order in Darja or French, a voice note or a photo of the list.
   In the recorded run, typed orders were answered within 3 s, a voice note in 83 s and an invoice photo in
   36 s (`docs/demo/data.json`).
 - **[Panel, read-only](https://orderdesk-demo.elixir-dz.com)**: the same desk, every line's resolution and
   every Meta model call with its cost.
-- **[Odoo](https://odoo-demo.elixir-dz.com)** (`judge` / `Meta2026!`, read-only): the orders it booked.
+- **[Odoo](https://odoo-demo.elixir-dz.com)** (read-only login in the submission form): the orders it booked.
 - **[Live replay](https://nudiiir.github.io/elixir-orderdesk/demo/)**: a recorded run of the real pipeline,
   a typed order, a Darja voice note, a supplier invoice and the next order settled for free.
 - **On your machine, no key, no Docker, no ERP:**
@@ -71,6 +71,21 @@ writes rules in a small rule language, and a second Spark call, the breaker, att
 look-alike lines. The code admits a rule only with zero wrong matches, and Spark checks every free answer
 until the code's precision clears a 99 % lower bound. Learning trusts only what a person chose or corrected,
 and trusted wordings and rules. Details: [docs/HOW-IT-WORKS.md](docs/HOW-IT-WORKS.md).
+
+## One order, five ERPs
+
+The same shop order goes through the same desk into five open-source ERPs, with nothing installed in them.
+Three lines resolve for free, one is asked, and the confirmed order opens in the ERP's own screens. The
+screenshots were taken by `tools/capture_erps.py` against the Docker ERPs in `erps/`, with no manual step.
+
+| ERP | In Order Desk | The order in the ERP |
+|---|---|---|
+| **Odoo 18** | <img src="docs/media/odoo-2-draft.jpg" width="420"> | <img src="docs/media/odoo-3-erp.jpg" width="420"> |
+| **ERPNext v16** | <img src="docs/media/erpnext-2-draft.jpg" width="420"> | <img src="docs/media/erpnext-3-erp.jpg" width="420"> |
+| **Dolibarr 24** | <img src="docs/media/dolibarr-2-draft.jpg" width="420"> | <img src="docs/media/dolibarr-3-erp.jpg" width="420"> |
+
+**InvenTree 1.6** and **Tryton 7.0** too: all five, with the question step for each, in
+[docs/RUN.md](docs/RUN.md#one-order-five-erps).
 
 ## Benchmark
 
