@@ -51,6 +51,17 @@ Wholesale in Algeria runs on WhatsApp. Open any wholesale group or distributor p
 line keeps coming back: *"orders on WhatsApp."* No portal, no app, no order form. Just a chat, full of voice
 notes, photos and abbreviations. **Order Desk is built for that chat, not against it.**
 
+## Why we built it
+
+We already serve the shops. [Elixir](https://elixir-dz.com), our app for pharmacies in Algeria, has
+**1,265 pharmacies signed up, 120 used it in the last 30 days and 72 on an active subscription** (our
+figures, November 2026). Every one of them orders from distributors, on WhatsApp.
+
+Order Desk is how we reach those distributors. One of them told us what this project solves: his clerks
+retype every order and every supplier invoice by hand. A second distributor has agreed to test Order Desk.
+We start with pharmacy and cosmetics distributors, then any wholesaler whose shops order on WhatsApp, on
+whatever ERP they run, including our own [Elixir Distribution](https://gestion.elixir-dz.com).
+
 ## How it works
 
 1. **Muse Voice Transcribe** hears the voice note, primed with the distributor's own brand names.
