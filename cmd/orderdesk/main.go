@@ -48,6 +48,7 @@ func main() {
 	dataDir := flag.String("data", "data", "data directory (database, voice notes, photos)")
 	keys := flag.String("keys", "", "keys files with KEY=value lines, comma-separated (default: .env if present)")
 	noTelegram := flag.Bool("no-telegram", false, "do not start the Telegram connector")
+	publicRO := flag.Bool("public-readonly", false, "let other computers read the panel (a public demo); changes stay local")
 	flag.Parse()
 	if *keys == "" {
 		if _, err := os.Stat(".env"); err == nil {
@@ -218,7 +219,7 @@ func main() {
 		}
 	}()
 
-	srv := &web.Server{DB: db, Cat: cat, Desk: d, Eng: eng, Meta: mc, DataDir: *dataDir, ERP: current, Connect: connect, Sync: sync}
+	srv := &web.Server{DB: db, Cat: cat, Desk: d, Eng: eng, Meta: mc, DataDir: *dataDir, ERP: current, Connect: connect, Sync: sync, PublicReadOnly: *publicRO}
 	if wa != nil {
 		srv.WhatsApp = wa.Webhook(d.Handle)
 	}

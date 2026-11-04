@@ -45,6 +45,8 @@ type Desk struct {
 	Autonomy  *Autonomy // nil: no autonomy tracking (classic)
 
 	hist sync.Map   // customer id → *history
+	rateMu sync.Mutex
+	rate   map[string][]time.Time // chat → when its last messages came (rate_per_10min, rate_per_day)
 	book sync.Mutex // Confirm: one booking at a time
 }
 
@@ -222,6 +224,10 @@ func (d *Desk) onMessage(ctx context.Context, msg *telegram.TgMessage) {
 		return
 	}
 
+	if d.limited(key) {
+		d.say(ctx, chat, "⏳ Doucement : vous avez envoyé beaucoup de messages. Réessayez dans quelques minutes.")
+		return
+	}
 	d.TG.Typing(ctx, chat)
 	msgID := store.NewID("msg")
 	kind, media, heard := "text", "", ""
@@ -503,6 +509,37 @@ func NewPairCode(db *store.DB, customerID, role string) (string, error) {
 	}
 	_, err := db.Exec(`INSERT INTO pair_codes (code, customer_id, role, created_at) VALUES (?, ?, ?, ?)`, string(code), customerID, role, store.Now())
 	return string(code), err
+}
+
+// limited: a public desk caps how often one chat may write (settings rate_per_10min and rate_per_day, 0 = no
+// cap), so one sender cannot spend the day's model budget for everyone else.
+func (d *Desk) limited(key string) bool {
+	per10, perDay := d.DB.SettingInt("rate_per_10min", 0), d.DB.SettingInt("rate_per_day", 0)
+	if per10 <= 0 && perDay <= 0 {
+		return false
+	}
+	d.rateMu.Lock()
+	defer d.rateMu.Unlock()
+	if d.rate == nil {
+		d.rate = map[string][]time.Time{}
+	}
+	now := time.Now()
+	var kept []time.Time
+	n10 := 0
+	for _, t := range d.rate[key] {
+		if now.Sub(t) < 24*time.Hour {
+			kept = append(kept, t)
+			if now.Sub(t) < 10*time.Minute {
+				n10++
+			}
+		}
+	}
+	if (per10 > 0 && n10 >= per10) || (perDay > 0 && len(kept) >= perDay) {
+		d.rate[key] = kept
+		return true
+	}
+	d.rate[key] = append(kept, now)
+	return false
 }
 
 // isDemoCode: a public demo desk can publish one reusable code (settings demo_code and demo_customer) that

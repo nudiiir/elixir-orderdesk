@@ -52,6 +52,10 @@ type Server struct {
 	Sync    func(ctx context.Context) error
 
 	WhatsApp http.Handler // the WhatsApp Cloud API webhook, when configured
+
+	// PublicReadOnly serves the panel to other computers for reading only (a public demo): every
+	// change, and anything that would spend model credits, stays on this computer.
+	PublicReadOnly bool
 }
 
 func (s *Server) Handler() http.Handler {
@@ -62,10 +66,29 @@ func (s *Server) Handler() http.Handler {
 		r.Post("/whatsapp/webhook", s.WhatsApp.ServeHTTP)
 	}
 	r.Group(func(r chi.Router) {
-		r.Use(localOnly)
+		r.Use(s.guard)
 		s.panel(r)
 	})
 	return r
+}
+
+// guard is localOnly, except that a public read-only desk lets other computers read.
+func (s *Server) guard(next http.Handler) http.Handler {
+	local := localOnly(next)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if s.PublicReadOnly && !(loopbackHost(r.Host) && loopbackHost(r.RemoteAddr)) {
+			w.Header().Set("X-Frame-Options", "DENY")
+			w.Header().Set("X-Content-Type-Options", "nosniff")
+			w.Header().Set("Referrer-Policy", "no-referrer")
+			if r.Method != http.MethodGet && r.Method != http.MethodHead {
+				http.Error(w, "this is a read-only public demo: nothing can be changed from here", http.StatusForbidden)
+				return
+			}
+			next.ServeHTTP(w, r)
+			return
+		}
+		local.ServeHTTP(w, r)
+	})
 }
 
 // localOnly keeps the panel and its API to this computer. The panel has no login: it trusts whoever

@@ -223,6 +223,14 @@ func (d *Desk) onCallback(ctx context.Context, cb *telegram.TgCallback) {
 	case "back":
 		d.summary(ctx, chat, parts[1], cb.Message.MessageID)
 	case "ok":
+		if n := d.DB.SettingInt("orders_per_day", 0); n > 0 && !d.isOwner(key) {
+			var done int
+			d.DB.QueryRow(`SELECT COUNT(*) FROM drafts WHERE chat_key = ? AND status = 'confirmed' AND updated_at >= date('now', 'localtime')`, key).Scan(&done)
+			if done >= n {
+				d.say(ctx, chat, fmt.Sprintf("⏳ Limite de la démo : %d commandes par jour pour ce compte. Revenez demain !", n))
+				return
+			}
+		}
 		ref, err := d.Confirm(ctx, parts[1], "shop")
 		if err != nil {
 			d.fail(ctx, chat, "la commande n'a pas pu être enregistrée chez le distributeur", err)
@@ -368,6 +376,11 @@ func (d *Desk) Confirm(ctx context.Context, draft, origin string) (adapter.Order
 	lines := DraftLines(d.DB, draft, false)
 	o := adapter.Order{CustomerID: customerID, ExternalRef: "orderdesk:" + draft,
 		Notes: "Commande reçue par Order Desk (" + strings.SplitN(key, ":", 2)[0] + ")"}
+	var who string
+	d.DB.QueryRow(`SELECT name FROM chats WHERE chat_key = ?`, key).Scan(&who)
+	if who = strings.TrimSpace(who); who != "" {
+		o.Notes += " — " + who // on a shared demo shop, whose order this is
+	}
 	for _, l := range lines {
 		if l.Status == "ok" && l.QtyMilli > 0 {
 			note := ""
