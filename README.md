@@ -1,196 +1,102 @@
 # Elixir Order Desk
 
-**Shops order on WhatsApp the way they talk. Meta's models turn every message into a booked ERP order, and
-Muse Spark teaches the desk to do it without them.**
+**Shops order on WhatsApp the way they talk: Darja voice notes, photos, French and Arabic mixed. Order Desk
+books every line into the distributor's ERP, asks when it is not sure, and Muse Spark teaches it to do the
+job without a model call.**
 
-*Meta Global AI Developer Hackathon · **Startups track** · Build for Your World · by
-[Elixir](https://gestion.elixir-dz.com), makers of the Elixir Distribution ERP
-([what existed before, what we built](#startups-track-what-existed-before-and-what-we-built)).*
+*Meta Global AI Developer Hackathon · **Startups track** · by [Elixir](https://gestion.elixir-dz.com), makers
+of the Elixir Distribution ERP ([before and during the hackathon](#startups-track-what-existed-before-and-what-we-built)).*
 
-**Live demo:** [Telegram bot](https://t.me/elixirOrderDeskbot?start=META26) (a demo shop of a real supermarket
-distributor, booking into Odoo) · [panel, read-only](https://orderdesk-demo.elixir-dz.com) ·
-[Odoo](https://odoo-demo.elixir-dz.com) (`judge` / `Meta2026!`, read-only). Send an order in Darja or French, a
-voice note or a photo of the list; replies take 10 to 20 seconds.
+**Try it now:**
 
-Small shops order from their distributor the way they talk: voice notes in Darja, photos of handwritten
-lists, "same as last time, plus two cartons of Ifri". At the distributor, a clerk retypes every line into the
-ERP, guessing which of 1,000 products "ifri 1.5" or "VIS TH M8X20 ZN BT100" means. Order Desk does that job:
+- **[Telegram bot](https://t.me/elixirOrderDeskbot?start=META26)**: a demo shop on a real supermarket
+  catalogue, booking into Odoo. Send an order in Darja or French, a voice note or a photo of the list.
+  In the recorded run, typed orders were answered within 3 s, a voice note in 83 s and an invoice photo in
+  36 s (`docs/demo/data.json`).
+- **[Panel, read-only](https://orderdesk-demo.elixir-dz.com)**: the same desk, every line's resolution and
+  every Meta model call with its cost.
+- **[Odoo](https://odoo-demo.elixir-dz.com)** (`judge` / `Meta2026!`, read-only): the orders it booked.
+- **[Live replay](https://nudiiir.github.io/elixir-orderdesk/demo/)**: a recorded run of the real pipeline,
+  a typed order, a Darja voice note, a supplier invoice and the next order settled for free.
+- **On your machine, no key, no Docker, no ERP:**
 
-1. **Muse Voice Transcribe** hears the voice note, primed with the distributor's own brand names.
-2. **SAM 3.1** finds each product on a photo and **Muse Spark** reads it; Muse Spark also copies written lists
-   and cuts chatty text into items.
-3. Every line becomes one precise product from the distributor's catalogue, checked against the ERP's own
-   prices and stock. The shop is asked only what is really open.
-4. The confirmed order is booked in the ERP: Odoo, ERPNext, Dolibarr, InvenTree or Tryton.
+  ```bash
+  go run ./cmd/orderdesk -demo
+  ```
 
-The same desk reads supplier invoices (Muse Spark and Muse Wonder read each one independently) and books them
-as goods receipts. It runs on WhatsApp (Meta's Cloud API), Telegram and its own panel.
+  Open http://127.0.0.1:8610 → **Inbox** → **Try a message**. It starts the trained supermarket desk from the
+  benchmark with a demo ERP that writes booked orders to `data-demo/demo-orders.jsonl`, and 3 demo shops.
+  Keyless, the parser, the learned wordings and the rules answer and anything else becomes a question; set
+  `META_MODEL_API_KEY` and Muse Spark joins in.
 
-> **Or watch a recorded run: [the live replay](https://nudiiir.github.io/elixir-orderdesk/demo/).** A recorded
-> run of the real pipeline: a typed WhatsApp order, a Darja voice note, a supplier invoice photo and the next
-> order settled for free, with every line's resolution step, every Meta model call (tokens and cost) and the
-> document booked in Odoo. `tools/record_demo.py` records it again on your machine.
+**Three numbers, all from [`bench/`](bench/)** (`python bench/check.py` recomputes them in a second, no key):
+
+| | |
+|---|---|
+| **93 %** of supplier-invoice lines booked automatically, **3 wrong in 2,169** | 120 locked invoices in 4 industries the desk never learned from |
+| **76 %** of shop-order lines booked right, **3 wrong in 1,272**, the rest asked | 200 orders: French, Darja, Arabic script, screenshots, voice notes |
+| **4–8× cheaper** per invoice than Muse Spark alone, with the same 3 wrong | the same locked lines, Spark given the whole catalogue |
+
+**Why it matters.** At a distributor, a clerk retypes every WhatsApp order and every supplier invoice into
+the ERP, guessing which of 1,000 products "ifri 1.5" means. Per 100 supplier invoices, Order Desk books
+**1,682 of 1,808 lines** with nobody typing; per 100 shop orders, **484 of 636**. At 20 seconds a line (our
+assumption, not a measurement) that is **9.3 and 2.7 clerk hours**. And a line it is not sure of becomes a
+question, not a wrong delivery: 3 wrong lines in 1,272, every other doubt asked.
 
 <p align="center"><img src="docs/media/odoo-1-question.jpg" alt="The Order Desk inbox: a shop's order resolved line by line, one question left" width="900"></p>
 
-### Muse Spark builds the free path
+## How it works
 
-**Muse Spark could read every order forever. Instead, it teaches the desk to read them:** it writes advanced
-rules in plain sentences, tests each one, and lets the desk match on its own, with the same accuracy,
-instantly and almost for free. The code proves every lesson before it is used.
+1. **Muse Voice Transcribe** hears the voice note, primed with the distributor's own brand names.
+2. **SAM 3.1** finds each product on a photo and **Muse Spark** reads it; Muse Spark also copies written
+   lists and cuts chatty text into items. Without a key, a lenient parser takes over and asks.
+3. Every line climbs a ladder, cheapest first: codes, trusted wordings, rules, a shortlist, one Muse Spark
+   pick from that shortlist, and a person. It is checked against the ERP's prices and stock.
+4. The confirmed order is booked in the ERP (Odoo, ERPNext, Dolibarr, InvenTree or Tryton) through its
+   standard API, with nothing installed in it. Confirming twice never books twice.
 
-- **It designs the matching for each industry.** From the catalogue, Muse Spark decides how this trade writes
-  its products (inch sizes and `M8X20` screws in hardware, `PET` and pack counts in groceries), the vocabulary
-  its suppliers use and the search method. A scratch lab measures every proposal on lines Spark never saw.
-- **It finds the products.** When a wording is new, Muse Spark picks the product from a shortlist. Once a
-  person confirms it, the wording is remembered and costs nothing next time.
-- **It writes rules.** The rule engineer, a Muse Spark agent with tools, studies what the desk could not
-  resolve and writes rules in a small rule language. A code gate admits a rule only with zero wrong matches.
-- **It attacks its own rules.** Before a rule goes live, a second Muse Spark call, the **breaker**, writes
-  look-alike lines for neighbouring products to try to make the rule book the wrong one.
-- **It checks the code until the code has earned trust.** Muse Spark double-checks every answer the free steps
-  give until their precision clears a 99 % lower bound, and goes back to checking a supplier after a correction.
+The same desk reads supplier invoices (Muse Spark and **Muse Wonder** read each one independently, and a
+line they disagree on goes to a person) and books them as goods receipts. It runs on WhatsApp (Meta's Cloud
+API), Telegram and its own panel.
 
-**Benchmark, 4 industries, invoices the desk never saw:** after learning from 120 supplier invoices, Order
-Desk books **93 % of lines automatically** (58 % with no model call at all), **3 wrong in 2,169 lines**, for
-**4–8× less** than asking Muse Spark about every invoice. Every round of learning made it freer and cheaper.
-**95 % of its free answers trace back to Muse Spark**: a product it found, a rule it wrote, or matching it
-designed. On **200 shop orders** (typed in French or Darja, screenshots, voice notes), it booked 76 % of lines
-right, asked about the rest, and booked 3 of 1,272 wrong ([benchmark](#benchmark-four-industries-invoices-the-desk-never-saw)).
+**Muse Spark builds the free path.** It designs each industry's matching from the catalogue (how sizes,
+strengths and pack counts are written, the vocabulary, the search method), picks products for new wordings,
+writes rules in a small rule language, and a second Spark call, the breaker, attacks each rule with
+look-alike lines. The code admits a rule only with zero wrong matches, and Spark checks every free answer
+until the code's precision clears a 99 % lower bound. Learning trusts only what a person chose or corrected,
+and trusted wordings and rules. Details: [docs/HOW-IT-WORKS.md](docs/HOW-IT-WORKS.md).
 
-### Startups track: what existed before, and what we built
+## Benchmark
 
-**Before the hackathon.** Elixir is a startup building software for distributors in Algeria. Our product,
-**[Elixir Distribution](https://gestion.elixir-dz.com)**, is an ERP for wholesale distributors. But a
-distributor's orders don't arrive in the ERP: they arrive on WhatsApp, and a clerk retypes them. Order Desk
-started as an idea for a new module of Elixir Distribution: read those WhatsApp orders and book them.
+Four real catalogues (electronics 796 products, pharmacy 524, cosmetics & parapharmacy 586, supermarket 587),
+150 supplier invoices each: the desk learns from 120 the way a clerk trains it, and is scored on 30 locked
+invoices it never learns from.
 
-**During the hackathon, we made it a product of its own.** A module would only serve our own customers, so
-we generalised it into a standalone desk that works with **any ERP**, runs in production, and needs people
-less over time: Muse Spark designs each desk's matching, writes and attacks rules, and supervises the code
-until the code earns its trust. Elixir Distribution is one of six ERPs it connects to, and it is not part of
-the demo. **Everything in this repository was written during the event (October 26 – November 4, 2026)**;
-the Elixir Distribution ERP itself is not in this repository.
-
-**What that took:**
-
-- **The desk:** one Go program, about 20,000 lines with 55 tests (the model paths replayed from recorded Meta API answers): chat parsing, a five-step matching ladder,
-  codes and aliases, a rule language with a gate, shadow and live stages, earned autonomy, the panel, a
-  metered Meta model client with a daily budget.
-- **Six ERP adapters** (Odoo, ERPNext, Dolibarr, InvenTree, Tryton, Elixir Distribution), each passing the
-  same live conformance test; the five open-source ERPs run in Docker from `erps/`.
-- **Every channel and input:** WhatsApp through Meta's Cloud API (and Twilio), Telegram, typed lists, chatty
-  text, Darja voice notes, photos of written lists, photos of the products, supplier invoices as photos or PDFs.
-- **Four Meta models with real jobs:** Muse Spark (reads, picks, designs the matching, writes rules, attacks
-  them, supervises the code), Muse Wonder (second invoice reader, backup rule engineer), Muse Voice Transcribe
-  (primed with the catalogue's brands), SAM 3.1 (finds products on photos).
-- **A benchmark built from scratch:** four real catalogues cleaned (electronics, pharmacy, cosmetics,
-  supermarket), alias lists from real wordings, 160 supplier invoices designed in 15 layouts per industry,
-  printed and photographed, 600 more in realistic supplier streams, and about 14,000 locked lines scored
-  round after round against Muse Spark alone.
-- **What the benchmark taught us:** four bugs found and fixed, each with a test (sizes glued to a pack count,
-  model codes read as pack counts, phone memory written many ways, a shortlist that could offer the model a
-  product without the code the line states).
-- **A demo anyone can use:** a [live Telegram bot](https://t.me/elixirOrderDeskbot?start=META26) booking into
-  a hosted Odoo with a real supermarket catalogue, a [recorded replay](https://nudiiir.github.io/elixir-orderdesk/demo/)
-  of a full run, and a full Odoo setup you can run yourself.
-
-## Contents
-
-- [Startups track: what existed before, and what we built](#startups-track-what-existed-before-and-what-we-built)
-- [Order Desk in 60 seconds](#order-desk-in-60-seconds)
-- [Benchmark: four industries, invoices the desk never saw](#benchmark-four-industries-invoices-the-desk-never-saw)
-- [Why WhatsApp](#why-whatsapp)
-- [One order, five ERPs (screenshots)](#one-order-five-erps)
-- [Run it: the full demo with Odoo](#run-it-the-full-demo-with-odoo)
-- [The other ERPs](#the-other-erps)
-- [Chat channels: Telegram and WhatsApp](#chat-channels-telegram-and-whatsapp)
-- [Supplier invoices](#supplier-invoices)
-- [How a line is resolved](#how-a-line-is-resolved)
-- [Adaptive matching: a pipeline Muse Spark designs for each industry](#adaptive-matching-a-pipeline-muse-spark-designs-for-each-industry)
-- [Results on replayed invoices](#results-on-replayed-invoices)
-- [Meta models: each one's job, and what checks it](#meta-models-each-ones-job-and-what-checks-it)
-- [The rule language](#the-rule-language)
-- [Configuration](#configuration)
-- [Tests](#tests)
-- [Security](#security)
-- [Troubleshooting](#troubleshooting)
-- [Repository layout](#repository-layout)
-
-## Order Desk in 60 seconds
-
-- **One program.** A single Go binary holds the panel, the JSON API, the Telegram and WhatsApp channels and
-  the background workers, with SQLite for storage. It has no other service to run.
-- **Any ERP.** It works with Odoo, ERPNext, Dolibarr, InvenTree and Tryton through each one's standard API,
-  with nothing installed in the ERP. Each adapter passes the same live conformance test. Elixir Distribution,
-  our existing ERP, is a sixth adapter. It is not part of the demo: everything here runs on the five
-  open-source ERPs in `erps/`.
-- **Any message, on Meta's channels.** WhatsApp through Meta's Cloud API (or Twilio), and Telegram. Typed
-  lists, chatty text (Muse Spark), voice notes (Muse Voice Transcribe primed with the catalogue's brands),
-  photos of written lists (Muse Spark) and photos of the products themselves (SAM 3.1 + Muse Spark).
-- **Four Meta models, each with its own job.** Muse Spark reads, picks, designs the matching, writes rules and
-  attacks them; Muse Wonder reads every invoice a second time and takes over the rule engineer when a Spark
-  session finds nothing; Muse Voice Transcribe hears; SAM 3.1 finds products on photos.
-- **Cheapest step first.** Each line climbs a ladder: codes, aliases, rules, a shortlist, one Muse Spark call
-  per message, and a person. The free steps are the ones Muse Spark built.
-- **The model proposes, the code decides.** Muse Spark picks only from a shortlist the code built. Every rule
-  and every change to the matching is measured on known answers before it goes live.
-- **Every Meta model call is metered.** The panel shows the tokens and cost of each call. A daily budget stops
-  the calls while aliases and rules keep working.
-
-## Benchmark: four industries, invoices the desk never saw
-
-**93 % booked automatically, 3 wrong in 2,169 lines, 4–8× cheaper than Muse Spark alone, and better every
-round.** Four real catalogues, 30 locked invoices per industry that the desk never learns from, measured after
-it learned from 120 others:
-
-| 30 locked invoices per industry, after 120 learned | Automatic (before → after) | Free, no model call | Asked | **Wrong** | Meta cost / invoice | Muse Spark alone (whole catalogue, 0.9 bar) |
+| 30 locked invoices per industry, after 120 learned | Automatic (before → after) | Free, no model call | Asked | **Wrong** | Meta cost / invoice | Muse Spark alone |
 |---|---|---|---|---|---|---|
-| Electronics, 535 lines | 89 % → **96 %** | 68 % | 4 % | **0** | **$0.0031** | 96 % automatic, 1 wrong, $0.024 |
-| Cosmetics, 533 lines | 85 % → **94 %** | 52 % | 6 % | **0** | **$0.0042** | 88 % automatic, 0 wrong, $0.021 |
-| Supermarket, 554 lines | 80 % → **92 %** | 65 % | 8 % | **3** | **$0.0045** | 85 % automatic, 2 wrong, $0.020 |
-| Pharmacy, 547 lines | 90 % → **92 %** | 45 % | 8 % | **0** | **$0.0043** | 98 % automatic, 0 wrong, $0.020 |
+| Electronics, 535 lines | 89 % → **96 %** | 68 % | 4 % | **0** | **$0.0031** | 96 %, 1 wrong, $0.024 |
+| Cosmetics, 533 lines | 85 % → **94 %** | 52 % | 6 % | **0** | **$0.0042** | 88 %, 0 wrong, $0.021 |
+| Supermarket, 554 lines | 80 % → **92 %** | 65 % | 8 % | **3** | **$0.0045** | 85 %, 2 wrong, $0.020 |
+| Pharmacy, 547 lines | 90 % → **92 %** | 45 % | 8 % | **0** | **$0.0043** | 98 %, 0 wrong, $0.020 |
+| **All, 2,169 lines** | **93 %** | **58 %** | | **3** | **$0.0040** | 92 %, 3 wrong, $0.021 |
 
-The catalogues are real (electronics 796 products, pharmacy 524, cosmetics & parapharmacy 586, supermarket
-587), and so is the right answer for every invoice line. The desk is trained the way a clerk would train it:
-it reads each training invoice, a clerk who knows the right product answers its questions and corrects its
-mistakes, and Muse Spark recalibrates the desk every 30 invoices (vocabulary, first-pass blocks, search,
-the rule engineer's rules). **Locked invoices are never learned from**: they are scored before training and
-after every round, with nothing answered or corrected.
+- **Against Muse Spark alone** (the whole catalogue in every prompt): 93 % vs 92 % automatic overall, 3 wrong
+  each, 4–8× cheaper. The desk is ahead in cosmetics and the supermarket, ties in electronics, and Spark alone
+  is ahead in pharmacy (98 vs 92).
+- **Learning pays overall, not every round.** Every industry ends freer and cheaper than it started, with
+  dips on the way: pharmacy 90 % → 88 % after round 30, the supermarket's cost up at round 60, cosmetics 2
+  wrong at rounds 60 and 90.
+- **The desk learns each distributor's wordings, and that is the product.** 79 % of the locked lines repeat
+  a (supplier, wording) pair seen in training, as real suppliers print a product the same way every time.
+- **First-seen wordings are Spark's job.** On the cold-start set (160 printed invoices, only 2 % of locked
+  lines seen before), Spark alone books 91 % of 813 lines and the desk 84 %, asking the rest at a quarter of
+  the cost. **The safety record holds either way: 3 wrong in 813 lines there, 3 in 2,169 here.**
+- **Where the free answers come from**, over all test rounds: 18 % a wording Spark picked or a rule it wrote,
+  77 % a match through the matching Spark designed (52 % plain catalogue matches, which the credit gives
+  Spark), 5 % taught by a person. In pharmacy, the rules Spark wrote while designing the Matching Profile
+  answered 32 % of the free lines.
 
-**Every number here can be checked.** The catalogues, all 600 invoices with their answer keys, the 200 orders
-with their voice notes and screenshots, every run's line-by-line report and the four trained desks are in
-[`bench/`](bench/). `python bench/check.py` recomputes these tables from them in a second, with no API key;
-[`bench/README.md`](bench/README.md) has the commands to run it all again.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/media/benchmark-dark.png">
-  <img src="docs/media/benchmark-light.png" alt="Four panels, one per industry: on the locked invoices the share of lines booked free grows round after round, questions shrink, and the cost per invoice falls far below Muse Spark alone">
-</picture>
-
-- **Muse Spark is a frontier reader.** Alone, with the whole catalogue in every prompt, it books 85–98 % of
-  these lines. The desk does not try to beat it at reading: it **turns Spark's judgement into rules, aliases
-  and matching that run without it**, so the same accuracy costs 4–8× less, and less again every round.
-  Spark alone costs the same on the thousandth invoice as on the first, and cannot hold a 20,000-product
-  catalogue in one prompt.
-- **What learning bought.** Automatic bookings rose in every industry (supermarket 80 % → 92 %), questions
-  fell in every industry (supermarket 20 % → 8 %), and the share of lines booked with no model call went from
-  0 to 45–68 %. The desk earned autonomy after 21 to 46 invoices: Muse Spark stopped checking every answer and
-  now checks only the risky ones.
-- **What Muse Spark wrote.** Vocabulary like `mouse` → *souris*, `holder` → *support*, `حليب` → *lait*,
-  `بسكويت` → *biscuit*; rules like *"`comp` or `comprimes` means `cp`"*, *"`lp`, `orod`, `disp`, `pelli` each
-  name a release; two releases are never the same product"*, *"`pro`, `max`, `plus`, `ultra` name a variant"*.
-  In pharmacy, the rule engineer's rules made 32 % of the free answers possible.
-- **Wrong bookings, read one by one.** The 3 at the end are all in the supermarket: `حليب ACTIVIA` ("Activia
-  milk", the official Arabic name) on two invoices, which fits two Activia products, and Muse Spark picked the
-  milk; and one product the catalogue lists twice (`NESQUIK CEREALES` / `CEREALE`).
-
-### Shop orders: 200 orders, five channels
-
-50 orders per industry, as shops send them on WhatsApp: **10 voice notes** (8 recorded by us, 32 synthesised
-in Algerian Darja: 26 with Gemini TTS, 6 with another voice generator), **10 typed in French**, **10 in Darja in Latin letters**, **10 in Darja
-mixed with French in Arabic script**, and **10 screenshots** (a notes app, a spreadsheet, a purchase order).
-Each went through the same desks, trained on the supplier invoices above, with nothing learned from the orders.
+**200 shop orders**, 50 per industry, through the same trained desks with nothing learned from the orders:
 
 | 200 orders, 1,272 lines | Booked right | Right quantity and unit | Asked | **Wrong** | Missed by the reader | Meta cost / order |
 |---|---|---|---|---|---|---|
@@ -199,465 +105,86 @@ Each went through the same desks, trained on the supplier invoices above, with n
 | Voice notes | 46 % | 94 % | 39 % | **1** | 15 % | $0.017 |
 | **All** | **76 %** | **99 %** | 21 % | **3** | 3 % | **$0.010** |
 
-Typed and photographed orders are where the desk shines: four lines in five booked with the right quantity and
-unit, the rest asked, nearly nothing wrong. **Voice is the hard part**: the transcript of a Darja voice note
-comes back in Arabic script, French product names included (`موتار دوسون غرام` for *moutarde 200 g*), and on
-our own recordings the reader missed 28 % of the products. The desk asks rather than guess, which keeps voice
-safe but slow; learning to correct what it hears is the next step.
+Voice is the hard part: of the 40 voice notes, 8 are human recordings and 32 text-to-speech, and on the human
+ones the reader missed 28 % of the products. The desk asks rather than guess.
 
-**A third, harder set: the invoices we printed and photographed.** 160 invoices, 40 per industry in 15
-layouts each, where a supplier almost never sells the same product twice (cold start: little to learn per
-supplier). After 30 invoices, on 10 locked invoices per industry (813 lines): 80–88 % automatic and 1 desk
-error (a `500 G` typo for 500 mg, booked to the only box with no size; it should have asked). The two other
-wrong lines are errors in the answer key, shown in the report.
+**What is synthetic, said plainly:** the invoices and orders are generated from real catalogues and real
+wordings; the printed set is replayed from the text printed on it (it measures matching, not reading); the
+invoice "photos" in `samples/readbench` are computer renders. Per-industry curves, the credit table, the
+cold-start comparison, the earlier hardware runs, the breaker and the eight bugs the benchmark found:
+**[docs/BENCHMARK.md](docs/BENCHMARK.md)**.
 
-How the stream was built: 15 suppliers per industry, each selling a range of 100 products and printing each
-one with **one fixed designation**, as supplier software does, taken from real pharmacy wordings seen at
-least twice and from written variants; popular products are reordered more often.
+## Labour, and who else does this
 
-**What the benchmark taught us: eight bugs found and fixed, each with a test.** Sizes glued to a pack count
-(`1LX12`); model codes read as pack counts (`HOCO X21`); phone memory written many ways (`8+256` = `8/256GB`,
-a new `memory` block); a shortlist that could offer Muse Spark a product without the code the line states
-(`X21` ≠ `X21PLUS`); a full brand read as an abbreviation of a shorter catalogue word (`GELTIM` matched `GEL`);
-shop unit abbreviations (`ctn`, `fdx`, `bt`); long orders lost when Muse Spark's answer was cut off; and the
-live server not loading the matching Muse Spark designed.
+| Per 100 | Lines | Booked right with nobody typing | Clerk time saved at 20 s a line (assumption) |
+|---|---|---|---|
+| Supplier invoices | 1,808 | **1,682** | **9.3 hours** |
+| Shop orders | 636 | **484** (the rest asked to the shop as buttons, or missed) | **2.7 hours** |
 
-## Why WhatsApp
-
-Wholesale in Algeria runs on WhatsApp. Open any wholesale group or distributor page on Facebook and the same
-line keeps coming back: *"orders on WhatsApp."* No portal, no app, no order form. Just a chat, full of voice
-notes, photos and abbreviations. **Order Desk is built for that chat, not against it.**
-
-## One order, five ERPs
-
-The same shop order goes through the same desk into each of the five ERPs:
-
-```
-3 cartons selecto 2l
-2 ifri eau minerale 1.5
-4 rouiba orange 1l
-2 ngaous abricot
-```
-
-Three lines resolve for free (rules, brand and size). "ngaous abricot" matches two products and this shop has
-no habit yet, so it is asked which one. After the answer the order is confirmed and opens in the ERP's own screens. The screenshots
-were taken by `tools/capture_erps.py` against the Docker ERPs in `erps/`, with no manual step.
-
-| ERP | In Order Desk | The order in the ERP |
+| Who | What they do well | What Order Desk adds |
 |---|---|---|
-| **Odoo 18** | <img src="docs/media/odoo-2-draft.jpg" width="420"> | <img src="docs/media/odoo-3-erp.jpg" width="420"> |
-| **ERPNext v16** | <img src="docs/media/erpnext-2-draft.jpg" width="420"> | <img src="docs/media/erpnext-3-erp.jpg" width="420"> |
-| **Dolibarr 24** | <img src="docs/media/dolibarr-2-draft.jpg" width="420"> | <img src="docs/media/dolibarr-3-erp.jpg" width="420"> |
-| **InvenTree 1.6** | <img src="docs/media/inventree-2-draft.jpg" width="420"> | <img src="docs/media/inventree-3-erp.jpg" width="420"> |
-| **Tryton 7.0** | <img src="docs/media/tryton-2-draft.jpg" width="420"> | <img src="docs/media/tryton-3-erp.jpg" width="420"> |
+| Choco AI | order intake for food distributors from email, voicemail and text | Darja voice notes and Arabic-script orders; any of five ERPs with nothing installed in them |
+| Conexiom, Esker | purchase orders from business buyers (email, PDF, EDI) into the ERP | the chat a corner shop really uses: WhatsApp voice, photos, chatty Darja mixed with French |
+| Nanonets, Rossum, Mindee | reading invoices and documents into fields | goes on to the exact catalogue product, checks price and stock and books it; two Meta readers must agree |
+| WATI, Interakt | selling on WhatsApp: catalogues, broadcasts, bots | the shop writes its order freely, no menu to scroll |
+| ERP vendors' own portals | the shop orders inside the ERP | the shop never logs in anywhere; the ERP still gets the order |
 
-Click any image for full size. The question step for each ERP is in `docs/media/<erp>-1-question.jpg`.
+Across all of them, Order Desk's edge is the same: **Darja, Arabic and French mixed, in voice and text; any
+ERP, with nothing installed in it; it asks instead of guessing; it learns each distributor's wordings.**
 
-## Run it: the full demo with Odoo
+## Startups track: what existed before, and what we built
 
-### What you need
+**Before the hackathon.** Elixir builds software for distributors in Algeria. Our product,
+**[Elixir Distribution](https://gestion.elixir-dz.com)**, is an ERP for wholesale distributors. But a
+distributor's orders don't arrive in the ERP: they arrive on WhatsApp, and a clerk retypes them. Order Desk
+started as an idea for a module of Elixir Distribution.
 
-| Tool | Version | Used for |
-|---|---|---|
-| [Go](https://go.dev/dl/) | 1.23 or newer | building Order Desk |
-| [Docker](https://docs.docker.com/get-docker/) with Compose | any recent | the test ERPs |
-| Python | 3.9 or newer, standard library only (no `pip install`) | the seed scripts and the simulators |
-| [ffmpeg](https://ffmpeg.org/download.html) | any, on the PATH | voice notes only |
-| A Meta Model API key | from https://dev.meta.ai | the AI steps (optional, see below) |
+**During the hackathon, we made it a product of its own** that works with **any ERP** and needs people less
+over time. Everything in this repository was written during the event; the Elixir Distribution ERP is not in
+it and not part of the demo. What that took:
 
-**The Meta key is what makes the desk learn.** Without it the panel, the ERP connection, typed orders,
-questions and booking still work, but nothing new is learned: every line the existing aliases and rules
-cannot resolve goes to a person, and voice notes, photos, invoices, the matching design and the rule engineer
-are off.
+- **The desk:** one Go program (about 20,000 lines): chat parsing, a matching ladder, codes and aliases, a
+  rule language with a gate, shadow and live stages, earned autonomy, the panel, a metered Meta model client
+  with a daily budget.
+- **ERP adapters:** the five open-source ERPs (Odoo, ERPNext, Dolibarr, InvenTree, Tryton) each pass the same
+  live conformance test and run in Docker from `erps/`; a sixth adapter connects our own Elixir
+  Distribution, which has no test here.
+- **Every channel and input:** WhatsApp through Meta's Cloud API (and Twilio), Telegram, typed lists, chatty
+  text, Darja voice notes, photos of lists and of products, supplier invoices as photos or PDFs.
+- **Four Meta models with real jobs:** Muse Spark, Muse Wonder, Muse Voice Transcribe and SAM 3.1
+  ([what each does and what checks it](docs/HOW-IT-WORKS.md#meta-models-each-ones-job-and-what-checks-it)).
+- **A benchmark built from scratch:** four real catalogues cleaned, wordings from real spellings, 760
+  supplier invoices and 200 shop orders with answer keys, every run and the four trained desks, all in
+  [`bench/`](bench/).
 
-Commands below are for a terminal opened in the repository folder. Where Windows differs, both forms are given.
-On Windows, use `py` if `python` is not found.
+## Run it
 
-### 1. Get the code
+**Keyless, one command:** `go run ./cmd/orderdesk -demo` (Go 1.23+), then http://127.0.0.1:8610. The demo
+desk lives in `data-demo/`; booked orders land in `data-demo/demo-orders.jsonl`.
 
-```bash
-git clone https://github.com/nudiiir/elixir-orderdesk.git
-cd elixir-orderdesk
-```
-
-### 2. Start Odoo and load the demo distributor
-
-The demo distributor has 120 drinks and dairy products with packs, prices, VAT, barcodes and stock, plus 15
-shops and 10 suppliers.
+**With a real ERP and the AI steps:**
 
 ```bash
 docker compose -f erps/odoo/docker-compose.yml up -d
+python erps/seed/odoo_setup.py && python erps/seed/odoo_seed.py erps/seed/seed.json
+cp .env.example .env                      # set META_MODEL_API_KEY (and TELEGRAM_BOT_TOKEN for Telegram)
+go run ./cmd/orderdesk -addr 127.0.0.1:8610 -data ./data
 ```
 
-Wait until http://127.0.0.1:8069 shows the Odoo page (about 30 seconds on the first start), then:
+Then **Settings → ERP connection**: Odoo, `http://127.0.0.1:8069`, database `orderdesk`, `admin` / `admin`.
 
-```bash
-python erps/seed/odoo_setup.py
-python erps/seed/odoo_seed.py erps/seed/seed.json
-```
-
-`odoo_setup.py` creates the database `orderdesk` with Sales, Purchase and Inventory, which takes 2–4 minutes.
-The Odoo login is `admin` / `admin`.
-
-### 3. Configure
-
-macOS / Linux:
-
-```bash
-cp .env.example .env
-```
-
-Windows (PowerShell):
-
-```powershell
-Copy-Item .env.example .env
-```
-
-Open `.env` and set `META_MODEL_API_KEY`. Add `TELEGRAM_BOT_TOKEN` if you want the Telegram channel (see
-[Telegram](#telegram)). Leave everything else empty for now. `.env` is git-ignored.
-
-### 4. Build and start Order Desk
-
-macOS / Linux:
-
-```bash
-go build -o orderdesk ./cmd/orderdesk
-./orderdesk -addr 127.0.0.1:8610 -data ./data
-```
-
-Windows (PowerShell):
-
-```powershell
-go build -o orderdesk.exe ./cmd/orderdesk
-.\orderdesk.exe -addr 127.0.0.1:8610 -data .\data
-```
-
-Expected output:
-
-```
-2026/11/01 17:00:00 Order Desk panel on http://127.0.0.1:8610 (Meta: true, ERP: false)
-```
-
-### 5. Connect the ERP
-
-Open http://127.0.0.1:8610 → **Settings** → **ERP connection** and fill in:
-
-| Field | Value |
+| Flag | Meaning |
 |---|---|
-| ERP | Odoo |
-| Address | `http://127.0.0.1:8069` |
-| Database | `orderdesk` |
-| User | `admin` |
-| API key or password (kept) | `admin` |
-
-Click **Connect**. The catalogue syncs right away: the side bar shows *ERP connected*, and **Catalogue** lists
-120 products. Odoo's API needs a secret on every call, so Order Desk keeps the one you give it. With a real
-Odoo, give it an API key (Odoo → your profile → Account Security → New API key), which you can revoke.
-
-### 6. Send an order
-
-Go to **Inbox** → **Try a message**, choose a shop, paste the order below and click **Run**:
-
-```
-3 cartons selecto 2l
-2 ifri eau minerale 1.5
-4 rouiba orange 1l
-2 ngaous abricot
-```
-
-What happens:
-
-- Each line shows how it was resolved: A alias, R rules, AI pick or P person, with its cost.
-- "ngaous abricot" waits for an answer. Click **Ngaous Nectar Abricot 1L**.
-- Click **Confirm into ERP →**. The toast shows the Odoo order number, for example `Order S00013 created in the ERP`.
-- Open http://127.0.0.1:8069 → Sales: the order is there, with the shop's words in the notes.
-
-Send the same order again: the line you answered is now resolved by an alias, for free. Try chatty text too
-("salam, mets moi 2 fardeaux ifri et 3 selecto"), or a photo of bottles with **Choose File**.
-
-### 7. Watch it learn
-
-- **Learning & cost** shows lines resolved for free vs by the AI, and every AI call with its tokens and cost.
-- **Rules** lists the rules Muse Spark proposed, the gate's verdict and the breaker's attack lines on each, and its birth timeline:
-  proposed → benchmark → shadow → live. **Rules → Run engineer now** starts a session at once. It also runs by itself
-  once 50 lines have needed the AI or a person since its last run.
-- **Catalogue** → a product shows every wording learned for it and how many confirmations each one has.
-
-## The other ERPs
-
-Each ERP is started and seeded the same way. Full instructions, including the live adapter tests and how to
-write an adapter for another ERP, are in [docs/ERPS.md](docs/ERPS.md).
-
-| ERP | Start | Seed | Settings → ERP connection |
-|---|---|---|---|
-| Odoo 18 | `docker compose -f erps/odoo/docker-compose.yml up -d` | `python erps/seed/odoo_setup.py`, then `python erps/seed/odoo_seed.py erps/seed/seed.json` | `http://127.0.0.1:8069`, database `orderdesk`, `admin` / `admin` |
-| ERPNext v16 | `docker compose -p od-erpnext -f erps/erpnext/pwd.yml up -d` (4 GB RAM; first start 3–5 min) | `python erps/seed/erpnext_setup.py erps/seed/seed.json` | `http://127.0.0.1:8090`, `Administrator` / `admin` |
-| Dolibarr 24 | `docker compose -f erps/dolibarr/docker-compose.yml up -d` | `python erps/seed/dolibarr_setup.py erps/seed/seed.json` | `http://127.0.0.1:8081`, `admin` / `admin` |
-| InvenTree 1.6 | `docker compose -f erps/inventree/docker-compose.yml up -d` | `python erps/seed/inventree_setup.py erps/seed/seed.json` | `http://127.0.0.1:8083`, `admin` / `admin` |
-| Tryton 7.0 | `docker compose -f erps/tryton/docker-compose.yml up -d db`, then `… run --rm init`, then `… up -d tryton` | `python erps/seed/tryton_setup.py erps/seed/seed.json` | `http://127.0.0.1:8000`, database `orderdesk`, `admin` / `admin` |
-
-All test instances listen on 127.0.0.1 only, and their logins are throwaway test logins. To switch ERP,
-connect another one in Settings: the catalogue is synced again from it.
-
-## Chat channels: Telegram and WhatsApp
-
-Shops and the owner are linked to the desk with a **pairing code** from the panel. A shop's code comes from
-**Customers → Pairing code**. The owner's code, used to send supplier invoices, comes from **Invoices →
-Pairing code**. Sending the code in a chat links that chat; `/deconnecter` unlinks it.
-
-### Telegram
-
-Telegram uses long polling, so it needs no public address.
-
-1. In Telegram, open [@BotFather](https://t.me/BotFather) → `/newbot` → choose a name and a username. Copy the
-   token it gives you.
-2. Put it in `.env` as `TELEGRAM_BOT_TOKEN=…` and restart Order Desk. The log shows the bot's name.
-3. **Customers** → pick a shop → **Pairing code** → send the code to your bot.
-4. Order the way a shop does: `3 selecto 2l, 2 cartons ifri, 1 candia`, a voice note, or a photo. Questions
-   come back as buttons. **✅ Confirmer** books the order in the ERP.
-
-### WhatsApp
-
-WhatsApp works through Meta's Cloud API or through Twilio, and both need a public HTTPS address (a tunnel).
-To try it **without any WhatsApp account**, `tools/whatsapp-sim` plays both Meta and a phone, locally. The
-three setups, from the quickest to the real thing, are in [docs/WHATSAPP.md](docs/WHATSAPP.md).
-
-## Supplier invoices
-
-The owner sends a photo or PDF of a supplier invoice, in the owner's chat or on the **Invoices** screen (*Drop a photo or PDF*). Here is
-what happens:
-
-1. Muse Spark reads the supplier, the number, the date and every line with its quantity, price and total.
-2. **Muse Wonder reads the same paper on its own.** A line the two readers do not agree on (words, quantity or
-   unit price) is never booked automatically: it is shown to the person with its product proposed.
-3. Each line is resolved in that supplier's scope, with its own wordings and rules.
-4. The quantities are checked against the line totals (packs vs units).
-5. Once approved, the invoice is booked in the ERP as a goods receipt that moves the stock.
-
-On 18 invoice photos (`samples/readbench`: small print, skewed, blurred, JPEG), Muse Spark read 179 of 186
-lines exactly and Muse Wonder 182. Of Spark's 7 misreadings (`GA5030R` read as `GASO30R`, `ART9303` as
-`ART9383`…), the agreement check sent 5 to a person; 2 got through because both models misread them the same
-way, and 1 right line was flagged. The second reading costs about $0.026 per invoice (`cmd/readbench`).
-
-Try it with [samples/invoice-specimen.png](samples/invoice-specimen.png). It is a fictional invoice from the
-demo wholesaler, marked as a specimen; `python tools/make_invoice.py out.png` draws it again.
-
-## How a line is resolved
-
-| Step | What happens | Cost |
-|---|---|---|
-| −1 · codes | a printed barcode or reference, or a supplier's article code confirmed before | free |
-| 0 · normalise | lower case, accents, Arabic digits, sizes (`1,5 L` → `1500ml`), the desk's Matching Profile, live rewrite rules | free |
-| 1 · alias | a trusted wording for this shop or supplier | free |
-| 2 · rules | synonyms, packs, defaults, guards, attributes, then an exact catalogue match | free |
-| 3 · shortlist | the 8 most likely products the code would accept (same attributes, the brand the line names) | free |
-| 4 · Muse Spark | picks one id **from the shortlist only**, one call for all the open lines of a message | paid |
-| 5 · person | one precise question with buttons | — |
-
-Messages are cut into items first. Plain lists use a deterministic parser, with no model call. For voice notes,
-Muse Voice Transcribe writes the text, then Muse Spark extracts the items. Voice Transcribe is given the
-catalogue's brands as keywords, so it writes "Choufan" and "Kool" instead of "chou fin" and "cool": on 30
-French voice orders (synthetic voice, `cmd/voicebench`) it heard 65 of 71 brand names with the keywords and 11
-of 71 without, at the same price. It quotes the shop's words and never
-chooses products, and it gets only the brand names in its prompt, never the catalogue. "Same as last time"
-is copied from the ERP by code.
-
-**Photos.** Muse Spark first tells a written list, which it copies line by line, from a photo of the products
-themselves. For products:
-
-1. **SAM 3.1** finds every bottle, can or carton, with one call per kind of packaging.
-2. Duplicate and weak boxes are dropped.
-3. Muse Spark reads all the crops in one call, the way a shop would type them ("Selecto 2L").
-4. Identical products are counted, and a caption like "3 cartons" applies to a single product.
-
-The shop gets its photo back with every product boxed in a colour that matches the reply ("🟩 2 × Selecto 2L").
-A photo costs about $0.015.
-
-**Learning.** Every confirmed line becomes ground truth and a witness for its wording. A wording becomes a
-trusted alias after two confirmations, and a supplier's article code after one. A person's correction blocks
-the wrong wording, retires a code that named two products, and counts against the rule that gave the wrong
-answer. A rule goes back after repeated corrections.
-
-## Adaptive matching: a pipeline Muse Spark designs for each industry
-
-Every industry writes its products in its own way: strengths and forms, dimensions and inch sizes, flavours
-and pack counts. Order Desk does not ship that knowledge. It learns it per desk (`internal/profile`):
-
-- **Bootstrap.** Muse Spark reads a sample of the catalogue and designs a first Matching Profile:
-  - which first-pass blocks this industry needs (`strength`, `dimensions`, `inch`, `units_glue`, `pack_count`,
-    `shade`, `split_glued`);
-  - the vocabulary its suppliers use;
-  - the attributes that tell products apart;
-  - a search method.
-- **Proof.** The code measures every proposal in a scratch lab, on confirmed lines and on lines Spark never
-  saw. A proposal is kept only with zero wrong, zero lost and no products made to read alike. Vocabulary
-  proposed before any evidence waits in shadow. A word that would drop or change digits is refused, because
-  codes go to the code table.
-- **Search.** BM25, character trigrams and word similarity are raced on real lines (`internal/search`). The
-  winner is kept only if it holds on unseen lines.
-- **Codes.** A printed barcode or manufacturer reference resolves a line at once. A supplier's article code is
-  learned from one confirmation and retired if it ever names two products. Until a second confirmation, Spark
-  still checks it.
-- **Earned autonomy.** Muse Spark checks every answer the code gives until the code's precision clears a 99 %
-  lower bound (about 270 confirmed answers). After that it spot-checks risky answers, and a correction sends
-  that supplier back under supervision (`internal/desk/autonomy.go`).
-
-### Results on replayed invoices
-
-The four-industry benchmark is [at the top](#benchmark-four-industries-invoices-the-desk-never-saw). The
-runs below came first, on a synthetic hardware set (shipped in `samples/`) and another supermarket catalogue,
-and show the classic-desk baseline and the breaker. `cmd/adaptive` replays an invoice set through this loop:
-
-1. Muse Spark designs the profile.
-2. It checks every line of the training invoices, and a clerk who knows the answers confirms or corrects them.
-3. The profile is calibrated twice, and the rule engineer and the breaker run at each calibration.
-4. The trained desk is measured on invoices it never saw, with nothing answered or learned.
-
-The same unseen lines were also given to two baselines. **Muse Spark alone** gets the whole catalogue and the
-invoice lines in one call, with no desk around it (`cmd/sparkalone`); a line it gives under 0.9 confidence goes
-to a person, as on the desk. **The classic desk** has aliases, rules and Spark picks, but no matching designed
-by Spark (`cmd/replay`).
-
-| Hardware & electrical: 612 products, 18 unseen invoices, 186 lines | Booked right | Asked a person | **Booked wrong** | Meta model cost |
-|---|---|---|---|---|
-| Order Desk | 166 (74 % free, 16 % Spark pick) | 20 | **0** | $0.12 |
-| Muse Spark alone, whole catalogue in every call | 165 | 20 | **1** | $0.43 |
-| Classic desk, no Spark-designed matching | 140 (46 % free) | 45 | **1** | $0.09 |
-
-| Supermarket / FMCG: 1,160 products, 20 unseen invoices, 234 lines | Booked right | Asked a person | **Booked wrong** | Meta model cost |
-|---|---|---|---|---|
-| Order Desk | 215 (89 % free, 3 % Spark pick) | 19 | **0** | $0.055 |
-| Muse Spark alone, whole catalogue in every call | 231 | 3 | **0** | $0.46 |
-| Classic desk, no Spark-designed matching | 211 (86 % free) | 23 | **0** | $0.02 |
-
-What the tables say:
-
-- **Muse Spark is an excellent reader.** Alone, with the whole catalogue in front of it, it got 178 of 186
-  hardware lines and all 234 supermarket lines right. The desk does not try to beat it at reading.
-- **The desk makes Spark's judgement permanent and cheap.** It matched Spark alone in hardware with no wrong
-  booking, for a quarter of the cost; in the supermarket it asked about 16 more lines than Spark alone, for an
-  eighth of the cost. Spark alone also needs the whole catalogue in every call: about 16,000 tokens per
-  invoice for 1,160 products; a distributor with 20,000 products would need about 280,000.
-- **The matching Spark designed is what the free path is made of.** Without it (the classic desk), only 46 % of
-  the hardware lines were free instead of 74 %, and one was booked wrong.
-- **Who made the free answers possible.** The report traces every free answer on the unseen invoices back to
-  its origin:
-
-  | | Free answers | Muse Spark found it (a pick a person confirmed, or a rule it wrote) | Through matching Muse Spark designed | Taught by a person |
-  |---|---|---|---|---|
-  | Hardware | 137 | 36 (26 %) | 88 (64 %) | 13 (9 %) |
-  | Supermarket | 209 | 29 (14 %) | 159 (76 %) | 21 (10 %) |
-
-- **Earned autonomy.** In the supermarket, the code's answers cleared the 99 % bar after 31 invoices (Spark
-  agreed with the code on all 267 lines it checked), and Spark stopped checking every line. In hardware, one
-  wrong answer in training (200 of 201) kept the desk supervised: Spark still checks every code answer there.
-- **The breaker.** Against the 6 rules the rule engineer got through the gate in hardware, Muse Spark wrote 46
-  look-alike lines (`VIS THC M8X25` for a socket screw against the rule `vis th` → *tête hexagonale*, `bouchon
-  ppr dn25` against `ppr {n}` → `ppr d{n}`…). None was booked to the wrong product: on each one the desk asked.
-
-The profile Spark designed for hardware turned on `split_glued`, `inch` (`15/21` → ½"), `dimensions` (`M8X20`),
-`units_glue` and `pack_count` (`BT100`), learned `pc` → *prise* and `boulon` → *vis* from evidence, and refused abbreviations like
-`zn` and `th` as vocabulary until rules with a supplier scope proved them. The hardware set is synthetic and
-shipped in `samples/`; the supermarket catalogue is a real store's and is not shipped, and its invoice lines
-were written for the test.
-
-Run it yourself on the hardware set. It costs about $1.50 of Meta Model API credits:
-
-```bash
-go build -o adaptive ./cmd/adaptive                 # Windows: adaptive.exe
-./adaptive -in samples/replay-hardware.json -out ./run-hardware -keys .env
-go build -o sparkalone ./cmd/sparkalone && ./sparkalone -in samples/replay-hardware.json -keys .env   # about $0.45
-go build -o readas ./cmd/readas
-./readas -data ./run-hardware/desk "VIS TH M8X20 ZN BT100" "ROBINET 15/21"
-```
-
-`run-hardware/report.md` lists what Spark identified, every experiment with the gate's verdict, the phase
-table and who made the free answers possible. `adaptive -credit <db>` prints that last table for any earlier
-run, `adaptive -break <db> -keys .env` runs the breaker against a run's rules, and `readas` prints how the
-trained desk reads a line.
-
-## Meta models: each one's job, and what checks it
-
-Every model Order Desk calls is a Meta model, through the Meta Model API, and the chat channel is Meta's own
-WhatsApp Cloud API. No model's answer is used unchecked.
-
-| Model | Its jobs | What checks it |
-|---|---|---|
-| **Muse Spark 1.3** (`muse-spark-1.3`) | reads list photos, product crops and supplier invoices; cuts chatty messages and voice transcripts into items; picks a product from a shortlist; designs and calibrates each desk's Matching Profile; the **rule engineer**, a tool-using agent (`list_residue`, `search_catalogue`, `list_rules`, `run_benchmark`, `submit_rule`); the **breaker** that attacks every admitted rule; checks the free steps' answers until they earn autonomy | its picks only come from a shortlist the code built, and a pick under 0.9 confidence goes to a person; its profile and rules are measured on known and unseen lines and admitted only with 0 wrong; a person confirms every new wording |
-| **Muse Wonder 1.0** (`muse-wonder-1.0`) | reads every supplier invoice a second time, on its own; takes over the rule engineer when a Muse Spark session finds no rule the gate admits | the two invoice readings must agree line by line; its rules go through the same gate and breaker |
-| **Muse Voice Transcribe** (`muse-voice-transcribe-1.0`) | Darja, French and Arabic voice notes to text, with the catalogue's brands as keywords | the transcript is shown back to the shop with every line, and goes through the same matching as typed text |
-| **SAM 3.1** (`sam-3.1`) | finds every bottle, can or carton on a photo of the products | weak and duplicate boxes are dropped; Muse Spark reads each box, and the shop gets its photo back boxed to confirm |
-
-Every call is logged with its model, job, tokens and cost (**Learning & cost**). A daily budget (**Settings**,
-$2 by default) stops model calls while aliases and rules keep working.
-
-## The rule language
-
-Eight rule types, each shown in the panel as a sentence generated from its structured form:
-
-| Type | Example sentence |
-|---|---|
-| **synonym** | `"slkt"` means `"selecto"` |
-| **rewrite** | `"1l5"` is written as `"1.5l"` |
-| **pack** | a trailing `"x{n}"` means a carton of `{n}` |
-| **default** | for Épicerie Nour, `"ifri"` with no size means Ifri 1.5 L |
-| **guard** | `"citron"` only matches products whose name contains "citron" |
-| **attribute** | `"zero"`, `"light"` each name a variant, in orders, invoices and catalogue names alike |
-| **word** | `"pet"` describes a product but never tells two products apart |
-| **policy** | Two texts whose colour differs are never the same product. |
-
-Patterns use literal words, `a|b`, `{n}`, `{size}`, `{word}`, `^` and `$`. Scopes are global, tenant, supplier
-or customer.
-
-A rule's life is proposed → benchmark → **gate** → shadow → live:
-
-- **benchmark**: the rule runs on every ground-truth line, through the free steps only;
-- **gate**: the rule needs 0 wrong, 0 conflicts and a minimum gain;
-- **shadow**: the rule watches live lines;
-- **live**: after N agreements.
-
-A live rule is rolled back automatically after repeated corrections by people. Every step is an event, shown
-as the rule's birth timeline in the panel.
-
-## Configuration
-
-### Command line
-
-```
-orderdesk [-addr 127.0.0.1:8610] [-data ./data] [-keys .env,whatsapp.env] [-no-telegram]
-```
-
-| Flag | Default | Meaning |
-|---|---|---|
-| `-addr` | `127.0.0.1:8610` | panel, API and webhook address |
-| `-data` | `data` | data folder: the SQLite database, voice notes, photos, invoices |
-| `-keys` | `.env` if present | keys files with `KEY=value` lines, comma-separated (never printed) |
-| `-no-telegram` | off | do not start the Telegram connector even if a token is set |
-
-### Environment (`.env`)
-
-| Variable | Needed for |
-|---|---|
-| `META_MODEL_API_KEY` | every AI step |
-| `TELEGRAM_BOT_TOKEN` | the Telegram channel |
-| `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_ID`, `WHATSAPP_VERIFY_TOKEN`, `WHATSAPP_APP_SECRET` | WhatsApp through Meta's Cloud API ([docs/WHATSAPP.md](docs/WHATSAPP.md)) |
-| `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_WHATSAPP_FROM`, `TWILIO_WEBHOOK_URL` | WhatsApp through Twilio |
-| `FFMPEG` | the path to ffmpeg, if it is not on the PATH |
-
-The ERP connection is made in the panel, not in `.env`. The other variables in `.env.example` are only for
-the live tests.
-
-### Panel settings
-
-**Settings** holds the learning thresholds:
-
-- confirmations before an alias is trusted;
-- shadow agreements before a rule goes live;
-- corrections before a rule is rolled back;
-- the gate's minimum gain.
-
-It also holds the rule engineer's models and schedule, the daily AI budget, and whether approved invoices are
-posted at once.
+| `-demo` | the keyless judge desk: the shipped trained supermarket desk, a demo ERP writing to `<data>/demo-orders.jsonl`, 3 demo shops |
+| `-addr` | panel, API and webhook address (default `127.0.0.1:8610`) |
+| `-data` | data folder (default `data`, or `data-demo` with `-demo`) |
+| `-keys` | keys files, comma-separated (default `.env` if present) |
+| `-no-telegram` | do not start Telegram even if a token is set |
+| `-public-readonly` | serve a read-only panel to other computers: no personal data, no write controls; the hosted demo runs with it |
+
+The step-by-step Odoo walkthrough, the four other ERPs, Telegram and WhatsApp setup, every setting and
+troubleshooting: **[docs/RUN.md](docs/RUN.md)**. WhatsApp without an account: [docs/WHATSAPP.md](docs/WHATSAPP.md).
+Adapters and their live tests: [docs/ERPS.md](docs/ERPS.md).
 
 ## Tests
 
@@ -666,101 +193,32 @@ go vet ./...
 go test ./...
 ```
 
-The offline tests need nothing. They cover:
-
-- normalisation and the Matching Profile blocks;
-- the rule language and the gate;
-- codes, the autonomy bound, the voice keywords and the two-reader agreement on invoices;
-- the WhatsApp and Twilio channels;
-- the resolver's benchmarks.
-
-**The model paths, from recorded Meta API answers.** `internal/meta/metatest` records real Muse Spark, Muse
-Wonder and Muse Voice Transcribe answers once and replays them, so the code around every model call is tested
-offline with no key (tapes in each package's `testdata/meta/`):
-
-- **five shop orders end to end** through the benchmark's trained supermarket desk: a human Darja voice note,
-  a screenshot, French, Darja in Latin letters, mixed Arabic. 24 of 28 lines booked right, 0 wrong, each
-  scored against the answer key (`cmd/orderbench`);
-- **a rule-engineer session**: Muse Spark with its tools writes three rules, the gate admits `slkt` → *selecto*
-  and refuses two that resolve too little, and the breaker's 8 look-alike lines break nothing
-  (`internal/engineer`);
-- **Muse Spark's pick** from a shortlist: two lines booked at 0.95, harissa with no size asked
-  (`internal/resolve`);
-- **two readers on one invoice**: Muse Spark and Muse Wonder read the specimen invoice the same, line by line,
-  and the lines add up to the printed total (`internal/desk`);
-- **bad answers, written by hand**: an id that is not on the shortlist, prose instead of JSON, a pick under
-  the 0.9 bar, a rule that books a known line wrong. None books a line.
-
-Re-record against the real API with `ORDERDESK_RECORD=1 META_MODEL_API_KEY=... go test ./... -run Recorded`
-(about $0.15).
-
-The live tests run only when their variables are set, and are skipped otherwise:
-
-- the adapter conformance test against each Docker ERP ([docs/ERPS.md](docs/ERPS.md#live-adapter-tests));
-- the photo test (`ORDERDESK_PHOTO`, `META_MODEL_API_KEY`).
+55 test functions. They need nothing: normalisation and the Matching Profile, the rule language and the gate,
+codes, the autonomy bound, the two-reader agreement on invoices, the WhatsApp and Twilio channels, and **the
+model paths replayed from recorded Meta API answers** (`internal/meta/metatest`): five shop orders end to end
+through the trained supermarket desk (24 of 28 lines right, 0 wrong), a rule-engineer session with the gate
+and the breaker, Muse Spark's pick, two readers on one invoice, and hand-written bad answers that must book
+nothing. **6 of the 55 are live tests, skipped unless their variables are set**: the conformance test against
+each of the five Docker ERPs ([docs/ERPS.md](docs/ERPS.md#live-adapter-tests)) and the photo test.
+Re-record the tapes with `ORDERDESK_RECORD=1 META_MODEL_API_KEY=... go test ./... -run Recorded` (about $0.15).
 
 ## Security
 
 - **The panel answers this computer only.** It has no login, so it refuses any request that does not come
-  from 127.0.0.1. That covers forwarding headers from a tunnel, another host name (DNS rebinding), and a write
-  sent by another site's page (CSRF). It also sets `X-Frame-Options: DENY`.
-- **The webhook is the only public route.** A tunnel reaches `/whatsapp/webhook` only. Every call must carry
-  Meta's or Twilio's signature, and Order Desk refuses to start the Cloud API channel without
-  `WHATSAPP_APP_SECRET`.
-- **Inputs are bounded.**
-  - Request bodies, downloads (25 MB) and photos (40 megapixels, checked before decoding) have size limits.
-  - Media paths are sanitised.
-  - ffmpeg only reads its pipe.
-- **Secrets stay out of logs.** Keys are read from `.env` or keys files and never printed. The Telegram token
-  is stripped from network errors.
+  from 127.0.0.1: forwarding headers from a tunnel, another host name (DNS rebinding), a write sent by another
+  site's page (CSRF). It sets `X-Frame-Options: DENY`.
+- **`-public-readonly` opens a read-only view, nothing more.** Other computers see no personal data and no
+  write controls; changes stay on this computer.
+- **The webhook is the only public route.** Every call must carry Meta's or Twilio's signature, and the
+  Cloud API channel refuses to start without `WHATSAPP_APP_SECRET`.
+- **Inputs are bounded.** Request bodies, downloads (25 MB) and photos (40 megapixels, checked before
+  decoding) have limits; media paths are sanitised; ffmpeg only reads its pipe.
+- **Secrets stay out of logs and out of the ERP.** Keys are never printed, the Telegram token is stripped
+  from network errors, and no person's name is written into ERP notes.
 - **ERP passwords are not kept.** For ERPNext, Dolibarr, InvenTree and Tryton the password is used once to
   obtain a revocable key. For Odoo, give an API key.
-- **Nothing secret is in the repository.** The demo data uses placeholder phone numbers, and `.env`,
-  databases and data folders are git-ignored.
-
-## Troubleshooting
-
-| Symptom | Fix |
-|---|---|
-| `odoo_setup.py` fails with a connection error | Odoo is still starting: wait until http://127.0.0.1:8069 answers, then run it again |
-| ERPNext seed fails right after `up -d` | the site is still being created: wait for `create-site` to exit (`docker compose -p od-erpnext -f erps/erpnext/pwd.yml logs -f create-site`) |
-| Tryton connect says the database does not exist | run the `init` step once (`docker compose -f erps/tryton/docker-compose.yml run --rm init`) |
-| The panel shows `the Order Desk panel only answers on this computer` | open it as `http://127.0.0.1:8610` or `http://localhost:8610`, not through a tunnel or a LAN address |
-| `Meta: false` in the start line | `META_MODEL_API_KEY` is not set: check `.env`, or pass `-keys path/to/file` |
-| Voice notes fail | install ffmpeg, or set `FFMPEG` to its path |
-| WhatsApp channel refuses to start | set `WHATSAPP_APP_SECRET` (Meta app → Settings → Basic) |
-| Port 8610 is taken | start with another address: `-addr 127.0.0.1:8620` |
-
-## Repository layout
-
-```
-cmd/orderdesk/        the program: panel + JSON API + Telegram + WhatsApp + workers
-cmd/adaptive/         replays invoices through the adaptive pipeline and writes what Spark identified,
-                      who made the free answers possible (-credit) and the breaker's attacks (-break)
-cmd/sparkalone/       the baseline: Muse Spark alone, with the whole catalogue, on the same unseen lines
-cmd/voicebench/       Muse Voice Transcribe with and without the catalogue's brands as keywords
-cmd/readbench/        Muse Spark and Muse Wonder each read invoice photos; scores the agreement check
-cmd/replay/           replays invoices through the classic pipeline (before / learning / after)
-cmd/readas/           prints how a trained desk reads a line
-internal/catalog/     products mirror, packs, aliases, codes, normalisation, shortlist
-internal/profile/     the Matching Profile: first-pass blocks, lexicon, the lab, Spark's design and calibration
-internal/search/      BM25, trigram and word-similarity search, raced per desk
-internal/rules/       the rule language: types, patterns, interpreter, sentences
-internal/resolve/     the resolution ladder, the Muse Spark pick, the sentinel
-internal/engineer/    the rule engineer (Muse Spark + tools), benchmark, gate, and the breaker
-internal/desk/        the order agent: extraction, photos, drafts, questions, confirmation, learning,
-                      supplier invoices read by Muse Spark and Muse Wonder, earned autonomy
-internal/adapter/     the ERP contract and one adapter per ERP (odoo, erpnext, dolibarr, inventree,
-                      tryton, elixir); adaptertest/ is the live conformance test every adapter passes
-internal/meta/        Meta Model API client with a cost meter and a daily budget
-internal/telegram/    Telegram Bot API (long polling: no public address needed)
-internal/whatsapp/    WhatsApp Cloud API webhook; internal/twilio/ the same through Twilio
-internal/web/         panel and JSON API
-erps/                 Docker setups and seed scripts for the five open-source ERPs
-samples/              a specimen supplier invoice, the hardware replay set and the invoice-photo bench
-tools/                WhatsApp simulator, invoice generator, invoice-photo bench, ERP screenshot capture
-docs/                 ERPs, WhatsApp, screenshots
-```
+- **Nothing secret is in the repository.** The demo data uses placeholder phone numbers; `.env`, databases and
+  data folders are git-ignored.
 
 ## License
 

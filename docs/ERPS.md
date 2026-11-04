@@ -1,8 +1,8 @@
 # ERPs
 
 Order Desk talks to an ERP only through an adapter (`internal/adapter`), one per ERP, all behind the same
-contract (`adapter.ERP`). Every adapter passes the same live conformance test
-(`internal/adapter/adaptertest`):
+contract (`adapter.ERP`). The five open-source adapters (Odoo, ERPNext, Dolibarr, InvenTree, Tryton) pass
+the same live conformance test (`internal/adapter/adaptertest`):
 
 - read the catalogue, with packs;
 - read customers and suppliers, prices and stock;
@@ -10,7 +10,9 @@ contract (`adapter.ERP`). Every adapter passes the same live conformance test
 - book a supplier invoice as a goods receipt that moves the stock;
 - read the last purchase price back.
 
-Nothing is installed in any ERP: Order Desk uses each one's standard API with a normal user.
+Nothing is installed in any ERP: Order Desk uses each one's standard API with a normal user. The sixth
+adapter, for our own Elixir Distribution ERP, is not covered by a test here: that ERP is not in this
+repository and not part of the demo.
 
 | ERP | API | Credentials Order Desk keeps | Order | Supplier invoice |
 |---|---|---|---|---|
@@ -26,7 +28,9 @@ call, so Order Desk keeps the one you give it. Give it an API key (Odoo → your
 New API key) and revoke the key in Odoo to cut access.
 
 The shop's own words travel with the order: they go in the line notes, the order note or a comment,
-depending on the ERP. After a confirmation the panel links to the order in the ERP's own screens.
+depending on the ERP; no person's name is written there. Confirming is idempotent: where the ERP can be
+searched by external reference (Odoo), Order Desk looks the order up before creating it, so a repeated
+confirmation never books it twice. After a confirmation the panel links to the order in the ERP's own screens.
 
 ## Local test ERPs (Docker)
 
