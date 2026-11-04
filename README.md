@@ -10,6 +10,19 @@ co-founder of [Elixir](https://elixir-dz.com) ([before and during the hackathon]
 **▶ [Watch the 3-minute video](https://youtu.be/_i5LEIhsvFg)**: a Darja voice note booked in Odoo, the rule
 engine, supplier invoices and the benchmarks.
 
+**Four Meta models, each with a job the code checks:**
+
+- **Muse Spark is the rule engineer.** It writes matching rules from lines the desk could not match, a second
+  Spark call attacks each rule with look-alike products, and only rules with zero wrong matches go live. It
+  also picks products from a shortlist the code builds, and reads invoices.
+- **Muse Wonder** reads every invoice a second time; a line it reads differently from Spark goes to a person.
+- **Muse Voice Transcribe** hears Darja voice notes, primed with the distributor's brand names.
+- **SAM 3.1** finds each product on a shop's photo.
+
+**Measured:** 93 % of supplier-invoice lines booked automatically, 3 wrong in 2,169; 58 % with no model call;
+4–8× cheaper than Muse Spark alone. On 23 real, crumpled delivery notes, where both models agree, 1 line
+wrong in 317.
+
 **Try it now:**
 
 - **[Telegram bot](https://t.me/elixirOrderDeskbot)** (access code in the submission form): a demo shop on a real supermarket
