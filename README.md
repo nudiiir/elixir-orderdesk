@@ -139,6 +139,14 @@ invoices it never learns from.
 Voice is the hard part: of the 40 voice notes, 8 are human recordings and 32 text-to-speech, and on the human
 ones the reader missed 28 % of the products. The desk asks rather than guess.
 
+**Real paper, read by two Meta models.** 23 real delivery notes and invoices from about 15 wholesalers to one
+supermarket, photographed on a phone: creased, ticked, highlighted, 5 of them in Arabic or mixed
+([`bench/real-photos/`](bench/real-photos/), cropped to the product table, personal details cut). Muse Wonder
+read **98 %** of the 383 lines right and Muse Spark **93 %**. Where both agree (317 lines), **1 line is wrong**;
+the 25 lines Spark misread on its own are caught by the two-reader check and sent to a person.
+`python bench/real-photos/score.py` prints this and the strict score (73 % and 71 %): the gap is reference
+codes one reader keeps and the other drops, and quantities printed in packs vs units, not misread words.
+
 **What is synthetic, said plainly:** the invoices and orders are generated from real catalogues and real
 wordings; the printed set is replayed from the text printed on it (it measures matching, not reading); the
 invoice "photos" in `samples/readbench` are computer renders. Per-industry curves, the credit table, the

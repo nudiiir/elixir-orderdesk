@@ -1,0 +1,2463 @@
+{
+ "invoices": [
+  {
+   "image": "SM-01.jpg",
+   "language": "fr",
+   "kind": "facture",
+   "lines": [
+    {
+     "text": "BINGO MATIC LIQ 4LX4 ANTI-ODOR BEST REM.",
+     "qty": 8,
+     "unit_price": 1115.73,
+     "printed": "BINGO MATIC LIQ 4LX4 ANTI-ODOR BEST REM. | 2 | 4 | 8 | 1115,73 | 8925,84"
+    },
+    {
+     "text": "BINGO MATIC LIQ 4LX4 ANTI YELLOW STAINS",
+     "qty": 8,
+     "unit_price": 1115.73,
+     "printed": "BINGO MATIC LIQ 4LX4 ANTI YELLOW STAINS | 2 | 4 | 8 | 1115,73 | 8925,84"
+    },
+    {
+     "text": "BINGO MATIC LIQ 2,5LX4 ANTI TACHES JAUNE",
+     "qty": 12,
+     "unit_price": 813.3,
+     "printed": "BINGO MATIC LIQ 2,5LX4 ANTI TACHES JAUNE | 3 | 4 | 12 | 813,30 | 9759,60"
+    },
+    {
+     "text": "BINGO MATIC LIQ ANTIBAC 2,5L*4 BEST RMVL",
+     "qty": 12,
+     "unit_price": 813.3,
+     "printed": "BINGO MATIC LIQ ANTIBAC 2,5L*4 BEST RMVL | 3 | 4 | 12 | 813,30 | 9759,60"
+    },
+    {
+     "text": "BINGO MATIC LIQ ANTI-ODOR 2,5LX4 BEST RM",
+     "qty": 12,
+     "unit_price": 813.3,
+     "printed": "BINGO MATIC LIQ ANTI-ODOR 2,5LX4 BEST RM | 3 | 4 | 12 | 813,30 | 9759,60"
+    },
+    {
+     "text": "BINGO DWL 600MLX16 B&H BEST CLEANING",
+     "qty": 32,
+     "unit_price": 179.81,
+     "printed": "BINGO DWL 600MLX16 B&H BEST CLEANING | 2 | 16 | 32 | 179,81 | 5753,92"
+    },
+    {
+     "text": "BINGO DWL 600MLX16 BEST CLEANING",
+     "qty": 32,
+     "unit_price": 179.81,
+     "printed": "BINGO DWL 600MLX16 BEST CLEANING | 2 | 16 | 32 | 179,81 | 5753,92"
+    },
+    {
+     "text": "BINGO DWL 1200MLX12 BEST CLEANING",
+     "qty": 72,
+     "unit_price": 301.54,
+     "printed": "BINGO DWL 1200MLX12 BEST CLEANING | 6 | 12 | 72 | 301,54 | 21710,88"
+    },
+    {
+     "text": "BINGO LS LIQ DET 1LX9 BABY NM",
+     "qty": 18,
+     "unit_price": 353.18,
+     "printed": "BINGO LS LIQ DET 1LX9 BABY NM | 2 | 9 | 18 | 353,18 | 6357,24"
+    },
+    {
+     "text": "BINGO LS LIQ DET 1LX9 ANTIYELLOW NM",
+     "qty": 9,
+     "unit_price": 353.18,
+     "printed": "BINGO LS LIQ DET 1LX9 ANTIYELLOW NM | 1 | 9 | 9 | 353,18 | 3178,62"
+    },
+    {
+     "text": "BINGO A MAIN 750GRX12 SACHET BEST REMOV",
+     "qty": 48,
+     "unit_price": 239.38,
+     "printed": "BINGO A MAIN 750GRX12 SACHET BEST REMOV | 4 | 12 | 48 | 239,38 | 11490,24"
+    },
+    {
+     "text": "BINGO A MAIN 1500GRX8 SACHET LEMON",
+     "qty": 32,
+     "unit_price": 462.06,
+     "printed": "BINGO A MAIN 1500GRX8 SACHET LEMON | 4 | 8 | 32 | 462,06 | 14785,92"
+    },
+    {
+     "text": "TEST MATIC BAG 2,5KGX4 ROSE",
+     "qty": 8,
+     "unit_price": 679.8,
+     "printed": "TEST MATIC BAG 2,5KGX4 ROSE | 2 | 4 | 8 | 679,80 | 5438,40"
+    },
+    {
+     "text": "TEST BLEACH 860MLX12",
+     "qty": 36,
+     "unit_price": 84.33,
+     "printed": "TEST BLEACH 860MLX12 | 3 | 12 | 36 | 84,33 | 3035,88"
+    },
+    {
+     "text": "TEST JAVEL 5000MLX4",
+     "qty": 20,
+     "unit_price": 282.56,
+     "printed": "TEST JAVEL 5000MLX4 | 5 | 4 | 20 | 282,56 | 5651,20"
+    },
+    {
+     "text": "MLP HYG SHLD SW EXTRA LONG 14X9 ECO",
+     "qty": 9,
+     "unit_price": 169.98,
+     "printed": "MLP HYG SHLD SW EXTRA LONG 14X9 ECO | 1 | 9 | 9 | 169,98 | 1529,82"
+    },
+    {
+     "text": "MOLPED HYG SHLD SW LONG 16X9 ECO DZ",
+     "qty": 9,
+     "unit_price": 169.98,
+     "printed": "MOLPED HYG SHLD SW LONG 16X9 ECO DZ | 1 | 9 | 9 | 169,98 | 1529,82"
+    },
+    {
+     "text": "MOLPED BAR. SW LONG 16X9 ECO DZ",
+     "qty": 9,
+     "unit_price": 220.0,
+     "printed": "MOLPED BAR. SW LONG 16X9 ECO DZ | 1 | 9 | 9 | 220,00 | 1980,00"
+    },
+    {
+     "text": "MOLPED BAR. SW EXTRA LONG 14X9 ECO DZ",
+     "qty": 9,
+     "unit_price": 220.11,
+     "printed": "MOLPED BAR. SW EXTRA LONG 14X9 ECO DZ | 1 | 9 | 9 | 220,11 | 1980,99"
+    },
+    {
+     "text": "MOLPED SOFT&FIT EXTRA LONG 8X24 DZ",
+     "qty": 24,
+     "unit_price": 85.52,
+     "printed": "MOLPED SOFT&FIT EXTRA LONG 8X24 DZ | 1 | 24 | 24 | 85,52 | 2052,48"
+    },
+    {
+     "text": "MOLPED PRO. BAR. SW E.LONG 7X18 DZ",
+     "qty": 18,
+     "unit_price": 117.53,
+     "printed": "MOLPED PRO. BAR. SW E.LONG 7X18 DZ | 1 | 18 | 18 | 117,53 | 2115,54"
+    },
+    {
+     "text": "MOLFIX GREEN JUNIOR 40X4 TWIN DZ",
+     "qty": 4,
+     "unit_price": 1112.3,
+     "printed": "MOLFIX GREEN JUNIOR 40X4 TWIN DZ | 1 | 4 | 4 | 1112,30 | 4449,20"
+    }
+   ]
+  },
+  {
+   "image": "SM-02.jpg",
+   "language": "fr",
+   "kind": "bon de livraison",
+   "lines": [
+    {
+     "text": "2315458 Canbebe big 60x2 N5",
+     "qty": 2.0,
+     "unit_price": 1638.45,
+     "printed": "2315458 | Canbebe big 60x2 N5 | 1 638,45 | 1,00 | Fardeau | 2,0 | Paquet | 3 276,90"
+    },
+    {
+     "text": "2315459 Canbebe big 60x2 N6",
+     "qty": 4.0,
+     "unit_price": 1702.8,
+     "printed": "2315459 | Canbebe big 60x2 N6 | 1 702,80 | 2,00 | Fardeau | 4,0 | Paquet | 6 811,20"
+    },
+    {
+     "text": "2315453 Canbebe medium 40x4 N4",
+     "qty": 4.0,
+     "unit_price": 999.1,
+     "printed": "2315453 | Canbebe medium 40x4 N4 | 999,10 | 1,00 | Fardeau | 4,0 | Paquet | 3 996,40"
+    },
+    {
+     "text": "2315454 Canbebe medium 40x4 N5",
+     "qty": 4.0,
+     "unit_price": 1115.5,
+     "printed": "2315454 | Canbebe medium 40x4 N5 | 1 115,50 | 1,00 | Fardeau | 4,0 | Paquet | 4 462,00"
+    },
+    {
+     "text": "2315449 Canbebe petit 10x12 N6",
+     "qty": 12.0,
+     "unit_price": 306.24,
+     "printed": "2315449 | Canbebe petit 10x12 N6 | 306,24 | 1,00 | Carton | 12,0 | Paquet | 3 674,88"
+    }
+   ]
+  },
+  {
+   "image": "SM-03.jpg",
+   "language": "mixed",
+   "kind": "bon de livraison",
+   "lines": [
+    {
+     "text": "39 RIZ LONG 500G ارز",
+     "qty": 80,
+     "unit_price": 106.4,
+     "printed": "39 | RIZ LONG 500G ارز | 4 | 106,40 | 8 512,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-04.jpg",
+   "language": "fr",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "BETOUCH BLAN 100G",
+     "qty": 480.0,
+     "unit_price": 18.5,
+     "printed": "1 | BETOUCH BLAN 100G | 10 | 48 | 480 | 18.50 | 8 880.00"
+    },
+    {
+     "text": "BETOUCH HALWA100G",
+     "qty": 960.0,
+     "unit_price": 18.5,
+     "printed": "2 | BETOUCH HALWA100G | 20 | 48 | 960 | 18.50 | 17 760.00"
+    },
+    {
+     "text": "CON PANACOTTA",
+     "qty": 144.0,
+     "unit_price": 21.5,
+     "printed": "3 | CON PANACOTTA | 3 | 48 | 144 | 21.50 | 3 096.00"
+    },
+    {
+     "text": "HODNA flan",
+     "qty": 144.0,
+     "unit_price": 21.5,
+     "printed": "4 | HODNA flan | 3 | 48 | 144 | 21.50 | 3 096.00"
+    },
+    {
+     "text": "HODNA FR100G",
+     "qty": 144.0,
+     "unit_price": 21.5,
+     "printed": "5 | HODNA FR100G | 3 | 48 | 144 | 21.50 | 3 096.00"
+    },
+    {
+     "text": "HODNA FRIANDISE 90G",
+     "qty": 144.0,
+     "unit_price": 20.0,
+     "printed": "6 | HODNA FRIANDISE 90G | 3 | 48 | 144 | 20.00 | 2 880.00"
+    },
+    {
+     "text": "CD HODNA 100g",
+     "qty": 480.0,
+     "unit_price": 18.5,
+     "printed": "7 | CD HODNA 100g | 10 | 48 | 480 | 18.50 | 8 880.00"
+    },
+    {
+     "text": "BRASSI HODNA 90G",
+     "qty": 240.0,
+     "unit_price": 17.5,
+     "printed": "8 | BRASSI HODNA 90G | 5 | 48 | 240 | 17.50 | 4 200.00"
+    },
+    {
+     "text": "GALAXI HODNA",
+     "qty": 96.0,
+     "unit_price": 21.5,
+     "printed": "9 | GALAXI HODNA | 2 | 48 | 96 | 21.50 | 2 064.00"
+    },
+    {
+     "text": "HODNA rawaa",
+     "qty": 96.0,
+     "unit_price": 21.5,
+     "printed": "10 | HODNA rawaa | 2 | 48 | 96 | 21.50 | 2 064.00"
+    },
+    {
+     "text": "HODNA FR125G",
+     "qty": 144.0,
+     "unit_price": 26.0,
+     "printed": "11 | HODNA FR125G | 3 | 48 | 144 | 26.00 | 3 744.00"
+    },
+    {
+     "text": "BETOUCH BRASSI 100G",
+     "qty": 80.0,
+     "unit_price": 106.0,
+     "printed": "12 | BETOUCH BRASSI 100G | 10 | 8 | 80 | 106.00 | 8 480.00"
+    },
+    {
+     "text": "BETOUCH TARTA 90G",
+     "qty": 80.0,
+     "unit_price": 146.0,
+     "printed": "13 | BETOUCH TARTA 90G | 10 | 8 | 80 | 146.00 | 11 680.00"
+    },
+    {
+     "text": "BINGO F350",
+     "qty": 24.0,
+     "unit_price": 88.0,
+     "printed": "14 | BINGO F350 | 2 | 12 | 24 | 88.00 | 2 112.00"
+    },
+    {
+     "text": "BINGO KOK",
+     "qty": 24.0,
+     "unit_price": 88.0,
+     "printed": "15 | BINGO KOK | 2 | 12 | 24 | 88.00 | 2 112.00"
+    },
+    {
+     "text": "KIDOUS 1L",
+     "qty": 24.0,
+     "unit_price": 95.0,
+     "printed": "16 | KIDOUS 1L | 2 | 12 | 24 | 95.00 | 2 280.00"
+    },
+    {
+     "text": "HODNA LAIT",
+     "qty": 24.0,
+     "unit_price": 115.0,
+     "printed": "17 | HODNA LAIT | 2 | 12 | 24 | 115.00 | 2 760.00"
+    },
+    {
+     "text": "TORTILLA",
+     "qty": 48.0,
+     "unit_price": 180.0,
+     "printed": "18 | TORTILLA | 2 | 24 | 48 | 180.00 | 8 640.00"
+    },
+    {
+     "text": "TORTILLA 10 PIECES",
+     "qty": 24.0,
+     "unit_price": 310.0,
+     "printed": "19 | TORTILLA 10 PIECES | 2 | 12 | 24 | 310.00 | 7 440.00"
+    },
+    {
+     "text": "MAYOUNAZ AMAZIG",
+     "qty": 45.0,
+     "unit_price": 182.0,
+     "printed": "20 | MAYOUNAZ AMAZIG | 3 | 15 | 45 | 182.00 | 8 190.00"
+    },
+    {
+     "text": "CHIDAR AMAZIG MIZAN",
+     "qty": 23.05,
+     "unit_price": 240.0,
+     "printed": "21 | CHIDAR AMAZIG MIZAN | 23.05 | 1 | 23.05 | 240.00 | 5 532.00"
+    },
+    {
+     "text": "AMAZIGH CHAPLY",
+     "qty": 80.0,
+     "unit_price": 85.0,
+     "printed": "22 | AMAZIGH CHAPLY | 2 | 40 | 80 | 85.00 | 6 800.00"
+    },
+    {
+     "text": "HODNA 1L",
+     "qty": 36.0,
+     "unit_price": 127.0,
+     "printed": "23 | HODNA 1L | 6 | 6 | 36 | 127.00 | 4 572.00"
+    },
+    {
+     "text": "CON lben RAIB HODNA 1L",
+     "qty": 12.0,
+     "unit_price": 125.0,
+     "printed": "24 | CON lben RAIB HODNA 1L | 2 | 6 | 12 | 125.00 | 1 500.00"
+    },
+    {
+     "text": "HODNA OH FR1L",
+     "qty": 12.0,
+     "unit_price": 140.0,
+     "printed": "25 | HODNA OH FR1L | 2 | 6 | 12 | 140.00 | 1 680.00"
+    },
+    {
+     "text": "HODNA 250G",
+     "qty": 24.0,
+     "unit_price": 45.0,
+     "printed": "26 | HODNA 250G | 1 | 24 | 24 | 45.00 | 1 080.00"
+    },
+    {
+     "text": "CHERBET H KARTOM 1L",
+     "qty": 12.0,
+     "unit_price": 95.0,
+     "printed": "27 | CHERBET H KARTOM 1L | 1 | 12 | 12 | 95.00 | 1 140.00"
+    }
+   ]
+  },
+  {
+   "image": "SM-05.jpg",
+   "language": "fr",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "POIS CHICHE 12 /10KG",
+     "qty": 150,
+     "unit_price": 380,
+     "printed": "15 | 10 | POIS CHICHE 12 /10KG | 380,00 | 57 000,00"
+    },
+    {
+     "text": "HERISSA CNAB 400G",
+     "qty": 120,
+     "unit_price": 135,
+     "printed": "5 | 24 | HERISSA CNAB 400G | 135,00 | 16 200,00"
+    },
+    {
+     "text": "HERISSA CNAB 800G",
+     "qty": 60,
+     "unit_price": 247,
+     "printed": "5 | 12 | HERISSA CNAB 800G | 247,00 | 14 820,00"
+    },
+    {
+     "text": "TOMATE CNAB 800G",
+     "qty": 60,
+     "unit_price": 250,
+     "printed": "5 | 12 | TOMATE CNAB 800G | 250,00 | 15 000,00"
+    },
+    {
+     "text": "TOMATE CNAB 400G",
+     "qty": 120,
+     "unit_price": 135,
+     "printed": "5 | 24 | TOMATE CNAB 400G | 135,00 | 16 200,00"
+    },
+    {
+     "text": "TOMATE CB 800G",
+     "qty": 60,
+     "unit_price": 252,
+     "printed": "5 | 12 | TOMATE CB 800G | 252,00 | 15 120,00"
+    },
+    {
+     "text": "VINAIGRE SIDHOM",
+     "qty": 160,
+     "unit_price": 90,
+     "printed": "16 | 10 | VINAIGRE SIDHOM | 90,00 | 14 400,00"
+    },
+    {
+     "text": "EXTRA SEPAGHITI",
+     "qty": 100,
+     "unit_price": 148,
+     "printed": "10 | 10 | EXTRA SEPAGHITI | 148,00 | 14 800,00"
+    },
+    {
+     "text": "EL MOUFID TERIDA 450G",
+     "qty": 120,
+     "unit_price": 72,
+     "printed": "10 | 12 | EL MOUFID TERIDA 450G | 72,00 | 8 640,00"
+    },
+    {
+     "text": "LAIT OKIDS",
+     "qty": 120,
+     "unit_price": 465,
+     "printed": "10 | 12 | LAIT OKIDS | 465,00 | 55 800,00"
+    },
+    {
+     "text": "RIZ SOS ETUVE 1KG",
+     "qty": 36,
+     "unit_price": 215,
+     "printed": "3 | 12 | RIZ SOS ETUVE 1KG | 215,00 | 7 740,00"
+    },
+    {
+     "text": "RIZ SOS ETUVE 500G",
+     "qty": 6,
+     "unit_price": 225,
+     "printed": "1 | 6 | RIZ SOS ETUVE 500G | 225,00 | 1 350,00"
+    },
+    {
+     "text": "ELARABIA LENTILLE",
+     "qty": 100,
+     "unit_price": 115,
+     "printed": "5 | 20 | ELARABIA LENTILLE | 115,00 | 11 500,00"
+    },
+    {
+     "text": "EXTRA COUDE 5",
+     "qty": 50,
+     "unit_price": 148,
+     "printed": "5 | 10 | EXTRA COUDE 5 | 148,00 | 7 400,00"
+    },
+    {
+     "text": "BIMO GAL SENIOR",
+     "qty": 5,
+     "unit_price": 2200,
+     "printed": "5 | P | BIMO GAL SENIOR | 2 200,00 | 11 000,00"
+    },
+    {
+     "text": "BIMO DOUBLE MIX",
+     "qty": 5,
+     "unit_price": 2250,
+     "printed": "5 | P | BIMO DOUBLE MIX | 2 250,00 | 11 250,00"
+    },
+    {
+     "text": "TOUM",
+     "qty": 60,
+     "unit_price": 90,
+     "printed": "5 | 12 | TOUM | 90,00 | 5 400,00"
+    },
+    {
+     "text": "WIDJEDAN 250G GLACAGE",
+     "qty": 32,
+     "unit_price": 260,
+     "printed": "2 | 16 | WIDJEDAN 250G GLACAGE | 260,00 | 8 320,00"
+    },
+    {
+     "text": "DADA CHIKOLA 500G",
+     "qty": 40,
+     "unit_price": 312,
+     "printed": "2 | 20 | DADA CHIKOLA 500G | 312,00 | 12 480,00"
+    },
+    {
+     "text": "TAMLAIT CARAMEL",
+     "qty": 24,
+     "unit_price": 232,
+     "printed": "1 | 24 | TAMLAIT CARAMEL | 232,00 | 5 568,00"
+    },
+    {
+     "text": "ANANAS 500G",
+     "qty": 36,
+     "unit_price": 540,
+     "printed": "3 | 12 | ANANAS 500G | 540,00 | 19 440,00"
+    },
+    {
+     "text": "CHICOLAT KITTOP 45",
+     "qty": 200,
+     "unit_price": 35,
+     "printed": "5 | 40 | CHICOLAT KITTOP 45 | 35,00 | 7 000,00"
+    },
+    {
+     "text": "CHICILAT KITTOP FRAISE",
+     "qty": 200,
+     "unit_price": 35,
+     "printed": "5 | 40 | CHICILAT KITTOP FRAISE | 35,00 | 7 000,00"
+    },
+    {
+     "text": "MAIS 1.800 G",
+     "qty": 12,
+     "unit_price": 700,
+     "printed": "2 | 6 | MAIS 1.800 G | 700,00 | 8 400,00"
+    },
+    {
+     "text": "MAIS 400G",
+     "qty": 24,
+     "unit_price": 180,
+     "printed": "2 | 12 | MAIS 400G | 180,00 | 4 320,00"
+    },
+    {
+     "text": "BIMO BISOUS",
+     "qty": 2,
+     "unit_price": 1950,
+     "printed": "2 | P | BIMO BISOUS | 1 950,00 | 3 900,00"
+    },
+    {
+     "text": "BIMO PETIT AU LAIT",
+     "qty": 5,
+     "unit_price": 1600,
+     "printed": "5 | P | BIMO PETIT AU LAIT | 1 600,00 | 8 000,00"
+    },
+    {
+     "text": "BIMO MACAO",
+     "qty": 5,
+     "unit_price": 1800,
+     "printed": "5 | P | BIMO MACAO | 1 800,00 | 9 000,00"
+    },
+    {
+     "text": "BIMO SYMBA",
+     "qty": 5,
+     "unit_price": 1400,
+     "printed": "5 | P | BIMO SYMBA | 1 400,00 | 7 000,00"
+    },
+    {
+     "text": "BIMO CHICO 4",
+     "qty": 3,
+     "unit_price": 2480,
+     "printed": "3 | P | BIMO CHICO 4 | 2 480,00 | 7 440,00"
+    },
+    {
+     "text": "CHIKOLA EXELANCE BIMO",
+     "qty": 2,
+     "unit_price": 1850,
+     "printed": "2 | P | CHIKOLA EXELANCE BIMO | 1 850,00 | 3 700,00"
+    },
+    {
+     "text": "CHIKOLA EXELANCE RIZ BIMO",
+     "qty": 2,
+     "unit_price": 1850,
+     "printed": "2 | P | CHIKOLA EXELANCE RIZ BIMO | 1 850,00 | 3 700,00"
+    },
+    {
+     "text": "BIMO CROC MATIN",
+     "qty": 3,
+     "unit_price": 1750,
+     "printed": "3 | P | BIMO CROC MATIN | 1 750,00 | 5 250,00"
+    },
+    {
+     "text": "CHIKOLA CHOKOMI",
+     "qty": 72,
+     "unit_price": 85,
+     "printed": "2 | 36 | CHIKOLA CHOKOMI | 85,00 | 6 120,00"
+    },
+    {
+     "text": "CHICORE GRAND 200G",
+     "qty": 12,
+     "unit_price": 640,
+     "printed": "1 | 12 | CHICORE GRAND 200G | 640,00 | 7 680,00"
+    },
+    {
+     "text": "THUN DALITHUN",
+     "qty": 200,
+     "unit_price": 167,
+     "printed": "10 | 20 | THUN DALITHUN | 167,00 | 33 400,00"
+    },
+    {
+     "text": "CHIKOLA MINA",
+     "qty": 200,
+     "unit_price": 105,
+     "printed": "4 | 50 | CHIKOLA MINA | 105,00 | 21 000,00"
+    },
+    {
+     "text": "LA LEVURE DELIPAN 500G",
+     "qty": 20,
+     "unit_price": 585,
+     "printed": "2 | 10 | LA LEVURE DELIPAN 500G | 585,00 | 11 700,00"
+    },
+    {
+     "text": "MAYOUNNAISE STAR TUB",
+     "qty": 60,
+     "unit_price": 225,
+     "printed": "5 | 12 | MAYOUNNAISE STAR TUB | 225,00 | 13 500,00"
+    },
+    {
+     "text": "CHOFAN FRAK",
+     "qty": 50,
+     "unit_price": 300,
+     "printed": "2 | 25 | CHOFAN FRAK | 300,00 | 15 000,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-06.jpg",
+   "language": "fr",
+   "kind": "bon de livraison",
+   "lines": [
+    {
+     "text": "ESS/ECO/NEW ESSUIE TOUT ECO PLUS 2RLX (NEW)",
+     "qty": 132.0,
+     "unit_price": 98.0,
+     "printed": "ESS/ECO/NEW | ESSUIE TOUT ECO PLUS 2RLX (NEW) | 11,000 | FARDEAU | 132,000 | 98,00 | 0,00 | Unité(s) | 12 936,00"
+    },
+    {
+     "text": "ESS/ECO/NEW ESSUIE TOUT ECO PLUS 2RLX (NEW)",
+     "qty": 12.0,
+     "unit_price": 0.0,
+     "printed": "ESS/ECO/NEW | ESSUIE TOUT ECO PLUS 2RLX (NEW) | 0,000 |  | 12,000 | 0,00 | 0,00 | Unité(s) | 0,00"
+    },
+    {
+     "text": "ESS/ECO/DOBLO ESSUIE TOUT WAFA ECO DOBLO 02 RLX",
+     "qty": 15.0,
+     "unit_price": 525.0,
+     "printed": "ESS/ECO/DOBLO | ESSUIE TOUT WAFA ECO DOBLO 02 RLX | 5,000 | FARDEAU | 15,000 | 525,00 | 8,00 | Unité(s) | 7 245,00"
+    },
+    {
+     "text": "ESS/EXT-04RLX ESSUIE TOUT WAFA EXTRA 04 RLX",
+     "qty": 30.0,
+     "unit_price": 340.0,
+     "printed": "ESS/EXT-04RLX | ESSUIE TOUT WAFA EXTRA 04 RLX | 5,000 | FARDEAU | 30,000 | 340,00 | 0,00 | Unité(s) | 10 200,00"
+    },
+    {
+     "text": "ESS/EXT-MAX-02RLX ESSUIE TOUT WAFA EXTRA MAXI 02 RLX",
+     "qty": 20.0,
+     "unit_price": 370.0,
+     "printed": "ESS/EXT-MAX-02RLX | ESSUIE TOUT WAFA EXTRA MAXI 02 RLX | 5,000 | FARDEAU | 20,000 | 370,00 | 15,00 | Unité(s) | 6 290,00"
+    },
+    {
+     "text": "PH/ECO/8 PAPIER HYGIÉNIQUE WAFA ECO 08 RLX",
+     "qty": 40.0,
+     "unit_price": 205.0,
+     "printed": "PH/ECO/8 | PAPIER HYGIÉNIQUE WAFA ECO 08 RLX | 5,000 | FARDEAU | 40,000 | 205,00 | 10,00 | Unité(s) | 7 380,00"
+    },
+    {
+     "text": "PH/ECO/12 PAPIER HYGIÉNIQUE WAFA ECO 12 RLX",
+     "qty": 30.0,
+     "unit_price": 310.0,
+     "printed": "PH/ECO/12 | PAPIER HYGIÉNIQUE WAFA ECO 12 RLX | 5,000 | FARDEAU | 30,000 | 310,00 | 10,00 | Unité(s) | 8 370,00"
+    },
+    {
+     "text": "PH/ECO/4 PAPIER HYGIÉNIQUE WAFA ECO 4 RLX",
+     "qty": 60.0,
+     "unit_price": 108.0,
+     "printed": "PH/ECO/4 | PAPIER HYGIÉNIQUE WAFA ECO 4 RLX | 5,000 | FARDEAU | 60,000 | 108,00 | 10,00 | Unité(s) | 5 832,00"
+    },
+    {
+     "text": "PSERV27/25PRO SERVIETTE WAFA PRO 27X25cm / 400 FEUILLES",
+     "qty": 12.0,
+     "unit_price": 195.0,
+     "printed": "PSERV27/25PRO | SERVIETTE WAFA PRO 27X25cm / 400 FEUILLES | 1,000 | CARTON | 12,000 | 195,00 | 0,00 | Unité(s) | 2 340,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-07.jpg",
+   "language": "fr",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "VINAIGRE SIDHOM",
+     "qty": 200,
+     "unit_price": 87,
+     "printed": "20 | 10 | VINAIGRE SIDHOM | 87,00 | 17 400,00"
+    },
+    {
+     "text": "VINAIGRE SIDHOM BLANC",
+     "qty": 100,
+     "unit_price": 95,
+     "printed": "10 | 10 | VINAIGRE SIDHOM BLANC | 95,00 | 9 500,00"
+    },
+    {
+     "text": "HERISSA CNAB 400G",
+     "qty": 120,
+     "unit_price": 135,
+     "printed": "5 | 24 | HERISSA CNAB 400G | 135,00 | 16 200,00"
+    },
+    {
+     "text": "HERISSA CNAB 800G",
+     "qty": 60,
+     "unit_price": 247,
+     "printed": "5 | 12 | HERISSA CNAB 800G | 247,00 | 14 820,00"
+    },
+    {
+     "text": "HERISSA CAB 800G",
+     "qty": 60,
+     "unit_price": 275,
+     "printed": "5 | 12 | HERISSA CAB 800G | 275,00 | 16 500,00"
+    },
+    {
+     "text": "EXTRA TLITLI",
+     "qty": 100,
+     "unit_price": 150,
+     "printed": "10 | 10 | EXTRA TLITLI | 150,00 | 15 000,00"
+    },
+    {
+     "text": "EL MOUFID TERIDA 450G",
+     "qty": 120,
+     "unit_price": 72,
+     "printed": "10 | 12 | EL MOUFID TERIDA 450G | 72,00 | 8 640,00"
+    },
+    {
+     "text": "EL MOUFID TERIDA 2KG",
+     "qty": 25,
+     "unit_price": 225,
+     "printed": "5 | 5 | EL MOUFID TERIDA 2KG | 225,00 | 5 625,00"
+    },
+    {
+     "text": "EXTRA VERMICELLE",
+     "qty": 50,
+     "unit_price": 150,
+     "printed": "5 | 10 | EXTRA VERMICELLE | 150,00 | 7 500,00"
+    },
+    {
+     "text": "BASMATI 15KG",
+     "qty": 150,
+     "unit_price": 170,
+     "printed": "10 | 15 | BASMATI 15KG | 170,00 | 25 500,00"
+    },
+    {
+     "text": "POIS CHICHE 12 /10KG",
+     "qty": 150,
+     "unit_price": 375,
+     "printed": "15 | 10 | POIS CHICHE 12 /10KG | 375,00 | 56 250,00"
+    },
+    {
+     "text": "MAIS 25KG",
+     "qty": 50,
+     "unit_price": 250,
+     "printed": "2 | 25 | MAIS 25KG | 250,00 | 12 500,00"
+    },
+    {
+     "text": "CHOFAN FRAK",
+     "qty": 25,
+     "unit_price": 280,
+     "printed": "1 | 25 | CHOFAN FRAK | 280,00 | 7 000,00"
+    },
+    {
+     "text": "NECHA FRAK",
+     "qty": 50,
+     "unit_price": 170,
+     "printed": "2 | 25 | NECHA FRAK | 170,00 | 8 500,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-08.jpg",
+   "language": "fr",
+   "kind": "bon de livraison",
+   "lines": [
+    {
+     "text": "DE 1L",
+     "qty": 50.0,
+     "unit_price": 117.0,
+     "printed": "1 | DE 1L | 50 |  | 117.00 | 69000.00"
+    },
+    {
+     "text": "VIVA",
+     "qty": 5.0,
+     "unit_price": 122.0,
+     "printed": "2 | VIVA | 5 |  | 122.00 | 7200.00"
+    },
+    {
+     "text": "ENTIER",
+     "qty": 4.0,
+     "unit_price": 132.0,
+     "printed": "3 | ENTIER | 4 |  | 132.00 | 6240.00"
+    },
+    {
+     "text": "SILHOUETTE",
+     "qty": 4.0,
+     "unit_price": 122.0,
+     "printed": "4 | SILHOUETTE | 4 |  | 122.00 | 5760.00"
+    },
+    {
+     "text": "CANDY CHOCO 1L",
+     "qty": 10.0,
+     "unit_price": 208.0,
+     "printed": "5 | CANDY CHOCO 1L | 10 |  | 208.00 | 24720.00"
+    },
+    {
+     "text": "CANDY CHOCO 20CL",
+     "qty": 20.0,
+     "unit_price": 49.0,
+     "printed": "6 | CANDY CHOCO 20CL | 20 |  | 49.00 | 17280.00"
+    }
+   ]
+  },
+  {
+   "image": "SM-09.jpg",
+   "language": "ar",
+   "kind": "bon de livraison",
+   "lines": [
+    {
+     "text": "ر3 ريجينات 3كلغ",
+     "qty": 40,
+     "unit_price": 900,
+     "printed": "1 | ر3 | ريجينات 3كلغ | 4x10 | Pcs | Exonéré | 900,00 | 36 000,00"
+    },
+    {
+     "text": "اصفر توابل بون ناتيرال حجم صغير",
+     "qty": 200,
+     "unit_price": 80,
+     "printed": "2 | اصفر | توابل بون ناتيرال حجم صغير | 10x20 | Pcs | Exonéré | 80,00 | 16 000,00"
+    },
+    {
+     "text": "شلبش شوفان ليدر بيو شوكلاطة 500غ",
+     "qty": 14,
+     "unit_price": 300,
+     "printed": "3 | شلبش | شوفان ليدر بيو شوكلاطة 500غ | 14x1 | Pcs | Exonéré | 300,00 | 4 200,00"
+    },
+    {
+     "text": "شلبم شوفان ليدر بيو موز / فرولة / كراميل 500غ",
+     "qty": 28,
+     "unit_price": 280,
+     "printed": "4 | شلبم | شوفان ليدر بيو موز / فرولة / كراميل 500غ | 14x2 | Pcs | Exonéré | 280,00 | 7 840,00"
+    },
+    {
+     "text": "87 تلبينة النبوية الباسقة 350غ",
+     "qty": 12,
+     "unit_price": 230,
+     "printed": "5 | 87 | تلبينة النبوية الباسقة 350غ | 12x1 | Pcs | Exonéré | 230,00 | 2 760,00"
+    },
+    {
+     "text": "بل خبز الباقيت لينات 800غ",
+     "qty": 10,
+     "unit_price": 395,
+     "printed": "6 | بل | خبز الباقيت لينات 800غ | 10x1 | Pcs | Exonéré | 395,00 | 3 950,00"
+    },
+    {
+     "text": "كم8 ضيافي كسكس ميكس 800غ",
+     "qty": 12,
+     "unit_price": 330,
+     "printed": "7 | كم8 | ضيافي كسكس ميكس 800غ | 12x1 | Pcs | Exonéré | 330,00 | 3 960,00"
+    },
+    {
+     "text": "كذ8 ضيافي كسكس الذرة 800غ",
+     "qty": 12,
+     "unit_price": 310,
+     "printed": "8 | كذ8 | ضيافي كسكس الذرة 800غ | 12x1 | Pcs | Exonéré | 310,00 | 3 720,00"
+    },
+    {
+     "text": "صص صابلي صافي",
+     "qty": 32,
+     "unit_price": 240,
+     "printed": "9 | صص | صابلي صافي | 16x2 | Pcs | Exonéré | 240,00 | 7 680,00"
+    },
+    {
+     "text": "سذبد سميد الذرة بيو ديج 800غ",
+     "qty": 12,
+     "unit_price": 165,
+     "printed": "10 | سذبد | سميد الذرة بيو ديج 800غ | 12x1 | Pcs | Exonéré | 165,00 | 1 980,00"
+    },
+    {
+     "text": "فبد فرينة الذرة بيو ديج 800غ",
+     "qty": 12,
+     "unit_price": 165,
+     "printed": "11 | فبد | فرينة الذرة بيو ديج 800غ | 12x1 | Pcs | Exonéré | 165,00 | 1 980,00"
+    },
+    {
+     "text": "خمبذ4 خليط متعدد الاستعمال 4كغ بيو ديج",
+     "qty": 5,
+     "unit_price": 1200,
+     "printed": "12 | خمبذ4 | خليط متعدد الاستعمال 4كغ بيو ديج | 5 | Pcs | Exonéré | 1 200,00 | 6 000,00"
+    },
+    {
+     "text": "فعبد فرينة العدس بيو ديج 400غ",
+     "qty": 20,
+     "unit_price": 180,
+     "printed": "13 | فعبد | فرينة العدس بيو ديج 400غ | 20x1 | Pcs | Exonéré | 180,00 | 3 600,00"
+    },
+    {
+     "text": "فدبد3 فرينة الذرة بيو ديجيستيف 3ك",
+     "qty": 5,
+     "unit_price": 650,
+     "printed": "14 | فدبد3 | فرينة الذرة بيو ديجيستيف 3ك | 5 | Pcs | Exonéré | 650,00 | 3 250,00"
+    },
+    {
+     "text": "فابد3 فرينة الارز بيو ديجيستيف 3كغ",
+     "qty": 5,
+     "unit_price": 730,
+     "printed": "15 | فابد3 | فرينة الارز بيو ديجيستيف 3كغ | 5 | Pcs | Exonéré | 730,00 | 3 650,00"
+    },
+    {
+     "text": "س8 سميد ريجينات 800غ",
+     "qty": 12,
+     "unit_price": 165,
+     "printed": "16 | س8 | سميد ريجينات 800غ | 12x1 | Pcs | Exonéré | 165,00 | 1 980,00"
+    },
+    {
+     "text": "شغر شوكو غلوت ريجينات",
+     "qty": 10,
+     "unit_price": 200,
+     "printed": "17 | شغر | شوكو غلوت ريجينات | 10x1 | Pcs | Exonéré | 200,00 | 2 000,00"
+    },
+    {
+     "text": "ف8 فرينة ريجينات 800غ",
+     "qty": 12,
+     "unit_price": 165,
+     "printed": "18 | ف8 | فرينة ريجينات 800غ | 12x1 | Pcs | Exonéré | 165,00 | 1 980,00"
+    },
+    {
+     "text": "حخ خميرة ريجينات",
+     "qty": 20,
+     "unit_price": 115,
+     "printed": "19 | حخ | خميرة ريجينات | 20x1 | Pcs | Exonéré | 115,00 | 2 300,00"
+    },
+    {
+     "text": "شف7 شوفان ليدر بيو فرولة /كراميل/بندق/موز700غ",
+     "qty": 12,
+     "unit_price": 800,
+     "printed": "20 | شف7 | شوفان ليدر بيو فرولة /كراميل/بندق/موز700غ | 12x1 | Pcs | Exonéré | 800,00 | 9 600,00"
+    },
+    {
+     "text": "شلر شوفان رقائق ليدر بيو",
+     "qty": 10,
+     "unit_price": 220,
+     "printed": "21 | شلر | شوفان رقائق ليدر بيو | 10x1 | Pcs | Exonéré | 220,00 | 2 200,00"
+    },
+    {
+     "text": "طط7 الطاحونة طحينة 700غ",
+     "qty": 9,
+     "unit_price": 780,
+     "printed": "22 | طط7 | الطاحونة طحينة 700غ | 9x1 | Pcs | Exonéré | 780,00 | 7 020,00"
+    },
+    {
+     "text": "بق بسيسة قلوناص",
+     "qty": 20,
+     "unit_price": 180,
+     "printed": "23 | بق | بسيسة قلوناص | 20x1 | Pcs | Exonéré | 180,00 | 3 600,00"
+    },
+    {
+     "text": "دي دقيق اليقطين روزا",
+     "qty": 10,
+     "unit_price": 400,
+     "printed": "24 | دي | دقيق اليقطين روزا | 10x1 | Pcs | Exonéré | 400,00 | 4 000,00"
+    },
+    {
+     "text": "امم ارز مرحي مخالفية",
+     "qty": 12,
+     "unit_price": 155,
+     "printed": "25 | امم | ارز مرحي مخالفية | 12x1 | Pcs | Exonéré | 155,00 | 1 860,00"
+    },
+    {
+     "text": "سر1 سميد رقيق اوزيا 1كلغ",
+     "qty": 12,
+     "unit_price": 160,
+     "printed": "26 | سر1 | سميد رقيق اوزيا 1كلغ | 6x2 | Pcs | Exonéré | 160,00 | 1 920,00"
+    },
+    {
+     "text": "سن1 سميد ناعم اوزيا 1كلغ",
+     "qty": 12,
+     "unit_price": 160,
+     "printed": "27 | سن1 | سميد ناعم اوزيا 1كلغ | 6x2 | Pcs | Exonéré | 160,00 | 1 920,00"
+    },
+    {
+     "text": "شم1 شوفان ليدر بيو موز /كراميل/بندق1.5 كلغ",
+     "qty": 12,
+     "unit_price": 1150,
+     "printed": "28 | شم1 | شوفان ليدر بيو موز /كراميل/بندق1.5 كلغ | 6x2 | Pcs | Exonéré | 1 150,00 | 13 800,00"
+    },
+    {
+     "text": "دقر1 دقيق الكتان روزا",
+     "qty": 10,
+     "unit_price": 400,
+     "printed": "29 | دقر1 | دقيق الكتان روزا | 10x1 | Pcs | Exonéré | 400,00 | 4 000,00"
+    },
+    {
+     "text": "فكر فرينة الكينوا روزا",
+     "qty": 10,
+     "unit_price": 560,
+     "printed": "30 | فكر | فرينة الكينوا روزا | 10x1 | Pcs | Exonéré | 560,00 | 5 600,00"
+    },
+    {
+     "text": "بشر بذور الشيا روزا",
+     "qty": 10,
+     "unit_price": 450,
+     "printed": "31 | بشر | بذور الشيا روزا | 10x1 | Pcs | Exonéré | 450,00 | 4 500,00"
+    },
+    {
+     "text": "قم قفريط ماداس",
+     "qty": 24,
+     "unit_price": 260,
+     "printed": "32 | قم | قفريط ماداس | 12x2 | Pcs | Exonéré | 260,00 | 6 240,00"
+    },
+    {
+     "text": "كم كوكيز ماداس",
+     "qty": 15,
+     "unit_price": 150,
+     "printed": "33 | كم | كوكيز ماداس | 15x1 | Pcs | Exonéré | 150,00 | 2 250,00"
+    },
+    {
+     "text": "فس10 فرينة سفينة 10كلغ",
+     "qty": 20,
+     "unit_price": 600,
+     "printed": "34 | فس10 | فرينة سفينة 10كلغ | 20 | Pcs | Exonéré | 600,00 | 12 000,00"
+    },
+    {
+     "text": "فس5 فرينة سفينة 5كلغ",
+     "qty": 60,
+     "unit_price": 320,
+     "printed": "35 | فس5 | فرينة سفينة 5كلغ | 3x20 | Pcs | Exonéré | 320,00 | 19 200,00"
+    },
+    {
+     "text": "ع3ك العافية 3كلغ",
+     "qty": 10,
+     "unit_price": 900,
+     "printed": "36 | ع3ك | العافية 3كلغ | 10 | Pcs | Exonéré | 900,00 | 9 000,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-10.jpg",
+   "language": "fr",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "LOUZ FERAK 22.68",
+     "qty": 22.68,
+     "unit_price": 2300,
+     "printed": "1 | 22,680 | LOUZ FERAK 22.68 | 2 300,00 | 52 164,00"
+    },
+    {
+     "text": "LOUZ BLANC 10KG",
+     "qty": 10,
+     "unit_price": 2500,
+     "printed": "1 | 10 | LOUZ BLANC 10KG | 2 500,00 | 25 000,00"
+    },
+    {
+     "text": "TOUM",
+     "qty": 60,
+     "unit_price": 90,
+     "printed": "5 | 12 | TOUM | 90,00 | 5 400,00"
+    },
+    {
+     "text": "NECHA FRAK",
+     "qty": 75,
+     "unit_price": 200,
+     "printed": "3 | 25 | NECHA FRAK | 200,00 | 15 000,00"
+    },
+    {
+     "text": "CAJOU 10KG",
+     "qty": 10,
+     "unit_price": 2720,
+     "printed": "1 | 10 | CAJOU 10KG | 2 720,00 | 27 200,00"
+    },
+    {
+     "text": "ZARIAA 12KG",
+     "qty": 12,
+     "unit_price": 1280,
+     "printed": "1 | 12 | ZARIAA 12KG | 1 280,00 | 15 360,00"
+    },
+    {
+     "text": "NOISETTE 10KG",
+     "qty": 10,
+     "unit_price": 2450,
+     "printed": "1 | 10 | NOISETTE 10KG | 2 450,00 | 24 500,00"
+    },
+    {
+     "text": "NOIX DE BRESIL 1KG",
+     "qty": 5,
+     "unit_price": 4000,
+     "printed": "5 | P | NOIX DE BRESIL 1KG | 4 000,00 | 20 000,00"
+    },
+    {
+     "text": "CARBOUNATE FRAC",
+     "qty": 50,
+     "unit_price": 185,
+     "printed": "2 | 25 | CARBOUNATE FRAC | 185,00 | 9 250,00"
+    },
+    {
+     "text": "CACAO 25KG",
+     "qty": 25,
+     "unit_price": 770,
+     "printed": "1 | 25 | CACAO 25KG | 770,00 | 19 250,00"
+    },
+    {
+     "text": "LAIT OKIDS",
+     "qty": 60,
+     "unit_price": 465,
+     "printed": "5 | 12 | LAIT OKIDS | 465,00 | 27 900,00"
+    },
+    {
+     "text": "LAIT CHEFA",
+     "qty": 60,
+     "unit_price": 505,
+     "printed": "5 | 12 | LAIT CHEFA | 505,00 | 30 300,00"
+    },
+    {
+     "text": "EL DJOUZ",
+     "qty": 30,
+     "unit_price": 1320,
+     "printed": "5 | 6 | EL DJOUZ | 1 320,00 | 39 600,00"
+    },
+    {
+     "text": "CAFE FAMICO",
+     "qty": 50,
+     "unit_price": 940,
+     "printed": "10 | 5 | CAFE FAMICO | 940,00 | 47 000,00"
+    },
+    {
+     "text": "LA LEVURE NOIARA",
+     "qty": 25,
+     "unit_price": 550,
+     "printed": "5 | 5 | LA LEVURE NOIARA | 550,00 | 13 750,00"
+    },
+    {
+     "text": "LA LEVURE DELIPAN 500G",
+     "qty": 20,
+     "unit_price": 585,
+     "printed": "2 | 10 | LA LEVURE DELIPAN 500G | 585,00 | 11 700,00"
+    },
+    {
+     "text": "LENTILLE ROUGE 10KG",
+     "qty": 50,
+     "unit_price": 170,
+     "printed": "5 | 10 | LENTILLE ROUGE 10KG | 170,00 | 8 500,00"
+    },
+    {
+     "text": "PURE COEUR CEREAL",
+     "qty": 70,
+     "unit_price": 195,
+     "printed": "5 | 14 | PURE COEUR CEREAL | 195,00 | 13 650,00"
+    },
+    {
+     "text": "RAISANI JUMBO 10KG",
+     "qty": 10,
+     "unit_price": 1600,
+     "printed": "1 | 10 | RAISANI JUMBO 10KG | 1 600,00 | 16 000,00"
+    },
+    {
+     "text": "RAISIN SAFARI 12.500G",
+     "qty": 12.5,
+     "unit_price": 1180,
+     "printed": "1 | 12,500 | RAISIN SAFARI 12.500G | 1 180,00 | 14 750,00"
+    },
+    {
+     "text": "RAISIN NOIR 10KG",
+     "qty": 10,
+     "unit_price": 1100,
+     "printed": "1 | 10 | RAISIN NOIR 10KG | 1 100,00 | 11 000,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-11.jpg",
+   "language": "fr",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "23 GEL VAISSELLE",
+     "qty": 36,
+     "unit_price": 777.0,
+     "printed": "1 | 23 | GEL VAISSELLE | 777,00 | 36 | 12 | 3 | 27 972,00"
+    },
+    {
+     "text": "88 sel degenerent 1kg",
+     "qty": 24,
+     "unit_price": 186.0,
+     "printed": "2 | 88 | sel degenerent 1kg | 186,00 | 24 | 8 | 3 | 4 464,00"
+    },
+    {
+     "text": "18 LIQUIDE RINCAGE",
+     "qty": 36,
+     "unit_price": 166.17,
+     "printed": "3 | 18 | LIQUIDE RINCAGE | 166,17 | 36 | 12 | 3 | 5 982,12"
+    },
+    {
+     "text": "11 SAVON LIQUIDE",
+     "qty": 12,
+     "unit_price": 220.0,
+     "printed": "4 | 11 | SAVON LIQUIDE | 220,00 | 12 | 12 | 1 | 2 640,00"
+    },
+    {
+     "text": "13 SALLE DE BAIN",
+     "qty": 20,
+     "unit_price": 332.0,
+     "printed": "5 | 13 | SALLE DE BAIN | 332,00 | 20 | 10 | 2 | 6 640,00"
+    },
+    {
+     "text": "36 ANTITARTRE",
+     "qty": 24,
+     "unit_price": 229.0,
+     "printed": "6 | 36 | ANTITARTRE | 229,00 | 24 | 12 | 2 | 5 496,00"
+    },
+    {
+     "text": "20 LINGE BEBE",
+     "qty": 8,
+     "unit_price": 528.0,
+     "printed": "7 | 20 | LINGE BEBE | 528,00 | 8 | 8 | 1 | 4 224,00"
+    },
+    {
+     "text": "17 MULTISURFACE",
+     "qty": 40,
+     "unit_price": 220.44,
+     "printed": "8 | 17 | MULTISURFACE | 220,44 | 40 | 20 | 2 | 8 817,60"
+    },
+    {
+     "text": "16 MULTISURFACE 750",
+     "qty": 24,
+     "unit_price": 167.32,
+     "printed": "9 | 16 | MULTISURFACE 750 | 167,32 | 24 | 12 | 2 | 4 015,68"
+    },
+    {
+     "text": "21 LAVE VITRE",
+     "qty": 24,
+     "unit_price": 167.0,
+     "printed": "10 | 21 | LAVE VITRE | 167,00 | 24 | 12 | 2 | 4 008,00"
+    },
+    {
+     "text": "7 gel wc",
+     "qty": 24,
+     "unit_price": 233.0,
+     "printed": "11 | 7 | gel wc | 233,00 | 24 | 12 | 2 | 5 592,00"
+    },
+    {
+     "text": "40 ADOUCISSANT 1 L",
+     "qty": 12,
+     "unit_price": 193.3,
+     "printed": "12 | 40 | ADOUCISSANT 1 L | 193,30 | 12 | 12 | 1 | 2 319,60"
+    },
+    {
+     "text": "45 SMEN 500G",
+     "qty": 24,
+     "unit_price": 400.0,
+     "printed": "13 | 45 | SMEN 500G | 400,00 | 24 | 12 | 2 | 9 600,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-12.jpg",
+   "language": "fr",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "LAIT SOUMAM 1L",
+     "qty": 120,
+     "unit_price": 118.0,
+     "printed": "20 | LAIT SOUMAM 1L | 6.000 | 118.00 | 14160.00"
+    },
+    {
+     "text": "PAI FOUR BAKY",
+     "qty": 504,
+     "unit_price": 47.0,
+     "printed": "21 | PAI FOUR BAKY | 24.000 | 47.00 | 23688.00"
+    },
+    {
+     "text": "KINDER BUENO WAHIT.T10",
+     "qty": 30,
+     "unit_price": 235.0,
+     "printed": "1 | KINDER BUENO WAHIT.T10 | 30.000 | 235.00 | 7050.00"
+    },
+    {
+     "text": "BOUNTI T24",
+     "qty": 48,
+     "unit_price": 200.0,
+     "printed": "2 | BOUNTI T24 | 24.000 | 200.00 | 9600.00"
+    },
+    {
+     "text": "KINDER BUENO T10",
+     "qty": 20,
+     "unit_price": 205.0,
+     "printed": "2 | KINDER BUENO T10 | 10.000 | 205.00 | 4100.00"
+    },
+    {
+     "text": "TWIX T10",
+     "qty": 20,
+     "unit_price": 180.0,
+     "printed": "2 | TWIX T10 | 10.000 | 180.00 | 3600.00"
+    },
+    {
+     "text": "SNICKERS T10",
+     "qty": 20,
+     "unit_price": 152.0,
+     "printed": "2 | SNICKERS T10 | 10.000 | 152.00 | 3040.00"
+    },
+    {
+     "text": "KITKAT T8",
+     "qty": 16,
+     "unit_price": 165.0,
+     "printed": "2 | KITKAT T8 | 8.000 | 165.00 | 2640.00"
+    },
+    {
+     "text": "LION BAR T40",
+     "qty": 40,
+     "unit_price": 175.0,
+     "printed": "1 | LION BAR T40 | 40.000 | 175.00 | 7000.00"
+    },
+    {
+     "text": "LION BAR T24",
+     "qty": 24,
+     "unit_price": 175.0,
+     "printed": "1 | LION BAR T24 | 24.000 | 175.00 | 4200.00"
+    },
+    {
+     "text": "CHOCOLAT TROKS SG",
+     "qty": 64,
+     "unit_price": 168.0,
+     "printed": "4 | CHOCOLAT TROKS SG | 16.000 | 168.00 | 10752.00"
+    },
+    {
+     "text": "OZMO CORNET",
+     "qty": 48,
+     "unit_price": 110.0,
+     "printed": "2 | OZMO CORNET | 24.000 | 110.00 | 5280.00"
+    },
+    {
+     "text": "SUSHI NORI ALGUES T10",
+     "qty": 6,
+     "unit_price": 820.0,
+     "printed": "1 | SUSHI NORI ALGUES T10 | 6.000 | 820.00 | 4920.00"
+    },
+    {
+     "text": "LAIT D AMANDE 1L",
+     "qty": 6,
+     "unit_price": 820.0,
+     "printed": "1 | LAIT D AMANDE 1L | 6.000 | 820.00 | 4920.00"
+    }
+   ]
+  },
+  {
+   "image": "SM-13.jpg",
+   "language": "fr",
+   "kind": "bon de livraison",
+   "lines": [
+    {
+     "text": "NAN 1 400G",
+     "qty": 36,
+     "unit_price": 1000.0,
+     "printed": "1 | NAN 1 400G | 0 | 12 | 36 | 36 | 0 | 1 000,00 | 0,00 | 36 000,00"
+    },
+    {
+     "text": "NAN 3 400G",
+     "qty": 36,
+     "unit_price": 1000.0,
+     "printed": "2 | NAN 3 400G | 0 | 12 | 36 | 36 | 0 | 1 000,00 | 0,00 | 36 000,00"
+    },
+    {
+     "text": "NAN 1 800G",
+     "qty": 12,
+     "unit_price": 1850.0,
+     "printed": "3 | NAN 1 800G | 0 | 6 | 12 | 12 | 0 | 1 850,00 | 0,00 | 22 200,00"
+    },
+    {
+     "text": "NAN 2 800G",
+     "qty": 12,
+     "unit_price": 1850.0,
+     "printed": "4 | NAN 2 800G | 0 | 6 | 12 | 12 | 0 | 1 850,00 | 0,00 | 22 200,00"
+    },
+    {
+     "text": "NAN 3 800G",
+     "qty": 12,
+     "unit_price": 1850.0,
+     "printed": "5 | NAN 3 800G | 0 | 6 | 12 | 12 | 0 | 1 850,00 | 0,00 | 22 200,00"
+    },
+    {
+     "text": "NAN 2 400G",
+     "qty": 36,
+     "unit_price": 1000.0,
+     "printed": "6 | NAN 2 400G | 0 | 12 | 36 | 36 | 0 | 1 000,00 | 0,00 | 36 000,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-14.jpg",
+   "language": "fr",
+   "kind": "facture",
+   "lines": [
+    {
+     "text": "TEST DWL 650MLX12 LEMON & VINIGAIR",
+     "qty": 120,
+     "unit_price": 158.98,
+     "printed": "TEST DWL 650MLX12 LEMON & VINIGAIR | 10 | 12 | 120 | 158,98 | 19077,60"
+    },
+    {
+     "text": "TEST HS POWDER 750GRX14 ULTRA ODOR",
+     "qty": 84,
+     "unit_price": 223.47,
+     "printed": "TEST HS POWDER 750GRX14 ULTRA ODOR | 6 | 14 | 84 | 223,47 | 18771,48"
+    },
+    {
+     "text": "BINGO A MAIN 750GRX12 SACHET BEST REMOV",
+     "qty": 72,
+     "unit_price": 239.38,
+     "printed": "BINGO A MAIN 750GRX12 SACHET BEST REMOV | 6 | 12 | 72 | 239,38 | 17235,36"
+    },
+    {
+     "text": "BINGO A MAIN 1500GRX8 SACHET ANTI ODOR",
+     "qty": 48,
+     "unit_price": 462.06,
+     "printed": "BINGO A MAIN 1500GRX8 SACHET ANTI ODOR | 6 | 8 | 48 | 462,06 | 22178,88"
+    },
+    {
+     "text": "BINGO SACHET 2,5KGX4 ANTIODOR BEST REMOV",
+     "qty": 20,
+     "unit_price": 745.93,
+     "printed": "BINGO SACHET 2,5KGX4 ANTIODOR BEST REMOV | 5 | 4 | 20 | 745,93 | 14918,60"
+    },
+    {
+     "text": "TEST MATIC BAG 2,5KGX4 ROSE",
+     "qty": 20,
+     "unit_price": 554.13,
+     "printed": "TEST MATIC BAG 2,5KGX4 ROSE | 5 | 4 | 20 | 554,13 | 11082,60"
+    },
+    {
+     "text": "TEST LS POWDER 5KGX2 PROPRETÉ PARFAITE",
+     "qty": 4,
+     "unit_price": 1422.68,
+     "printed": "TEST LS POWDER 5KGX2 PROPRETÉ PARFAITE | 2 | 2 | 4 | 1422,68 | 5690,72"
+    },
+    {
+     "text": "MLP HYG.SHLD. FLAT VP.LONG (18+2)X12 DZ",
+     "qty": 12,
+     "unit_price": 177.7,
+     "printed": "MLP HYG.SHLD. FLAT VP.LONG (18+2)X12 DZ | 1 | 12 | 12 | 177,70 | 2132,40"
+    },
+    {
+     "text": "MLP HYG SHLD SW EXTRA LONG 14X9 ECO",
+     "qty": 9,
+     "unit_price": 169.98,
+     "printed": "MLP HYG SHLD SW EXTRA LONG 14X9 ECO | 1 | 9 | 9 | 169,98 | 1529,82"
+    },
+    {
+     "text": "MOLPED BAR. SW EXTRA LONG 14X9 ECO DZ",
+     "qty": 9,
+     "unit_price": 220.11,
+     "printed": "MOLPED BAR. SW EXTRA LONG 14X9 ECO DZ | 1 | 9 | 9 | 220,11 | 1980,99"
+    },
+    {
+     "text": "MOLPED HYG SHLD SW LONG 16X9 ECO DZ",
+     "qty": 9,
+     "unit_price": 169.98,
+     "printed": "MOLPED HYG SHLD SW LONG 16X9 ECO DZ | 1 | 9 | 9 | 169,98 | 1529,82"
+    },
+    {
+     "text": "MOLPED BAR. SW LONG 16X9 ECO DZ",
+     "qty": 9,
+     "unit_price": 220.0,
+     "printed": "MOLPED BAR. SW LONG 16X9 ECO DZ | 1 | 9 | 9 | 220,00 | 1980,00"
+    },
+    {
+     "text": "MLP HYG.SHLD. FLAT EXTRA LONG (16+2)X12",
+     "qty": 12,
+     "unit_price": 177.7,
+     "printed": "MLP HYG.SHLD. FLAT EXTRA LONG (16+2)X12 | 1 | 12 | 12 | 177,70 | 2132,40"
+    },
+    {
+     "text": "MOLFIX CH JUNIOR (16+2)X4 TWIN DZ",
+     "qty": 4,
+     "unit_price": 449.37,
+     "printed": "MOLFIX CH JUNIOR (16+2)X4 TWIN DZ | 1 | 4 | 4 | 449,37 | 1797,48"
+    },
+    {
+     "text": "MOLPED HYG.SHLD SW LONG 8X18 DZ",
+     "qty": 18,
+     "unit_price": 107.73,
+     "printed": "MOLPED HYG.SHLD SW LONG 8X18 DZ | 1 | 18 | 18 | 107,73 | 1939,14"
+    },
+    {
+     "text": "MOLPED HYG.SHLD SW EXTRA LONG 7X18 DZ",
+     "qty": 18,
+     "unit_price": 107.73,
+     "printed": "MOLPED HYG.SHLD SW EXTRA LONG 7X18 DZ | 1 | 18 | 18 | 107,73 | 1939,14"
+    },
+    {
+     "text": "MOLPED HYG.SHLD EXTRA LONG 8X24 DZ",
+     "qty": 24,
+     "unit_price": 81.19,
+     "printed": "MOLPED HYG.SHLD EXTRA LONG 8X24 DZ | 1 | 24 | 24 | 81,19 | 1948,56"
+    },
+    {
+     "text": "MOLPED HYG.SHLD LONG 9X24 DZ",
+     "qty": 24,
+     "unit_price": 81.19,
+     "printed": "MOLPED HYG.SHLD LONG 9X24 DZ | 1 | 24 | 24 | 81,19 | 1948,56"
+    },
+    {
+     "text": "MOLFIX GREEN JUNIOR 40X4 TWIN DZ",
+     "qty": 8,
+     "unit_price": 1112.3,
+     "printed": "MOLFIX GREEN JUNIOR 40X4 TWIN DZ | 2 | 4 | 8 | 1112,30 | 8898,40"
+    },
+    {
+     "text": "MOLFIX GREEN E.LARGE 35X4 TWIN DZ",
+     "qty": 8,
+     "unit_price": 992.92,
+     "printed": "MOLFIX GREEN E.LARGE 35X4 TWIN DZ | 2 | 4 | 8 | 992,92 | 7943,36"
+    },
+    {
+     "text": "MOLFIX GREEN NEWBORN 40X4 TWIN DZ",
+     "qty": 8,
+     "unit_price": 735.53,
+     "printed": "MOLFIX GREEN NEWBORN 40X4 TWIN DZ | 2 | 4 | 8 | 735,53 | 5884,24"
+    },
+    {
+     "text": "MOLFIX GREEN MINI 11X12 S.PAKET DZ",
+     "qty": 12,
+     "unit_price": 235.37,
+     "printed": "MOLFIX GREEN MINI 11X12 S.PAKET DZ | 1 | 12 | 12 | 235,37 | 2824,44"
+    },
+    {
+     "text": "MOLFIX GREEN NEWBORN 12X12 S.PACK DZ",
+     "qty": 12,
+     "unit_price": 235.37,
+     "printed": "MOLFIX GREEN NEWBORN 12X12 S.PACK DZ | 1 | 12 | 12 | 235,37 | 2824,44"
+    }
+   ]
+  },
+  {
+   "image": "SM-15.jpg",
+   "language": "fr",
+   "kind": "facture",
+   "lines": [
+    {
+     "text": "MOLFIX GREEN JUNIOR 8X12 S.PACK DZ",
+     "qty": 12,
+     "unit_price": 235.37,
+     "printed": "MOLFIX GREEN JUNIOR 8X12 S.PACK DZ | 1 | 12 | 12 | 235,37 | 2824,44"
+    },
+    {
+     "text": "MOLFIX GREEN MAXI 9X12 S.PACK DZ",
+     "qty": 12,
+     "unit_price": 235.37,
+     "printed": "MOLFIX GREEN MAXI 9X12 S.PACK DZ | 1 | 12 | 12 | 235,37 | 2824,44"
+    },
+    {
+     "text": "MOLFIX PANTS XXL 28X4 TWIN DZ",
+     "qty": 4,
+     "unit_price": 1080.86,
+     "printed": "MOLFIX PANTS XXL 28X4 TWIN DZ | 1 | 4 | 4 | 1080,86 | 4323,44"
+    },
+    {
+     "text": "MOLFIX PANTS CHANNEL TC JUNIOR 40X4 TWIN",
+     "qty": 4,
+     "unit_price": 1152.94,
+     "printed": "MOLFIX PANTS CHANNEL TC JUNIOR 40X4 TWIN | 1 | 4 | 4 | 1152,94 | 4611,76"
+    },
+    {
+     "text": "MOLFIX CH DIAPER MAXI 60X2 JUMBO",
+     "qty": 2,
+     "unit_price": 1368.41,
+     "printed": "MOLFIX CH DIAPER MAXI 60X2 JUMBO | 1 | 2 | 2 | 1368,41 | 2736,82"
+    },
+    {
+     "text": "MOLFIX CH DIAPER JUNIOR 60X2 JUMBO",
+     "qty": 2,
+     "unit_price": 1549.45,
+     "printed": "MOLFIX CH DIAPER JUNIOR 60X2 JUMBO | 1 | 2 | 2 | 1549,45 | 3098,90"
+    },
+    {
+     "text": "BEBEM NATURAL E.LARGE (35+4)X4 TWIN DZ",
+     "qty": 8,
+     "unit_price": 886.02,
+     "printed": "BEBEM NATURAL E.LARGE (35+4)X4 TWIN DZ | 2 | 4 | 8 | 886,02 | 7088,16"
+    },
+    {
+     "text": "BEBEM NATURAL MAXI 40X4 TWIN DZ",
+     "qty": 4,
+     "unit_price": 828.53,
+     "printed": "BEBEM NATURAL MAXI 40X4 TWIN DZ | 1 | 4 | 4 | 828,53 | 3314,12"
+    },
+    {
+     "text": "GOODCARE DIAPER JUNIOR 25X4 ECO",
+     "qty": 4,
+     "unit_price": 468.64,
+     "printed": "GOODCARE DIAPER JUNIOR 25X4 ECO | 1 | 4 | 4 | 468,64 | 1874,56"
+    },
+    {
+     "text": "GOODCARE DIAPER E.LARGE (50+4)X2 JUMBO",
+     "qty": 2,
+     "unit_price": 1041.84,
+     "printed": "GOODCARE DIAPER E.LARGE (50+4)X2 JUMBO | 1 | 2 | 2 | 1041,84 | 2083,68"
+    },
+    {
+     "text": "BEBEM NTRL DIAPER E.LARGE (70+8)X3",
+     "qty": 3,
+     "unit_price": 1552.1,
+     "printed": "BEBEM NTRL DIAPER E.LARGE (70+8)X3 | 1 | 3 | 3 | 1552,10 | 4656,30"
+    },
+    {
+     "text": "BINGO MATIC LIQ 2,SLX4 ANTI TACHES JAUNE",
+     "qty": 16,
+     "unit_price": 813.3,
+     "printed": "BINGO MATIC LIQ 2,SLX4 ANTI TACHES JAUNE | 4 | 4 | 16 | 813,30 | 13012,80"
+    },
+    {
+     "text": "BINGO MATIC LIQ ANTI-ODOR 2,SLX4 BEST RM",
+     "qty": 16,
+     "unit_price": 813.3,
+     "printed": "BINGO MATIC LIQ ANTI-ODOR 2,SLX4 BEST RM | 4 | 4 | 16 | 813,30 | 13012,80"
+    }
+   ]
+  },
+  {
+   "image": "SM-16.jpg",
+   "language": "mixed",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "كسكس أقروديف رقيق",
+     "qty": 72,
+     "unit_price": 102,
+     "printed": "6 | كسكس أقروديف رقيق | 12.000 | 102.00 | 7344.00"
+    },
+    {
+     "text": "كسكس أقروديف متوسط",
+     "qty": 72,
+     "unit_price": 102,
+     "printed": "6 | كسكس أقروديف متوسط | 12.000 | 102.00 | 7344.00"
+    },
+    {
+     "text": "كسكس سيم رقيق",
+     "qty": 72,
+     "unit_price": 128,
+     "printed": "6 | كسكس سيم رقيق | 12.000 | 128.00 | 9216.00"
+    },
+    {
+     "text": "كسكس سيم متوسط",
+     "qty": 72,
+     "unit_price": 128,
+     "printed": "6 | كسكس سيم متوسط | 12.000 | 128.00 | 9216.00"
+    },
+    {
+     "text": "كسكس السفينة متوسط",
+     "qty": 60,
+     "unit_price": 145,
+     "printed": "6 | كسكس السفينة متوسط | 10.000 | 145.00 | 8700.00"
+    },
+    {
+     "text": "طن مارتون تريبلات طماطم ( 3كارتون +12علبة )",
+     "qty": 108,
+     "unit_price": 315,
+     "printed": "108 | طن مارتون تريبلات طماطم ( 3كارتون +12علبة ) | 1.000 | 315.00 | 34020.00"
+    },
+    {
+     "text": "طن الفلك طماطم",
+     "qty": 40,
+     "unit_price": 205,
+     "printed": "2 | طن الفلك طماطم | 20.000 | 205.00 | 8200.00"
+    },
+    {
+     "text": "فطر حديد صغير *12",
+     "qty": 24,
+     "unit_price": 195,
+     "printed": "2 | فطر حديد صغير *12 | 12.000 | 195.00 | 4680.00"
+    },
+    {
+     "text": "فطر 2 كغ",
+     "qty": 12,
+     "unit_price": 980,
+     "printed": "2 | فطر 2 كغ | 6.000 | 980.00 | 11760.00"
+    },
+    {
+     "text": "طماطم ازدهار 1 كغ",
+     "qty": 48,
+     "unit_price": 305,
+     "printed": "4 | طماطم ازدهار 1 كغ | 12.000 | 305.00 | 14640.00"
+    },
+    {
+     "text": "طماطم ازدهار 500 غ",
+     "qty": 96,
+     "unit_price": 162,
+     "printed": "4 | طماطم ازدهار 500 غ | 24.000 | 162.00 | 15552.00"
+    },
+    {
+     "text": "ش مريجة شيكولاطة",
+     "qty": 50,
+     "unit_price": 183,
+     "printed": "50 | ش مريجة شيكولاطة | 1.000 | 183.00 | 9150.00"
+    }
+   ]
+  },
+  {
+   "image": "SM-17.jpg",
+   "language": "mixed",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "مادلان بيق فاميلي 8",
+     "qty": 12,
+     "unit_price": 1090,
+     "printed": "12 | مادلان بيق فاميلي 8 | 1.000 | 1090.00 | 13080.00"
+    },
+    {
+     "text": "افونطاج بيفا",
+     "qty": 5,
+     "unit_price": 1950,
+     "printed": "5 | افونطاج بيفا | 1.000 | 1950.00 | 9750.00"
+    },
+    {
+     "text": "بيفا فينقر 3+1",
+     "qty": 5,
+     "unit_price": 800,
+     "printed": "5 | بيفا فينقر 3+1 | 1.000 | 800.00 | 4000.00"
+    },
+    {
+     "text": "برينو كبير",
+     "qty": 30,
+     "unit_price": 630,
+     "printed": "30 | برينو كبير | 1.000 | 630.00 | 18900.00"
+    },
+    {
+     "text": "كوكيز فوري بيفا",
+     "qty": 5,
+     "unit_price": 1250,
+     "printed": "5 | كوكيز فوري بيفا | 1.000 | 1250.00 | 6250.00"
+    },
+    {
+     "text": "مولان دور",
+     "qty": 30,
+     "unit_price": 800,
+     "printed": "30 | مولان دور | 1.000 | 800.00 | 24000.00"
+    },
+    {
+     "text": "طورطو بيفا",
+     "qty": 10,
+     "unit_price": 430,
+     "printed": "10 | طورطو بيفا | 1.000 | 430.00 | 4300.00"
+    },
+    {
+     "text": "اورو قاليت 15",
+     "qty": 5,
+     "unit_price": 1100,
+     "printed": "5 | اورو قاليت 15 | 1.000 | 1100.00 | 5500.00"
+    },
+    {
+     "text": "قوفريط دولسي كبير",
+     "qty": 3,
+     "unit_price": 1900,
+     "printed": "3 | قوفريط دولسي كبير | 1.000 | 1900.00 | 5700.00"
+    },
+    {
+     "text": "قوفريط وفرز",
+     "qty": 15,
+     "unit_price": 1350,
+     "printed": "15 | قوفريط وفرز | 1.000 | 1350.00 | 20250.00"
+    },
+    {
+     "text": "بينيطو كبير",
+     "qty": 5,
+     "unit_price": 900,
+     "printed": "5 | بينيطو كبير | 1.000 | 900.00 | 4500.00"
+    },
+    {
+     "text": "سليبارتي ساشي ( كوكوك )",
+     "qty": 12,
+     "unit_price": 1100,
+     "printed": "3 | سليبارتي ساشي ( كوكوك ) | 4.000 | 1100.00 | 13200.00"
+    },
+    {
+     "text": "برينو صغير",
+     "qty": 30,
+     "unit_price": 435,
+     "printed": "30 | برينو صغير | 1.000 | 435.00 | 13050.00"
+    },
+    {
+     "text": "دوبلو فاميلي",
+     "qty": 5,
+     "unit_price": 1630,
+     "printed": "5 | دوبلو فاميلي | 1.000 | 1630.00 | 8150.00"
+    },
+    {
+     "text": "ريقولو بيفا",
+     "qty": 5,
+     "unit_price": 1200,
+     "printed": "5 | ريقولو بيفا | 1.000 | 1200.00 | 6000.00"
+    },
+    {
+     "text": "كسكروط المغرب",
+     "qty": 10,
+     "unit_price": 1000,
+     "printed": "10 | كسكروط المغرب | 1.000 | 1000.00 | 10000.00"
+    },
+    {
+     "text": "قوفريط الافراح",
+     "qty": 10,
+     "unit_price": 1520,
+     "printed": "10 | قوفريط الافراح | 1.000 | 1520.00 | 15200.00"
+    },
+    {
+     "text": "جي بيفا كبير",
+     "qty": 100,
+     "unit_price": 520,
+     "printed": "100 | جي بيفا كبير | 1.000 | 520.00 | 52000.00"
+    },
+    {
+     "text": "جي بيفا صغير",
+     "qty": 100,
+     "unit_price": 420,
+     "printed": "100 | جي بيفا صغير | 1.000 | 420.00 | 42000.00"
+    },
+    {
+     "text": "سليبارتي 2وينز",
+     "qty": 8,
+     "unit_price": 1100,
+     "printed": "2 | سليبارتي 2وينز | 4.000 | 1100.00 | 8800.00"
+    },
+    {
+     "text": "شامية سيد الشيخ 350غ",
+     "qty": 48,
+     "unit_price": 285,
+     "printed": "2 | شامية سيد الشيخ 350غ | 24.000 | 285.00 | 13680.00"
+    },
+    {
+     "text": "قاطو اميقوص",
+     "qty": 5,
+     "unit_price": 700,
+     "printed": "5 | قاطو اميقوص | 1.000 | 700.00 | 3500.00"
+    },
+    {
+     "text": "سليبارتي اميقوس",
+     "qty": 5,
+     "unit_price": 970,
+     "printed": "5 | سليبارتي اميقوس | 1.000 | 970.00 | 4850.00"
+    },
+    {
+     "text": "نيطا رولي صغيرة ( روزة )",
+     "qty": 5,
+     "unit_price": 980,
+     "printed": "5 | نيطا رولي صغيرة ( روزة ) | 1.000 | 980.00 | 4900.00"
+    },
+    {
+     "text": "سليبارتي كايك",
+     "qty": 8,
+     "unit_price": 600,
+     "printed": "2 | سليبارتي كايك | 4.000 | 600.00 | 4800.00"
+    },
+    {
+     "text": "سناوبول",
+     "qty": 5,
+     "unit_price": 1230,
+     "printed": "5 | سناوبول | 1.000 | 1230.00 | 6150.00"
+    },
+    {
+     "text": "روندو توبنكي",
+     "qty": 5,
+     "unit_price": 720,
+     "printed": "5 | روندو توبنكي | 1.000 | 720.00 | 3600.00"
+    },
+    {
+     "text": "حلوى صوفت",
+     "qty": 6,
+     "unit_price": 335,
+     "printed": "1 | حلوى صوفت | 6.000 | 335.00 | 2010.00"
+    },
+    {
+     "text": "بالبون",
+     "qty": 8,
+     "unit_price": 255,
+     "printed": "1 | بالبون | 8.000 | 255.00 | 2040.00"
+    },
+    {
+     "text": "شامية بابيون 350غ",
+     "qty": 48,
+     "unit_price": 275,
+     "printed": "2 | شامية بابيون 350غ | 24.000 | 275.00 | 13200.00"
+    },
+    {
+     "text": "مادلان براونيز",
+     "qty": 10,
+     "unit_price": 1080,
+     "printed": "10 | مادلان براونيز | 1.000 | 1080.00 | 10800.00"
+    },
+    {
+     "text": "سندويتش شرشال كبير",
+     "qty": 20,
+     "unit_price": 470,
+     "printed": "20 | سندويتش شرشال كبير | 1.000 | 470.00 | 9400.00"
+    },
+    {
+     "text": "فاميليو",
+     "qty": 6,
+     "unit_price": 1850,
+     "printed": "6 | فاميليو | 1.000 | 1850.00 | 11100.00"
+    },
+    {
+     "text": "حلقوم فالكو",
+     "qty": 48,
+     "unit_price": 105,
+     "printed": "4 | حلقوم فالكو | 12.000 | 105.00 | 5040.00"
+    }
+   ]
+  },
+  {
+   "image": "SM-18.jpg",
+   "language": "fr",
+   "kind": "facture",
+   "lines": [
+    {
+     "text": "GEL JAVEL 900 ML",
+     "qty": 24,
+     "unit_price": 126.0,
+     "printed": " | GEL JAVEL 900 ML | 2,0 | 12,0 | 126,00 |  | 3 024,00"
+    },
+    {
+     "text": "LAVE SOL classic",
+     "qty": 372,
+     "unit_price": 172.0,
+     "printed": " | LAVE SOL classic | 31,0 | 12,0 | 172,00 |  | 63 984,00"
+    },
+    {
+     "text": "LIQ-V 3L",
+     "qty": 8,
+     "unit_price": 680.0,
+     "printed": " | LIQ-V 3L | 2,0 | 4,0 | 680,00 |  | 5 440,00"
+    },
+    {
+     "text": "SANIBON 1 L",
+     "qty": 24,
+     "unit_price": 106.0,
+     "printed": " | SANIBON 1 L | 2,0 | 12,0 | 106,00 |  | 2 544,00"
+    },
+    {
+     "text": "SANIBON 850 ML",
+     "qty": 60,
+     "unit_price": 76.0,
+     "printed": " | SANIBON 850 ML | 5,0 | 12,0 | 76,00 |  | 4 560,00"
+    },
+    {
+     "text": "SAVON LIQUIDE 390ML",
+     "qty": 72,
+     "unit_price": 116.0,
+     "printed": " | SAVON LIQUIDE 390ML | 6,0 | 12,0 | 116,00 |  | 8 352,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-19.jpg",
+   "language": "fr",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "POIS CHICHE 12 /10KG",
+     "qty": 150,
+     "unit_price": 380,
+     "printed": "15 | 10 | POIS CHICHE 12 /10KG | 380,00 | 57 000,00"
+    },
+    {
+     "text": "HERISSA CNAB 400G",
+     "qty": 120,
+     "unit_price": 135,
+     "printed": "5 | 24 | HERISSA CNAB 400G | 135,00 | 16 200,00"
+    },
+    {
+     "text": "HERISSA CNAB 800G",
+     "qty": 60,
+     "unit_price": 247,
+     "printed": "5 | 12 | HERISSA CNAB 800G | 247,00 | 14 820,00"
+    },
+    {
+     "text": "TOMATE CNAB 800G",
+     "qty": 60,
+     "unit_price": 250,
+     "printed": "5 | 12 | TOMATE CNAB 800G | 250,00 | 15 000,00"
+    },
+    {
+     "text": "TOMATE CNAB 400G",
+     "qty": 120,
+     "unit_price": 135,
+     "printed": "5 | 24 | TOMATE CNAB 400G | 135,00 | 16 200,00"
+    },
+    {
+     "text": "TOMATE CB 800G",
+     "qty": 60,
+     "unit_price": 252,
+     "printed": "5 | 12 | TOMATE CB 800G | 252,00 | 15 120,00"
+    },
+    {
+     "text": "VINAIGRE SIDHOM",
+     "qty": 160,
+     "unit_price": 90,
+     "printed": "16 | 10 | VINAIGRE SIDHOM | 90,00 | 14 400,00"
+    },
+    {
+     "text": "EXTRA SEPAGHITI",
+     "qty": 100,
+     "unit_price": 148,
+     "printed": "10 | 10 | EXTRA SEPAGHITI | 148,00 | 14 800,00"
+    },
+    {
+     "text": "EL MOUFID TERIDA 450G",
+     "qty": 120,
+     "unit_price": 72,
+     "printed": "10 | 12 | EL MOUFID TERIDA 450G | 72,00 | 8 640,00"
+    },
+    {
+     "text": "LAIT OKIDS",
+     "qty": 120,
+     "unit_price": 465,
+     "printed": "10 | 12 | LAIT OKIDS | 465,00 | 55 800,00"
+    },
+    {
+     "text": "RIZ SOS ETUVE 1KG",
+     "qty": 36,
+     "unit_price": 215,
+     "printed": "3 | 12 | RIZ SOS ETUVE 1KG | 215,00 | 7 740,00"
+    },
+    {
+     "text": "RIZ SOS ETUVE 500G",
+     "qty": 6,
+     "unit_price": 225,
+     "printed": "1 | 6 | RIZ SOS ETUVE 500G | 225,00 | 1 350,00"
+    },
+    {
+     "text": "ELARABIA LENTILLE",
+     "qty": 100,
+     "unit_price": 115,
+     "printed": "5 | 20 | ELARABIA LENTILLE | 115,00 | 11 500,00"
+    },
+    {
+     "text": "EXTRA COUDE 5",
+     "qty": 50,
+     "unit_price": 148,
+     "printed": "5 | 10 | EXTRA COUDE 5 | 148,00 | 7 400,00"
+    },
+    {
+     "text": "BIMO GAL SENIOR",
+     "qty": 5,
+     "unit_price": 2200,
+     "printed": "5 | P | BIMO GAL SENIOR | 2 200,00 | 11 000,00"
+    },
+    {
+     "text": "BIMO DOUBLE MIX",
+     "qty": 5,
+     "unit_price": 2250,
+     "printed": "5 | P | BIMO DOUBLE MIX | 2 250,00 | 11 250,00"
+    },
+    {
+     "text": "TOUM",
+     "qty": 60,
+     "unit_price": 90,
+     "printed": "5 | 12 | TOUM | 90,00 | 5 400,00"
+    },
+    {
+     "text": "WIDJEDAN 250G GLACAGE",
+     "qty": 32,
+     "unit_price": 260,
+     "printed": "2 | 16 | WIDJEDAN 250G GLACAGE | 260,00 | 8 320,00"
+    },
+    {
+     "text": "DADA CHIKOLA 500G",
+     "qty": 40,
+     "unit_price": 312,
+     "printed": "2 | 20 | DADA CHIKOLA 500G | 312,00 | 12 480,00"
+    },
+    {
+     "text": "TAMLAIT CARAMEL",
+     "qty": 24,
+     "unit_price": 232,
+     "printed": "1 | 24 | TAMLAIT CARAMEL | 232,00 | 5 568,00"
+    },
+    {
+     "text": "ANANAS 500G",
+     "qty": 36,
+     "unit_price": 540,
+     "printed": "3 | 12 | ANANAS 500G | 540,00 | 19 440,00"
+    },
+    {
+     "text": "CHICOLAT KITTOP 45",
+     "qty": 200,
+     "unit_price": 35,
+     "printed": "5 | 40 | CHICOLAT KITTOP 45 | 35,00 | 7 000,00"
+    },
+    {
+     "text": "CHICILAT KITTOP FRAISE",
+     "qty": 200,
+     "unit_price": 35,
+     "printed": "5 | 40 | CHICILAT KITTOP FRAISE | 35,00 | 7 000,00"
+    },
+    {
+     "text": "MAIS 1.800 G",
+     "qty": 12,
+     "unit_price": 700,
+     "printed": "2 | 6 | MAIS 1.800 G | 700,00 | 8 400,00"
+    },
+    {
+     "text": "MAIS 400G",
+     "qty": 24,
+     "unit_price": 180,
+     "printed": "2 | 12 | MAIS 400G | 180,00 | 4 320,00"
+    },
+    {
+     "text": "BIMO BISOUS",
+     "qty": 2,
+     "unit_price": 1950,
+     "printed": "2 | P | BIMO BISOUS | 1 950,00 | 3 900,00"
+    },
+    {
+     "text": "BIMO PETIT AU LAIT",
+     "qty": 5,
+     "unit_price": 1600,
+     "printed": "5 | P | BIMO PETIT AU LAIT | 1 600,00 | 8 000,00"
+    },
+    {
+     "text": "BIMO MACAO",
+     "qty": 5,
+     "unit_price": 1800,
+     "printed": "5 | P | BIMO MACAO | 1 800,00 | 9 000,00"
+    },
+    {
+     "text": "BIMO SYMBA",
+     "qty": 5,
+     "unit_price": 1400,
+     "printed": "5 | P | BIMO SYMBA | 1 400,00 | 7 000,00"
+    },
+    {
+     "text": "BIMO CHICO 4",
+     "qty": 3,
+     "unit_price": 2480,
+     "printed": "3 | P | BIMO CHICO 4 | 2 480,00 | 7 440,00"
+    },
+    {
+     "text": "CHIKOLA EXELANCE BIMO",
+     "qty": 2,
+     "unit_price": 1850,
+     "printed": "2 | P | CHIKOLA EXELANCE BIMO | 1 850,00 | 3 700,00"
+    },
+    {
+     "text": "CHIKOLA EXELANCE RIZ BIMO",
+     "qty": 2,
+     "unit_price": 2830,
+     "printed": "2 | P | CHIKOLA EXELANCE RIZ BIMO | 2 830,00 | 5 660,00"
+    },
+    {
+     "text": "BIMO CROC MATIN",
+     "qty": 3,
+     "unit_price": 1750,
+     "printed": "3 | P | BIMO CROC MATIN | 1 750,00 | 5 250,00"
+    },
+    {
+     "text": "CHIKOLA CHOKOMI",
+     "qty": 72,
+     "unit_price": 85,
+     "printed": "2 | 36 | CHIKOLA CHOKOMI | 85,00 | 6 120,00"
+    },
+    {
+     "text": "CHICORE GRAND 200G",
+     "qty": 12,
+     "unit_price": 640,
+     "printed": "1 | 12 | CHICORE GRAND 200G | 640,00 | 7 680,00"
+    },
+    {
+     "text": "THUN DALITHUN",
+     "qty": 200,
+     "unit_price": 167,
+     "printed": "10 | 20 | THUN DALITHUN | 167,00 | 33 400,00"
+    },
+    {
+     "text": "CHIKOLA MINA",
+     "qty": 200,
+     "unit_price": 105,
+     "printed": "4 | 50 | CHIKOLA MINA | 105,00 | 21 000,00"
+    },
+    {
+     "text": "LA LEVURE DELIPAN 500G",
+     "qty": 20,
+     "unit_price": 585,
+     "printed": "2 | 10 | LA LEVURE DELIPAN 500G | 585,00 | 11 700,00"
+    },
+    {
+     "text": "MAYOUNNAISE STAR TUB",
+     "qty": 60,
+     "unit_price": 225,
+     "printed": "5 | 12 | MAYOUNNAISE STAR TUB | 225,00 | 13 500,00"
+    },
+    {
+     "text": "CHOFAN FRAK",
+     "qty": 50,
+     "unit_price": 300,
+     "printed": "2 | 25 | CHOFAN FRAK | 300,00 | 15 000,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-20.jpg",
+   "language": "fr",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "EXTRA TLITLI",
+     "qty": 100,
+     "unit_price": 150,
+     "printed": "10 | 10 | EXTRA TLITLI | 150,00 | 15 000,00"
+    },
+    {
+     "text": "HERISSA CNAB 1/6",
+     "qty": 80,
+     "unit_price": 65,
+     "printed": "2 | 40 | HERISSA CNAB 1/6 | 65,00 | 5 200,00"
+    },
+    {
+     "text": "CONFITURE CB 400G",
+     "qty": 96,
+     "unit_price": 127,
+     "printed": "4 | 24 | CONFITURE CB 400G | 127,00 | 12 192,00"
+    },
+    {
+     "text": "BISCUIT MON",
+     "qty": 75,
+     "unit_price": 140,
+     "printed": "5 | 15 | BISCUIT MON | 140,00 | 10 500,00"
+    },
+    {
+     "text": "DADA CHIKOLA 500G",
+     "qty": 60,
+     "unit_price": 312,
+     "printed": "3 | 20 | DADA CHIKOLA 500G | 312,00 | 18 720,00"
+    },
+    {
+     "text": "DADA TABLETTE 240GR",
+     "qty": 144,
+     "unit_price": 160,
+     "printed": "3 | 48 | DADA TABLETTE 240GR | 160,00 | 23 040,00"
+    },
+    {
+     "text": "CAFE FAMICO",
+     "qty": 25,
+     "unit_price": 940,
+     "printed": "5 | 5 | CAFE FAMICO | 940,00 | 23 500,00"
+    },
+    {
+     "text": "CAFE 1001",
+     "qty": 20,
+     "unit_price": 940,
+     "printed": "4 | 5 | CAFE 1001 | 940,00 | 18 800,00"
+    },
+    {
+     "text": "BIMO DOUBLE MIX",
+     "qty": 5,
+     "unit_price": 2250,
+     "printed": "5 | P | BIMO DOUBLE MIX | 2 250,00 | 11 250,00"
+    },
+    {
+     "text": "BIMO GAL SENIOR",
+     "qty": 5,
+     "unit_price": 2220,
+     "printed": "5 | P | BIMO GAL SENIOR | 2 220,00 | 11 100,00"
+    },
+    {
+     "text": "GALETTE ALGHOL",
+     "qty": 10,
+     "unit_price": 680,
+     "printed": "10 | P | GALETTE ALGHOL | 680,00 | 6 800,00"
+    },
+    {
+     "text": "ANANAS 500G",
+     "qty": 48,
+     "unit_price": 570,
+     "printed": "4 | 12 | ANANAS 500G | 570,00 | 27 360,00"
+    },
+    {
+     "text": "HARICOTS 10KG",
+     "qty": 100,
+     "unit_price": 335,
+     "printed": "10 | 10 | HARICOTS 10KG | 335,00 | 33 500,00"
+    },
+    {
+     "text": "LENTILLE ROYALE 10KG",
+     "qty": 100,
+     "unit_price": 190,
+     "printed": "10 | 10 | LENTILLE ROYALE 10KG | 190,00 | 19 000,00"
+    },
+    {
+     "text": "POIS CHICHE 12 /10KG",
+     "qty": 100,
+     "unit_price": 380,
+     "printed": "10 | 10 | POIS CHICHE 12 /10KG | 380,00 | 38 000,00"
+    },
+    {
+     "text": "HERISSA CAB 800G",
+     "qty": 96,
+     "unit_price": 275,
+     "printed": "8 | 12 | HERISSA CAB 800G | 275,00 | 26 400,00"
+    },
+    {
+     "text": "DADA CHIKOLA 1KG",
+     "qty": 30,
+     "unit_price": 615,
+     "printed": "3 | 10 | DADA CHIKOLA 1KG | 615,00 | 18 450,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-21.jpg",
+   "language": "fr",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "BASMATI 20KG",
+     "qty": 200,
+     "unit_price": 190,
+     "printed": "10 | 20 | BASMATI 20KG | 190,00 | 38 000,00"
+    },
+    {
+     "text": "HARICOTS ROUGE",
+     "qty": 100,
+     "unit_price": 225,
+     "printed": "10 | 10 | HARICOTS ROUGE | 225,00 | 22 500,00"
+    },
+    {
+     "text": "TOMATE CNAB 400G",
+     "qty": 240,
+     "unit_price": 135,
+     "printed": "10 | 24 | TOMATE CNAB 400G | 135,00 | 32 400,00"
+    },
+    {
+     "text": "TOMATE CNAB 800G",
+     "qty": 120,
+     "unit_price": 250,
+     "printed": "10 | 12 | TOMATE CNAB 800G | 250,00 | 30 000,00"
+    },
+    {
+     "text": "HERISSA CNAB 400G",
+     "qty": 120,
+     "unit_price": 135,
+     "printed": "5 | 24 | HERISSA CNAB 400G | 135,00 | 16 200,00"
+    },
+    {
+     "text": "HERISSA CNAB 800G",
+     "qty": 60,
+     "unit_price": 247,
+     "printed": "5 | 12 | HERISSA CNAB 800G | 247,00 | 14 820,00"
+    },
+    {
+     "text": "LAIT MILKOSPRAY 125G",
+     "qty": 48,
+     "unit_price": 130,
+     "printed": "2 | 24 | LAIT MILKOSPRAY 125G | 130,00 | 6 240,00"
+    },
+    {
+     "text": "LAIT BORJOT",
+     "qty": 60,
+     "unit_price": 465,
+     "printed": "5 | 12 | LAIT BORJOT | 465,00 | 27 900,00"
+    },
+    {
+     "text": "HARICOUT 15KG",
+     "qty": 150,
+     "unit_price": 330,
+     "printed": "10 | 15 | HARICOUT 15KG | 330,00 | 49 500,00"
+    },
+    {
+     "text": "HARICOT ELBAIT 500G",
+     "qty": 50,
+     "unit_price": 360,
+     "printed": "5 | 10 | HARICOT ELBAIT 500G | 360,00 | 18 000,00"
+    },
+    {
+     "text": "HARICOT ELBIT KABIR 1KG",
+     "qty": 50,
+     "unit_price": 360,
+     "printed": "5 | 10 | HARICOT ELBIT KABIR 1KG | 360,00 | 18 000,00"
+    },
+    {
+     "text": "POIS CHICHE 12 /10KG",
+     "qty": 200,
+     "unit_price": 380,
+     "printed": "20 | 10 | POIS CHICHE 12 /10KG | 380,00 | 76 000,00"
+    }
+   ]
+  },
+  {
+   "image": "SM-22.jpg",
+   "language": "mixed",
+   "kind": "bon de vente",
+   "lines": [
+    {
+     "text": "حمص مرحي الأمين",
+     "qty": 100,
+     "unit_price": 118,
+     "printed": "4 | حمص مرحي الأمين | 25.000 | 118.00 | 11800.00"
+    },
+    {
+     "text": "فرينة ماما 5 كغ",
+     "qty": 30,
+     "unit_price": 320,
+     "printed": "10 | فرينة ماما 5 كغ | 3.000 | 320.00 | 9600.00"
+    },
+    {
+     "text": "رفيس عزيز",
+     "qty": 24,
+     "unit_price": 185,
+     "printed": "2 | رفيس عزيز | 12.000 | 185.00 | 4440.00"
+    },
+    {
+     "text": "ح ميلكوسبراي حليب 1 كغ",
+     "qty": 18,
+     "unit_price": 950,
+     "printed": "3 | ح ميلكوسبراي حليب 1 كغ | 6.000 | 950.00 | 17100.00"
+    },
+    {
+     "text": "ح حليب 1001",
+     "qty": 24,
+     "unit_price": 465,
+     "printed": "2 | ح حليب 1001 | 12.000 | 465.00 | 11160.00"
+    },
+    {
+     "text": "طن منارة طماطم",
+     "qty": 80,
+     "unit_price": 195,
+     "printed": "4 | طن منارة طماطم | 20.000 | 195.00 | 15600.00"
+    },
+    {
+     "text": "طن منارة زيت",
+     "qty": 60,
+     "unit_price": 195,
+     "printed": "3 | طن منارة زيت | 20.000 | 195.00 | 11700.00"
+    }
+   ]
+  },
+  {
+   "image": "SM-23.jpg",
+   "language": "fr",
+   "kind": "bon de livraison",
+   "lines": [
+    {
+     "text": "128 HR -TOMATE 400 G",
+     "qty": 10,
+     "unit_price": 3936.0,
+     "printed": "1 | 128 | HR -TOMATE 400 G | Fardeau(24) | 10 | 3 936 | 39 360"
+    },
+    {
+     "text": "129 HR -TOMATE 800 G",
+     "qty": 10,
+     "unit_price": 3504.0,
+     "printed": "2 | 129 | HR -TOMATE 800 G | Fardeau(12) | 10 | 3 504 | 35 040"
+    },
+    {
+     "text": "39 HR -PETIT POIS 800 G",
+     "qty": 3,
+     "unit_price": 1824.0,
+     "printed": "3 | 39 | HR -PETIT POIS 800 G | Fardeau(12) | 3 | 1 824 | 5 472"
+    },
+    {
+     "text": "45 LB - MARGARINE 250 G",
+     "qty": 2,
+     "unit_price": 3880.0,
+     "printed": "4 | 45 | LB - MARGARINE 250 G | Fardeau(40) | 2 | 3 880 | 7 760"
+    },
+    {
+     "text": "46 LB - MARGARINE 500 G",
+     "qty": 20,
+     "unit_price": 4284.0,
+     "printed": "5 | 46 | LB - MARGARINE 500 G | Fardeau(24) | 20 | 4 284 | 85 680"
+    }
+   ]
+  }
+ ]
+}
