@@ -4,7 +4,7 @@
 Muse Spark teaches the desk to do it without them.**
 
 *Meta Global AI Developer Hackathon · **Startups track** · Build for Your World · by
-[Elixir](https://gestion.elixirdesign.com), makers of the Elixir Distribution ERP
+[Elixir](https://gestion.elixir-dz.com), makers of the Elixir Distribution ERP
 ([what existed before, what we built](#startups-track-what-existed-before-and-what-we-built)).*
 
 **Live demo:** [Telegram bot](https://t.me/elixirOrderDeskbot?start=META26) (a demo shop of a real supermarket
@@ -61,7 +61,7 @@ right, asked about the rest, and booked 3 of 1,272 wrong ([benchmark](#benchmark
 ### Startups track: what existed before, and what we built
 
 **Before the hackathon.** Elixir is a startup building software for distributors in Algeria. Our product,
-**[Elixir Distribution](https://gestion.elixirdesign.com)**, is an ERP for wholesale distributors. But a
+**[Elixir Distribution](https://gestion.elixir-dz.com)**, is an ERP for wholesale distributors. But a
 distributor's orders don't arrive in the ERP: they arrive on WhatsApp, and a clerk retypes them. Order Desk
 started as an idea for a new module of Elixir Distribution: read those WhatsApp orders and book them.
 
