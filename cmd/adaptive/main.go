@@ -66,16 +66,20 @@ func main() {
 	if *keys != "" {
 		loadKeys(*keys)
 	}
-	if *breakDB != "" {
-		breakRules(*breakDB)
-		return
-	}
-	if *creditDB != "" {
+	if *creditDB != "" { // reads an earlier run's database: no model
 		db, err := store.Open(*creditDB)
 		if err != nil {
 			log.Fatal(err)
 		}
 		fmt.Print(Attribute(db).Markdown())
+		return
+	}
+	if strings.TrimSpace(os.Getenv("META_MODEL_API_KEY")) == "" {
+		// without a key every model step fails quietly and the run would "succeed" with 0 right
+		log.Fatal("adaptive needs the Meta Model API (only -credit runs without it): set META_MODEL_API_KEY or pass -keys keys.env")
+	}
+	if *breakDB != "" {
+		breakRules(*breakDB)
 		return
 	}
 	var data input

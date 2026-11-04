@@ -212,8 +212,12 @@ func (c *Client) taxRates(ctx context.Context, ids map[int]bool) map[int]int64 {
 	return out
 }
 
-func (c *Client) Customers(ctx context.Context) ([]catalog.Customer, error) { return c.partners(ctx, "customer_rank") }
-func (c *Client) Suppliers(ctx context.Context) ([]catalog.Customer, error) { return c.partners(ctx, "supplier_rank") }
+func (c *Client) Customers(ctx context.Context) ([]catalog.Customer, error) {
+	return c.partners(ctx, "customer_rank")
+}
+func (c *Client) Suppliers(ctx context.Context) ([]catalog.Customer, error) {
+	return c.partners(ctx, "supplier_rank")
+}
 
 func (c *Client) partners(ctx context.Context, rank string) ([]catalog.Customer, error) {
 	rows, err := c.searchRead(ctx, "res.partner", []any{[]any{rank, ">", 0}}, []string{"name", "phone", "mobile"}, map[string]any{"order": "name"})
@@ -336,6 +340,27 @@ func (c *Client) CreateOrder(ctx context.Context, o adapter.Order) (adapter.Orde
 		return adapter.OrderRef{}, fmt.Errorf("order %d created as a quotation, but confirming failed: %w", int(id), err)
 	}
 	return c.ref(ctx, "sale.order", int(id), "")
+}
+
+// FindOrder finds the sales order CreateOrder made with this external reference (client_order_ref), and
+// confirms it if an earlier attempt left it a quotation (adapter.OrderFinder).
+func (c *Client) FindOrder(ctx context.Context, externalRef string) (adapter.OrderRef, bool, error) {
+	if externalRef == "" {
+		return adapter.OrderRef{}, false, nil
+	}
+	rows, err := c.searchRead(ctx, "sale.order", []any{[]any{"client_order_ref", "=", externalRef}, []any{"state", "!=", "cancel"}},
+		[]string{"state"}, map[string]any{"limit": 1, "order": "id desc"})
+	if err != nil || len(rows) == 0 {
+		return adapter.OrderRef{}, false, err
+	}
+	id := int(f64(rows[0]["id"]))
+	if st := str(rows[0]["state"]); st == "draft" || st == "sent" {
+		if err := c.exec(ctx, "sale.order", "action_confirm", []any{[]int{id}}, nil, nil); err != nil {
+			return adapter.OrderRef{ID: strconv.Itoa(id)}, true, fmt.Errorf("order %d found as a quotation, but confirming failed: %w", id, err)
+		}
+	}
+	ref, err := c.ref(ctx, "sale.order", id, "")
+	return ref, true, err
 }
 
 func (c *Client) ref(ctx context.Context, model string, id int, suffix string) (adapter.OrderRef, error) {

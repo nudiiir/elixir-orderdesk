@@ -40,9 +40,9 @@ type OrderLine struct {
 }
 
 type Order struct {
-	CustomerID string
-	Lines      []OrderLine
-	Notes      string // evidence link and channel
+	CustomerID  string
+	Lines       []OrderLine
+	Notes       string // evidence link and channel
 	ExternalRef string
 }
 
@@ -74,6 +74,13 @@ type ERP interface {
 	Suppliers(ctx context.Context) ([]catalog.Customer, error)
 	LastPurchasePrices(ctx context.Context, supplierID string) (map[string]int64, error) // product → cost per base unit, centimes HT
 	CreateReceipt(ctx context.Context, r Receipt) (OrderRef, error)
+}
+
+// OrderFinder is an optional capability (checked with a type assertion): it finds the order an earlier
+// CreateOrder made with this external reference, so a booking that timed out after the ERP had created the
+// order is not booked twice.
+type OrderFinder interface {
+	FindOrder(ctx context.Context, externalRef string) (OrderRef, bool, error)
 }
 
 // Receipt is an approved supplier invoice, booked as a goods receipt.

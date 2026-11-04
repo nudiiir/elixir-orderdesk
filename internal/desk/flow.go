@@ -52,7 +52,7 @@ func (d *Desk) ask(ctx context.Context, chat int64, l Line) {
 	}
 	rows = append(rows, []telegram.Button{{Text: "✖ Retirer cette ligne", Data: "x:" + l.ID}})
 	q := l.Question
-	if l.Status == "unknown" || len(l.Options) == 0 {
+	if (l.Status == "unknown" || len(l.Options) == 0) && l.Checks["unread"] == "" {
 		q = fmt.Sprintf("Je ne trouve pas « %s » dans le catalogue.", l.Said)
 	}
 	d.TG.Send(ctx, chat, "❓ "+esc(q), rows)
@@ -79,7 +79,7 @@ func (d *Desk) Summary(draft string) (text string, total int64, ok int) {
 			fmt.Fprintf(&b, " — %s", Money(l.LineTTC))
 		}
 		b.WriteString("\n")
-		for _, k := range []string{"offer", "stock", "usual", "pack", "unit"} {
+		for _, k := range []string{"offer", "stock", "usual", "pack", "unit", "qty"} {
 			if v := l.Checks[k]; v != "" {
 				icon := "⚠️"
 				if k == "offer" {
@@ -320,10 +320,14 @@ func (d *Desk) Relearn(l Line, wrong string) {
 	if kind == "invoice" {
 		scopeKind, scopeID = "supplier", supplierID
 	}
-	d.DB.Exec(`UPDATE ground_truth SET product_id = ?, origin = 'clerk' WHERE line_id = ?`, l.ProductID, l.ID)
 	if l.Norm == "" {
+		d.DB.Exec(`UPDATE ground_truth SET product_id = ?, origin = 'clerk' WHERE line_id = ?`, l.ProductID, l.ID)
 		return
 	}
+	// a line booked from a pick of Muse Spark alone taught nothing (learnLines): the person's answer is ground truth now
+	d.DB.Exec(`INSERT INTO ground_truth (line_id, said, norm, unit, customer_id, supplier_id, kind, product_id, level, origin, created_at)
+		VALUES (?,?,?,?,?,?,?,?,?,'clerk',?) ON CONFLICT(line_id) DO UPDATE SET product_id = excluded.product_id, origin = 'clerk'`,
+		l.ID, l.Said, l.Norm, l.Unit, customerID, supplierID, kind, l.ProductID, resolve.LPerson, store.Now())
 	if wrong != "" {
 		d.Cat.Block(l.Norm, wrong, scopeKind, scopeID)
 	}
@@ -357,7 +361,9 @@ func (d *Desk) cancel(ctx context.Context, chat int64, draft string) {
 	d.DB.Exec(`UPDATE drafts SET status = 'cancelled', updated_at = ? WHERE id = ?`, store.Now(), draft)
 }
 
-// Confirm books the draft in the ERP and teaches the catalogue from every confirmed line.
+// Confirm books the draft in the ERP and teaches the catalogue from every confirmed line. It is safe to
+// call twice: a booked draft returns its order, and an order the ERP created before a timeout is found by its
+// external reference (adapter.OrderFinder) instead of being booked again.
 func (d *Desk) Confirm(ctx context.Context, draft, origin string) (adapter.OrderRef, error) {
 	e := d.erp()
 	if e == nil {
@@ -365,21 +371,29 @@ func (d *Desk) Confirm(ctx context.Context, draft, origin string) (adapter.Order
 	}
 	d.book.Lock()
 	defer d.book.Unlock()
-	var customerID, status, key, kind string
-	d.DB.QueryRow(`SELECT customer_id, status, chat_key, kind FROM drafts WHERE id = ?`, draft).Scan(&customerID, &status, &key, &kind)
-	if status != "open" {
-		return adapter.OrderRef{}, fmt.Errorf("draft is %s", status)
-	}
+	var customerID, status, key, kind, shop string
+	var booked adapter.OrderRef
+	d.DB.QueryRow(`SELECT d.customer_id, d.status, d.chat_key, d.kind, d.erp_order_id, d.erp_order_number, d.total_ttc, COALESCE(c.name, '')
+		FROM drafts d LEFT JOIN customers c ON c.id = d.customer_id WHERE d.id = ?`, draft).
+		Scan(&customerID, &status, &key, &kind, &booked.ID, &booked.Number, &booked.TotalTTC, &shop)
 	if kind == "invoice" {
+		if status != "open" {
+			return adapter.OrderRef{}, fmt.Errorf("draft is %s", status)
+		}
 		return d.confirmInvoice(ctx, e, draft, origin)
 	}
+	if status == "confirmed" && (booked.ID != "" || booked.Number != "") {
+		return booked, nil // a second tap on the same summary: the order is booked already
+	}
+	if status != "open" && status != "booking" {
+		return adapter.OrderRef{}, fmt.Errorf("draft is %s", status)
+	}
 	lines := DraftLines(d.DB, draft, false)
+	// the shop and the channel only: the ERP's users never see the name of the person who wrote
 	o := adapter.Order{CustomerID: customerID, ExternalRef: "orderdesk:" + draft,
 		Notes: "Commande reçue par Order Desk (" + strings.SplitN(key, ":", 2)[0] + ")"}
-	var who string
-	d.DB.QueryRow(`SELECT name FROM chats WHERE chat_key = ?`, key).Scan(&who)
-	if who = strings.TrimSpace(who); who != "" {
-		o.Notes += " — " + who // on a shared demo shop, whose order this is
+	if shop = strings.TrimSpace(shop); shop != "" {
+		o.Notes += " — " + shop
 	}
 	for _, l := range lines {
 		if l.Status == "ok" && l.QtyMilli > 0 {
@@ -393,13 +407,32 @@ func (d *Desk) Confirm(ctx context.Context, draft, origin string) (adapter.Order
 	if len(o.Lines) == 0 {
 		return adapter.OrderRef{}, fmt.Errorf("no confirmed line")
 	}
-	ref, err := e.CreateOrder(ctx, o)
-	if err != nil {
-		return ref, err
+	// marked as booking before the ERP is called: one booking per draft, whoever taps
+	res, err := d.DB.Exec(`UPDATE drafts SET status = 'booking', updated_at = ? WHERE id = ? AND status IN ('open', 'booking')`, store.Now(), draft)
+	if n, _ := res.RowsAffected(); err != nil || n == 0 {
+		return adapter.OrderRef{}, fmt.Errorf("draft %s could not be marked for booking: %v", draft, err)
+	}
+	reopen := func() {
+		d.DB.Exec(`UPDATE drafts SET status = 'open', updated_at = ? WHERE id = ? AND status = 'booking'`, store.Now(), draft)
+	}
+	var ref adapter.OrderRef
+	found := false
+	if f, ok := e.(adapter.OrderFinder); ok {
+		// an earlier attempt may have created the order and timed out before the answer came back
+		if ref, found, err = f.FindOrder(ctx, o.ExternalRef); err != nil {
+			reopen()
+			return ref, err
+		}
+	}
+	if !found {
+		if ref, err = e.CreateOrder(ctx, o); err != nil {
+			reopen()
+			return ref, err
+		}
 	}
 	d.DB.Exec(`UPDATE drafts SET status = 'confirmed', erp_order_id = ?, erp_order_number = ?, total_ttc = ?, updated_at = ? WHERE id = ?`,
 		ref.ID, ref.Number, ref.TotalTTC, store.Now(), draft)
-	d.DB.Event("order.created", draft, origin, map[string]any{"number": ref.Number, "lines": len(o.Lines), "erp": e.Name()})
+	d.DB.Event("order.created", draft, origin, map[string]any{"number": ref.Number, "lines": len(o.Lines), "erp": e.Name(), "found": found})
 	d.hist.Delete(customerID)
 	d.learnLines(lines, "order", "customer", customerID, origin)
 	if d.OnLearn != nil {
@@ -409,7 +442,11 @@ func (d *Desk) Confirm(ctx context.Context, draft, origin string) (adapter.Order
 }
 
 // learn: every confirmed line becomes ground truth and a witness for its wording; shadow rules
-// are compared with the answer; rules that resolved lines get credit.
+// are compared with the answer; rules that resolved lines get credit. On a shop's order, a line Muse Spark
+// picked alone was never checked (the shop confirmed a summary, nobody chose that line), and on a shared demo
+// shop one visitor could teach the next a wrong wording: it is only weak evidence, which never makes ground
+// truth or trusts an alias on its own. An invoice's lines are all approved by the owner (a replay's by a
+// clerk who knows every answer), so they all teach.
 func (d *Desk) learnLines(lines []Line, kind, scopeKind, scopeID, origin string) {
 	customerID, supplierID := "", ""
 	if scopeKind == "customer" {
@@ -420,7 +457,7 @@ func (d *Desk) learnLines(lines []Line, kind, scopeKind, scopeID, origin string)
 	trustAfter := d.DB.SettingInt("alias_trust_after", 2)
 	shadowNeeded := d.DB.SettingInt("shadow_agreements", 5)
 	if d.Autonomy != nil {
-		d.Autonomy.Record(lines, scopeID)
+		d.Autonomy.Record(lines, scopeID, origin == "replay")
 		d.DB.SetSetting("autonomy", d.Autonomy.JSON())
 	}
 	for _, l := range lines {
@@ -435,13 +472,17 @@ func (d *Desk) learnLines(lines []Line, kind, scopeKind, scopeID, origin string)
 			}
 			d.DB.Exec(`UPDATE lines SET outcome = ? WHERE id = ?`, l.Outcome, l.ID)
 		}
-		d.DB.Exec(`INSERT OR REPLACE INTO ground_truth (line_id, said, norm, unit, customer_id, supplier_id, kind, product_id, level, origin, created_at)
-			VALUES (?,?,?,?,?,?,?,?,?,?,?)`, l.ID, l.Said, l.Norm, l.Unit, customerID, supplierID, kind, l.ProductID, l.Level, origin, store.Now())
 		var source string
 		d.DB.QueryRow(`SELECT kind FROM messages WHERE id = ?`, l.MessageID).Scan(&source)
 		if source == "" {
 			source = "text"
 		}
+		if kind == "order" && !checked(l) {
+			d.Cat.WitnessWeak(l.Norm, l.ProductID, scopeKind, scopeID, source)
+			continue
+		}
+		d.DB.Exec(`INSERT OR REPLACE INTO ground_truth (line_id, said, norm, unit, customer_id, supplier_id, kind, product_id, level, origin, created_at)
+			VALUES (?,?,?,?,?,?,?,?,?,?,?)`, l.ID, l.Said, l.Norm, l.Unit, customerID, supplierID, kind, l.ProductID, l.Level, origin, store.Now())
 		if a, change := d.Cat.Witness(l.Norm, l.ProductID, scopeKind, scopeID, source, trustAfter); change != "" {
 			d.DB.Event("alias."+change, l.ProductID, origin, map[string]any{"text": a.Text, "alias": a.ID, "witnesses": a.Witnesses})
 		}
@@ -479,4 +520,14 @@ func (d *Desk) learnLines(lines []Line, kind, scopeKind, scopeID, origin string)
 		}
 	}
 	log.Printf("[desk] learned from %d line(s)", len(lines))
+}
+
+// checked: a person chose or corrected the line, or a step the desk trusts gave it (a code, a trusted alias,
+// a live rule or the catalogue's own match). A pick of Muse Spark alone is not.
+func checked(l Line) bool {
+	switch l.Level {
+	case resolve.LPerson, resolve.LCode, resolve.LAlias, resolve.LRules:
+		return true
+	}
+	return false
 }

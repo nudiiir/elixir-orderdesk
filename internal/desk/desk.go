@@ -44,10 +44,10 @@ type Desk struct {
 	Threshold float64
 	Autonomy  *Autonomy // nil: no autonomy tracking (classic)
 
-	hist sync.Map   // customer id → *history
+	hist   sync.Map // customer id → *history
 	rateMu sync.Mutex
 	rate   map[string][]time.Time // chat → when its last messages came (rate_per_10min, rate_per_day)
-	book sync.Mutex // Confirm: one booking at a time
+	book   sync.Mutex             // Confirm: one booking at a time
 }
 
 type history struct {
@@ -395,6 +395,9 @@ func (d *Desk) Ingest(ctx context.Context, key, customerID, msgID, kind, text, m
 		}
 		if l.Status == "ok" {
 			d.setPack(&l, r.Pack)
+			if l.QtyMilli <= 0 { // a quantity no ERP could book: a person says it again
+				l = unreadLine(l, l.Said)
+			}
 		}
 		// a repeat_last line naming a product already copied replaces it
 		for i := range added {
@@ -404,6 +407,10 @@ func (d *Desk) Ingest(ctx context.Context, key, customerID, msgID, kind, text, m
 		}
 		pos++
 		added = append(added, l)
+	}
+	for _, u := range ex.Unread {
+		added = append(added, unreadLine(Line{DraftID: draft, MessageID: msgID, Position: pos, Shadow: map[string]string{}}, u))
+		pos++
 	}
 	stock := d.stock(ctx)
 	for i := range added {
@@ -416,6 +423,22 @@ func (d *Desk) Ingest(ctx context.Context, key, customerID, msgID, kind, text, m
 	return IngestResult{Draft: draft, Ex: ex, Lines: added}, nil
 }
 
+// unreadLine turns a line into a question to a person: a part of the message no reader could read, or a
+// quantity that cannot be booked. It has no product and is never booked until the shop writes it again.
+func unreadLine(l Line, said string) Line {
+	l.Said, l.Norm, l.Hint, l.ProductID, l.Level, l.Status, l.Options = said, "", "", "", "", "unknown", []string{}
+	l.Qty, l.QtyMilli, l.PackName, l.PackFactor = 0, 0, "", 0
+	if l.Checks == nil {
+		l.Checks = map[string]string{}
+	}
+	l.Checks["unread"] = "1"
+	l.Question = fmt.Sprintf("Je n'ai pas compris « %s ». Renvoyez cette ligne avec le produit et sa quantité, par exemple « 3 cartons … ».", said)
+	return l
+}
+
+// maxQtyMilli bounds a line in ERP base units (MaxQty cartons of 1,000): beyond it the conversion would overflow.
+const maxQtyMilli = MaxQty * 1000 * 1000
+
 // setPack converts the said quantity into ERP base units using the product's real packs.
 func (d *Desk) setPack(l *Line, spec *rules.PackSpec) {
 	p := d.Cat.Get(l.ProductID)
@@ -423,11 +446,17 @@ func (d *Desk) setPack(l *Line, spec *rules.PackSpec) {
 		return
 	}
 	l.PackName, l.PackFactor = resolve.ChoosePack(p, l.Unit, spec)
+	milli := l.Qty * 1000
 	if l.PackFactor > 0 {
-		l.QtyMilli = int64(l.Qty*float64(l.PackFactor) + 0.5)
-	} else {
-		l.QtyMilli = int64(l.Qty*1000 + 0.5)
+		milli = l.Qty * float64(l.PackFactor)
 	}
+	if !(milli > 0 && milli <= maxQtyMilli) { // 0, negative, NaN or an overflow: never booked
+		l.QtyMilli = 0
+		l.Checks["qty"] = "quantité impossible à enregistrer : " + trimFloat(l.Qty)
+		return
+	}
+	delete(l.Checks, "qty")
+	l.QtyMilli = int64(milli + 0.5)
 	if spec != nil && spec.Qty > 0 && l.PackFactor != int64(spec.Qty)*1000 {
 		l.Checks["pack"] = fmt.Sprintf("le message dit ×%d, le catalogue n'a pas ce conditionnement", spec.Qty)
 	}
@@ -593,7 +622,8 @@ func (d *Desk) pair(ctx context.Context, msg *telegram.TgMessage, code string) {
 		d.say(ctx, chat, "Ce code n'est pas valide ou a expiré. Demandez un nouveau code à votre distributeur.")
 		return
 	}
-	who := strings.TrimSpace(msg.From.FirstName + " " + msg.From.LastName)
+	// the chat is named by its app, never by the person's own name: chat names reach the panel and events
+	who := channelName(chat)
 	d.DB.Exec(`INSERT INTO chats (chat_key, customer_id, name, role, linked_at) VALUES (?, ?, ?, ?, ?)
 		ON CONFLICT(chat_key) DO UPDATE SET customer_id = excluded.customer_id, name = excluded.name, role = excluded.role,
 		linked_at = excluded.linked_at`, chatKey(chat), customerID, who, role, store.Now())
@@ -760,4 +790,3 @@ func (d *Desk) resolver(live *rules.Set, shadow []*rules.Rule) *resolve.Resolver
 	}
 	return rv
 }
-

@@ -2,6 +2,7 @@ package desk
 
 import (
 	"context"
+	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -18,13 +19,19 @@ type Extraction struct {
 	RepeatLast bool              `json:"repeat_last"`
 	Reply      string            `json:"reply"`
 	Mentions   []resolve.Mention `json:"mentions"`
-	Method     string            `json:"method"` // parser | ai
+	Unread     []string          `json:"unread,omitempty"` // parts no reader could read: asked to a person
+	Method     string            `json:"method"`           // parser | ai | lenient
 	AICost     float64           `json:"ai_cost"`
 }
 
 var (
 	splitRe = regexp.MustCompile(`\n|,|;|\s\+\s|\s(?:et|w|wa|و)\s`)
 	numRe   = regexp.MustCompile(`^\d+(?:\.\d+)?$`)
+	// "3x nesquik": a count glued to its x before the name; "nesquik 750g x3": after the size
+	countLead  = regexp.MustCompile(`^(\d+)x$`)
+	countTrail = regexp.MustCompile(`^x(\d+)$`)
+	// "1/2 carton ifri" at the start of a line or an item; "1/2 kg" is a size (500 g)
+	fracRe = regexp.MustCompile(`(^|[,;]\s*)([1-3])\s*/\s*([2-4])\s+(\p{L}+)`)
 	// Signs of a conversation rather than a list: the parser hands these to the AI.
 	chatty = []string{"?", "comme", "habitude", "nafs", "kima", "meme", "dernier", "derniere", "la fois", "annul", "change",
 		"au lieu", "plutot", "non ", "hier", "combien", "chhal", "prix", "kifach", "wach", "ajoute", "zid", "na9as", "enleve",
@@ -34,6 +41,30 @@ var (
 		"...", "s'il", "svp", "stp", "mettez", "il me faut", "ab3ath", "3tini", "a3tini", "hatli", "7otli", "zidli"}
 	arabicRe = regexp.MustCompile(`\p{Arabic}`) // Arabic script: number words and word order the parser does not read
 )
+
+// MaxQty is the largest quantity one line may ask for: more is a typing mistake, never an order.
+const MaxQty = 100000
+
+// fractions a shop writes before an item ("1/2 carton"), as words the parser reads as quantities
+var fracWords = map[string]string{"1/2": "demi", "1/4": "unquart", "3/4": "troisquarts"}
+var fracQty = map[string]float64{"demi": 0.5, "unquart": 0.25, "troisquarts": 0.75}
+
+// sizeUnit: the word after "1/2" makes it a size ("1/2 kg", "1/2 l"), written as a decimal for Normalize
+var sizeUnit = regexp.MustCompile(`^(?:litres?|liters?|ltrs?|lt|l|cl|ml|cc|kgs?|kilos?|grs?|g|mg)$`)
+
+func fractions(line string) string {
+	return fracRe.ReplaceAllStringFunc(line, func(m string) string {
+		sm := fracRe.FindStringSubmatch(m)
+		w, ok := fracWords[sm[2]+"/"+sm[3]]
+		if !ok {
+			return m
+		}
+		if sizeUnit.MatchString(strings.ToLower(sm[4])) {
+			w = trimFloat(fracQty[w])
+		}
+		return sm[1] + w + " " + sm[4]
+	})
+}
 
 // Parse is the deterministic reader for text lists ("3 cartons selecto 2l\n2 fardou ifri").
 // It returns ok=false whenever the message looks like a conversation; the AI reads those.
@@ -47,51 +78,169 @@ func Parse(text string) ([]resolve.Mention, bool) {
 			return nil, false
 		}
 	}
-	var segs []string
-	for _, raw := range strings.Split(text, "\n") { // lines first: normalising joins them
-		segs = append(segs, splitRe.Split(catalog.Normalize(raw), -1)...)
-	}
 	var out []resolve.Mention
-	for _, seg := range segs {
-		seg = strings.TrimSpace(seg)
-		if seg == "" {
-			continue
+	for _, raw := range strings.Split(text, "\n") { // lines first: normalising joins them
+		for _, seg := range splitRe.Split(catalog.Normalize(fractions(raw)), -1) {
+			ms, ok := parseItems(strings.Fields(seg))
+			if !ok {
+				return nil, false // a quantity of 0 or beyond MaxQty, or a quantity naming nothing: the AI reads it
+			}
+			out = append(out, ms...)
 		}
-		m := resolve.Mention{}
-		var said []string
-		for _, w := range strings.Fields(seg) {
-			if m.Qty == 0 && numRe.MatchString(w) && !strings.Contains(w, ".") {
-				m.Qty, _ = strconv.ParseFloat(w, 64)
-				continue
-			}
-			if m.Qty == 0 {
-				if n, ok := catalog.NumberWords[w]; ok {
-					m.Qty = n
-					continue
-				}
-			}
-			if u := catalog.UnitWords[w]; u != "" && m.Unit == "" {
-				m.Unit = u
-				continue
-			}
-			if catalog.StopWords[w] {
-				continue
-			}
-			said = append(said, w)
-		}
+	}
+	return out, len(out) > 0
+}
+
+// parseItems reads the items of one segment of a list: usually one, two when a new quantity starts after a
+// size or before a unit word ("2 selecto 2l 3 ifri"). ok=false when a quantity is 0, beyond MaxQty, or
+// names nothing.
+func parseItems(ws []string) ([]resolve.Mention, bool) {
+	var out []resolve.Mention
+	m := resolve.Mention{}
+	var said []string
+	said0 := false // a quantity of 0 was written: never read as 1
+	flush := func() bool {
 		if words, _ := catalog.Tokens(strings.Join(said, " ")); len(words) == 0 {
-			if len(said) == 0 && m.Qty == 0 {
-				continue // a greeting or a stray word
-			}
-			return nil, false
+			return len(said) == 0 && m.Qty == 0 && !said0 // a greeting or a stray word; a lone quantity is not
+		}
+		if said0 || m.Qty > MaxQty {
+			return false
 		}
 		m.Said = strings.Join(said, " ")
 		if m.Qty == 0 {
 			m.Qty = 1
 		}
 		out = append(out, m)
+		return true
 	}
-	return out, len(out) > 0
+	for i, w := range ws {
+		bare := numRe.MatchString(w) && !strings.Contains(w, ".")
+		if m.Qty == 0 && !said0 {
+			if bare {
+				m.Qty, _ = strconv.ParseFloat(w, 64)
+				said0 = m.Qty == 0
+				continue
+			}
+			if c := countLead.FindStringSubmatch(w); c != nil && len(said) == 0 {
+				m.Qty, _ = strconv.ParseFloat(c[1], 64)
+				said0 = m.Qty == 0
+				continue
+			}
+			if c := countTrail.FindStringSubmatch(w); c != nil && i == len(ws)-1 && i > 0 && catalog.IsSize(ws[i-1]) {
+				// "nesquik 750g x3": three of them. After a bare number ("ifri 1.5 x6") it is the pack.
+				m.Qty, _ = strconv.ParseFloat(c[1], 64)
+				said0 = m.Qty == 0
+				continue
+			}
+			if n, ok := catalog.NumberWords[w]; ok {
+				m.Qty = n
+				continue
+			}
+			if n, ok := fracQty[w]; ok && len(said) == 0 {
+				m.Qty = n
+				continue
+			}
+		} else if bare && i > 0 && i < len(ws)-1 && len(said) > 0 &&
+			(catalog.IsSize(ws[i-1]) || strings.Contains(ws[i-1], ".") && numRe.MatchString(ws[i-1]) || catalog.UnitWords[ws[i+1]] != "") {
+			// a second item on the same line: its quantity follows the first item's size, or comes before a unit
+			if !flush() {
+				return nil, false
+			}
+			m, said, said0 = resolve.Mention{}, nil, false
+			m.Qty, _ = strconv.ParseFloat(w, 64)
+			said0 = m.Qty == 0
+			continue
+		}
+		if u := catalog.UnitWords[w]; u != "" && m.Unit == "" {
+			m.Unit = u
+			continue
+		}
+		if catalog.StopWords[w] {
+			continue
+		}
+		said = append(said, w)
+	}
+	if !flush() {
+		return nil, false
+	}
+	return out, true
+}
+
+// Words that only carry a greeting or politeness ("salam khouya", "ab3athli", "s'il vous plait"): the lenient
+// reader drops them, where Parse hands the whole message to the AI.
+var fillers = map[string]bool{"salam": true, "salamou": true, "slm": true, "alikoum": true, "aleykoum": true, "alaykoum": true,
+	"bonjour": true, "bonsoir": true, "bjr": true, "allo": true, "hello": true, "merci": true, "saha": true, "sahit": true,
+	"khouya": true, "khoya": true, "khou": true, "sahbi": true, "akhi": true, "chef": true, "smahli": true, "pardon": true,
+	"svp": true, "stp": true, "s'il": true, "sil": true, "vous": true, "plait": true, "please": true, "mettez": true, "il": true,
+	"me": true, "faut": true, "ca": true, "va": true, "cava": true, "labas": true, "hamdoullah": true, "wesh": true, "ya": true,
+	"rani": true, "nheb": true, "nhab": true, "bghit": true, "ana": true, "lyoum": true, "ghodwa": true, "inchallah": true,
+	"zid": true, "zidli": true, "ajoute": true, "ajouter": true, "jibli": true, "hatli": true, "a3tini": true, "atini": true,
+	"السلام": true, "عليكم": true, "خويا": true, "شكرا": true, "صحة": true, "عطيني": true, "جيبلي": true, "حطلي": true,
+	"ابعثلي": true, "بعثلي": true, "فضلك": true, "زيد": true, "زيدلي": true}
+
+var fillerPrefixes = []string{"ab3ath", "b3ath", "3tini", "7ot", "zidl"}
+
+// Words of a conversation the lenient reader does not act on alone (a change, a cancellation, a question,
+// "same as last time"): what carries them goes to a person.
+var talk = []string{"comme", "habitude", "nafs", "kima", "meme", "dernier", "derniere", "la fois", "annul", "change",
+	"au lieu", "plutot", " non ", "hier", "combien", "chhal", "prix", "kifach", "wach", "na9as", "enleve", "retire",
+	"remplace", "same", "last", " la la ", "نفس", "كيما", "بدل", "نقص", "شحال", "واش"}
+
+func filler(w string) bool {
+	if fillers[w] {
+		return true
+	}
+	for _, p := range fillerPrefixes {
+		if strings.HasPrefix(w, p) {
+			return true
+		}
+	}
+	return false
+}
+
+// ParseLenient reads what it can of a message Parse handed to the AI, for when the AI cannot answer (no key,
+// budget reached, the model failing): greetings and fillers are dropped, every item it reads as surely as
+// Parse is returned, and every part it cannot read (a question, a change, a quantity of 0) is returned in
+// unread, for a person to answer. It never fails.
+func ParseLenient(text string) (ms []resolve.Mention, unread []string) {
+	for _, raw := range strings.Split(text, "\n") {
+		if strings.ContainsAny(raw, "?؟") || strings.Contains(raw, "...") {
+			// a question or a sentence that trails off: a person reads the whole line, unless it is only a greeting
+			var rest []string
+			for _, w := range strings.Fields(catalog.Normalize(raw)) {
+				if !filler(w) {
+					rest = append(rest, w)
+				}
+			}
+			if words, _ := catalog.Tokens(strings.Join(rest, " ")); len(words) > 0 {
+				unread = append(unread, strings.TrimSpace(raw))
+			}
+			continue
+		}
+		for _, seg := range splitRe.Split(catalog.Normalize(fractions(raw)), -1) {
+			var ws []string
+			for _, w := range strings.Fields(seg) {
+				if !filler(w) {
+					ws = append(ws, w)
+				}
+			}
+			if len(ws) == 0 {
+				continue
+			}
+			said := strings.Join(ws, " ")
+			isTalk := false
+			for _, t := range talk {
+				isTalk = isTalk || strings.Contains(" "+said+" ", t)
+			}
+			items, ok := parseItems(ws)
+			if isTalk || !ok {
+				unread = append(unread, said)
+				continue
+			}
+			ms = append(ms, items...)
+		}
+	}
+	return ms, unread
 }
 
 const extractPrompt = `You read orders that small shops in Algeria send to their distributor: Darja, French or Arabic,
@@ -133,11 +282,15 @@ func ExtractAI(ctx context.Context, m *meta.Client, brands []string, text, ref s
 		if it.Qty <= 0 {
 			it.Qty = 1
 		}
+		if it.Qty > MaxQty {
+			ex.Unread = append(ex.Unread, strings.TrimSpace(trimFloat(it.Qty)+" "+it.Said))
+			continue
+		}
 		if it.Said != "" {
 			ex.Mentions = append(ex.Mentions, it)
 		}
 	}
-	if len(ex.Mentions) > 0 || ex.RepeatLast {
+	if len(ex.Mentions) > 0 || len(ex.Unread) > 0 || ex.RepeatLast {
 		ex.Intent = "order"
 	}
 	return ex, err
@@ -171,12 +324,24 @@ func ReadPhoto(ctx context.Context, m *meta.Client, img []byte, ref string) (Pho
 	return out, cost, err
 }
 
-// Extract reads one message: the parser for plain lists, the AI for everything else.
+// Extract reads one message: the parser for plain lists, the AI for everything else. When the AI cannot
+// answer (no key, the day's budget spent, the model failing), the lenient reader takes what it can and a
+// person is asked the rest: a message is never lost to a missing model.
 func Extract(ctx context.Context, m *meta.Client, brands []string, text string, voice bool, ref string) (Extraction, error) {
 	if !voice {
 		if ms, ok := Parse(text); ok {
 			return Extraction{Intent: "order", Mentions: ms, Method: "parser"}, nil
 		}
 	}
-	return ExtractAI(ctx, m, brands, text, ref)
+	ex, err := ExtractAI(ctx, m, brands, text, ref)
+	if err == nil || len(ex.Mentions) > 0 || ex.RepeatLast {
+		return ex, err
+	}
+	log.Printf("[desk] %s: the AI could not read the message (%v), reading it leniently", ref, err)
+	ms, unread := ParseLenient(text)
+	lx := Extraction{Intent: "other", Mentions: ms, Unread: unread, Method: "lenient", AICost: ex.AICost}
+	if len(ms) > 0 || len(unread) > 0 {
+		lx.Intent = "order"
+	}
+	return lx, nil
 }

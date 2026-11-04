@@ -25,9 +25,7 @@ func TestRecordedOrdersEndToEnd(t *testing.T) {
 	want := map[string]struct{ right, wrong int }{ // what the recorded answers give, line by line against the answer key
 		"SUP-O01": {1, 0}, "SUP-O03": {6, 0}, "SUP-O04": {4, 0}, "SUP-O07": {8, 0}, "SUP-O14": {5, 0},
 	}
-	if _, err := exec.LookPath("ffmpeg"); err != nil {
-		delete(want, "SUP-O01") // the voice note needs ffmpeg to become a 16 kHz WAV
-	}
+	_, noFFmpeg := exec.LookPath("ffmpeg") // the voice note needs ffmpeg to become a 16 kHz WAV
 	raw, err := os.ReadFile("../../bench/orders/orders.json")
 	if err != nil {
 		t.Fatal(err)
@@ -63,27 +61,33 @@ func TestRecordedOrdersEndToEnd(t *testing.T) {
 	newMsgID = func(id string) string { return "msg-" + id }
 
 	ctx := context.Background()
+	skipped := 0
 	for _, o := range todo {
-		r := run(ctx, d, cat, mc, db, o, "../../bench/orders/voice", "../../bench/orders/screens")
-		if r.Error != "" {
-			t.Errorf("%s: %s", o.ID, r.Error)
-			continue
-		}
-		c := map[string]int{}
-		for _, l := range r.Lines {
-			c[l.Outcome]++
-		}
-		t.Logf("%s (%s): right %d, asked %d, wrong %d, missed %d of %d · $%.4f · read %q", o.ID, o.Channel, c["right"], c["asked"], c["wrong"], c["missed"], len(r.Lines), r.Cost, clipS(r.Read, 90))
-		w := want[o.ID]
-		if c["wrong"] != w.wrong {
-			t.Errorf("%s: %d lines booked to the wrong product, want %d", o.ID, c["wrong"], w.wrong)
-		}
-		if w.right >= 0 && c["right"] != w.right {
-			t.Errorf("%s: %d lines booked right, want %d", o.ID, c["right"], w.right)
-		}
-		if r.Cost <= 0 {
-			t.Errorf("%s: no model cost metered", o.ID)
-		}
+		t.Run(o.ID, func(t *testing.T) {
+			if o.Channel == "voice" && noFFmpeg != nil {
+				skipped++
+				t.Skipf("voice note not tested: ffmpeg is not on the PATH (%v)", noFFmpeg)
+			}
+			r := run(ctx, d, cat, mc, db, o, "../../bench/orders/voice", "../../bench/orders/screens")
+			if r.Error != "" {
+				t.Fatalf("%s: %s", o.ID, r.Error)
+			}
+			c := map[string]int{}
+			for _, l := range r.Lines {
+				c[l.Outcome]++
+			}
+			t.Logf("%s (%s): right %d, asked %d, wrong %d, missed %d of %d · $%.4f · read %q", o.ID, o.Channel, c["right"], c["asked"], c["wrong"], c["missed"], len(r.Lines), r.Cost, clipS(r.Read, 90))
+			w := want[o.ID]
+			if c["wrong"] != w.wrong {
+				t.Errorf("%s: %d lines booked to the wrong product, want %d", o.ID, c["wrong"], w.wrong)
+			}
+			if w.right >= 0 && c["right"] != w.right {
+				t.Errorf("%s: %d lines booked right, want %d", o.ID, c["right"], w.right)
+			}
+			if r.Cost <= 0 {
+				t.Errorf("%s: no model cost metered", o.ID)
+			}
+		})
 	}
 	// the voice note went to Muse Voice Transcribe with the catalogue's brands as keywords
 	for _, rq := range tape.Requests {
@@ -92,7 +96,7 @@ func TestRecordedOrdersEndToEnd(t *testing.T) {
 		}
 	}
 	if !metatest.Recording() {
-		if n := tape.Unused(); n != 0 && len(want) == 5 {
+		if n := tape.Unused(); n != 0 && skipped == 0 {
 			t.Errorf("%d recorded calls were never made", n)
 		}
 	}
