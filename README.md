@@ -53,16 +53,13 @@ notes, photos and abbreviations. **Order Desk is built for that chat, not agains
 
 ## Why we built it
 
-We already serve the shops. [Elixir](https://elixir-dz.com), our app for pharmacies in Algeria, has
-**1,265 pharmacies signed up**. **278 have scanned their suppliers' invoices with it, 7,240 invoices in all**:
-125 pharmacies scanned more than 5, and 141 scanned in the last 30 days. 72 are on an active subscription
-(our figures, November 2026). Every one of those invoices comes from a distributor, and every one of
-those pharmacies orders from its distributors on WhatsApp.
+[Elixir](https://elixir-dz.com), our pharmacy app in Algeria, already reaches over 1,200 pharmacies. Nearly
+300 use it to digitize their supplier invoices (7,000+ so far), and over 70 pay for it. All of them order
+from distributors on WhatsApp: that is our way in.
 
-Order Desk is how we reach those distributors. One of them told us what this project solves: his clerks
-retype every order and every supplier invoice by hand. A second distributor has agreed to test Order Desk.
-We start with pharmacy and cosmetics distributors, then any wholesaler whose shops order on WhatsApp, on
-whatever ERP they run, including our own [Elixir Distribution](https://gestion.elixir-dz.com).
+One distributor told us his team still retypes every order and invoice by hand; another has agreed to test
+Order Desk. We start with pharmacy and cosmetics distributors, then any wholesaler taking orders on
+WhatsApp, whatever its ERP, including our own [Elixir Distribution](https://gestion.elixir-dz.com).
 
 ## How it works
 
