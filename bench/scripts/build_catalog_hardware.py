@@ -5,13 +5,18 @@ Dropped: second-hand items (OCC, battery-health %), top-ups, SIM cards, transfer
 with a misspelt word (a word seen only once in the whole list that is not a model code); duplicates.
 Then up to ~800 products are chosen family by family, preferring products that share a brand with others
 (similar names make the benchmark realistic). Output catalog.csv: id, name, brand, family. No prices/stock.
+
+    python bench/scripts/build_catalog_hardware.py <product list.xls>     (needs xlrd; the list is not shipped)
 """
 import csv, re, sys, collections, random
 from pathlib import Path
-import xlrd
 sys.stdout.reconfigure(encoding="utf-8")
-HERE = Path(__file__).parent
-sh = xlrd.open_workbook(HERE / "raw-private.xls").sheet_by_index(0)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import paths
+RAW = paths.need(sys.argv[1] if len(sys.argv) > 1 else None, __doc__, "product list")
+HERE = paths.out_dir()
+import xlrd
+sh = xlrd.open_workbook(RAW).sheet_by_index(0)
 rows = [dict(zip(sh.row_values(0), sh.row_values(i))) for i in range(1, sh.nrows)]
 FAM = {"ACCESOIRE TELEPHONE": 330, "INFORMATIQUE": 250, "MOBILE": 110, "TABLETTE": 30, "Montre": 30,
        "AUDIOVISUEL": 25, "CONSOLE": 8, "TELEPHONE FIXE": 8, "TROTTINETTE": 5, "ACCESOIRE AUTO": 3}

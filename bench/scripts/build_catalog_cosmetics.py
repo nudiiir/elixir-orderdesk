@@ -1,6 +1,8 @@
-"""Cosmetics & parapharmacy catalogue: one distributor's own product names, as printed on the invoices it
-sent to pharmacies (scanned with the Elixir app). Only the product name is used: no pharmacy, price,
-quantity or date. raw-lines-private.csv stays private (it names the distributors).
+"""Cosmetics & parapharmacy catalogue: one distributor's own product names, as printed on its invoices.
+Only the product name is used: no customer, price, quantity or date. The raw invoice lines stay private
+(they name the distributors).
+
+    python bench/scripts/build_catalog_cosmetics.py <raw invoice lines.csv> <distributor name>
 
 Cleaning: invoice annotations removed (PPA 650.00, UG 50%, REF/BR codes), medicines removed (doses, tablets,
 syrups, injections...), OCR noise removed (every word must be seen in other invoices too), spelling variants
@@ -9,9 +11,12 @@ of the same product merged (the most printed spelling wins). Output catalog.csv:
 import csv, re, sys, collections, difflib
 from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-HERE = Path(__file__).parent
-DIST = sys.argv[1] if len(sys.argv) > 1 else "MEDELLEL"
-rows = list(csv.DictReader(open(HERE / "raw-lines-private.csv", encoding="utf-8")))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import paths
+if len(sys.argv) < 3: paths.usage(__doc__, "give the raw invoice lines and the distributor's name")
+RAW, DIST = paths.need(sys.argv[1], __doc__, "raw invoice lines"), sys.argv[2].upper()
+HERE = paths.out_dir()
+rows = list(csv.DictReader(open(RAW, encoding="utf-8")))
 def norm(s): return re.sub(r"\s+", " ", re.sub(r"[^A-Z0-9%./+' -]", " ", s.upper())).strip(" .-")
 NOTE = re.compile(r"\b(PPA|P\.P\.A)\s*[:=]?\s*\d+(?:[.,]\d+)?|\bUG\s*\d+\s*%?|\b\d+\s*%\s*UG\b|\s\d*\s*UG\s*$|\b(BR|REF|KHA|CB|LOT)\s*[A-Z]?\d+\b|\bBOITE\b|\s[.]+(\s|$)")
 # a parapharmacy distributor also sells food supplements (capsules, B/30, vitamin doses): those stay.

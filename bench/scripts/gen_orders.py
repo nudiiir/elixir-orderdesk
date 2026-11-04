@@ -5,16 +5,19 @@ counts in (the answer key), a written WhatsApp message in shop style, and a sugg
 Shops write the way they talk: brand first, short, no packaging codes, sizes as they say them; some
 names come from the real alias lists. Darja (Latin and Arabic script) and French, mixed.
 
-    python -I gen_orders.py      -> orders-<industry>.json, orders.json
+    python bench/scripts/gen_orders.py      -> orders-<industry>.json, orders.json in $BENCH_OUT (default ./bench-out)
+
+Reads bench/catalogs/<industry>.csv and bench/wordings/aliases-<industry>.csv.
 """
 import sys, json, csv, random, re, collections
 from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-HERE = Path(__file__).parent; ROOT = HERE.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import paths
+OUT = paths.out_dir()
 R = random.Random(2028)
-CAT = {"supermarket": "supermarket", "pharmacy": "pharmacy", "cosmetics": "cosmetics", "electronics": "hardware"}
-ALIAS = {"pharmacy": ROOT / "aliases" / "aliases-pharmacy.csv", "cosmetics": ROOT / "aliases" / "aliases-cosmetics.csv",
-         "supermarket": ROOT / "invoices" / "aliases-supermarket.csv", "electronics": ROOT / "invoices" / "aliases-electronics.csv"}
+CAT = {ind: paths.need(paths.catalog(ind), __doc__, "catalogue") for ind in paths.INDUSTRIES}
+ALIAS = {ind: paths.need(paths.wordings(ind), __doc__, "wordings") for ind in paths.INDUSTRIES}
 PFX = {"supermarket": "SUP", "pharmacy": "PHA", "cosmetics": "COS", "electronics": "ELE"}
 SHOPS = {
     "supermarket": ["Supérette Ennour", "Alimentation El Baraka", "Épicerie Amine", "Supérette Yasmine", "Alimentation Djurdjura",
@@ -140,7 +143,7 @@ def voice(ind, lines):
 
 allo = []
 for ind in ["supermarket", "pharmacy", "cosmetics", "electronics"]:
-    cat = list(csv.DictReader(open(ROOT / CAT[ind] / "catalog.csv", encoding="utf-8-sig")))
+    cat = list(csv.DictReader(open(CAT[ind], encoding="utf-8-sig")))
     pools = collections.defaultdict(list)
     for a in csv.DictReader(open(ALIAS[ind], encoding="utf-8-sig")):
         if a.get("source") == "real" and int(a.get("witnesses") or 0) < 2: continue
@@ -171,7 +174,7 @@ for ind in ["supermarket", "pharmacy", "cosmetics", "electronics"]:
         script, vlang = voice(ind, lines)
         out.append({"id": f"{PFX[ind]}-O{n + 1:02}", "industry": ind, "shop": shop, "lines": lines, "text": text, "text_style": tstyle,
                     "voice_script": script, "voice_lang": vlang})
-    (HERE / f"orders-{ind}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    (OUT / f"orders-{ind}.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     allo += out
     print(ind, len(out), "orders,", sum(len(o["lines"]) for o in out), "lines")
-(HERE / "orders.json").write_text(json.dumps(allo, ensure_ascii=False, indent=1), encoding="utf-8")
+(OUT / "orders.json").write_text(json.dumps(allo, ensure_ascii=False, indent=1), encoding="utf-8")

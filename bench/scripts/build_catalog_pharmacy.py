@@ -2,15 +2,20 @@
 
 Each entry is "DESIGNATION  PPA  expiry  bonus"; long designations wrap onto the next line. Only the
 designation is kept (no price, expiry or bonus). Output catalog.csv: id, name, brand (first word).
+
+    python bench/scripts/build_catalog_pharmacy.py <stock listing.pdf>     (needs pdfplumber; the listing is not shipped)
 """
 import csv, re, sys
 from pathlib import Path
-import pdfplumber
 sys.stdout.reconfigure(encoding="utf-8")
-HERE = Path(__file__).parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import paths
+RAW = paths.need(sys.argv[1] if len(sys.argv) > 1 else None, __doc__, "stock listing")
+HERE = paths.out_dir()
+import pdfplumber
 ROW = re.compile(r"^(.*?)\s+(\d[\d ]*,\d{2})\s+(\d{2}/\d{2}/\d{2})\s+(\d+)\s*(.*)$")
 items = []
-with pdfplumber.open(HERE / "raw-private.pdf") as pdf:
+with pdfplumber.open(RAW) as pdf:
     for page in pdf.pages:
         heads = [w for w in page.extract_words() if w["text"].startswith("Désignation")]
         xs = sorted(w["x0"] for w in heads)

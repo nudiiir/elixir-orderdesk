@@ -5,13 +5,16 @@ replies from the fake Graph API's outbox and tapping buttons like a person would
   wa_sim.py owner <desk> <phone> <media id>          pair as the owner, send an invoice photo, approve
 
 <desk> is the panel address (http://127.0.0.1:8610); the media id names a file in ./media served by
-fakegraph.py. CUST=<n> picks the n-th customer (default 1)."""
+fakegraph.py. CUST=<n> picks the n-th customer, counting from 0 (default 1; the first one when there are
+fewer)."""
 import hashlib, hmac, json, os, sys, time, urllib.parse, urllib.request
 
 sys.stdout.reconfigure(encoding="utf-8")  # emoji and accents on a Windows console too
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "outbox.jsonl")
+if len(sys.argv) < 5 or sys.argv[1] not in ("shop", "owner"):
+    sys.exit(__doc__)
 role, desk, phone, payload = sys.argv[1:5]
 n = 0
 LOG = []  # the conversation (TRANSCRIPT=path writes it as JSON)
@@ -87,6 +90,11 @@ def tap(kind, id_, title):
     return k
 
 
+def booked(kind):
+    """A reply that says the ERP booked it: the ✅ line, never the 😕 apology that also says 'enregistrée'."""
+    return lambda text: "✅ " + kind in text and "enregistr" in text and not text.lstrip().startswith("😕")
+
+
 def converse(k, goal):
     for _ in range(12):
         got = replies(k)
@@ -96,7 +104,7 @@ def converse(k, goal):
         if not got:
             print("(no reply)")
             return False
-        if any(goal in show(m) for m in got):
+        if any((goal(show(m)) if callable(goal) else goal in show(m)) for m in got):
             return True
         opts = [c for m in got for c in choices(m)]
         if not opts:
@@ -108,11 +116,15 @@ def converse(k, goal):
 
 if role == "shop":
     cust = api("GET", "/customers")
-    cust = (cust.get("items") or cust)[int(os.environ.get("CUST", "1"))]
+    cust = (cust.get("items") or []) if isinstance(cust, dict) else cust
+    if not cust:
+        sys.exit("the desk has no customer yet: add one in the panel (Customers) first")
+    i = int(os.environ.get("CUST", "1"))
+    cust = cust[i] if 0 <= i < len(cust) else cust[0]
     code = api("POST", "/customers/" + urllib.parse.quote(cust["id"], safe="") + "/pair-code")["code"]
     print("pair code for", cust["name"])
     converse(say(code), "lié")
-    print("\nRESULT:", "order booked" if converse(say(payload), "enregistrée") else "not booked")
+    print("\nRESULT:", "order booked" if converse(say(payload), booked("Commande")) else "not booked")
 else:
     code = api("POST", "/owner/pair-code")["code"]
     converse(say(code), "propriétaire")
@@ -120,7 +132,7 @@ else:
     LOG.append({"dir": "photo", "text": "facture"})
     print("\n📱 [photo de la facture]")
     deliver({"type": "image", "image": {"id": payload, "mime_type": "image/png", "caption": "facture"}})
-    print("\nRESULT:", "receipt booked" if converse(k, "enregistr") else "not booked")
+    print("\nRESULT:", "receipt booked" if converse(k, booked("Bon de réception")) else "not booked")
 
 if os.environ.get("TRANSCRIPT"):
     json.dump(LOG, open(os.environ["TRANSCRIPT"], "w", encoding="utf-8"), ensure_ascii=False, indent=1)

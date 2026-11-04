@@ -7,16 +7,20 @@ thermal receipt, Arabic delivery note), and products are written the way those s
 Electronics: phone-accessory / IT wholesale formats (warranty column, colis x pieces, family sections).
 No company ids, no phone numbers; suppliers are fictional and every page says so.
 
-    python -I gen2.py
-Writes invoices-<kind>.pdf, truth-<kind>.json/.xlsx and aliases-<kind>.csv (the written aliases).
+    GS1_CSV=<GS1 Algeria export.csv> python bench/scripts/gen2.py
+
+GS1_CSV is a GS1 Algeria product export (barcode, brand, name_ar columns) for the official Arabic names; it is
+not shipped. Needs openpyxl and a Chromium-based browser ($PDF_BROWSER, or Edge on Windows). Reads
+bench/catalogs/; writes invoices-<kind>.pdf, truth-<kind>.json/.xlsx and aliases-<kind>.csv (the written
+aliases) to $BENCH_OUT (default ./bench-out).
 """
-import csv, json, random, re, html, subprocess, collections, sys
+import csv, json, os, random, re, html, subprocess, collections, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from gen import words_da, fmt, EDGE, CITIES
 sys.stdout.reconfigure(encoding="utf-8")
-HERE = Path(__file__).parent
-CATS = HERE.parent
+import paths
+HERE = paths.out_dir() if __name__ == "__main__" else Path(__file__).parent
 R = random.Random(20261104)
 e = html.escape
 
@@ -103,9 +107,9 @@ def ar_written(name, brand):
 
 # ------------------------------------------------------------------ data
 def load_sm():
-    cat = list(csv.DictReader(open(CATS / "supermarket" / "catalog.csv", encoding="utf-8-sig")))
+    cat = list(csv.DictReader(open(paths.catalog("supermarket"), encoding="utf-8-sig")))
     ar = {}
-    for r in csv.DictReader(open(r"D:\other projects\scanner-cloud\tools\mantooj-full\mantooj.csv", encoding="utf-8-sig")):
+    for r in csv.DictReader(open(os.environ["GS1_CSV"], encoding="utf-8-sig")):
         if r.get("name_ar"): ar[r["barcode"]] = (r["brand"] if r["brand"] and not re.search(r"[A-Za-z]", r["brand"]) else "") + " " + r["name_ar"]
     for p in cat:
         p["colis"] = R.choice([6, 8, 10, 12, 12, 16, 20, 24, 24, 48])
@@ -116,7 +120,7 @@ def load_sm():
                                      (150, 900) if re.search(r"KG|1L|2L|1.5L|CAFE|COUCHE|LESSIVE|SHAMP|HUILE", n) else (60, 450))), 2)
     return cat
 def load_el():
-    cat = list(csv.DictReader(open(CATS / "hardware" / "catalog.csv", encoding="utf-8-sig")))
+    cat = list(csv.DictReader(open(paths.catalog("electronics"), encoding="utf-8-sig")))
     for p in cat:
         p["aliases"] = el_aliases(p["name"], p["brand"])
         f, n = p["family"], p["name"]
@@ -387,4 +391,6 @@ def build(kind):
     print(kind, len(invs), "documents,", sum(len(i["lines"]) for i in invs), "lines", dict(collections.Counter(l["how"] for i in invs for l in i["lines"])))
 
 if __name__ == "__main__":
+    paths.need(os.environ.get("GS1_CSV"), __doc__, "GS1 export ($GS1_CSV)")
+    if not EDGE: paths.usage(__doc__, "no browser to print the PDF: set PDF_BROWSER")
     for k in ("supermarket", "electronics"): build(k)

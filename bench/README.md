@@ -1,6 +1,6 @@
 # Benchmark data and runs
 
-Everything behind the [benchmark in the README](../README.md#benchmark-four-industries-invoices-the-desk-never-saw):
+Everything behind the [benchmark in the README](../README.md#benchmark) (details in [docs/BENCHMARK.md](../docs/BENCHMARK.md)):
 the four catalogues, every invoice and its answer key, the 200 shop orders with their voice notes and
 screenshots, the runs that produced every number, and the desks those runs trained.
 
@@ -10,8 +10,11 @@ screenshots, the runs that produced every number, and the desks those runs train
 python bench/check.py
 ```
 
-It reads the committed run reports and prints every figure of the README's tables: 93 % automatic, 58 % free,
-3 wrong in 2,169 lines, the Spark-alone baseline, the photographed set, and the 200 orders by channel.
+It reads the committed run reports and replay files and prints every figure of the README's tables: 93 %
+automatic, 58 % free, 3 wrong in 2,169 lines, the Spark-alone baseline, the learning curve round by round, the
+credit split, the share of locked lines whose (supplier, wording) pair was already seen in training (79 % in
+the stream, 2 % in the printed set), the printed set against Spark alone, the 200 orders by channel, and the
+labour per 100 invoices and orders (the 20 seconds of clerk time per line is an assumption, printed as one).
 
 ## What is here
 
@@ -19,12 +22,12 @@ It reads the committed run reports and prints every figure of the README's table
 |---|---|
 | `catalogs/` | The four catalogues: electronics (796 products), pharmacy (524), cosmetics & parapharmacy (586), supermarket (587). Real product lists, cleaned: one row per product, `id,name,brand`. |
 | `wordings/` | How each product is written in the wild: real spellings (`source=real`, with how many independent sources saw it) and written variants. The invoice designations were drawn from these. |
-| `invoices/` | `truth-<industry>.json`: 40 invoices per industry with, for every line, the text printed on the paper, the right catalogue id, quantity and prices. `invoices-<industry>.pdf`: the same invoices as printed and photographed (15 layouts; suppliers and their registration numbers are fictional). |
-| `replay/` | The inputs of `cmd/adaptive` and `cmd/sparkalone`. `stream-<industry>.json`: 150 invoices from 15 suppliers (120 to learn from, 30 locked). `photographed-<industry>.json`: the 40 printed invoices (30 to learn from, 10 locked). The split is fixed in the file. |
+| `invoices/` | `truth-<industry>.json`: 40 invoices per industry with, for every line, the text printed on the paper, the right catalogue id, quantity and prices. `invoices-<industry>.pdf`: the same invoices rendered for print (15 layouts; suppliers and their registration numbers are fictional). |
+| `replay/` | The inputs of `cmd/adaptive` and `cmd/sparkalone`. `stream-<industry>.json`: 150 invoices from 15 suppliers (120 to learn from, 30 locked). `photographed-<industry>.json`: the 40 printed invoices (30 to learn from, 10 locked); each line is the text printed on the invoice, so this set measures matching, not reading. The split is fixed in the file. |
 | `orders/` | `orders.json`: 200 shop orders, 1,272 lines, with the answer key, the text as the shop typed it and the channel. `voice/`: the 40 voice notes (8 recorded by people, 26 Gemini TTS, 6 another voice generator; `sources.json` says which). `screens/`: the 40 screenshots. |
 | `results/` | One folder per run and industry: `report.json` (every line, every phase, every rule and lexicon entry, the cost), `report.md` (the same, readable), `run.log` (the run as it printed). `results-*.json` are the summaries the charts were drawn from. |
 | `trained-desks/` | The desk each stream run trained (SQLite, the same file the server uses): the Matching Profile Muse Spark designed, the aliases, the rules and their status, the earned autonomy. The order benchmark runs on these. |
-| `scripts/` | How the data was built: catalogue cleaning, wordings, invoice generation (`gen.py`, `gen2.py`), the stream (`gen_stream.py`), the replay split (`make_replay.py`), the orders (`gen_orders.py`, `restyle.py`, `assign_channels.py`, `tts.py`), and the summaries and charts. The raw sources the catalogues were cleaned from are not shipped (they name distributors). |
+| `scripts/` | How the data was built: catalogue cleaning, wordings, invoice generation (`gen.py`, `gen2.py`), the stream (`gen_stream.py`), the replay split (`make_replay.py`), the orders (`gen_orders.py`, `restyle.py`, `assign_channels.py`, `tts.py`), and the summaries and charts. The raw sources the catalogues were cleaned from are not shipped (they name distributors): those scripts take them as arguments or environment variables and print their usage without them. `make_replay.py <industry>` and `gen_stream.py <industry>` run from the repository as shipped and regenerate the committed replay files byte for byte (into `$BENCH_OUT`, default `./bench-out`). |
 
 | Run (`results/`) | Command | Meta cost |
 |---|---|---|
