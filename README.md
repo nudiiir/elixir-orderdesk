@@ -4,8 +4,11 @@
 books every line into the distributor's ERP, asks when it is not sure, and Muse Spark teaches it to do the
 job without a model call.**
 
-*Meta Global AI Developer Hackathon · **Indie Developer track** · by [Elixir](https://gestion.elixir-dz.com), makers
-of the Elixir Distribution ERP ([before and during the hackathon](#what-existed-before-and-what-we-built)).*
+*Meta Global AI Developer Hackathon · **Indie Developer track** · by **Nadir** ([@nudiiir](https://github.com/nudiiir)),
+co-founder of [Elixir](https://elixir-dz.com) ([before and during the hackathon](#what-existed-before-and-what-i-built)).*
+
+**▶ [Watch the 3-minute video](https://youtu.be/_i5LEIhsvFg)**: a Darja voice note booked in Odoo, the rule
+engine, supplier invoices and the benchmarks.
 
 **Try it now:**
 
@@ -39,7 +42,7 @@ of the Elixir Distribution ERP ([before and during the hackathon](#what-existed-
 
 **Why it matters.** At a distributor, a clerk retypes every WhatsApp order and every supplier invoice into
 the ERP, guessing which of 1,000 products "ifri 1.5" means. Per 100 supplier invoices, Order Desk books
-**1,682 of 1,808 lines** with nobody typing; per 100 shop orders, **484 of 636**. At 20 seconds a line (our
+**1,682 of 1,808 lines** with nobody typing; per 100 shop orders, **484 of 636**. At 20 seconds a line (my
 assumption, not a measurement) that is **9.3 and 2.7 clerk hours**. And a line it is not sure of becomes a
 question, not a wrong delivery: 3 wrong products in 1,272 lines (plus 7 wrong quantities), every other doubt asked.
 
@@ -51,15 +54,12 @@ Wholesale in Algeria runs on WhatsApp. Open any wholesale group or distributor p
 line keeps coming back: *"orders on WhatsApp."* No portal, no app, no order form. Just a chat, full of voice
 notes, photos and abbreviations. **Order Desk is built for that chat, not against it.**
 
-## Why we built it
+## Why I built it
 
-[Elixir](https://elixir-dz.com), our pharmacy app in Algeria, already reaches over 1,200 pharmacies. Nearly
-300 use it to digitize their supplier invoices (7,000+ so far), and over 70 pay for it. All of them order
-from distributors on WhatsApp: that is our way in.
-
-One distributor told us his team still retypes every order and invoice by hand; another has agreed to test
-Order Desk. We start with pharmacy and cosmetics distributors, then any wholesaler taking orders on
-WhatsApp, whatever its ERP, including our own [Elixir Distribution](https://gestion.elixir-dz.com).
+I co-founded [Elixir](https://elixir-dz.com), a pharmacy app used by over 1,200 pharmacies in Algeria. Every
+one of them orders from distributors on WhatsApp, and one distributor told me his team still retypes every
+order and invoice by hand. Order Desk is the tool I wanted for them: built for pharmacy and cosmetics
+distributors, and for any wholesaler taking orders on WhatsApp, whatever its ERP.
 
 ## How it works
 
@@ -171,14 +171,13 @@ cold-start comparison, the earlier hardware runs, the breaker and the eight bugs
 Across all of them, Order Desk's edge is the same: **Darja, Arabic and French mixed, in voice and text; any
 ERP, with nothing installed in it; it asks instead of guessing; it learns each distributor's wordings.**
 
-## What existed before, and what we built
+## What existed before, and what I built
 
-**Before the hackathon.** Elixir builds software for distributors in Algeria. Our product,
-**[Elixir Distribution](https://gestion.elixir-dz.com)**, is an ERP for wholesale distributors. But a
-distributor's orders don't arrive in the ERP: they arrive on WhatsApp, and a clerk retypes them. Order Desk
-started as an idea for a module of Elixir Distribution.
+**Before the hackathon.** I co-founded Elixir, which makes **[Elixir Distribution](https://gestion.elixir-dz.com)**,
+an ERP for wholesale distributors in Algeria. But a distributor's orders don't arrive in the ERP: they arrive
+on WhatsApp, and a clerk retypes them. Order Desk started as an idea for a module of Elixir Distribution.
 
-**During the hackathon, we made it a product of its own** that works with **any ERP** and needs people less
+**During the hackathon, I made it a project of its own** that works with **any ERP** and needs people less
 over time. Everything in this repository was written during the event; the Elixir Distribution ERP is not in
 it and not part of the demo. What that took:
 
@@ -186,8 +185,8 @@ it and not part of the demo. What that took:
   rule language with a gate, shadow and live stages, earned autonomy, the panel, a metered Meta model client
   with a daily budget.
 - **ERP adapters:** the five open-source ERPs (Odoo, ERPNext, Dolibarr, InvenTree, Tryton) each pass the same
-  live conformance test and run in Docker from `erps/`; a sixth adapter connects our own Elixir
-  Distribution, which has no test here.
+  live conformance test and run in Docker from `erps/`; a sixth adapter connects the Elixir
+  Distribution ERP, which has no test here.
 - **Every channel and input:** WhatsApp through Meta's Cloud API (and Twilio), Telegram, typed lists, chatty
   text, Darja voice notes, photos of lists and of products, supplier invoices as photos or PDFs.
 - **Four Meta models with real jobs:** Muse Spark, Muse Wonder, Muse Voice Transcribe and SAM 3.1
@@ -258,6 +257,11 @@ Re-record the tapes with `ORDERDESK_RECORD=1 META_MODEL_API_KEY=... go test ./..
   obtain a revocable key. For Odoo, give an API key.
 - **Nothing secret is in the repository.** The demo data uses placeholder phone numbers; `.env`, databases and
   data folders are git-ignored.
+
+## Credits
+
+Video: presented and voiced by me, Nadir, the author of this repository. Motion graphics made with
+Remotion, no music.
 
 ## License
 
