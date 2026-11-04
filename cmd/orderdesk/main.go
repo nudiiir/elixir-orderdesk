@@ -1,6 +1,7 @@
 // Order Desk: orders from any chat into any ERP, on a catalogue that writes its own matching rules.
 //
 //	orderdesk -addr 127.0.0.1:8610 -data ./data
+//	orderdesk -demo     a trained supermarket desk on a stand-in ERP: no key, no Docker, no ERP
 //
 // Keys (META_MODEL_API_KEY, TELEGRAM_BOT_TOKEN, ...) come from the environment, from .env, or from the
 // files given with -keys. See .env.example.
@@ -12,6 +13,8 @@ import (
 	"context"
 	"encoding/json"
 	"flag"
+	"fmt"
+	"io"
 	"log"
 	"net"
 	"net/http"
@@ -24,6 +27,7 @@ import (
 	"time"
 
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter"
+	"github.com/nudiiir/elixir-orderdesk/internal/adapter/demo"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/dolibarr"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/elixir"
 	"github.com/nudiiir/elixir-orderdesk/internal/adapter/erpnext"
@@ -48,7 +52,14 @@ func main() {
 	dataDir := flag.String("data", "data", "data directory (database, voice notes, photos)")
 	keys := flag.String("keys", "", "keys files with KEY=value lines, comma-separated (default: .env if present)")
 	noTelegram := flag.Bool("no-telegram", false, "do not start the Telegram connector")
-	publicRO := flag.Bool("public-readonly", false, "let other computers read the panel (a public demo); changes stay local")
+	publicRO := flag.Bool("public-readonly", false, "serve the panel read-only to other computers (a public demo, with -addr 0.0.0.0:PORT): "+
+		"they can look at everything and change nothing; this computer keeps full access")
+	demoMode := flag.Bool("demo", false, "try it with nothing installed: the trained supermarket desk ("+demoDesk+") is copied into the data "+
+		"directory (default "+demoData+") on first start, orders and receipts are written to files there instead of an ERP")
+	flag.Usage = func() {
+		fmt.Fprintf(flag.CommandLine.Output(), "Usage of orderdesk:\n\n  go run ./cmd/orderdesk -demo     the one-command demo (no key, no Docker, no ERP)\n\n")
+		flag.PrintDefaults()
+	}
 	flag.Parse()
 	if *keys == "" {
 		if _, err := os.Stat(".env"); err == nil {
@@ -60,6 +71,16 @@ func main() {
 		}
 	}
 
+	if *demoMode {
+		dataSet := false
+		flag.Visit(func(f *flag.Flag) { dataSet = dataSet || f.Name == "data" })
+		if !dataSet {
+			*dataDir = demoData
+		}
+		if err := copyDemoDesk(*dataDir); err != nil {
+			log.Fatalf("demo: %v (run it from the repository root)", err)
+		}
+	}
 	db, err := store.Open(filepath.Join(*dataDir, "orderdesk.db"))
 	if err != nil {
 		log.Fatal(err)
@@ -96,7 +117,17 @@ func main() {
 		erp = c
 		mu.Unlock()
 	}
-	if u, t := db.Setting("erp_url", ""), db.Setting("erp_token", ""); u != "" && t != "" {
+	var demoERP *demo.Client
+	if *demoMode {
+		// the stand-in ERP reads the desk's own catalogue and writes what is booked to files
+		if n, err := demo.AddShops(db); err != nil {
+			log.Fatal(err)
+		} else if n > 0 {
+			log.Printf("[demo] %d demo shops added", n)
+		}
+		demoERP = demo.New(db, *dataDir)
+		erp = demoERP
+	} else if u, t := db.Setting("erp_url", ""), db.Setting("erp_token", ""); u != "" && t != "" {
 		connect(db.Setting("erp_kind", "elixir"), u, db.Setting("erp_db", ""), db.Setting("erp_login", ""), t)
 	}
 	afterSync := func() {} // set once the desk exists: the matching is rebuilt on the new catalogue
@@ -229,15 +260,76 @@ func main() {
 	if !localURL("http://" + *addr) {
 		log.Printf("[desk] %s is reachable from other computers: the panel still only answers requests from this one; only /whatsapp/webhook is served to others", *addr)
 	}
-	hs := &http.Server{Addr: *addr, Handler: srv.Handler(), ReadHeaderTimeout: 10 * time.Second}
+	// Uploads are capped at 25 MB (a minute is plenty); an invoice read may take the handler's 3 minutes.
+	hs := &http.Server{Addr: *addr, Handler: srv.Handler(), ReadHeaderTimeout: 10 * time.Second,
+		ReadTimeout: 60 * time.Second, WriteTimeout: 4 * time.Minute, IdleTimeout: 2 * time.Minute}
 	go func() {
 		<-ctx.Done()
 		hs.Shutdown(context.Background())
 	}()
 	log.Printf("Order Desk panel on http://%s (Meta: %v, ERP: %v)", *addr, mc.Enabled(), current() != nil)
+	if demoERP != nil {
+		panelURL := "http://" + *addr
+		if h, p, err := net.SplitHostPort(*addr); err == nil && (h == "" || h == "0.0.0.0" || h == "::") {
+			panelURL = "http://127.0.0.1:" + p
+		}
+		log.Printf("[demo] open %s and use \"Try a message\" with one of the demo shops", panelURL)
+		if mc.Enabled() {
+			log.Printf("[demo] META_MODEL_API_KEY is set: Muse Spark reads what the parser, learned wordings and rules leave open")
+		} else {
+			log.Printf("[demo] keyless: the parser, the learned wordings and the rules answer; anything else becomes a question for you " +
+				"(send a plain list, one product per line: a chatty message, a voice note or a photo needs the key)")
+			log.Printf("[demo] set META_MODEL_API_KEY (environment or .env) and Muse Spark joins in: voice, photos, unknown wordings")
+		}
+		log.Printf("[demo] booked orders are written to %s, goods receipts to %s", demoERP.OrdersFile(), demoERP.ReceiptsFile())
+		if mux.TG == nil {
+			log.Printf("[demo] Telegram is off (set TELEGRAM_BOT_TOKEN to chat with the desk)")
+		}
+	}
 	if err := hs.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Fatal(err)
 	}
+}
+
+// The desk -demo starts from, and where it keeps its copy.
+const (
+	demoDesk = "bench/trained-desks/supermarket/orderdesk.db"
+	demoData = "data-demo"
+)
+
+// copyDemoDesk copies the trained supermarket desk into dir, unless dir already has a database.
+func copyDemoDesk(dir string) error {
+	dst := filepath.Join(dir, "orderdesk.db")
+	if _, err := os.Stat(dst); err == nil {
+		return nil
+	}
+	in, err := os.Open(demoDesk)
+	if err != nil {
+		return err
+	}
+	defer in.Close()
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		return err
+	}
+	tmp := dst + ".copy"
+	out, err := os.Create(tmp)
+	if err != nil {
+		return err
+	}
+	if _, err := io.Copy(out, in); err != nil {
+		out.Close()
+		os.Remove(tmp)
+		return err
+	}
+	if err := out.Close(); err != nil {
+		os.Remove(tmp)
+		return err
+	}
+	if err := os.Rename(tmp, dst); err != nil {
+		return err
+	}
+	log.Printf("[demo] trained supermarket desk copied to %s", dst)
+	return nil
 }
 
 // localURL tells whether a URL points at this computer (a local simulator or test server).
