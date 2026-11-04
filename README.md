@@ -45,6 +45,12 @@ question, not a wrong delivery: 3 wrong products in 1,272 lines (plus 7 wrong qu
 
 <p align="center"><img src="docs/media/odoo-1-question.jpg" alt="The Order Desk inbox: a shop's order resolved line by line, one question left" width="900"></p>
 
+## Why WhatsApp
+
+Wholesale in Algeria runs on WhatsApp. Open any wholesale group or distributor page on Facebook and the same
+line keeps coming back: *"orders on WhatsApp."* No portal, no app, no order form. Just a chat, full of voice
+notes, photos and abbreviations. **Order Desk is built for that chat, not against it.**
+
 ## How it works
 
 1. **Muse Voice Transcribe** hears the voice note, primed with the distributor's own brand names.
