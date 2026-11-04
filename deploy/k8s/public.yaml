@@ -1,0 +1,48 @@
+# Public, read-only access for the judges: the Order Desk panel (read-only mode) and Odoo (a read-only
+# user; the database manager is off), published by your reverse proxy (Cloudflare in front, never the node's
+# address). Plus a nightly cleanup of demo orders older than three days.
+apiVersion: v1
+kind: Service
+metadata: { name: orderdesk-public, namespace: orderdesk-demo }
+spec:
+  selector: { app: orderdesk }
+  ports: [{ port: 8610, targetPort: 8610 }]
+---
+apiVersion: v1
+kind: Service
+metadata: { name: odoo-public, namespace: orderdesk-demo }
+spec:
+  selector: { app: odoo }
+  ports: [{ port: 8069, targetPort: 8069 }]
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata: { name: demo-cleanup, namespace: orderdesk-demo }
+spec:
+  schedule: "0 3 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: cleanup
+              image: python:3.12-alpine
+              env: [{ name: ODOO_ADMIN, valueFrom: { secretKeyRef: { name: odoo-admin, key: password } } }]
+              command:
+                - python3
+                - -c
+                - |
+                  import json, os, urllib.request
+                  U = "http://odoo:8069/jsonrpc"
+                  def rpc(s, m, *a):
+                      b = json.dumps({"jsonrpc": "2.0", "method": "call", "params": {"service": s, "method": m, "args": list(a)}}).encode()
+                      r = json.loads(urllib.request.urlopen(urllib.request.Request(U, b, {"Content-Type": "application/json"}), timeout=120).read())
+                      if "error" in r: raise SystemExit(str(r["error"])[:300])
+                      return r["result"]
+                  P = os.environ["ODOO_ADMIN"]; uid = rpc("common", "login", "orderdesk", "admin", P)
+                  X = lambda mo, me, *a: rpc("object", "execute_kw", "orderdesk", uid, P, mo, me, list(a))
+                  ids = X("sale.order", "search", [["create_date", "<", __import__("datetime").datetime.utcnow().replace(microsecond=0).isoformat(" ")[:10] + " 00:00:00"], ["note", "ilike", "Order Desk"], ["state", "!=", "cancel"]])
+                  old = [i for i in ids if X("sale.order", "read", [i], ["create_date"])[0]["create_date"] < (__import__("datetime").datetime.utcnow() - __import__("datetime").timedelta(days=3)).isoformat(" ")]
+                  if old: X("sale.order", "action_cancel", old)
+                  print("cancelled", len(old), "demo orders older than 3 days")

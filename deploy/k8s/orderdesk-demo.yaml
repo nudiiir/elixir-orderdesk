@@ -1,0 +1,108 @@
+# Order Desk live demo for the hackathon judges: Odoo 18 + Postgres + Order Desk with the Telegram bot.
+# Isolated namespace, pinned to the main node, nothing exposed: the bot polls Telegram, the panel stays
+# inside the cluster (kubectl port-forward to look at it). Supermarket demo data only.
+apiVersion: v1
+kind: Namespace
+metadata: { name: orderdesk-demo }
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: { name: odoo-db, namespace: orderdesk-demo }
+spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 3Gi } } }
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: { name: odoo-data, namespace: orderdesk-demo }
+spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 3Gi } } }
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: { name: desk-data, namespace: orderdesk-demo }
+spec: { accessModes: [ReadWriteOnce], resources: { requests: { storage: 2Gi } } }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: odoo-db, namespace: orderdesk-demo }
+spec:
+  replicas: 1
+  strategy: { type: Recreate }
+  selector: { matchLabels: { app: odoo-db } }
+  template:
+    metadata: { labels: { app: odoo-db } }
+    spec:
+      # nodeSelector: { kubernetes.io/hostname: <your-node> }
+      containers:
+        - name: postgres
+          image: postgres:16
+          env:
+            - { name: POSTGRES_USER, value: odoo }
+            - { name: POSTGRES_PASSWORD, value: odoo }
+            - { name: POSTGRES_DB, value: postgres }
+            - { name: PGDATA, value: /var/lib/postgresql/data/pgdata }
+          volumeMounts: [{ name: data, mountPath: /var/lib/postgresql/data }]
+          resources: { requests: { memory: 256Mi }, limits: { memory: 1Gi } }
+      volumes: [{ name: data, persistentVolumeClaim: { claimName: odoo-db } }]
+---
+apiVersion: v1
+kind: Service
+metadata: { name: odoo-db, namespace: orderdesk-demo }
+spec: { selector: { app: odoo-db }, ports: [{ port: 5432 }] }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: odoo, namespace: orderdesk-demo }
+spec:
+  replicas: 1
+  strategy: { type: Recreate }
+  selector: { matchLabels: { app: odoo } }
+  template:
+    metadata: { labels: { app: odoo } }
+    spec:
+      # nodeSelector: { kubernetes.io/hostname: <your-node> }
+      containers:
+        - name: odoo
+          image: odoo:18.0
+          env:
+            - { name: HOST, value: odoo-db }
+            - { name: USER, value: odoo }
+            - { name: PASSWORD, value: odoo }
+          ports: [{ containerPort: 8069 }]
+          volumeMounts: [{ name: data, mountPath: /var/lib/odoo }]
+          resources: { requests: { memory: 512Mi }, limits: { memory: 2Gi } }
+      volumes: [{ name: data, persistentVolumeClaim: { claimName: odoo-data } }]
+---
+apiVersion: v1
+kind: Service
+metadata: { name: odoo, namespace: orderdesk-demo }
+spec: { selector: { app: odoo }, ports: [{ port: 8069 }] }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: orderdesk, namespace: orderdesk-demo }
+spec:
+  replicas: 1
+  strategy: { type: Recreate }
+  selector: { matchLabels: { app: orderdesk } }
+  template:
+    metadata: { labels: { app: orderdesk } }
+    spec:
+      # nodeSelector: { kubernetes.io/hostname: <your-node> }
+      containers:
+        - name: orderdesk
+          image: alpine:3.20
+          command: ["/bin/sh", "-c", "apk add --no-cache ffmpeg ca-certificates tzdata sqlite >/dev/null && exec /opt/orderdesk/orderdesk -addr 0.0.0.0:8610 -data /data"]
+          env: [{ name: TZ, value: Africa/Algiers }]
+          envFrom: [{ secretRef: { name: orderdesk-keys } }]
+          ports: [{ containerPort: 8610 }]
+          volumeMounts:
+            - { name: bin, mountPath: /opt/orderdesk, readOnly: true }
+            - { name: data, mountPath: /data }
+          resources: { requests: { memory: 128Mi }, limits: { memory: 1Gi } }
+      volumes:
+        - { name: bin, hostPath: { path: /opt/orderdesk-demo, type: Directory } }
+        - { name: data, persistentVolumeClaim: { claimName: desk-data } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: orderdesk, namespace: orderdesk-demo }
+spec: { selector: { app: orderdesk }, ports: [{ port: 8610 }] }
