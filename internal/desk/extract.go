@@ -176,9 +176,13 @@ var fillers = map[string]bool{"salam": true, "salamou": true, "slm": true, "alik
 	"rani": true, "nheb": true, "nhab": true, "bghit": true, "ana": true, "lyoum": true, "ghodwa": true, "inchallah": true,
 	"zid": true, "zidli": true, "ajoute": true, "ajouter": true, "jibli": true, "hatli": true, "a3tini": true, "atini": true,
 	"السلام": true, "عليكم": true, "خويا": true, "شكرا": true, "صحة": true, "عطيني": true, "جيبلي": true, "حطلي": true,
-	"ابعثلي": true, "بعثلي": true, "فضلك": true, "زيد": true, "زيدلي": true}
+	"ابعثلي": true, "بعثلي": true, "فضلك": true, "زيد": true, "زيدلي": true,
+	// openers and closings shops write around the list ("sbah lkhir khouya, hadarli: …", "commande pour demain svp")
+	"sbah": true, "sba7": true, "lkhir": true, "lkheir": true, "hadarli": true, "hadirli": true, "hadrli": true,
+	"aatini": true, "3atini": true, "commande": true, "pour": true, "demain": true, "rabi": true, "yhafdek": true,
+	"yhafdak": true, "yhfdek": true, "baraka": true, "barak": true, "allah": true, "fik": true, "صباح": true, "الخير": true}
 
-var fillerPrefixes = []string{"ab3ath", "b3ath", "3tini", "7ot", "zidl"}
+var fillerPrefixes = []string{"ab3ath", "b3ath", "abaath", "3tini", "7ot", "zidl"}
 
 // Words of a conversation the lenient reader does not act on alone (a change, a cancellation, a question,
 // "same as last time"): what carries them goes to a person.

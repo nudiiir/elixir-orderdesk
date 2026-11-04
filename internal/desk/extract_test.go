@@ -86,6 +86,12 @@ func TestParseLenient(t *testing.T) {
 	if len(ms) != 1 || ms[0].Said != "selecto" || len(unread) != 2 {
 		t.Fatalf("a greeting is dropped, a change and a 0 go to a person: %+v, unread %q", ms, unread)
 	}
+	for _, msg := range []string{"sbah lkhir khouya, hadarli: 2 cartons selecto", "slm, abaathli 2 cartons selecto rabi yhafdek",
+		"Bonjour, commande pour demain svp :\n2 cartons selecto"} {
+		if ms, unread := ParseLenient(msg); len(ms) != 1 || ms[0].Said != "selecto" || len(unread) != 0 {
+			t.Fatalf("%q: openers are not products: %+v, unread %q", msg, ms, unread)
+		}
+	}
 	if ms, unread := ParseLenient("combien le dove ?"); len(ms) != 0 || len(unread) != 1 {
 		t.Fatalf("a question goes to a person: %+v, %q", ms, unread)
 	}

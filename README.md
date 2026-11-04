@@ -193,12 +193,12 @@ go vet ./...
 go test ./...
 ```
 
-74 test functions. They need nothing: normalisation and the Matching Profile, the rule language and the gate,
+75 test functions. They need nothing: normalisation and the Matching Profile, the rule language and the gate,
 codes, the autonomy bound, the two-reader agreement on invoices, the WhatsApp and Twilio channels, and **the
 model paths replayed from recorded Meta API answers** (`internal/meta/metatest`): five shop orders end to end
 through the trained supermarket desk (24 of 28 lines right, 0 wrong), a rule-engineer session with the gate
 and the breaker, Muse Spark's pick, two readers on one invoice, and hand-written bad answers that must book
-nothing. **6 of the 74 are live tests, skipped unless their variables are set**: the conformance test against
+nothing. **6 of the 75 are live tests, skipped unless their variables are set**: the conformance test against
 each of the five Docker ERPs ([docs/ERPS.md](docs/ERPS.md#live-adapter-tests)) and the photo test.
 Re-record the tapes with `ORDERDESK_RECORD=1 META_MODEL_API_KEY=... go test ./... -run Recorded` (about $0.15).
 

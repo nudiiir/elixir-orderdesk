@@ -178,6 +178,7 @@ func (s *Server) panel(r chi.Router) {
 	})
 	r.Get("/media", s.notPublic(s.media))
 	sub, _ := fs.Sub(static, "static")
+	r.Get("/", index(sub))
 	r.Handle("/*", http.FileServer(http.FS(sub)))
 }
 
