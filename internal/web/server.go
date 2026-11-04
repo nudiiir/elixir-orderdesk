@@ -4,9 +4,11 @@ package web
 
 import (
 	"context"
+	"database/sql"
 	"embed"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"io"
 	"io/fs"
 	"math"
@@ -17,6 +19,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -56,6 +59,9 @@ type Server struct {
 	// PublicReadOnly serves the panel to other computers for reading only (a public demo): every
 	// change, and anything that would spend model credits, stays on this computer.
 	PublicReadOnly bool
+
+	cacheMu sync.Mutex
+	cache   map[string]*cacheEntry // answers kept for public visitors (see cached)
 }
 
 func (s *Server) Handler() http.Handler {
@@ -76,7 +82,7 @@ func (s *Server) Handler() http.Handler {
 func (s *Server) guard(next http.Handler) http.Handler {
 	local := localOnly(next)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if s.PublicReadOnly && !(loopbackHost(r.Host) && loopbackHost(r.RemoteAddr)) {
+		if s.public(r) {
 			w.Header().Set("X-Frame-Options", "DENY")
 			w.Header().Set("X-Content-Type-Options", "nosniff")
 			w.Header().Set("Referrer-Policy", "no-referrer")
@@ -99,8 +105,7 @@ func localOnly(next http.Handler) http.Handler {
 		w.Header().Set("X-Frame-Options", "DENY")
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("Referrer-Policy", "no-referrer")
-		if !loopbackHost(r.Host) || !loopbackHost(r.RemoteAddr) ||
-			r.Header.Get("X-Forwarded-For") != "" || r.Header.Get("Forwarded") != "" || r.Header.Get("Cf-Connecting-Ip") != "" {
+		if !loopbackHost(r.Host) || !loopbackHost(r.RemoteAddr) || forwarded(r) {
 			http.Error(w, "the Order Desk panel only answers on this computer (127.0.0.1)", http.StatusForbidden)
 			return
 		}
@@ -160,7 +165,7 @@ func (s *Server) panel(r chi.Router) {
 		r.Post("/customers/{id}/pair-code", s.pairCode)
 		r.Post("/owner/pair-code", s.ownerPairCode)
 		r.Post("/chats/unlink", s.unlinkChat)
-		r.Get("/owner", s.owner)
+		r.Get("/owner", s.notPublic(s.owner))
 		r.Post("/invoices", s.uploadInvoice)
 		r.Post("/drafts/{id}/supplier", s.setSupplier)
 		r.Get("/suppliers", s.suppliers)
@@ -171,7 +176,7 @@ func (s *Server) panel(r chi.Router) {
 		r.Post("/try", s.try)
 		r.Get("/events", s.events)
 	})
-	r.Get("/media", s.media)
+	r.Get("/media", s.notPublic(s.media))
 	sub, _ := fs.Sub(static, "static")
 	r.Handle("/*", http.FileServer(http.FS(sub)))
 }
@@ -201,6 +206,16 @@ func (s *Server) productName(id string) string {
 // ---- overview & learning ---------------------------------------------------------------
 
 func (s *Server) overview(w http.ResponseWriter, r *http.Request) {
+	if s.public(r) {
+		// visitors share one answer for 30 s: they cannot make the desk ping the ERP on every call
+		writeJSON(w, http.StatusOK, s.cached("overview", 30*time.Second, func() any { return s.overviewData(context.Background(), true) }))
+		return
+	}
+	writeJSON(w, http.StatusOK, s.overviewData(r.Context(), false))
+}
+
+// overviewData is the overview; for a public visitor without the ERP address, logins and phone numbers.
+func (s *Server) overviewData(ctx context.Context, public bool) map[string]any {
 	out := map[string]any{}
 	var lines, free, ai, person, wrongAuto, auto int
 	s.DB.QueryRow(`SELECT COUNT(*),
@@ -239,7 +254,7 @@ func (s *Server) overview(w http.ResponseWriter, r *http.Request) {
 		"synced_at": s.DB.Setting("erp_synced_at", ""), "error": s.DB.Setting("erp_error", "")}
 	if e := s.ERP(); e != nil {
 		erp["name"] = e.Name()
-		ctx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
+		ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 		defer cancel()
 		if err := e.Ping(ctx); err == nil {
 			erp["connected"] = true
@@ -254,7 +269,14 @@ func (s *Server) overview(w http.ResponseWriter, r *http.Request) {
 	}
 	out["meta"] = s.Meta.Enabled()
 	out["engineer_running"] = s.Eng.Running()
-	writeJSON(w, http.StatusOK, out)
+	out["public"] = public // the panel hides its write controls
+	if public {
+		out["erp"] = map[string]any{"name": erp["name"], "kind": erp["kind"], "connected": erp["connected"], "synced_at": erp["synced_at"]}
+		if s.WhatsApp != nil {
+			out["whatsapp"] = "configured"
+		}
+	}
+	return out
 }
 
 // learning returns daily series: how lines were resolved, AI cost per 1,000 lines, spend by job.
@@ -437,11 +459,15 @@ func (s *Server) drafts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer rows.Close()
+	public := s.public(r)
 	out := []draftRow{}
 	for rows.Next() {
 		var d draftRow
 		rows.Scan(&d.ID, &d.ChatKey, &d.CustomerID, &d.Customer, &d.Status, &d.Number, &d.TotalTTC, &d.Delivery, &d.CreatedAt,
 			&d.UpdatedAt, &d.Lines, &d.Pending, &d.Kinds, &d.AICost, &d.Free, &d.Copied, &d.Number2)
+		if public {
+			d.ChatKey = "" // the chat id stays on this computer
+		}
 		out = append(out, d)
 	}
 	writeJSON(w, http.StatusOK, map[string]any{"items": out})
@@ -499,11 +525,18 @@ func (s *Server) draft(w http.ResponseWriter, r *http.Request) {
 		FROM drafts d LEFT JOIN customers c ON c.id = d.customer_id WHERE d.id = ?`, id).
 		Scan(&d.ID, &d.ChatKey, &d.CustomerID, &d.Customer, &d.Status, &d.Number, &d.TotalTTC, &d.Delivery, &d.CreatedAt, &d.UpdatedAt,
 			&inv.Kind, &inv.SupplierID, &inv.Said, &inv.Number, &inv.Date, &inv.Total, &checks)
-	json.Unmarshal([]byte(checks), &inv.Checks)
-	inv.Supplier = catalog.SupplierName(s.DB.DB, inv.SupplierID)
-	if err != nil {
+	if errors.Is(err, sql.ErrNoRows) {
 		writeErr(w, 404, "draft not found")
 		return
+	} else if err != nil {
+		writeErr(w, 500, err.Error())
+		return
+	}
+	json.Unmarshal([]byte(checks), &inv.Checks)
+	inv.Supplier = catalog.SupplierName(s.DB.DB, inv.SupplierID)
+	public := s.public(r)
+	if public {
+		d.ChatKey = ""
 	}
 	lines := []lineOut{}
 	var total int64
@@ -532,13 +565,18 @@ func (s *Server) draft(w http.ResponseWriter, r *http.Request) {
 		if m.Media != "" {
 			m.Media = "/media?path=" + filepath.Base(filepath.Dir(m.Media)) + "/" + filepath.Base(m.Media)
 		}
+		if public {
+			// what the shop wrote or said, and its voice notes and photos, stay on this computer:
+			// the lines keep the words that were matched
+			m.Text, m.Media = "", ""
+		}
 		msgs = append(msgs, m)
 	}
 	if rows != nil {
 		rows.Close()
 	}
 	writeJSON(w, http.StatusOK, map[string]any{"draft": d, "invoice": inv, "lines": lines, "messages": msgs, "total": total,
-		"suppliers": catalog.Suppliers(s.DB.DB)})
+		"suppliers": s.supplierList(public)})
 }
 
 func (s *Server) confirm(w http.ResponseWriter, r *http.Request) {
@@ -790,12 +828,19 @@ func (s *Server) rule(w http.ResponseWriter, r *http.Request) {
 		Details json.RawMessage `json:"details"`
 	}
 	events := []ev{}
+	public := s.public(r)
 	rows, _ := s.DB.Query(`SELECT at, kind, actor, details FROM events WHERE object = ? ORDER BY id`, id)
 	for rows != nil && rows.Next() {
 		var e ev
 		var d string
 		rows.Scan(&e.At, &e.Kind, &e.Actor, &d)
 		e.Details = json.RawMessage(d)
+		if public {
+			var ok bool
+			if e.Actor, e.Details, ok = publicEvent(e.Kind, e.Actor, d); !ok {
+				continue
+			}
+		}
 		events = append(events, e)
 	}
 	if rows != nil {
@@ -911,14 +956,30 @@ func (s *Server) ruleStatus(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) engineerState(w http.ResponseWriter, r *http.Request) {
+	var st map[string]any
+	if s.public(r) {
+		// resolving the whole ground truth is the expensive part: visitors share one answer for 60 s
+		st = s.cached("engineer", 60*time.Second, func() any { return s.engineerData() }).(map[string]any)
+	} else {
+		st = s.engineerData()
+	}
+	out := map[string]any{"running": s.Eng.Running()}
+	for k, v := range st {
+		out[k] = v
+	}
+	writeJSON(w, http.StatusOK, out)
+}
+
+// engineerData is the last run and the size of the benchmark and of its residue.
+func (s *Server) engineerData() map[string]any {
 	var last string
 	s.DB.QueryRow(`SELECT details FROM events WHERE kind = 'engineer.finished' ORDER BY id DESC LIMIT 1`).Scan(&last)
 	var rep any
 	json.Unmarshal([]byte(last), &rep)
 	truth := engineer.GroundTruth(s.DB)
 	live := rules.NewSet(rules.WithStatus(s.DB, "live"))
-	writeJSON(w, http.StatusOK, map[string]any{"running": s.Eng.Running(), "last": rep, "last_run": s.DB.Setting("engineer_last_run", ""),
-		"benchmark": len(truth), "residue": len(engineer.Residue(s.Cat, live, truth))})
+	return map[string]any{"last": rep, "last_run": s.DB.Setting("engineer_last_run", ""),
+		"benchmark": len(truth), "residue": len(engineer.Residue(s.Cat, live, truth))}
 }
 
 func (s *Server) engineerRun(w http.ResponseWriter, r *http.Request) {
@@ -949,14 +1010,19 @@ func (s *Server) customers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer rows.Close()
+	public := s.public(r)
 	out := []cu{}
 	for rows.Next() {
 		var c cu
 		var chats string
 		rows.Scan(&c.ID, &c.Name, &c.Phone, &c.RouteID, &chats, &c.Code, &c.Orders)
 		c.Chats = []string{}
-		if chats != "" {
+		if chats != "" && !public {
 			c.Chats = strings.Split(chats, ",,")
+		}
+		if public {
+			// the shop's name and orders only: its phone, its chats and their names, and its pairing code stay here
+			c.Phone, c.Code = "", ""
 		}
 		out = append(out, c)
 	}
@@ -980,6 +1046,40 @@ var settingKeys = map[string]string{
 	"ai_budget_day": "2", "price_transcribe_min": "0.006", "receipt_post": "1",
 }
 
+// pricedModels are the chat models internal/meta has a price for (its prices table). A model without a
+// price would be recorded at $0 and escape the daily budget.
+var pricedModels = map[string]bool{meta.Spark: true, meta.Wonder: true}
+
+// settingMax caps each number at a sane value; the others are capped at 100,000.
+var settingMax = map[string]float64{"ai_budget_day": 1000, "price_transcribe_min": 10, "engineer_rounds": 100,
+	"engineer_auto": 1, "receipt_post": 1}
+
+// checkSetting says what is wrong with a value, or "".
+func checkSetting(k, v string) string {
+	if strings.HasSuffix(k, "_model") {
+		if v == "" && k == "engineer_fallback_model" {
+			return "" // no fallback
+		}
+		if !pricedModels[v] {
+			return k + " must be " + meta.Spark + " or " + meta.Wonder + " (a model with a price, so the budget counts it)"
+		}
+		return ""
+	}
+	// every other setting is a count, a price or a budget: a finite number, never negative
+	max := settingMax[k]
+	if max == 0 {
+		max = 100000
+	}
+	f, err := strconv.ParseFloat(v, 64)
+	if err != nil || math.IsNaN(f) || math.IsInf(f, 0) || f < 0 || f > max {
+		return k + " must be a number from 0 to " + strconv.FormatFloat(max, 'f', -1, 64)
+	}
+	if k != "ai_budget_day" && !strings.HasPrefix(k, "price_") && f != math.Trunc(f) {
+		return k + " must be a whole number"
+	}
+	return ""
+}
+
 func (s *Server) settings(w http.ResponseWriter, r *http.Request) {
 	out := map[string]string{}
 	for k, def := range settingKeys {
@@ -994,21 +1094,20 @@ func (s *Server) putSettings(w http.ResponseWriter, r *http.Request) {
 		writeErr(w, 400, "bad body")
 		return
 	}
+	// check every value first, so a bad one changes nothing
 	for k, v := range in {
 		v = strings.TrimSpace(v)
+		in[k] = v
 		if _, ok := settingKeys[k]; !ok {
+			delete(in, k)
 			continue
 		}
-		if !strings.HasSuffix(k, "_model") {
-			// every other setting is a count, a price or a budget: a number, never negative
-			if f, err := strconv.ParseFloat(v, 64); err != nil || f < 0 || math.IsInf(f, 0) {
-				writeErr(w, 400, k+" must be a number ≥ 0")
-				return
-			}
-		} else if v == "" {
-			writeErr(w, 400, k+" must name a model")
+		if err := checkSetting(k, v); err != "" {
+			writeErr(w, 400, err)
 			return
 		}
+	}
+	for k, v := range in {
 		s.DB.SetSetting(k, v)
 	}
 	s.DB.Event("settings.changed", "settings", "clerk", in)
@@ -1061,9 +1160,12 @@ func (s *Server) erpConnect(w http.ResponseWriter, r *http.Request) {
 	case "inventree":
 		// the password is used once to create a revocable API token; only the token is kept
 		tok, name, err = inventree.Login(r.Context(), in.URL, in.Username, in.Password)
-	default:
-		in.Kind = "elixir"
+	case "elixir":
 		tok, name, err = elixir.Login(r.Context(), in.URL, in.Username, in.Password)
+	default:
+		// never post the credentials to an ERP the person did not choose
+		writeErr(w, 400, "unknown ERP")
+		return
 	}
 	if err != nil {
 		writeErr(w, 400, "login failed: "+err.Error())
@@ -1099,7 +1201,16 @@ func (s *Server) events(w http.ResponseWriter, r *http.Request) {
 	if limit <= 0 || limit > 500 {
 		limit = 60
 	}
-	rows, err := s.DB.Query(`SELECT id, at, kind, object, actor, details FROM events ORDER BY id DESC LIMIT ?`, limit)
+	q, args := `SELECT id, at, kind, object, actor, details FROM events`, []any{}
+	public := s.public(r)
+	if public {
+		// a visitor sees only the kinds that carry no personal data
+		q += ` WHERE kind IN (?` + strings.Repeat(`,?`, len(publicEvents)-1) + `)`
+		for k := range publicEvents {
+			args = append(args, k)
+		}
+	}
+	rows, err := s.DB.Query(q+` ORDER BY id DESC LIMIT ?`, append(args, limit)...)
 	if err != nil {
 		writeErr(w, 500, err.Error())
 		return
@@ -1110,7 +1221,14 @@ func (s *Server) events(w http.ResponseWriter, r *http.Request) {
 		var id int64
 		var at, kind, obj, actor, det string
 		rows.Scan(&id, &at, &kind, &obj, &actor, &det)
-		out = append(out, map[string]any{"id": id, "at": at, "kind": kind, "object": obj, "actor": actor, "details": json.RawMessage(det)})
+		details := json.RawMessage(det)
+		if public {
+			var ok bool
+			if actor, details, ok = publicEvent(kind, actor, det); !ok {
+				continue
+			}
+		}
+		out = append(out, map[string]any{"id": id, "at": at, "kind": kind, "object": obj, "actor": actor, "details": details})
 	}
 	writeJSON(w, http.StatusOK, map[string]any{"items": out})
 }

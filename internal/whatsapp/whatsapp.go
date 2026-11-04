@@ -418,6 +418,9 @@ func (c *Client) Webhook(handle func(context.Context, telegram.TgUpdate)) http.H
 		if r.Method == http.MethodGet {
 			q := r.URL.Query()
 			if q.Get("hub.mode") == "subscribe" && c.VerifyToken != "" && q.Get("hub.verify_token") == c.VerifyToken {
+				// plain text, so a crafted challenge is never read as a page
+				w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+				w.Header().Set("X-Content-Type-Options", "nosniff")
 				io.WriteString(w, q.Get("hub.challenge"))
 				return
 			}

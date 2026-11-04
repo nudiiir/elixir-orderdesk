@@ -79,6 +79,7 @@ const SVG = {
   invoice: `<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5h8v11l-2-1-2 1-2-1-2 1z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5 5h4M5 7.5h4" stroke="currentColor" stroke-width="1.2"/></svg>`,
   play: `<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7-4.5z" fill="currentColor"/></svg>`,
   pause: `<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5h2v9H3zM7 1.5h2v9H7z" fill="currentColor"/></svg>`,
+  code: `<svg width="10" height="10" viewBox="0 0 10 10" role="img" aria-label="the code"><path d="M3.4 2 1 5l2.4 3M6.6 2 9 5 6.6 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   up: `<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11V3M4.5 6.5 8 3l3.5 3.5M3 13h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
 };
 const srcTag = (kind, label) => `<span class="src">${SVG[kind] || (kind === "products" ? SVG.photo : SVG.text)}${esc(label || { voice: "voice", photo: "photo", products: "products", text: "text", invoice: "invoice" }[kind] || kind)}</span>`;
@@ -95,15 +96,21 @@ function bars(seed) {
 
 // ---- shell ----------------------------------------------------------------------------------
 let overview = {}, settingsCache = {};
+let PUBLIC = false; // a public read-only demo: the server refuses every change, so no write control is shown
+const roNote = () => `<span class="ronote">read-only demo</span>`;
+// an answer a person can pick: a button, or only its name in the public demo
+const pick = (l, o, fix) => PUBLIC ? `<span class="chip">${esc(l.option_names[o] || o)}</span>`
+  : `<button class="btn opt" data-line="${l.id}" ${fix ? `data-fix="1" ` : ""}data-pick="${esc(o)}">${esc(l.option_names[o] || o)}</button>`;
 async function refreshShell() {
   try { overview = await api("/overview"); } catch { return; }
+  PUBLIC = !!overview.public;
   const e = overview.erp || {};
-  $("#tenant").textContent = e.connected ? (e.name || "ERP") + " · " + (e.user || "") : "ERP not connected";
+  $("#tenant").textContent = e.connected ? (e.name || "ERP") + (e.user ? " · " + e.user : "") : "ERP not connected";
   const ni = $("#n-inbox"); ni.hidden = !overview.pending_lines; ni.textContent = overview.pending_lines;
   api("/drafts?kind=invoice&status=open").then((x) => { const n = $("#n-inv"); n.hidden = !x.items.length; n.textContent = x.items.length; }).catch(() => {});
   const spent = overview.spend_today || 0, budget = overview.budget_day || 0;
   const row = (on, name, r, cls) => `<div class="st"><span class="dot ${cls || (on ? "" : "off")}"></span>${name}<span class="r">${esc(r)}</span></div>`;
-  $("#status").innerHTML =
+  $("#status").innerHTML = (PUBLIC ? `<div class="ronote">Read-only demo · nothing can be changed from here</div>` : "") +
     row(e.connected, "ERP", e.connected ? "connected" : "offline") +
     row(!!overview.telegram, "Telegram", overview.telegram ? "@" + overview.telegram : "off") +
     row(overview.meta, "Meta models", overview.meta ? "on" : "off") +
@@ -180,7 +187,7 @@ function eventRow(e) {
   }[e.kind];
   if (!map) return "";
   const [who, what, det, href] = map;
-  const i = { model: "W", sys: "{}", person: "P" }[who];
+  const i = { model: "W", sys: SVG.code, person: "P" }[who];
   return `<a class="rrow" style="padding:12px 20px" ${href ? `href="${href}"` : ""}><span class="who ${who}"><i>${i}</i></span>
     <span style="flex:1;min-width:0">${what} <span class="muted" style="font-size:12px">${det}</span></span><span class="mono muted" style="font-size:11px">${short(e.at)}</span></a>`;
 }
@@ -202,7 +209,7 @@ async function draftsScreen(status, sel, quiet) {
   main.innerHTML = head(inbox ? "Inbox" : "Orders", inbox ? "Orders being built in the chats right now. You only see what needs you." : "Every order Order Desk handled, with its evidence.",
     inbox ? `${questions ? stamp("ask", `? ${questions} question${questions > 1 ? "s" : ""}`) : stamp("ready", "✓ Nothing to answer")}<span class="muted" style="font-size:13px">${items.length} chat(s) building · ${ready} ready to confirm</span>` : "") + `
     <div class="split">
-      <aside aria-label="Chats"><div class="col" style="gap:10px" id="qlist">${listHTML}</div>${inbox ? tryBox(custs.items) : ""}</aside>
+      <aside aria-label="Chats"><div class="col" style="gap:10px" id="qlist">${listHTML}</div>${inbox && !PUBLIC ? tryBox(custs.items) : ""}</aside>
       <section class="card" style="overflow:hidden" id="dv">${items.length ? `<div class="reading"><div class="skel" style="width:60%"></div><div class="skel" style="width:40%"></div></div>` : `<div class="empty">Send a message to the bot on Telegram, or try one on the left.</div>`}</section>
     </div>`;
   bindTry();
@@ -258,7 +265,7 @@ async function renderDraft(id) {
     <div class="row" style="justify-content:space-between;align-items:flex-start;padding:20px 20px 16px;gap:16px">
       <div class="col" style="gap:6px"><div class="row" style="gap:12px"><h2 class="disp" style="font-size:30px;font-weight:800;letter-spacing:-0.02em">${esc(dr.customer)}</h2>
         ${dr.status === "confirmed" ? stamp("confirmed", "✓ " + dr.erp_order_number + " in ERP") : stamp(dr.status)}</div>
-        <span class="muted" style="font-size:12px">${dr.chat_key.startsWith("tg:") ? "Telegram chat" : "Panel"} · started ${short(dr.created_at)} · <span class="mono">${esc(dr.chat_key)}</span>${dr.delivery ? " · 🚚 " + esc(dr.delivery) : ""}</span></div>
+        <span class="muted" style="font-size:12px">${dr.chat_key ? (dr.chat_key.startsWith("tg:") ? "Telegram chat" : "Panel") + " · " : ""}started ${short(dr.created_at)}${dr.chat_key ? ` · <span class="mono">${esc(dr.chat_key)}</span>` : ""}${dr.delivery ? " · 🚚 " + esc(dr.delivery) : ""}</span></div>
       <div class="col" style="align-items:flex-end;gap:6px"><span class="big" style="font-size:28px">${money(d.total)}</span>
         <span class="muted row" style="font-size:12px;gap:8px">${waiting ? `+${waiting} line${waiting > 1 ? "s" : ""} waiting · ` : ""}AI on this order ${totalAI > 0 ? coin(totalAI) : free()}</span></div>
     </div>
@@ -268,7 +275,7 @@ async function renderDraft(id) {
     ${d.lines.map((l, i) => orderLine(l, i + 1, open, lineCost(l))).join("")}
     <div class="foot"><span class="row" style="gap:16px;font-size:13px"><span><b>${freeN}</b> of ${lines.length} free</span><span><b>${aiN}</b> Muse Spark pick${aiN === 1 ? "" : "s"}</span>
       ${waiting ? `<span style="color:var(--human)"><b>${waiting}</b> waiting for you</span>` : ""}</span>
-      ${open ? `<span class="row"><span class="muted" style="font-size:12px">${waiting ? "Answer the open line" + (waiting > 1 ? "s" : "") + " to confirm" : "The shop confirms in the chat — or you can, here."}</span>
+      ${open && PUBLIC ? roNote() : open ? `<span class="row"><span class="muted" style="font-size:12px">${waiting ? "Answer the open line" + (waiting > 1 ? "s" : "") + " to confirm" : "The shop confirms in the chat — or you can, here."}</span>
         <button class="btn go" id="confirm" ${waiting ? "disabled" : ""}>Confirm into ERP →</button></span>` : stamp("confirmed", "✓ " + dr.erp_order_number)}</div>`;
   bindLines(v, () => renderDraft(id));
   const c = $("#confirm");
@@ -285,13 +292,14 @@ async function renderDraft(id) {
 function slipOf(m) {
   const top = (k, what) => `<div class="row" style="justify-content:space-between;gap:8px">${srcTag(k)}<span class="muted" style="font-size:12px;flex:1">${what}</span>${m.ai_cost > 0 ? coin(m.ai_cost) : free()}</div>`;
   const reader = m.extraction === "parser" ? "free parser" : "Muse Spark";
+  const hidden = !m.text && PUBLIC ? `<span class="muted" style="font-size:12px">The message itself stays private in this demo; its lines are below.</span>` : "";
   if (m.kind === "voice") return `<div class="col" style="flex:1 1 280px;min-width:0;gap:6px">${top("voice", `${hm(m.created_at)} · Voice Transcribe → ${reader}`)}
     <div class="slip" style="gap:4px"><div class="row" style="gap:10px;padding:4px 0">${m.media ? `<button class="btn icon play vplay" type="button" aria-label="Play voice note">${SVG.play}</button><audio src="${esc(m.media)}" preload="none"></audio>` : ""}${bars(m.id)}</div>
-    <bdi class="ev ${isAr(m.text) ? "ar" : ""}" dir="auto" style="display:block">${esc(m.text)}</bdi></div></div>`;
+    <bdi class="ev ${isAr(m.text) ? "ar" : ""}" dir="auto" style="display:block">${esc(m.text)}</bdi>${hidden}</div></div>`;
   if (m.kind === "photo" || m.kind === "products") return `<div class="col" style="flex:1 1 280px;min-width:0;gap:6px">${top(m.kind, `${hm(m.created_at)} · ${m.kind === "products" ? "photo of the products → SAM 3.1 finds them, Muse Spark reads them" : "photo of a list → " + reader}`)}
-    <div class="slip">${m.media ? `<img src="${esc(m.media)}" alt="the photo the shop sent">` : ""}${m.text.split("\n").map((t) => evRaw(t)).join("")}</div></div>`;
+    <div class="slip">${m.media ? `<img src="${esc(m.media)}" alt="the photo the shop sent">` : ""}${m.text.split("\n").filter((t) => t.trim()).map((t) => evRaw(t)).join("")}${hidden}</div></div>`;
   return `<div class="col" style="flex:1 1 280px;min-width:0;gap:6px">${top("text", `${hm(m.created_at)} · ${reader}`)}
-    <div class="slip">${m.text.split("\n").filter((t) => t.trim()).map((t) => evRaw(t)).join("")}</div></div>`;
+    <div class="slip">${m.text.split("\n").filter((t) => t.trim()).map((t) => evRaw(t)).join("")}${hidden}</div></div>`;
 }
 function checkChips(l) {
   const c = l.checks || {};
@@ -313,17 +321,17 @@ function orderLine(l, n, open, cost) {
       <div class="lr1">${said}${l.hint ? `<span class="muted" style="font-size:12px">reader: ${esc(l.hint)}</span>` : ""}<span class="muted">→</span>
         <span style="color:var(--human);font-weight:600">${esc(opts.length ? (l.question || "Which one?") : "Not in the catalogue")}</span><span class="qty">${l.qty} ${esc(l.unit || "")}</span></div>
       <div class="lr2">${ladder("none")}<span class="lvl">${lvlText(l)}</span>${checkChips(l)}</div>
-      ${opts.length ? `<div class="lr3">${opts.map((o) => `<button class="btn opt" data-line="${l.id}" data-pick="${esc(o)}">${esc(l.option_names[o] || o)}</button>`).join("")}</div>` : ""}
-      ${open ? `<div class="row" style="margin-top:10px;justify-content:space-between"><span class="muted" style="font-size:12px">The shop is asked in the chat too. Your answer becomes a candidate wording for this shop.</span>
+      ${opts.length ? `<div class="lr3">${opts.map((o) => pick(l, o)).join("")}</div>` : ""}
+      ${open && !PUBLIC ? `<div class="row" style="margin-top:10px;justify-content:space-between"><span class="muted" style="font-size:12px">The shop is asked in the chat too. Your answer becomes a candidate wording for this shop.</span>
         <button class="btn ghost sm" data-remove="${l.id}">Remove line</button></div>` : ""}</div></div>`;
   }
   const alts = [...new Set([...(l.options || []), ...(l.alts || [])])].filter((o) => o !== l.product_id);
   return `<div class="line ${removed ? "removed" : ""}"><span class="mono muted" style="padding-top:2px">${n}</span><div>
     <div class="lr1">${said}<span class="muted">→</span><span class="prod">${esc(l.product_name || l.product_id)}</span><span class="qty">${packText(l)}</span><span class="amt">${l.line_ttc ? money(l.line_ttc) : "—"}</span></div>
     <div class="lr2">${ladder(l.level)}<span class="lvl">${lvlText(l)}</span>${checkChips(l)}
-      <span class="row" style="margin-left:auto;gap:8px">${cost > 0 ? coin(cost) : free()}${removed ? stamp("removed") : l.said ? `<button class="btn sm" data-alts="${l.id}">Correct</button>` : ""}
-      ${open && !removed ? `<button class="btn icon ghost" data-remove="${l.id}" aria-label="Remove line ${n}">✕</button>` : ""}</span></div>
-    <div class="lr3" hidden id="alts-${l.id}">${alts.map((o) => `<button class="btn opt" data-line="${l.id}" data-fix="1" data-pick="${esc(o)}">${esc(l.option_names[o] || o)}</button>`).join("") || `<span class="muted" style="font-size:12px">No close alternative in the catalogue.</span>`}
+      <span class="row" style="margin-left:auto;gap:8px">${cost > 0 ? coin(cost) : free()}${removed ? stamp("removed") : l.said && !PUBLIC ? `<button class="btn sm" data-alts="${l.id}">Correct</button>` : ""}
+      ${open && !removed && !PUBLIC ? `<button class="btn icon ghost" data-remove="${l.id}" aria-label="Remove line ${n}">✕</button>` : ""}</span></div>
+    <div class="lr3" hidden id="alts-${l.id}">${alts.map((o) => pick(l, o, true)).join("") || `<span class="muted" style="font-size:12px">No close alternative in the catalogue.</span>`}
       <span class="muted" style="font-size:12px;align-self:center">${open ? "A correction blocks this wording and teaches the right one." : "Corrects what was learned (the ERP order itself is corrected in the ERP)."}</span></div>
   </div></div>`;
 }
@@ -341,11 +349,11 @@ function bindLines(v, again) {
 route("invoices", (sel) => invoicesScreen(sel));
 route("invoice", (sel) => invoicesScreen(sel));
 async function invoicesScreen(sel) {
-  const [list, own] = await Promise.all([api("/drafts?kind=invoice"), api("/owner")]);
+  const [list, own] = await Promise.all([api("/drafts?kind=invoice"), PUBLIC ? { chats: [] } : api("/owner")]);
   const items = list.items;
   if (!sel && items.length) sel = items[0].id;
   const linked = own.chats.length;
-  main.innerHTML = head("Supplier invoices", "A photo or PDF becomes a goods receipt in the ERP. Each supplier's wordings are learned.", `
+  main.innerHTML = head("Supplier invoices", "A photo or PDF becomes a goods receipt in the ERP. Each supplier's wordings are learned.", PUBLIC ? roNote() : `
       <label class="dropzone" id="drop"><input type="file" id="file" accept="image/*,application/pdf" hidden>${SVG.up} Drop a photo or PDF</label>
       <div class="card row" style="padding:6px 6px 6px 14px;gap:10px"><span class="dot ${linked ? "" : "off"}"></span>
         <span style="font-size:13px">${linked ? "Owner Telegram: " + own.chats.map((c) => esc(c.name || c.chat) + ` <button class="btn ghost sm" data-unlink="${esc(c.chat)}">Unlink</button>`).join(", ") : "Owner Telegram not linked"}</span>
@@ -355,6 +363,8 @@ async function invoicesScreen(sel) {
         <div class="row" style="gap:8px">${d.status === "confirmed" ? stamp("erp", "✓ In ERP", "sm") : d.status === "open" ? stamp("open", "To approve", "sm") : stamp(d.status, "", "sm")}
           <span class="mono muted" style="font-size:11px">${esc(d.status === "confirmed" ? d.erp_order_number : d.doc_number || "")}</span></div></a>`).join("")}</div>
     <div id="iv">${items.length ? "" : `<div class="card empty">No invoice yet. Drop one above, or send it to the bot from your owner chat.</div>`}</div>`;
+  if (sel) renderInvoice(sel);
+  if (PUBLIC) return;
   const file = $("#file"), drop = $("#drop");
   const upload = async (f) => {
     if (!f) return;
@@ -376,7 +386,6 @@ async function invoicesScreen(sel) {
     $("#owncode").innerHTML = `<span class="stamp scope" style="font-size:14px;letter-spacing:.2em">${esc(r.code)}</span> <a style="font-size:12px" target="_blank" href="https://t.me/${esc(r.bot)}?start=${esc(r.code)}">open in Telegram</a>`;
   };
   $$("[data-unlink]").forEach((b) => (b.onclick = async (e) => { e.preventDefault(); await api("/chats/unlink", { method: "POST", body: { chat: b.dataset.unlink } }); toast("Owner chat unlinked"); go(); }));
-  if (sel) renderInvoice(sel);
 }
 async function renderInvoice(id) {
   const v = $("#iv");
@@ -407,8 +416,8 @@ async function renderInvoice(id) {
         <div class="row" style="justify-content:space-between"><h2 class="disp" style="font-size:30px;font-weight:800;letter-spacing:-0.02em">${esc(inv.supplier || inv.supplier_said || "Unknown supplier")}</h2>
           ${dr.status === "confirmed" ? stamp("erp", "✓ " + dr.erp_order_number + " in ERP") : dr.status === "open" ? stamp("open", "To approve") : stamp(dr.status)}</div>
         ${inv.supplier ? `<span class="row" style="gap:8px;font-size:13px"><span class="ok">✓</span>Supplier recognised from the header ${ev(inv.supplier_said)}</span>`
-          : `<div class="row"><span class="chip warn">! Supplier not recognised: ${ev(inv.supplier_said || "—")}</span>${open ? `<select id="sup" class="inp" style="width:auto">${["<option value=''>Choose the supplier…</option>"].concat((d.suppliers || []).map((s) => `<option value="${esc(s.id)}">${esc(s.name)}</option>`)).join("")}</select>` : ""}</div>`}
-        ${inv.supplier && open ? `<details style="font-size:12px"><summary class="muted" style="cursor:pointer">Wrong supplier?</summary><select id="sup" class="inp" style="width:auto;margin-top:6px">${(d.suppliers || []).map((s) => `<option value="${esc(s.id)}" ${s.id === inv.supplier_id ? "selected" : ""}>${esc(s.name)}</option>`).join("")}</select></details>` : ""}
+          : `<div class="row"><span class="chip warn">! Supplier not recognised: ${ev(inv.supplier_said || "—")}</span>${open && !PUBLIC ? `<select id="sup" class="inp" style="width:auto">${["<option value=''>Choose the supplier…</option>"].concat((d.suppliers || []).map((s) => `<option value="${esc(s.id)}">${esc(s.name)}</option>`)).join("")}</select>` : ""}</div>`}
+        ${inv.supplier && open && !PUBLIC ? `<details style="font-size:12px"><summary class="muted" style="cursor:pointer">Wrong supplier?</summary><select id="sup" class="inp" style="width:auto;margin-top:6px">${(d.suppliers || []).map((s) => `<option value="${esc(s.id)}" ${s.id === inv.supplier_id ? "selected" : ""}>${esc(s.name)}</option>`).join("")}</select></details>` : ""}
         <div class="row" style="gap:16px;font-size:13px">${byAlias ? `<span class="row" style="gap:6px"><span class="rung at alias">A</span><b>${byAlias} of ${live.length}</b> by aliases</span>` : ""}
           ${byRules ? `<span class="row" style="gap:6px"><span class="rung at rules">R</span><b>${byRules}</b> by rules</span>` : ""}
           ${byAI ? `<span class="row" style="gap:6px"><span class="rung at ai">AI</span><b>${byAI}</b> by Muse Spark or a person</span>` : ""}
@@ -419,7 +428,7 @@ async function renderInvoice(id) {
       ${lines.map((l, i) => invoiceLine(l, i + 1, open)).join("")}
       <div class="foot"><span class="col" style="gap:2px"><span style="font-size:14px"><b>${units} units</b> into stock · <b>${money(sum)}</b> HT</span>
         ${flagged ? `<span style="font-size:12px;color:var(--refused)">${flagged} price or pack to check before approving</span>` : asks ? `<span style="font-size:12px;color:var(--human)">${asks} line(s) to answer</span>` : `<span class="muted" style="font-size:12px">every line matched</span>`}</span>
-        ${open ? `<button class="btn go" id="approve" ${asks || !inv.supplier_id ? "disabled" : ""}>Approve → goods receipt in ERP</button>` : dr.status === "confirmed" ? stamp("erp", "✓ " + dr.erp_order_number) : stamp(dr.status)}</div>
+        ${open && PUBLIC ? roNote() : open ? `<button class="btn go" id="approve" ${asks || !inv.supplier_id ? "disabled" : ""}>Approve → goods receipt in ERP</button>` : dr.status === "confirmed" ? stamp("erp", "✓ " + dr.erp_order_number) : stamp(dr.status)}</div>
     </section></div>`;
   bindLines(v, () => renderInvoice(id));
   const sup = $("#sup");
@@ -440,11 +449,11 @@ function invoiceLine(l, n, open) {
   const body = asks
     ? `<div class="lr1">${evRaw(l.said)}<span class="muted">→</span><span style="color:var(--human);font-weight:600">${esc((l.options || []).length ? (l.question || "Which product?") : "Not in the catalogue")}</span><span class="amt" style="margin-left:auto">${money(l.line_ttc)}</span></div>
        <div class="lr2">${ladder("none")}<span class="lvl">${lvlText(l)}</span>${checkChips(l)}</div>
-       <div class="lr3">${(l.options || []).map((o) => `<button class="btn opt" data-line="${l.id}" data-pick="${esc(o)}">${esc(l.option_names[o] || o)}</button>`).join("")}${open ? `<button class="btn ghost sm" data-remove="${l.id}">Skip line</button>` : ""}</div>`
+       <div class="lr3">${(l.options || []).map((o) => pick(l, o)).join("")}${open && !PUBLIC ? `<button class="btn ghost sm" data-remove="${l.id}">Skip line</button>` : ""}</div>`
     : `<div class="lr1">${evRaw(l.said)}<span class="muted">→</span><span class="prod">${esc(l.product_name || l.product_id)}</span><span class="qty">${packText(l)}</span><span class="amt">${money(l.line_ttc)}<div class="muted mono" style="font-size:11px;font-weight:400">${unit ? money(unit) + " / u." : ""}</div></span></div>
        <div class="lr2">${ladder(l.level)}<span class="lvl">${lvlText(l)}</span>${checkChips(l)}<span class="row" style="margin-left:auto;gap:8px">${l.level === "ai" || l.level === "person" ? `<span class="coin">AI</span>` : free()}
-         ${l.status === "removed" ? stamp("removed", "skipped") : `<button class="btn sm" data-alts="${l.id}">Correct</button>`}</span></div>
-       <div class="lr3" hidden id="alts-${l.id}">${alts.map((o) => `<button class="btn opt" data-line="${l.id}" data-fix="1" data-pick="${esc(o)}">${esc(l.option_names[o] || o)}</button>`).join("") || `<span class="muted" style="font-size:12px">No close alternative.</span>`}</div>`;
+         ${l.status === "removed" ? stamp("removed", "skipped") : PUBLIC ? "" : `<button class="btn sm" data-alts="${l.id}">Correct</button>`}</span></div>
+       <div class="lr3" hidden id="alts-${l.id}">${alts.map((o) => pick(l, o, true)).join("") || `<span class="muted" style="font-size:12px">No close alternative.</span>`}</div>`;
   return `<div class="line ${asks ? "asks" : flag ? "flag" : ""} ${l.status === "removed" ? "removed" : ""}">
     <span class="mk ${asks ? "ask" : flag ? "warn" : ""}">${n}</span><div>${body}</div></div>`;
 }
@@ -454,7 +463,7 @@ route("catalogue", async () => {
   const d = await api("/products");
   const tot = d.items.reduce((a, p) => a + p.aliases, 0), lines = d.items.reduce((a, p) => a + p.lines, 0), fr = d.items.reduce((a, p) => a + p.free_lines, 0);
   main.innerHTML = head("Catalogue", "The ERP knows what the products are. Order Desk knows how people refer to them.",
-    `<input id="q" class="inp" placeholder="Search a product…" style="width:260px"><button class="btn" id="sync">Sync from ERP</button>`) + `
+    `<input id="q" class="inp" placeholder="Search a product…" style="width:260px">${PUBLIC ? roNote() : `<button class="btn" id="sync">Sync from ERP</button>`}`) + `
     <div class="tiles">${tile("Products", d.items.length, "mirrored from the ERP")}${tile("Wordings known", tot, `${overview.trusted_aliases || 0} trusted`)}
       ${tile("Lines seen", lines, "")}${tile("Resolved without AI", lines ? pct(fr / lines) : "—", "by aliases and rules", "free")}</div>
     <div class="card" style="overflow:hidden"><table class="tbl" id="pt"></table></div>`;
@@ -469,7 +478,7 @@ route("catalogue", async () => {
   };
   draw();
   $("#q").oninput = (e) => draw(e.target.value);
-  $("#sync").onclick = async () => { try { const r = await api("/erp/sync", { method: "POST" }); toast(r.products + " products synced"); go(); } catch (e) { toast(e.message, true); } };
+  const sy = $("#sync"); if (sy) sy.onclick = async () => { try { const r = await api("/erp/sync", { method: "POST" }); toast(r.products + " products synced"); go(); } catch (e) { toast(e.message, true); } };
 });
 route("product", async (id) => {
   const d = await api("/products/" + encodeURIComponent(id));
@@ -483,13 +492,13 @@ route("product", async (id) => {
       <table class="tbl"><tr><th class="cap">Wording</th><th class="cap">Learned from</th><th class="cap">Valid for</th><th class="cap r">Confirmed</th><th class="cap">First seen</th><th class="cap">State</th><th></th></tr>
       ${d.aliases.map((a) => { const s = SRC[a.source] || ["text", a.source]; return `<tr><td>${evRaw(a.text.replace(/^supplier: /, ""))}</td><td>${srcTag(s[0], s[1])}</td>
         <td>${stamp("scope", a.scope_name || a.scope_kind)}</td><td class="r num">${a.witnesses}×</td><td class="muted" style="font-size:12px">${short(a.first_seen)}</td><td>${stamp(a.state)}</td>
-        <td class="r">${a.state !== "trusted" ? `<button class="btn sm" data-al="${a.id}" data-st="trusted">Trust</button>` : ""} ${a.state !== "blocked" ? `<button class="btn sm danger" data-al="${a.id}" data-st="blocked">Block</button>` : ""}</td></tr>`; }).join("")
+        <td class="r">${PUBLIC ? "" : `${a.state !== "trusted" ? `<button class="btn sm" data-al="${a.id}" data-st="trusted">Trust</button>` : ""} ${a.state !== "blocked" ? `<button class="btn sm danger" data-al="${a.id}" data-st="blocked">Block</button>` : ""}`}</td></tr>`; }).join("")
         || `<tr><td colspan="7" class="empty">No wording learned yet. Every confirmed order teaches one.</td></tr>`}</table>
-      <div class="row" style="padding:14px 20px;border-top:1px solid var(--rule)"><input id="na" class="inp ev" placeholder="add a wording people use, e.g. shampoing hns" style="flex:1"><button class="btn primary" id="add">Add as trusted</button></div></section>
+      ${PUBLIC ? "" : `<div class="row" style="padding:14px 20px;border-top:1px solid var(--rule)"><input id="na" class="inp ev" placeholder="add a wording people use, e.g. shampoing hns" style="flex:1"><button class="btn primary" id="add">Add as trusted</button></div>`}</section>
     <section class="card pad col" style="gap:10px"><h2 class="h2">Rules that touch it</h2>
       ${(d.rules || []).map((r) => `<a class="row" style="color:var(--ink);text-decoration:none" href="#/rule/${esc(r.id)}"><span class="mono muted" style="font-size:12px">${esc(r.id)}</span>${stamp(r.status, "", "sm")}<span class="rs" style="font-size:16px">${sentenceHTML(r.sentence)}</span></a>`).join("") || `<span class="muted">None yet.</span>`}</section>`;
   $$("[data-al]").forEach((b) => (b.onclick = async () => { await api(`/aliases/${b.dataset.al}/state`, { method: "POST", body: { state: b.dataset.st } }); go(); }));
-  $("#add").onclick = async () => { const text = $("#na").value.trim(); if (!text) return; try { await api("/aliases", { method: "POST", body: { text, product_id: p.id } }); toast("Wording added"); go(); } catch (e) { toast(e.message, true); } };
+  if (!PUBLIC) $("#add").onclick = async () => { const text = $("#na").value.trim(); if (!text) return; try { await api("/aliases", { method: "POST", body: { text, product_id: p.id } }); toast("Wording added"); go(); } catch (e) { toast(e.message, true); } };
 });
 
 // How the code reads a name: the words that must match, and the attributes that decide identity.
@@ -497,7 +506,7 @@ function readAs(r) {
   if (!r) return "";
   const attrs = Object.entries(r.attrs || {});
   const chip = (k, v) => `<span class="chip"><span class="muted">${esc(k)}</span> <b>${esc(v.v)}</b>${v.derived ? ` <span class="muted">(guess)</span>` : ""}</span>`;
-  return `<section class="card pad col" style="gap:10px"><div class="row" style="justify-content:space-between"><h2 class="h2">How the code reads this name</h2><span class="who sys"><i>{}</i>same reading as every line</span></div>
+  return `<section class="card pad col" style="gap:10px"><div class="row" style="justify-content:space-between"><h2 class="h2">How the code reads this name</h2><span class="who sys"><i>${SVG.code}</i>same reading as every line</span></div>
     <div class="row" style="gap:6px;flex-wrap:wrap"><span class="cap" style="min-width:90px">Name words</span>${(r.words || []).map((w) => `<span class="chip">${esc(w)}</span>`).join("") || `<span class="muted">none</span>`}</div>
     <div class="row" style="gap:6px;flex-wrap:wrap"><span class="cap" style="min-width:90px">Attributes</span>${attrs.flatMap(([k, vs]) => vs.map((v) => chip(k, v))).join("") || `<span class="muted">none yet: the rule engineer writes the vocabulary</span>`}
       ${Object.entries(r.from || {}).flatMap(([k, ids]) => ids.map((id) => `<a class="mono muted" style="font-size:11px" href="#/rule/${esc(id)}">${esc(k)} ← ${esc(id)}</a>`)).join(" ")}</div>
@@ -514,7 +523,7 @@ route("rules", async () => {
   const items = d.items.filter((r) => ruleFilter === "all" || r.status === ruleFilter);
   const group = (title, sub, list, cls = "") => list.length ? `<section class="card ${cls}" style="overflow:hidden"><div class="section-h"><h2 class="h2">${title}</h2><span class="muted" style="font-size:12px">${sub}</span></div>${list.map(ruleRow).join("")}</section>` : "";
   main.innerHTML = head("Rules", `Written by the rule engineer (Muse Spark, with Muse Wonder as a fallback) and by people. <b style="color:var(--ink)">The model proposes; the code decides.</b>`,
-    `<button class="btn primary" id="run">${eng.running ? "Engineer running…" : "Run engineer now"}</button><a class="btn" href="#write" id="wlink">+ Write a rule</a>`) + `
+    PUBLIC ? roNote() : `<button class="btn primary" id="run">${eng.running ? "Engineer running…" : "Run engineer now"}</button><a class="btn" href="#write" id="wlink">+ Write a rule</a>`) + `
     <div class="tiles">
       ${tile("Benchmark", eng.benchmark, "known lines · ground truth from confirmed orders and receipts")}
       ${tile("Residue", eng.residue, "known lines rules can't resolve alone yet", eng.residue ? "paid" : "free")}
@@ -533,13 +542,14 @@ route("rules", async () => {
         ${group("Disabled", "switched off by a person", items.filter((r) => r.status === "disabled"))}
         ${items.length ? "" : `<div class="card empty">No rule here yet. Rules are born from the lines that needed Muse Spark or a person.</div>`}
       </div>
-      <aside style="flex:1 1 340px;max-width:400px" id="write">${writeForm(prods.items, custs.items)}</aside>
+      ${PUBLIC ? "" : `<aside style="flex:1 1 340px;max-width:400px" id="write">${writeForm(prods.items, custs.items)}</aside>`}
     </div>`;
   $$("[data-f]").forEach((b) => (b.onclick = () => { ruleFilter = b.dataset.f; go(); }));
+  if (eng.running) pollEngineer();
+  if (PUBLIC) return;
   $("#wlink").onclick = (e) => { e.preventDefault(); $("#write").scrollIntoView({ behavior: "smooth" }); };
   $("#run").onclick = async () => { try { await api("/engineer/run", { method: "POST" }); toast("Rule engineer started"); pollEngineer(); } catch (e) { toast(e.message, true); } };
   bindWrite();
-  if (eng.running) pollEngineer();
 });
 // rules written by a model: the rule engineer's sessions and the Matching Profile's lexicon
 const byModel = (author) => author === "rule-engineer" || String(author || "").startsWith("muse-");
@@ -548,8 +558,8 @@ function ruleRow(r) {
   const b = r.bench || {};
   const need = +settingsCache.shadow_agreements || 5;
   const who = byModel(r.author) ? `<span class="who model"><i>AI</i>Muse Spark · rule engineer</span>` : `<span class="who person"><i>P</i>${esc(r.author)}</span>`;
-  const pill = r.status === "rejected" || r.status === "rolled_back" ? `<span class="pill"><span>{}</span>${esc(r.reason)}</span>`
-    : b.lines ? `<span class="pill"><span>{}</span>benchmark +${b.newly_resolved}${b.vocabulary ? ` · reads ${b.products_changed || 0} names` : ""} · ${b.wrong} wrong${r.lines_resolved ? ` · ${r.lines_resolved} lines since` : ""}</span>` : "";
+  const pill = r.status === "rejected" || r.status === "rolled_back" ? `<span class="pill">${SVG.code}${esc(r.reason)}</span>`
+    : b.lines ? `<span class="pill">${SVG.code}benchmark +${b.newly_resolved}${b.vocabulary ? ` · reads ${b.products_changed || 0} names` : ""} · ${b.wrong} wrong${r.lines_resolved ? ` · ${r.lines_resolved} lines since` : ""}</span>` : "";
   let track = "";
   if (r.status === "shadow") track = `<span class="track"><span class="d"></span><span class="l"></span><span class="d"></span><span class="l"></span>${Array.from({ length: need }, (_, i) => `<span class="o ${i < r.shadow_agree ? "on" : ""}"></span>`).join("")}<span class="lx"></span><span class="dx"></span></span>`;
   else if (r.status === "live") track = `<span class="track"><span class="d"></span><span class="l"></span><span class="d"></span><span class="l"></span><span class="d"></span><span class="l"></span><span class="d" style="background:var(--free)"></span></span>`;
@@ -625,7 +635,7 @@ function benchBox(b, passes, verdict, sentence) {
     ${(b.examples_new || []).slice(0, 3).map((x) => `<span style="font-size:12px">${ev(x.said)} → <b>${esc(x.expected)}</b></span>`).join("")}
     ${(b.examples_wrong || []).slice(0, 3).map((x) => `<span style="font-size:12px;color:var(--refused)">${ev(x.said)} → ${esc(x.got)} (expected ${esc(x.expected)})</span>`).join("")}
     ${(b.attacks || []).length ? `<span class="muted" style="font-size:11px">Muse Spark tried to break it with ${b.attacks.length} look-alike lines${b.attacks.some((a) => a.broken) ? "" : ": none got through"}</span>` + b.attacks.filter((a) => a.broken).slice(0, 3).map((a) => `<span style="font-size:12px;color:var(--refused)">${ev(a.line)} → ${esc(a.got)} (means ${esc(a.means)})</span>`).join("") : ""}
-    ${verdict ? `<div class="gate ${passes ? "" : "no"}"><span class="who sys"><i>{}</i></span><span><b>${passes ? "The gate would admit it." : "The gate would refuse this."}</b> ${esc(verdict)}</span></div>` : ""}</div>`;
+    ${verdict ? `<div class="gate ${passes ? "" : "no"}"><span class="who sys"><i>${SVG.code}</i></span><span><b>${passes ? "The gate would admit it." : "The gate would refuse this."}</b> ${esc(verdict)}</span></div>` : ""}</div>`;
 }
 function pollEngineer() {
   clearInterval(timer);
@@ -672,7 +682,7 @@ route("rule", async (id) => {
      <div class="trio"><div><b style="color:var(--free)">+${b.newly_resolved || 0}</b><span>new</span></div><div><b style="color:${b.wrong ? "var(--refused)" : "var(--ink)"}">${b.wrong || 0}</b><span>wrong</span></div><div><b>${b.conflicts || 0}</b><span>conflicts</span></div></div>
      <div class="chk">${(b.newly_resolved || 0) >= (engineer ? gateMin : 0) ? `<span class="ok">✓</span>` : `<span class="no">✕</span>`}at least ${engineer ? gateMin : 0} new · got ${b.newly_resolved || 0}</div>
      <div class="chk">${!b.wrong && !b.conflicts ? `<span class="ok">✓</span>` : `<span class="no">✕</span>`}0 wrong · 0 conflicts</div>
-     <div class="gate ${refusedAtGate ? "no" : ""}" style="margin-top:auto"><span class="who sys"><i>{}</i></span><b>${refusedAtGate ? "The gate refuses it" : "The gate admits it"}</b></div>`, refusedAtGate ? "red" : "");
+     <div class="gate ${refusedAtGate ? "no" : ""}" style="margin-top:auto"><span class="who sys"><i>${SVG.code}</i></span><b>${refusedAtGate ? "The gate refuses it" : "The gate admits it"}</b></div>`, refusedAtGate ? "red" : "");
   const s4 = st(4, refusedAtGate ? "dim" : "", "Shadow", shadowE ? hm(shadowE.at) + (liveE ? " → " + hm(liveE.at) : "") : "",
     refusedAtGate ? `<span class="muted" style="font-size:13px">Never reached: the code said no at the gate.</span>`
       : `<span style="font-size:13px">Watches real lines without acting. Does it agree with what really happened?</span>
@@ -692,12 +702,12 @@ route("rule", async (id) => {
         <div class="row" style="gap:8px">${stamp("tag", r.type)}${stamp("scope", r.scope.kind === "global" ? "Global · every shop" : r.scope.name || r.scope.kind)}</div>
         <h1 class="rtitle">${sentenceHTML(r.sentence)}</h1>
         <div class="row" style="gap:14px">${engineer ? `<span class="who model"><i>AI</i><b>Proposed</b>&nbsp;by the rule engineer · ${hm(r.created_at)}</span>` : `<span class="who person"><i>P</i><b>Written</b>&nbsp;by ${esc(r.author)} · ${hm(r.created_at)}</span>`}
-          ${shadowE || liveE ? `<span class="gate"><span class="who sys"><i>{}</i></span><b>Admitted</b> by the gate · ${hm((shadowE || liveE).at)}</span>` : refusedAtGate ? `<span class="gate no"><span class="who sys"><i>{}</i></span><b>Refused</b> by the gate · ${hm(rejected.at)}</span>` : ""}
-          ${liveE ? `<span class="gate"><span class="who sys"><i>{}</i></span><b>Set live</b> ${liveE.actor === "clerk" ? "by a person" : `after ${need} shadow agreements`} · ${hm(liveE.at)}</span>` : ""}
+          ${shadowE || liveE ? `<span class="gate"><span class="who sys"><i>${SVG.code}</i></span><b>Admitted</b> by the gate · ${hm((shadowE || liveE).at)}</span>` : refusedAtGate ? `<span class="gate no"><span class="who sys"><i>${SVG.code}</i></span><b>Refused</b> by the gate · ${hm(rejected.at)}</span>` : ""}
+          ${liveE ? `<span class="gate"><span class="who sys"><i>${SVG.code}</i></span><b>Set live</b> ${liveE.actor === "clerk" ? "by a person" : `after ${need} shadow agreements`} · ${hm(liveE.at)}</span>` : ""}
           <span class="who person"><i>P</i><b>${r.strikes ? r.strikes + " correction" + (r.strikes > 1 ? "s" : "") : "No corrections"}</b>&nbsp;by people${r.strikes ? "" : " yet"}</span></div></div>
       <div class="col" style="align-items:flex-end;gap:16px"><span class="stamp ${r.status} huge drop">${esc(STAMP[r.status] || r.status)}</span>
-        <div class="row">${isLive ? `<button class="btn danger" data-st="rolled_back">↺ Roll back</button>` : ""}${!isLive && !isRefused ? `<button class="btn go" data-st="live">Set live</button>` : ""}
-          ${r.status !== "disabled" ? `<button class="btn" data-st="disabled">Disable</button>` : ""}</div></div></div>
+        <div class="row">${PUBLIC ? "" : `${isLive ? `<button class="btn danger" data-st="rolled_back">↺ Roll back</button>` : ""}${!isLive && !isRefused ? `<button class="btn go" data-st="live">Set live</button>` : ""}
+          ${r.status !== "disabled" ? `<button class="btn" data-st="disabled">Disable</button>` : ""}`}</div></div></div>
     <div class="row" style="justify-content:space-between"><h2 class="h2">Birth of this rule</h2><button class="btn ghost sm" id="replay">▷ Replay</button></div>
     <div class="birth" id="birth">${s1}${s2}${s3}${s4}${s5}</div>
     <div class="split">
@@ -815,10 +825,10 @@ route("customers", async () => {
   const d = await api("/customers");
   main.innerHTML = head("Customers", `Shops come from the ERP. A shop sends its one-time code to ${d.bot ? `<a href="https://t.me/${esc(d.bot)}" target="_blank">@${esc(d.bot)}</a>` : "the bot"} once, and its chat is linked.`) + `
     <div id="code"></div>
-    <section class="card" style="overflow:hidden"><table class="tbl"><tr><th class="cap">Shop</th><th class="cap">Phone</th><th class="cap">Linked chats</th><th class="cap r">Orders</th><th></th></tr>
-    ${d.items.map((c) => `<tr><td class="prod">${esc(c.name)}</td><td class="mono muted" style="font-size:12px">${esc(c.phone)}</td>
-      <td>${c.chats.length ? c.chats.map((x) => { const [k, n] = x.split("|"); return `<span class="row" style="gap:8px;font-size:13px">${srcTag("text", n || k)}<span class="mono muted" style="font-size:11px">${esc(k)}</span><button class="btn ghost sm" data-unlink="${esc(k)}">Unlink</button></span>`; }).join("") : `<span class="muted">—</span>`}</td>
-      <td class="r num">${c.orders || "—"}</td><td class="r"><button class="btn sm" data-c="${esc(c.id)}" data-n="${esc(c.name)}">${c.pair_code ? "Code " + esc(c.pair_code) : "Pairing code"}</button></td></tr>`).join("")
+    <section class="card" style="overflow:hidden"><table class="tbl"><tr><th class="cap">Shop</th>${PUBLIC ? "" : `<th class="cap">Phone</th><th class="cap">Linked chats</th>`}<th class="cap r">Orders</th><th></th></tr>
+    ${d.items.map((c) => `<tr><td class="prod">${esc(c.name)}</td>${PUBLIC ? "" : `<td class="mono muted" style="font-size:12px">${esc(c.phone)}</td>
+      <td>${c.chats.length ? c.chats.map((x) => { const [k, n] = x.split("|"); return `<span class="row" style="gap:8px;font-size:13px">${srcTag("text", n || k)}<span class="mono muted" style="font-size:11px">${esc(k)}</span><button class="btn ghost sm" data-unlink="${esc(k)}">Unlink</button></span>`; }).join("") : `<span class="muted">—</span>`}</td>`}
+      <td class="r num">${c.orders || "—"}</td><td class="r">${PUBLIC ? "" : `<button class="btn sm" data-c="${esc(c.id)}" data-n="${esc(c.name)}">${c.pair_code ? "Code " + esc(c.pair_code) : "Pairing code"}</button>`}</td></tr>`).join("")
       || `<tr><td colspan="5" class="empty">No customer yet: connect the ERP in Settings.</td></tr>`}</table></section>`;
   $$("[data-unlink]").forEach((b) => (b.onclick = async () => { await api("/chats/unlink", { method: "POST", body: { chat: b.dataset.unlink } }); toast("Chat unlinked"); go(); }));
   $$("[data-c]").forEach((b) => (b.onclick = async () => {
@@ -836,20 +846,20 @@ route("settings", async () => {
   settingsCache = st;
   const e = ov.erp || {};
   const field = (k, label, help) => `<div class="row" style="padding:10px 0;border-top:1px solid var(--rule)"><div style="flex:1"><div style="font-weight:600;font-size:13px">${label}</div><div class="muted" style="font-size:12px">${help}</div></div>
-    <input data-k="${k}" class="inp mono" value="${esc(st[k])}" style="width:160px"></div>`;
+    <input data-k="${k}" class="inp mono" value="${esc(st[k])}" style="width:160px" ${PUBLIC ? "disabled" : ""}></div>`;
   const ch = (on, name, det) => `<div class="row" style="padding:10px 0;border-top:1px solid var(--rule)"><span class="dot ${on ? "" : "off"}"></span><b>${name}</b><span class="muted" style="font-size:13px">${det}</span></div>`;
-  main.innerHTML = head("Settings", "Every number that governs the agent, in plain words.", `<button class="btn primary" id="save">Save</button>`) + `
+  main.innerHTML = head("Settings", "Every number that governs the agent, in plain words.", PUBLIC ? roNote() : `<button class="btn primary" id="save">Save</button>`) + `
     <div class="split" style="align-items:stretch">
       <section class="card pad col" style="flex:1 1 440px;gap:12px"><h2 class="h2">ERP connection</h2>
-        <div class="${e.connected ? "okbox" : "warnbox"}">${e.connected ? `Connected to <b>${esc(e.name)}</b> at <span class="mono">${esc(e.url)}</span> as ${esc(e.user)} · ${ov.products} products · synced ${short(e.synced_at)}`
+        <div class="${e.connected ? "okbox" : "warnbox"}">${e.connected ? `Connected to <b>${esc(e.name)}</b>${e.url ? ` at <span class="mono">${esc(e.url)}</span>` : ""}${e.user ? " as " + esc(e.user) : ""} · ${ov.products} products · synced ${short(e.synced_at)}`
           : `Not connected${e.error ? ": " + esc(e.error) : ""}. Order Desk talks to the ERP only through its API, with a user session.`}</div>
-        <div class="row"><div class="field" style="flex:0 0 190px"><label for="ek">ERP</label><select id="ek" class="inp">
+        ${PUBLIC ? "" : `<div class="row"><div class="field" style="flex:0 0 190px"><label for="ek">ERP</label><select id="ek" class="inp">
           ${[["elixir", "Elixir Gestion"], ["odoo", "Odoo"], ["erpnext", "ERPNext"], ["dolibarr", "Dolibarr"], ["inventree", "InvenTree"], ["tryton", "Tryton"]].map(([v, t]) => `<option value="${v}" ${(e.kind || "elixir") === v ? "selected" : ""}>${t}</option>`).join("")}</select></div>
           <div class="field" style="flex:1"><label for="eu">Address</label><input id="eu" class="inp mono" value="${esc(e.url || "http://127.0.0.1:8543")}"></div></div>
         <div class="field" id="f-edb"><label for="edb">Database (Odoo, Tryton)</label><input id="edb" class="inp mono" value="${esc(e.db || "")}" placeholder="orderdesk"></div>
         <div class="row"><div class="field" style="flex:1"><label for="en">Username</label><input id="en" class="inp" autocomplete="off" value="${esc(e.login || "")}"></div><div class="field" style="flex:1"><label for="ep" id="epl">Password</label><input id="ep" class="inp" type="password" autocomplete="new-password"></div></div>
         <span class="muted" style="font-size:12px" id="ehelp"></span>
-        <div class="row" style="justify-content:flex-end">${e.connected ? `<button class="btn" id="es">Sync now</button>` : ""}<button class="btn primary" id="ec">Connect</button></div></section>
+        <div class="row" style="justify-content:flex-end">${e.connected ? `<button class="btn" id="es">Sync now</button>` : ""}<button class="btn primary" id="ec">Connect</button></div>`}</section>
       <section class="card pad col" style="flex:1 1 380px;gap:4px"><h2 class="h2" style="margin-bottom:8px">Channels &amp; models</h2>
         ${ch(!!ov.telegram, "Telegram", ov.telegram ? `<a target="_blank" href="https://t.me/${esc(ov.telegram)}">@${esc(ov.telegram)}</a>` : "set TELEGRAM_BOT_TOKEN")}
         ${ch(!!ov.whatsapp, "WhatsApp", ov.whatsapp ? `Cloud API · ${esc(ov.whatsapp)} · webhook <span class="mono">/whatsapp/webhook</span>` : "set WHATSAPP_TOKEN and WHATSAPP_PHONE_ID")}
@@ -871,6 +881,7 @@ route("settings", async () => {
         ${field("engineer_rounds", "Max tool rounds per run", "caps the cost of a run")}
         ${field("ai_budget_day", "Meta model budget per day (USD)", "when reached, aliases and rules keep working; new lines wait for a person")}</section>
     </div>`;
+  if (PUBLIC) return;
   $("#save").onclick = async () => { const body = {}; $$("[data-k]").forEach((i) => (body[i.dataset.k] = i.value)); try { await api("/settings", { method: "PUT", body }); toast("Settings saved"); } catch (er) { toast(er.message, true); } };
   $("#ec").onclick = async () => {
     const b = $("#ec"); b.disabled = true; b.textContent = "Connecting…";
@@ -895,4 +906,4 @@ route("settings", async () => {
 });
 
 api("/settings").then((s) => (settingsCache = s)).catch(() => {});
-go();
+api("/overview").then((o) => { overview = o; PUBLIC = !!o.public; }).catch(() => {}).finally(go);

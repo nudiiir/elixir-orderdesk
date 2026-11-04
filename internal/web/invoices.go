@@ -61,7 +61,18 @@ func (s *Server) setSupplier(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) suppliers(w http.ResponseWriter, r *http.Request) {
-	writeJSON(w, http.StatusOK, map[string]any{"items": catalog.Suppliers(s.DB.DB)})
+	writeJSON(w, http.StatusOK, map[string]any{"items": s.supplierList(s.public(r))})
+}
+
+// supplierList is the ERP's suppliers; a public visitor gets them without their phone numbers.
+func (s *Server) supplierList(public bool) []catalog.Customer {
+	list := catalog.Suppliers(s.DB.DB)
+	if public {
+		for i := range list {
+			list[i].Phone = ""
+		}
+	}
+	return list
 }
 
 func (s *Server) ownerPairCode(w http.ResponseWriter, r *http.Request) {

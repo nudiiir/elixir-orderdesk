@@ -145,6 +145,9 @@ func TestWebhook(t *testing.T) {
 	if rec.Code != 200 || rec.Body.String() != "42" {
 		t.Fatalf("verification: %d %q", rec.Code, rec.Body.String())
 	}
+	if ct := rec.Header().Get("Content-Type"); !strings.HasPrefix(ct, "text/plain") {
+		t.Fatalf("the challenge must be answered as plain text, got %q", ct)
+	}
 	rec = httptest.NewRecorder()
 	h(rec, httptest.NewRequest(http.MethodGet, "/whatsapp/webhook?hub.mode=subscribe&hub.verify_token=nope&hub.challenge=42", nil))
 	if rec.Code != 403 {

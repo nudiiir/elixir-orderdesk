@@ -294,3 +294,7 @@ textarea.inp { height: auto; padding: 8px 12px; resize: vertical; line-height: 1
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @media (prefers-reduced-motion: reduce) { .skel, .dot.run, .stn, .drop, .draw { animation: none !important; stroke-dashoffset: 0; } }
 @media (max-width: 900px) { .rail { position: static; height: auto; flex-basis: 100%; } .shell { flex-wrap: wrap; } .rtitle { font-size: 40px; } .main { padding: 20px 16px 40px; } }
+/* public read-only demo */
+.ronote { display: inline-flex; align-items: center; font-size: 12px; padding: 4px 10px; border: 1px dashed var(--rule2); border-radius: 4px; color: var(--ink2); white-space: nowrap; }
+.status .ronote { color: #F2CB6B; border-color: #F2CB6B; white-space: normal; margin-bottom: 4px; }
+.pill svg, .who i svg { flex: none; }
