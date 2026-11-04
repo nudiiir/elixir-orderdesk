@@ -4,8 +4,8 @@
 books every line into the distributor's ERP, asks when it is not sure, and Muse Spark teaches it to do the
 job without a model call.**
 
-*Meta Global AI Developer Hackathon · **Startups track** · by [Elixir](https://gestion.elixir-dz.com), makers
-of the Elixir Distribution ERP ([before and during the hackathon](#startups-track-what-existed-before-and-what-we-built)).*
+*Meta Global AI Developer Hackathon · **Indie Developer track** · by [Elixir](https://gestion.elixir-dz.com), makers
+of the Elixir Distribution ERP ([before and during the hackathon](#what-existed-before-and-what-we-built)).*
 
 **Try it now:**
 
@@ -171,7 +171,7 @@ cold-start comparison, the earlier hardware runs, the breaker and the eight bugs
 Across all of them, Order Desk's edge is the same: **Darja, Arabic and French mixed, in voice and text; any
 ERP, with nothing installed in it; it asks instead of guessing; it learns each distributor's wordings.**
 
-## Startups track: what existed before, and what we built
+## What existed before, and what we built
 
 **Before the hackathon.** Elixir builds software for distributors in Algeria. Our product,
 **[Elixir Distribution](https://gestion.elixir-dz.com)**, is an ERP for wholesale distributors. But a
